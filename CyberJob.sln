@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberJob.Core", "CyberJob.Core\CyberJob.Core.csproj", "{C29731DA-6595-445E-AA13-F941E4BDEB94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberJob.Data", "CyberJob.Data\CyberJob.Data.csproj", "{A03E17A4-BE48-4464-948E-822AA9C60F42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberJob.Service", "CyberJob.Service\CyberJob.Service.csproj", "{1504BB16-3491-4454-AF1A-828038FCE21B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberJob.Api", "CyberJob.Api\CyberJob.Api.csproj", "{499DCE05-62AA-4BD5-9280-12D4A9BD8925}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C29731DA-6595-445E-AA13-F941E4BDEB94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C29731DA-6595-445E-AA13-F941E4BDEB94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C29731DA-6595-445E-AA13-F941E4BDEB94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C29731DA-6595-445E-AA13-F941E4BDEB94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A03E17A4-BE48-4464-948E-822AA9C60F42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A03E17A4-BE48-4464-948E-822AA9C60F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A03E17A4-BE48-4464-948E-822AA9C60F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A03E17A4-BE48-4464-948E-822AA9C60F42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1504BB16-3491-4454-AF1A-828038FCE21B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1504BB16-3491-4454-AF1A-828038FCE21B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1504BB16-3491-4454-AF1A-828038FCE21B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1504BB16-3491-4454-AF1A-828038FCE21B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{499DCE05-62AA-4BD5-9280-12D4A9BD8925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{499DCE05-62AA-4BD5-9280-12D4A9BD8925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{499DCE05-62AA-4BD5-9280-12D4A9BD8925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{499DCE05-62AA-4BD5-9280-12D4A9BD8925}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
