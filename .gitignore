@@ -1,0 +1,52 @@
+## .NET Core / Visual Studio Standard gitignore
+
+# Build results
+[Bin]
+[Obj]
+bin/
+obj/
+/build/
+
+# Visual Studio files
+.vs/
+*.user
+*.userosscache
+*.sln.doccache
+*.suo
+*.userprefs
+
+# Rider / JetBrains files
+.idea/
+*.sln.iml
+
+# Visual Studio Code files
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Publish folders
+publish/
+*.publish.xml
+
+# Entity Framework & Database
+*.db
+*.sqlite
+# /Migrations/    # (Uncomment if you want to exclude migrations from source control)
+
+# Configuration & Secrets (CRITICAL for security)
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# Package managers
+/packages/
+/node_modules/
+project.lock.json
+package-lock.json
+
+# Operating System files
+Thumbs.db
+desktop.ini
+.DS_Store
