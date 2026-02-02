@@ -1,6 +1,8 @@
 using AutoMapper;
 using CyberJob.Core.DTOs.BannerDto;
 using CyberJob.Core.DTOs.Category;
+using CyberJob.Core.DTOs.Company;
+using CyberJob.Core.DTOs.CompanyCategory;
 using CyberJob.Core.DTOs.Partner;
 using CyberJob.Core.Entities;
 
@@ -23,5 +25,15 @@ public class MapProfile : Profile
         CreateMap<Partner,PartnerResponse>().ReverseMap();
         CreateMap<CreatePartnerRequest, Partner>();
         CreateMap<UpdatePartnerRequest, Partner>();
+        
+        //Companies
+        CreateMap<Company,CompanyResponse>().ReverseMap();
+        CreateMap<CreateCompanyRequest, Company>();
+        CreateMap<UpdateCompanyRequest, Company>();
+        
+        //Company Categories
+        CreateMap<CompanyCategory, CompanyCategoryResponse>().ReverseMap();
+        CreateMap<CreateCompanyCategoryRequest, CompanyCategory>();
+        CreateMap<UpdateCompanyCategoryRequest, CompanyCategory>();
     }
 }
