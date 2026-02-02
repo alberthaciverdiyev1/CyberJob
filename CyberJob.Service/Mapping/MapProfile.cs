@@ -3,6 +3,7 @@ using CyberJob.Core.DTOs.BannerDto;
 using CyberJob.Core.DTOs.Category;
 using CyberJob.Core.DTOs.Company;
 using CyberJob.Core.DTOs.CompanyCategory;
+using CyberJob.Core.DTOs.Filter;
 using CyberJob.Core.DTOs.Partner;
 using CyberJob.Core.Entities;
 
@@ -35,5 +36,15 @@ public class MapProfile : Profile
         CreateMap<CompanyCategory, CompanyCategoryResponse>().ReverseMap();
         CreateMap<CreateCompanyCategoryRequest, CompanyCategory>();
         CreateMap<UpdateCompanyCategoryRequest, CompanyCategory>();
+        
+        //Filters
+        CreateMap<Filter,FilterResponse>().ReverseMap();
+        CreateMap<CreateFilterRequest, Filter>()
+            .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key.ToLower()))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.Trim()));
+
+        CreateMap<UpdateFilterRequest, Filter>()
+            .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key.ToLower()))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.Trim()));
     }
 }
