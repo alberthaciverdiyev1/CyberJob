@@ -9,11 +9,9 @@ public record VacancyDetailsResponse(
     bool IsPromoted,
     DateTime ExpirationDate,
     DateTime CreatedAt,
-    
     int CompanyId,
     string? CompanyName,
-    string? CompanyLogo, 
-    
+    string? CompanyLogo,
     int? CategoryId,
     string? CategoryName
 );

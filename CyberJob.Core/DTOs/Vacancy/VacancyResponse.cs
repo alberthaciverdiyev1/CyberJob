@@ -9,4 +9,4 @@ public record VacancyResponse(
     int CompanyName,
     int CompanyAddress,
     DateTime CreatedAt
-    );
+);
