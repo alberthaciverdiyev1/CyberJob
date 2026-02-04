@@ -4,5 +4,6 @@ public record CreateVacancyRequest(
     string? Title,
     string? BannerImage,
     int CompanyId,
-    int CategoryId
+    int CategoryId,
+    List<int>? FilterIds
 );

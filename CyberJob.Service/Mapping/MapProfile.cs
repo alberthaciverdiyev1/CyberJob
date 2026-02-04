@@ -39,20 +39,32 @@ public class MapProfile : Profile
         CreateMap<CreateCompanyCategoryRequest, CompanyCategory>();
         CreateMap<UpdateCompanyCategoryRequest, CompanyCategory>();
 
-        //Filters
+        // --- Filters ---
         CreateMap<Filter, FilterResponse>().ReverseMap();
+
         CreateMap<CreateFilterRequest, Filter>()
-            .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key.ToLower()))
+            .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key.ToLower().Trim()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.Trim()));
 
         CreateMap<UpdateFilterRequest, Filter>()
-            .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key.ToLower()))
+            .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key.ToLower().Trim()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.Trim()));
 
-        //Vacancies
+        // --- Vacancies ---
         CreateMap<Vacancy, VacancyDetailsResponse>().ReverseMap();
         CreateMap<Vacancy, VacancyResponse>().ReverseMap();
-        CreateMap<CreateVacancyRequest, Vacancy>();
-        CreateMap<UpdateVacancyRequest, Vacancy>();
+
+        CreateMap<CreateVacancyRequest, Vacancy>()
+            .ForMember(dest => dest.VacancyFilters, opt => opt.MapFrom(src =>
+                src.FilterIds != null
+                    ? src.FilterIds.Distinct().Select(id => new VacancyFilter { FilterId = id })
+                    : new List<VacancyFilter>()));
+
+        CreateMap<UpdateVacancyRequest, Vacancy>()
+            .ForMember(dest => dest.VacancyFilters, opt => opt.MapFrom(src =>
+                src.FilterIds != null
+                    ? src.FilterIds.Distinct().Select(id => new VacancyFilter { FilterId = id })
+                    : new List<VacancyFilter>()));
+        
     }
 }

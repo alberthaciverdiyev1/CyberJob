@@ -8,5 +8,6 @@ public record UpdateVacancyRequest(
     int CategoryId,
     DateTime ExpirationDate,
     bool IsPremium,
-    bool IsPromoted
+    bool IsPromoted,
+    List<int>? FilterIds
 );
