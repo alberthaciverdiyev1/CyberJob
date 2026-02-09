@@ -1,9 +1,10 @@
-package utils
+package validation
 
 import (
 	"fmt"
-	"github.com/go-playground/validator/v10"
 	"strings"
+
+	"github.com/go-playground/validator/v10"
 )
 
 var validate = validator.New()
