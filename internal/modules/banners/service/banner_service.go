@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/alberthaciverdiyev1/CyberJob/internal/banners/domain"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/domain"
 )
 
 type bannerService struct {
@@ -42,13 +42,10 @@ func (s *bannerService) UpdateBanner(ctx context.Context, banner *domain.Banner)
 		return errors.New("güncellenecek banner sistemde kayıtlı değil")
 	}
 
-	// Güncelleme öncesi iş kuralları buraya yazılır.
 	return s.repo.Update(ctx, banner)
 }
 
-// DeleteBanner: ID üzerinden banner siler.
 func (s *bannerService) DeleteBanner(ctx context.Context, id uint) error {
-	// Kontrol: Silinmek istenen kayıt var mı?
 	_, err := s.repo.GetByID(ctx, id)
 	if err != nil {
 		return errors.New("silinmek istenen banner zaten mevcut değil")
@@ -57,9 +54,7 @@ func (s *bannerService) DeleteBanner(ctx context.Context, id uint) error {
 	return s.repo.Delete(ctx, id)
 }
 
-// PublishBanner: Interface'de tanımlı olan özel yayınlama mantığı.
 func (s *bannerService) PublishBanner(ctx context.Context, banner *domain.Banner) error {
-	// Örn: Yayına almadan önce son kontrolleri yap ve kaydet.
 	banner.CreatedAt = time.Now()
 	return s.repo.Create(ctx, banner)
 }

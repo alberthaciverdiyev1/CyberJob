@@ -5,8 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/alberthaciverdiyev1/CyberJob/internal/banners/domain"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/domain"
 	"github.com/alberthaciverdiyev1/CyberJob/internal/pkg/utils"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/db"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -154,7 +155,7 @@ func (h *BannerHandler) Update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	banner := &domain.Banner{
-		BaseEntity:     domain.BaseEntity{ID: uint(id)},
+		BaseEntity:     db.BaseEntity{ID: uint(id)},
 		ImageUrl:       req.ImageUrl,
 		Type:           req.Type,
 		Page:           req.Page,

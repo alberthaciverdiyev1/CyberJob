@@ -3,10 +3,12 @@ package domain
 import (
 	"context"
 	"time"
+
+	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/db"
 )
 
 type Banner struct {
-	BaseEntity
+	db.BaseEntity
 	ImageUrl       string    `json:"image_url"`
 	Type           string    `json:"type"`
 	Page           string    `json:"page"`

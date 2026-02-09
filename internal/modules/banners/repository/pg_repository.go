@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/alberthaciverdiyev1/CyberJob/internal/banners/domain"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/domain"
 	"gorm.io/gorm"
 )
 

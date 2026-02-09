@@ -1,8 +1,8 @@
 package http
 
 import (
-	"github.com/alberthaciverdiyev1/CyberJob/internal/banners/repository"
-	"github.com/alberthaciverdiyev1/CyberJob/internal/banners/service"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/repository"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/service"
 	"gorm.io/gorm"
 )
 
