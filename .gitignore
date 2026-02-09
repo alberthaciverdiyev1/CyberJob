@@ -43,3 +43,6 @@ Thumbs.db
 coverage.txt
 coverage.out
 *.test
+
+# Logs
+/logs/
