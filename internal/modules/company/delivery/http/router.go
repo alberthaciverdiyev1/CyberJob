@@ -15,4 +15,12 @@ func RegisterHandlers(r chi.Router, handler *CompanyCategoryHandler) {
 		r.Put("/{id}", handler.Update)          // PUT /company-categories/12
 		r.Delete("/{id}", handler.Delete)       // DELETE /company-categories/12
 	})
+
+	r.Route("/company", func(r chi.Router) {
+		r.Post("/", handler.Create)       // POST /company
+		r.Get("/", handler.List)          // GET /company
+		r.Get("/{id}", handler.Details)   // GET /company/12
+		r.Put("/{id}", handler.Update)    // PUT /company/12
+		r.Delete("/{id}", handler.Delete) // DELETE /company/12
+	})
 }

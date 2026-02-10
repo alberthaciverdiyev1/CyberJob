@@ -15,7 +15,7 @@ type CompanyCategoryRepository interface {
 type CompanyRepository interface {
 	Create(ctx context.Context, comp *Company) error
 	GetAll(ctx context.Context) ([]Company, error)
-	GetByID(ctx context.Context, id uint) (*Company, error)
+	Details(ctx context.Context, id uint) (*Company, error)
 	GetByCategoryID(ctx context.Context, catID uint) ([]Company, error)
 	Update(ctx context.Context, comp *Company) error
 	Delete(ctx context.Context, id uint) error
@@ -34,7 +34,7 @@ type CompanyCategoryService interface {
 type CompanyService interface {
 	RegisterCompany(ctx context.Context, comp *Company) error
 	GetAllCompanies(ctx context.Context) ([]Company, error)
-	GetCompanyByID(ctx context.Context, id uint) (*Company, error)
+	Details(ctx context.Context, id uint) (*Company, error)
 	UpdateCompany(ctx context.Context, comp *Company) error
 	DeleteCompany(ctx context.Context, id uint) error
 }

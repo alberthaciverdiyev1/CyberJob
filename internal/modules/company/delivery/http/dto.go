@@ -19,13 +19,19 @@ type CreateCompanyRequest struct {
 }
 
 type CompanyResponse struct {
+	ID         uint   `json:"id"`
+	Name       string `json:"name"`
+	Image      string `json:"image,omitempty"`
+	ImageUrl   string `json:"image_url,omitempty"`
+	IsVerified bool   `json:"is_verified"`
+}
+type CompanyDetailsResponse struct {
 	ID           uint       `json:"id"`
 	Name         string     `json:"name"`
 	Email        string     `json:"email,omitempty"`
 	Phone        string     `json:"phone,omitempty"`
 	Image        string     `json:"image,omitempty"`
 	BannerImage  string     `json:"banner_image,omitempty"`
-	ImageUrl     string     `json:"image_url,omitempty"`
 	Address      string     `json:"address,omitempty"`
 	ShortAddress string     `json:"short_address,omitempty"`
 	About        string     `json:"about,omitempty"`
