@@ -2,9 +2,6 @@
 /bin/
 /dist/
 
-main
-api
-
 # Dependency directories
 /vendor/
 
