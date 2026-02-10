@@ -3,54 +3,64 @@ package service
 import (
 	"context"
 	"errors"
-	"strings"
 
 	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/company/domain"
 )
 
 var (
-	ErrCompanyAlreadyExists = errors.New("company Already Exists With Given Name")
-	ErrCompanyNameEmpty     = errors.New("company Name Can't be Empty")
+	ErrCompanyNotFound      = errors.New("company not found")
+	ErrCompanyAlreadyExists = errors.New("a company with this name already exists")
 )
 
 type companyService struct {
 	repo domain.CompanyRepository
 }
 
-func NewCompanyService(repo domain.CompanyRepository) domain.CompanyService {
-	return &companyService{repo: repo}
+func NewCompanyService(r domain.CompanyRepository) domain.CompanyService {
+	return &companyService{
+		repo: r,
+	}
 }
 
-func (c companyService) RegisterCompany(ctx context.Context, comp *domain.Company) error {
-	comp.Name = strings.TrimSpace(comp.Name)
-	if comp.Name == "" {
-		return ErrCompanyNameEmpty
-	}
-	existCompany, _ := c.repo.GetByName(ctx, comp.Name)
-	if existCompany != nil {
+func (s *companyService) Register(ctx context.Context, comp *domain.Company) error {
+	filter := domain.CompanyFilter{Name: comp.Name, Limit: 1}
+	existing, err := s.repo.Filter(ctx, filter)
+	if err == nil && len(existing) > 0 {
 		return ErrCompanyAlreadyExists
 	}
-	return c.repo.Create(ctx, comp)
+
+	return s.repo.Create(ctx, comp)
 }
 
-func (c companyService) GetAllCompanies(ctx context.Context) ([]domain.Company, error) {
-
-	return c.repo.GetAll(ctx)
+func (s *companyService) List(ctx context.Context, filter domain.CompanyFilter) ([]domain.Company, error) {
+	return s.repo.Filter(ctx, filter)
 }
 
-func (c companyService) GetCompanyByID(ctx context.Context, id uint) (*domain.Company, error) {
-	return c.repo.GetByID(ctx, id)
-}
-
-func (c companyService) UpdateCompany(ctx context.Context, comp *domain.Company) error {
-	existCompany, _ := c.repo.GetByName(ctx, comp.Name)
-	if existCompany != nil && existCompany.ID != comp.ID {
-		return ErrCompanyAlreadyExists
+func (s *companyService) Details(ctx context.Context, id uint) (*domain.Company, error) {
+	comp, err := s.repo.Details(ctx, id)
+	if err != nil {
+		return nil, err
 	}
-	return c.repo.Update(ctx, comp)
+
+	if comp == nil {
+		return nil, ErrCompanyNotFound
+	}
+
+	return comp, nil
 }
 
-func (c companyService) DeleteCompany(ctx context.Context, id uint) error {
+func (s *companyService) Update(ctx context.Context, comp *domain.Company) error {
+	existing, err := s.repo.Details(ctx, comp.ID)
+	if err != nil {
+		return err
+	}
+	if existing == nil {
+		return ErrCompanyNotFound
+	}
 
-	return c.repo.Delete(ctx, id)
+	return s.repo.Update(ctx, comp)
+}
+
+func (s *companyService) Delete(ctx context.Context, id uint) error {
+	return s.repo.Delete(ctx, id)
 }

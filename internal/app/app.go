@@ -23,18 +23,15 @@ import (
 
 func Run() {
 	cfg := config.NewConfig()
-
 	logger.InitLogger(cfg.LogLevel)
 	defer logger.Log.Sync()
 
 	gormDB := db.ConnectDB(cfg.DatabaseURL)
-
 	err := gormDB.AutoMigrate(
 		&bannerDomain.Banner{},
 		&companyDomain.CompanyCategory{},
 		&companyDomain.Company{},
 	)
-
 	if err != nil {
 		logger.Log.Fatal("Database migration failed", zap.Error(err))
 	}
@@ -46,8 +43,10 @@ func Run() {
 	bannerHdl := bannerHttp.InitBannerModule(gormDB)
 	bannerHttp.RegisterHandlers(r, bannerHdl)
 
-	companyHdl := companyHttp.InitCompanyCategoryModule(gormDB)
-	companyHttp.RegisterHandlers(r, companyHdl)
+	companyCategoryHdl := companyHttp.InitCompanyCategoryModule(gormDB)
+	companyHdl := companyHttp.InitCompanyModule(gormDB)
+
+	companyHttp.RegisterHandlers(r, companyCategoryHdl, companyHdl)
 
 	logger.Log.Info("Server is starting on port " + cfg.AppPort)
 	server := &http.Server{

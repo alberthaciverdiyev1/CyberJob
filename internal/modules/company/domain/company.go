@@ -22,3 +22,10 @@ type Company struct {
 
 	CategoryID uint `gorm:"not null"`
 }
+type CompanyFilter struct {
+	CategoryID uint
+	IsActive   *bool
+	Name       string
+	Limit      int
+	Email      string
+}

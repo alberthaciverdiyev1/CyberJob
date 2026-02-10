@@ -1,6 +1,8 @@
 package domain
 
-import "context"
+import (
+	"context"
+)
 
 // --- Repository ---
 type CompanyCategoryRepository interface {
@@ -16,10 +18,9 @@ type CompanyRepository interface {
 	Create(ctx context.Context, comp *Company) error
 	GetAll(ctx context.Context) ([]Company, error)
 	Details(ctx context.Context, id uint) (*Company, error)
-	GetByCategoryID(ctx context.Context, catID uint) ([]Company, error)
 	Update(ctx context.Context, comp *Company) error
 	Delete(ctx context.Context, id uint) error
-	GetByName(ctx context.Context, name string) (*Company, error)
+	Filter(ctx context.Context, filter CompanyFilter) ([]Company, error)
 }
 
 // --- Service ---
@@ -32,9 +33,13 @@ type CompanyCategoryService interface {
 }
 
 type CompanyService interface {
-	RegisterCompany(ctx context.Context, comp *Company) error
-	GetAllCompanies(ctx context.Context) ([]Company, error)
+	Register(ctx context.Context, comp *Company) error
+
+	List(ctx context.Context, filter CompanyFilter) ([]Company, error)
+
 	Details(ctx context.Context, id uint) (*Company, error)
-	UpdateCompany(ctx context.Context, comp *Company) error
-	DeleteCompany(ctx context.Context, id uint) error
+
+	Update(ctx context.Context, comp *Company) error
+
+	Delete(ctx context.Context, id uint) error
 }

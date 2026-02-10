@@ -5,22 +5,22 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
-func RegisterHandlers(r chi.Router, handler *CompanyCategoryHandler) {
+func RegisterHandlers(r chi.Router, catHandler *CompanyCategoryHandler, compHandler *CompanyHandler) {
 	r.Get("/swagger/*", httpSwagger.WrapHandler)
 
 	r.Route("/company-categories", func(r chi.Router) {
-		r.Post("/", handler.Create)             // POST /company-categories
-		r.Get("/", handler.List)                // GET /company-categories
-		r.Get("/{id}", handler.GetCategoryByID) // GET /company-categories/12
-		r.Put("/{id}", handler.Update)          // PUT /company-categories/12
-		r.Delete("/{id}", handler.Delete)       // DELETE /company-categories/12
+		r.Post("/", catHandler.Create)             // POST /company-categories
+		r.Get("/", catHandler.List)                // GET /company-categories
+		r.Get("/{id}", catHandler.GetCategoryByID) // GET /company-categories/{id}
+		r.Put("/{id}", catHandler.Update)          // PUT /company-categories/{id}
+		r.Delete("/{id}", catHandler.Delete)       // DELETE /company-categories/{id}
 	})
 
-	r.Route("/company", func(r chi.Router) {
-		r.Post("/", handler.Create)       // POST /company
-		r.Get("/", handler.List)          // GET /company
-		r.Get("/{id}", handler.Details)   // GET /company/12
-		r.Put("/{id}", handler.Update)    // PUT /company/12
-		r.Delete("/{id}", handler.Delete) // DELETE /company/12
+	r.Route("/companies", func(r chi.Router) {
+		r.Post("/", compHandler.Register)     // POST /companies
+		r.Get("/", compHandler.List)          // GET /companies
+		r.Get("/{id}", compHandler.GetByID)   // GET /companies/{id}
+		r.Put("/{id}", compHandler.Update)    // PUT /companies/{id}
+		r.Delete("/{id}", compHandler.Delete) // DELETE /companies/{id}
 	})
 }

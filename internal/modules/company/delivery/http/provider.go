@@ -11,3 +11,9 @@ func InitCompanyCategoryModule(db *gorm.DB) *CompanyCategoryHandler {
 	svc := service.NewCategoryService(repo)
 	return NewCompanyCategoryHandler(svc)
 }
+
+func InitCompanyModule(db *gorm.DB) *CompanyHandler {
+	repo := repository.NewCompanyRepository(db)
+	svc := service.NewCompanyService(repo)
+	return NewCompanyHandler(svc)
+}
