@@ -6,7 +6,7 @@ import (
 
 type CompanyCategory struct {
 	db.BaseEntity
-	Name string `gorm:"type:varchar(100);not null;uniqueIndex" json:"name"`
+	Name string `gorm:"type:varchar(100);not null;uniqueIndex"`
 
-	Companies []Company `gorm:"foreignKey:CategoryID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT" json:"companies,omitempty"`
+	Companies []Company `gorm:"foreignKey:CategoryID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT" json:"companies"`
 }

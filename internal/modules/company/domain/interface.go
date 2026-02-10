@@ -3,7 +3,7 @@ package domain
 import "context"
 
 // --- Repository ---
-type CategoryRepository interface {
+type CompanyCategoryRepository interface {
 	Create(ctx context.Context, cat *CompanyCategory) error
 	GetAll(ctx context.Context) ([]CompanyCategory, error)
 	GetByID(ctx context.Context, id uint) (*CompanyCategory, error)
@@ -23,7 +23,7 @@ type CompanyRepository interface {
 }
 
 // --- Service ---
-type CategoryService interface {
+type CompanyCategoryService interface {
 	CreateCategory(ctx context.Context, cat *CompanyCategory) error
 	GetAllCategories(ctx context.Context) ([]CompanyCategory, error)
 	GetCategoryByID(ctx context.Context, id uint) (*CompanyCategory, error)

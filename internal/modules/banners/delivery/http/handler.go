@@ -6,8 +6,9 @@ import (
 	"strconv"
 
 	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/domain"
-	"github.com/alberthaciverdiyev1/CyberJob/internal/pkg/utils"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/api"
 	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/db"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/validation"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -33,12 +34,12 @@ func NewBannerHandler(s domain.BannerService) *BannerHandler {
 func (h *BannerHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var req CreateBannerRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		utils.WriteJSON(w, http.StatusBadRequest, utils.ErrorResponse("Invalid request format"))
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("Invalid request format"))
 		return
 	}
 
-	if errMsg := utils.ValidateStruct(req); errMsg != "" {
-		utils.WriteJSON(w, http.StatusBadRequest, utils.ErrorResponse(errMsg))
+	if errMsg := validation.ValidateStruct(req); errMsg != "" {
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse(errMsg))
 		return
 	}
 
@@ -50,7 +51,7 @@ func (h *BannerHandler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := h.service.CreateBanner(r.Context(), banner); err != nil {
-		utils.WriteJSON(w, http.StatusInternalServerError, utils.ErrorResponse(err.Error()))
+		api.WriteJSON(w, http.StatusInternalServerError, api.ErrorResponse(err.Error()))
 		return
 	}
 
@@ -61,7 +62,7 @@ func (h *BannerHandler) Create(w http.ResponseWriter, r *http.Request) {
 		ExpirationDate: banner.ExpirationDate,
 	}
 
-	utils.WriteJSON(w, http.StatusCreated, utils.SuccessResponse("Banner created successfully", resData))
+	api.WriteJSON(w, http.StatusCreated, api.SuccessResponse("Banner created successfully", resData))
 }
 
 // List GET /banners
@@ -75,7 +76,7 @@ func (h *BannerHandler) Create(w http.ResponseWriter, r *http.Request) {
 func (h *BannerHandler) List(w http.ResponseWriter, r *http.Request) {
 	banners, err := h.service.GetActiveBanners(r.Context())
 	if err != nil {
-		utils.WriteJSON(w, http.StatusInternalServerError, utils.ErrorResponse(err.Error()))
+		api.WriteJSON(w, http.StatusInternalServerError, api.ErrorResponse(err.Error()))
 		return
 	}
 
@@ -89,7 +90,7 @@ func (h *BannerHandler) List(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	utils.WriteJSON(w, http.StatusOK, utils.SuccessResponse("Banners retrieved successfully", resData))
+	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Banners retrieved successfully", resData))
 }
 
 // GetByID GET /banners/{id}
@@ -105,13 +106,13 @@ func (h *BannerHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
-		utils.WriteJSON(w, http.StatusBadRequest, utils.ErrorResponse("Invalid ID format"))
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("Invalid ID format"))
 		return
 	}
 
 	banner, err := h.service.GetBannerDetail(r.Context(), uint(id))
 	if err != nil {
-		utils.WriteJSON(w, http.StatusNotFound, utils.ErrorResponse("Banner not found"))
+		api.WriteJSON(w, http.StatusNotFound, api.ErrorResponse("Banner not found"))
 		return
 	}
 
@@ -122,7 +123,7 @@ func (h *BannerHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 		ExpirationDate: banner.ExpirationDate,
 	}
 
-	utils.WriteJSON(w, http.StatusOK, utils.SuccessResponse("Banner details retrieved", resData))
+	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Banner details retrieved", resData))
 }
 
 // Update PUT /banners/{id}
@@ -139,18 +140,18 @@ func (h *BannerHandler) Update(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
-		utils.WriteJSON(w, http.StatusBadRequest, utils.ErrorResponse("Invalid ID format"))
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("Invalid ID format"))
 		return
 	}
 
 	var req CreateBannerRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		utils.WriteJSON(w, http.StatusBadRequest, utils.ErrorResponse("Invalid request format"))
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("Invalid request format"))
 		return
 	}
 
-	if errMsg := utils.ValidateStruct(req); errMsg != "" {
-		utils.WriteJSON(w, http.StatusBadRequest, utils.ErrorResponse(errMsg))
+	if errMsg := validation.ValidateStruct(req); errMsg != "" {
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse(errMsg))
 		return
 	}
 
@@ -163,14 +164,14 @@ func (h *BannerHandler) Update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := h.service.UpdateBanner(r.Context(), banner); err != nil {
-		utils.WriteJSON(w, http.StatusInternalServerError, utils.ErrorResponse(err.Error()))
+		api.WriteJSON(w, http.StatusInternalServerError, api.ErrorResponse(err.Error()))
 		return
 	}
 
-	utils.WriteJSON(w, http.StatusOK, utils.SuccessResponse("Banner updated successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Banner updated successfully", nil))
 }
 
-// Delete DELETE /banners/{id}
+// Delete /banners/{id}
 // @Summary Delete a banner
 // @Description Removes a banner from the system. Response is wrapped in APIResponse.
 // @Tags Banners
@@ -182,14 +183,14 @@ func (h *BannerHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
-		utils.WriteJSON(w, http.StatusBadRequest, utils.ErrorResponse("Invalid ID format"))
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("Invalid ID format"))
 		return
 	}
 
 	if err := h.service.DeleteBanner(r.Context(), uint(id)); err != nil {
-		utils.WriteJSON(w, http.StatusInternalServerError, utils.ErrorResponse(err.Error()))
+		api.WriteJSON(w, http.StatusInternalServerError, api.ErrorResponse(err.Error()))
 		return
 	}
 
-	utils.WriteJSON(w, http.StatusOK, utils.SuccessResponse("Banner deleted successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Banner deleted successfully", nil))
 }
