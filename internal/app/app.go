@@ -5,9 +5,12 @@ import (
 
 	_ "github.com/alberthaciverdiyev1/CyberJob/docs"
 	customMW "github.com/alberthaciverdiyev1/CyberJob/internal/middleware"
-
 	bannerHttp "github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/delivery/http"
 	bannerDomain "github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/domain"
+	httpSwagger "github.com/swaggo/http-swagger"
+
+	categoryHttp "github.com/alberthaciverdiyev1/CyberJob/internal/modules/category/delivery/http"
+	categoryDomain "github.com/alberthaciverdiyev1/CyberJob/internal/modules/category/domain"
 
 	companyHttp "github.com/alberthaciverdiyev1/CyberJob/internal/modules/company/delivery/http"
 	companyDomain "github.com/alberthaciverdiyev1/CyberJob/internal/modules/company/domain"
@@ -31,14 +34,18 @@ func Run() {
 		&bannerDomain.Banner{},
 		&companyDomain.CompanyCategory{},
 		&companyDomain.Company{},
+		&categoryDomain.Category{},
 	)
 	if err != nil {
 		logger.Log.Fatal("Database migration failed", zap.Error(err))
 	}
 
 	r := chi.NewRouter()
+
 	r.Use(middleware.Recoverer)
 	r.Use(customMW.ZapLogger)
+
+	r.Get("/swagger/*", httpSwagger.WrapHandler)
 
 	bannerHdl := bannerHttp.InitBannerModule(gormDB)
 	bannerHttp.RegisterHandlers(r, bannerHdl)
@@ -47,6 +54,9 @@ func Run() {
 	companyHdl := companyHttp.InitCompanyModule(gormDB)
 
 	companyHttp.RegisterHandlers(r, companyCategoryHdl, companyHdl)
+
+	categoryHdl := categoryHttp.InitCategoryModule(gormDB)
+	categoryHttp.RegisterHandlers(r, categoryHdl)
 
 	logger.Log.Info("Server is starting on port " + cfg.AppPort)
 	server := &http.Server{

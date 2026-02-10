@@ -2,12 +2,9 @@ package http
 
 import (
 	"github.com/go-chi/chi/v5"
-	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 func RegisterHandlers(r chi.Router, handler *BannerHandler) {
-	r.Get("/swagger/*", httpSwagger.WrapHandler)
-
 	r.Route("/banners", func(r chi.Router) {
 		r.Post("/", handler.Create)       // POST /banners
 		r.Get("/", handler.List)          // GET /banners

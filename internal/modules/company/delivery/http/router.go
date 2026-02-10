@@ -2,11 +2,9 @@ package http
 
 import (
 	"github.com/go-chi/chi/v5"
-	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 func RegisterHandlers(r chi.Router, catHandler *CompanyCategoryHandler, compHandler *CompanyHandler) {
-	r.Get("/swagger/*", httpSwagger.WrapHandler)
 
 	r.Route("/company-categories", func(r chi.Router) {
 		r.Post("/", catHandler.Create)             // POST /company-categories
