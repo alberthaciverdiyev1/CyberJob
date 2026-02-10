@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/company/domain"
 	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/company/service"
@@ -33,26 +34,36 @@ func (h *CompanyHandler) getID(r *http.Request) (uint, error) {
 
 // Register POST /companies
 // @Summary Register a new company
-// @Description Creates a new company record with the provided information.
+// @Description Creates a new company record. Response is wrapped in APIResponse.
 // @Tags Companies
 // @Accept json
 // @Produce json
 // @Param company body CreateCompanyRequest true "Company Registration Info"
-// @Success 201 {object} CompanyResponse
-// @Failure 400 {object} string "Invalid request"
+// @Success 201 {object} CompanyResponse "Company registered successfully"
+// @Failure 400 {object} string "Invalid request format or validation error"
 // @Failure 409 {object} string "Company already exists"
 // @Failure 500 {object} string "Internal server error"
 // @Router /companies [post]
 func (h *CompanyHandler) Register(w http.ResponseWriter, r *http.Request) {
 	var req CreateCompanyRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("Invalid request format"))
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("JSON_DECODE_ERROR: "+err.Error()))
 		return
 	}
 
 	if errMsg := validation.ValidateStruct(req); errMsg != "" {
-		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse(errMsg))
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("VALIDATION_ERROR: "+errMsg))
 		return
+	}
+
+	var foundingDate *time.Time
+	if req.FoundingDate != "" {
+		t, err := time.Parse("2006-01-02", req.FoundingDate)
+		if err != nil {
+			api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("VALIDATION_ERROR: FoundingDate(format should be YYYY-MM-DD)"))
+			return
+		}
+		foundingDate = &t
 	}
 
 	comp := &domain.Company{
@@ -62,7 +73,7 @@ func (h *CompanyHandler) Register(w http.ResponseWriter, r *http.Request) {
 		Address:      req.Address,
 		ShortAddress: req.ShortAddress,
 		About:        req.About,
-		FoundingDate: req.FoundingDate,
+		FoundingDate: foundingDate,
 		IsActive:     req.IsActive,
 	}
 
@@ -79,20 +90,19 @@ func (h *CompanyHandler) Register(w http.ResponseWriter, r *http.Request) {
 }
 
 // List GET /companies
-// @Summary List companies with filters
-// @Description Returns a list of companies based on name, email, or category filters.
+// @Summary List all companies
+// @Description Returns a list of companies based on filters. Response is wrapped in APIResponse.
 // @Tags Companies
 // @Produce json
 // @Param name query string false "Filter by Name"
 // @Param email query string false "Filter by Email"
 // @Param category_id query int false "Filter by Category ID"
 // @Param limit query int false "Limit results"
-// @Success 200 {array} CompanyResponse
+// @Success 200 {array} CompanyResponse "Companies retrieved successfully"
 // @Failure 500 {object} string "Internal server error"
 // @Router /companies [get]
 func (h *CompanyHandler) List(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
-
 	limit, _ := strconv.Atoi(q.Get("limit"))
 	catID, _ := strconv.Atoi(q.Get("category_id"))
 
@@ -114,11 +124,11 @@ func (h *CompanyHandler) List(w http.ResponseWriter, r *http.Request) {
 
 // GetByID GET /companies/{id}
 // @Summary Get company by ID
-// @Description Returns details of a single company.
+// @Description Returns detail for a single company. Response is wrapped in APIResponse.
 // @Tags Companies
 // @Produce json
 // @Param id path int true "Company ID"
-// @Success 200 {object} CompanyDetailsResponse
+// @Success 200 {object} CompanyResponse "Company details retrieved"
 // @Failure 404 {object} string "Company not found"
 // @Router /companies/{id} [get]
 func (h *CompanyHandler) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -143,7 +153,7 @@ func (h *CompanyHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 
 // Update PUT /companies/{id}
 // @Summary Update a company
-// @Description Updates an existing company's information.
+// @Description Updates an existing company record. Response is wrapped in APIResponse.
 // @Tags Companies
 // @Accept json
 // @Produce json
@@ -161,13 +171,23 @@ func (h *CompanyHandler) Update(w http.ResponseWriter, r *http.Request) {
 
 	var req CreateCompanyRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("Invalid request format"))
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("JSON_DECODE_ERROR: "+err.Error()))
 		return
 	}
 
 	if errMsg := validation.ValidateStruct(req); errMsg != "" {
-		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse(errMsg))
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("VALIDATION_ERROR: "+errMsg))
 		return
+	}
+
+	var foundingDate *time.Time
+	if req.FoundingDate != "" {
+		t, err := time.Parse("2006-01-02", req.FoundingDate)
+		if err != nil {
+			api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("VALIDATION_ERROR: FoundingDate(format should be YYYY-MM-DD)"))
+			return
+		}
+		foundingDate = &t
 	}
 
 	comp := &domain.Company{
@@ -178,15 +198,10 @@ func (h *CompanyHandler) Update(w http.ResponseWriter, r *http.Request) {
 		Address:      req.Address,
 		ShortAddress: req.ShortAddress,
 		About:        req.About,
-		FoundingDate: req.FoundingDate,
+		FoundingDate: foundingDate,
 		IsActive:     req.IsActive,
 	}
-
 	if err := h.service.Update(r.Context(), comp); err != nil {
-		if errors.Is(err, service.ErrCompanyNotFound) {
-			api.WriteJSON(w, http.StatusNotFound, api.ErrorResponse(err.Error()))
-			return
-		}
 		api.WriteJSON(w, http.StatusInternalServerError, api.ErrorResponse(err.Error()))
 		return
 	}
@@ -196,7 +211,7 @@ func (h *CompanyHandler) Update(w http.ResponseWriter, r *http.Request) {
 
 // Delete DELETE /companies/{id}
 // @Summary Delete a company
-// @Description Removes a company from the database.
+// @Description Removes a company from the system. Response is wrapped in APIResponse.
 // @Tags Companies
 // @Produce json
 // @Param id path int true "Company ID"
