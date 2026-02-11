@@ -7,7 +7,6 @@ import (
 	customMW "github.com/alberthaciverdiyev1/CyberJob/internal/middleware"
 	bannerHttp "github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/delivery/http"
 	bannerDomain "github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/domain"
-	httpSwagger "github.com/swaggo/http-swagger"
 
 	categoryHttp "github.com/alberthaciverdiyev1/CyberJob/internal/modules/category/delivery/http"
 	categoryDomain "github.com/alberthaciverdiyev1/CyberJob/internal/modules/category/domain"
@@ -22,6 +21,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"go.uber.org/zap"
+
+	"github.com/swaggo/http-swagger"
 )
 
 func Run() {
@@ -59,6 +60,8 @@ func Run() {
 	categoryHttp.RegisterHandlers(r, categoryHdl)
 
 	logger.Log.Info("Server is starting on port " + cfg.AppPort)
+	logger.Log.Info("Swagger docs available on http://localhost:" + cfg.AppPort + "/swagger/index.html")
+
 	server := &http.Server{
 		Addr:    ":" + cfg.AppPort,
 		Handler: r,

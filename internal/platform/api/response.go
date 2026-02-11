@@ -5,10 +5,15 @@ import (
 	"net/http"
 )
 
+type BaseResponse struct {
+	Success bool   `json:"success" example:"true"`
+	Message string `json:"message" example:"Operation successful"`
+}
+
 type APIResponse[T any] struct {
-	Success bool   `json:"success"`
-	Message string `json:"message"`
-	Data    T      `json:"data,omitempty" swaggertype:"object"`
+	Success bool   `json:"success" example:"true"`
+	Message string `json:"message" example:"Operation successful"`
+	Data    T      `json:"data,omitempty"`
 }
 
 func SuccessResponse(message string, data interface{}) APIResponse[interface{}] {

@@ -14,7 +14,7 @@ func NewConfig() *Config {
 	return &Config{
 		AppPort:     getEnv("APP_PORT", "8080"),
 		DatabaseURL: getEnv("DATABASE_URL", "host=localhost user=admin password=secret dbname=cyberjob_db port=5432 sslmode=disable"),
-		LogLevel:    getEnv("LOG_LEVEL", "info"),
+		LogLevel:    getEnv("LOG_LEVEL", "debug"),
 	}
 }
 
