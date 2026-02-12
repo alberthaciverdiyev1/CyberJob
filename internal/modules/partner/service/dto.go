@@ -1,4 +1,4 @@
-package domain
+package service
 
 type CreatePartnerRequest struct {
 	Name  string `json:"name" validate:"required"`

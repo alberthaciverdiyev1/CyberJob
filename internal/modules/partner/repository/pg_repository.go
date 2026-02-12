@@ -16,26 +16,29 @@ func NewPartnerRepository(db *gorm.DB) domain.PartnerRepository {
 }
 
 func (p partnerRepository) Create(ctx context.Context, partner domain.Partner) error {
-	//TODO implement me
-	panic("implement me")
+	return p.db.WithContext(ctx).Create(&partner).Error
 }
 
 func (p partnerRepository) GetAll(ctx context.Context) ([]domain.Partner, error) {
-	//TODO implement me
-	panic("implement me")
+	var partners []domain.Partner
+	err := p.db.WithContext(ctx).Find(&partners).Error
+	return partners, err
 }
 
 func (p partnerRepository) GetByID(ctx context.Context, id uint) (*domain.Partner, error) {
-	//TODO implement me
-	panic("implement me")
+	var partner domain.Partner
+	err := p.db.WithContext(ctx).First(&partner, id).Error
+	if err != nil {
+		return nil, err
+	}
+	return &partner, nil
+
 }
 
 func (p partnerRepository) Update(ctx context.Context, partner domain.Partner) error {
-	//TODO implement me
-	panic("implement me")
+	return p.db.WithContext(ctx).Save(&partner).Error
 }
 
 func (p partnerRepository) Delete(ctx context.Context, id uint) error {
-	//TODO implement me
-	panic("implement me")
+	return p.db.WithContext(ctx).Delete(&domain.Partner{}, id).Error
 }
