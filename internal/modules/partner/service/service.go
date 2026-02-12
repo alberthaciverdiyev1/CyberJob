@@ -65,9 +65,15 @@ func (p *partnerService) Update(ctx context.Context, id uint, req UpdatePartnerR
 		return api.NewNotFoundError("partner not found")
 	}
 
-	existing.Name = req.Name
-	existing.Image = req.Image
-	existing.Link = req.Link
+	if req.Name != "" {
+		existing.Name = req.Name
+	}
+	if req.Image != "" {
+		existing.Image = req.Image
+	}
+	if req.Link != "" {
+		existing.Link = req.Link
+	}
 
 	return p.repo.Update(ctx, *existing)
 }

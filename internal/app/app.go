@@ -71,6 +71,7 @@ func Run() {
 
 	addr := ":" + cfg.AppPort
 	logger.Log.Info("Server is starting", zap.String("port", cfg.AppPort))
+	logger.Log.Info("Swagger docs available on http://localhost:" + cfg.AppPort + "/swagger/index.html")
 
 	server := &http.Server{
 		Addr:    addr,
