@@ -7,7 +7,6 @@ type CreatePartnerRequest struct {
 }
 
 type UpdatePartnerRequest struct {
-	ID    uint
 	Name  string `json:"name"`
 	Image string `json:"image"`
 	Link  string `json:"link"`

@@ -5,6 +5,8 @@ import (
 	"errors"
 
 	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/partner/domain"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/api"
+	"gorm.io/gorm"
 )
 
 type partnerService struct {
@@ -48,16 +50,19 @@ func (p *partnerService) List(ctx context.Context) ([]PartnerResponse, error) {
 func (p *partnerService) Delete(ctx context.Context, id uint) error {
 	_, err := p.repo.GetByID(ctx, id)
 	if err != nil {
-		return errors.New("silinmek istenen partner bulunamadı")
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return api.NewNotFoundError("partner not found")
+		}
+		return err
 	}
 
 	return p.repo.Delete(ctx, id)
 }
 
-func (p *partnerService) Update(ctx context.Context, req UpdatePartnerRequest) error {
-	existing, err := p.repo.GetByID(ctx, req.ID)
+func (p *partnerService) Update(ctx context.Context, id uint, req UpdatePartnerRequest) error {
+	existing, err := p.repo.GetByID(ctx, id)
 	if err != nil {
-		return errors.New("güncellenecek partner bulunamadı")
+		return api.NewNotFoundError("partner not found")
 	}
 
 	existing.Name = req.Name
