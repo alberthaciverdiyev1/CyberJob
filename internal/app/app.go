@@ -52,7 +52,7 @@ func Run() {
 	r.Use(customMW.ZapLogger)
 
 	r.Get("/swagger/*", httpSwagger.WrapHandler)
-
+	r.Handle("/public/*", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
 	// Banner
 	bannerHdl := bannerHttp.InitBannerModule(gormDB)
 	bannerHttp.RegisterHandlers(r, bannerHdl)

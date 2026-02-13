@@ -3,9 +3,11 @@ package service
 import (
 	"context"
 	"errors"
+	"os"
 
 	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/partner/domain"
 	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/api"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/storage"
 	"gorm.io/gorm"
 )
 
@@ -18,10 +20,19 @@ func NewPartnerService(repo domain.PartnerRepository) PartnerService {
 }
 
 func (p *partnerService) Create(ctx context.Context, req CreatePartnerRequest) error {
+	var imagePath string
+	var err error
+
+	if req.Image != nil {
+		imagePath, err = storage.UploadFile(req.Image, req.Ext, "partners")
+		if err != nil {
+			return err
+		}
+	}
 
 	newPartner := domain.Partner{
 		Name:  req.Name,
-		Image: req.Image,
+		Image: imagePath,
 		Link:  req.Link,
 	}
 
@@ -65,14 +76,32 @@ func (p *partnerService) Update(ctx context.Context, id uint, req UpdatePartnerR
 		return api.NewNotFoundError("partner not found")
 	}
 
-	if req.Name != "" {
-		existing.Name = req.Name
+	if req.Name != nil {
+		existing.Name = *req.Name
 	}
-	if req.Image != "" {
-		existing.Image = req.Image
+
+	if req.Image != nil {
+		oldImage := existing.Image
+
+		ext := ".jpg"
+		if req.Ext != nil {
+			ext = *req.Ext
+		}
+
+		imagePath, err := storage.UploadFile(req.Image, ext, "partners")
+		if err != nil {
+			return err
+		}
+
+		existing.Image = imagePath
+
+		if oldImage != "" {
+			_ = os.Remove(oldImage)
+		}
 	}
-	if req.Link != "" {
-		existing.Link = req.Link
+
+	if req.Link != nil {
+		existing.Link = *req.Link
 	}
 
 	return p.repo.Update(ctx, *existing)

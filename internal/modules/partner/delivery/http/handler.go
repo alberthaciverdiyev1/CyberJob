@@ -5,6 +5,7 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"path/filepath"
 	"strconv"
 
 	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/partner/service"
@@ -22,19 +23,41 @@ func NewPartnerHandler(s service.PartnerService) *PartnerHandler {
 
 // Create @Summary Create Partner
 // @Tags Partners
-// @Param body body service.CreatePartnerRequest true "Partner Info"
+// @Accept multipart/form-data
+// @Produce json
+// @Param name formData string true "Partner Name"
+// @Param link formData string true "Partner Link"
+// @Param image formData file true "Partner Image File"
 // @Success 201 {object} api.BaseResponse
 // @Router /partners [post]
 func (h *PartnerHandler) Create(w http.ResponseWriter, r *http.Request) {
-	var req service.CreatePartnerRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("Invalid JSON format"))
+	if err := r.ParseMultipartForm(10 << 20); err != nil {
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("File too large or invalid form"))
 		return
 	}
+
+	name := r.FormValue("name")
+	link := r.FormValue("link")
+
+	file, header, err := r.FormFile("image")
+	if err != nil {
+		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse("Image is required"))
+		return
+	}
+	defer file.Close()
+
+	req := service.CreatePartnerRequest{
+		Name:  name,
+		Link:  link,
+		Image: file,
+		Ext:   filepath.Ext(header.Filename),
+	}
+
 	if err := h.service.Create(r.Context(), req); err != nil {
 		h.respondWithError(w, err)
 		return
 	}
+
 	api.WriteJSON(w, http.StatusCreated, api.SuccessResponse("Partner created successfully", nil))
 }
 

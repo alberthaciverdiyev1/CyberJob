@@ -23,6 +23,7 @@ Thumbs.db
 # IDEs and Editors
 .idea/
 .vscode/
+./public/*
 *.swp
 *.swo
 
