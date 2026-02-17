@@ -6,8 +6,12 @@ import (
 
 	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/faq/domain"
 	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/api"
+	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/validation"
+	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
 )
+
+var validate = validator.New()
 
 type faqService struct {
 	repo domain.FAQRepository
@@ -61,6 +65,15 @@ func (s *faqService) GetByID(ctx context.Context, id uint) (*FAQResponse, error)
 }
 
 func (s *faqService) Create(ctx context.Context, req CreateFAQRequest) error {
+
+	if errMsg := validation.ValidateStruct(req); errMsg != "" {
+		return &api.AppError{
+			StatusCode: 400,
+			ErrMsg:     errMsg,
+			RawErr:     errors.New(errMsg),
+		}
+	}
+
 	faq := &domain.FAQ{
 		QuestionAz: req.QuestionAz,
 		AnswerAz:   req.AnswerAz,
