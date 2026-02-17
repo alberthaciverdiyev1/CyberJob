@@ -6,6 +6,10 @@ import (
 	_ "github.com/alberthaciverdiyev1/CyberJob/docs"
 	customMW "github.com/alberthaciverdiyev1/CyberJob/internal/middleware"
 
+	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/faq"
+	faqHttp "github.com/alberthaciverdiyev1/CyberJob/internal/modules/faq/delivery/http"
+	faqDomain "github.com/alberthaciverdiyev1/CyberJob/internal/modules/faq/domain"
+
 	bannerHttp "github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/delivery/http"
 	bannerDomain "github.com/alberthaciverdiyev1/CyberJob/internal/modules/banners/domain"
 	"github.com/alberthaciverdiyev1/CyberJob/internal/modules/partner"
@@ -42,6 +46,7 @@ func Run() {
 		&companyDomain.Company{},
 		&categoryDomain.Category{},
 		&partnerDomain.Partner{},
+		&faqDomain.FAQ{},
 	)
 	if err != nil {
 		logger.Log.Fatal("Database migration failed", zap.Error(err))
@@ -68,6 +73,10 @@ func Run() {
 	//Partner
 	partnerHdl := partner.InitPartnerModule(gormDB)
 	partnerHttp.RegisterHandlers(r, partnerHdl)
+
+	//FAQ
+	faqHdl := faq.InitFaqModule(gormDB)
+	faqHttp.RegisterHandlers(r, faqHdl)
 
 	addr := ":" + cfg.AppPort
 	logger.Log.Info("Server is starting", zap.String("port", cfg.AppPort))

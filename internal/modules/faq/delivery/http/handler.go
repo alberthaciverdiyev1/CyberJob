@@ -125,7 +125,6 @@ func (h *FaqHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("FAQ deleted successfully", nil))
 }
 
-// Helper metodlar
 func (h *FaqHandler) parseID(r *http.Request) (uint, error) {
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.ParseUint(idStr, 10, 32)
