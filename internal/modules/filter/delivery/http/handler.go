@@ -3,7 +3,6 @@ package http
 import (
 	"context"
 	"errors"
-	"log/slog"
 	"net/http"
 	"strconv"
 
@@ -11,6 +10,7 @@ import (
 	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/api"
 	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/validation"
 	"github.com/go-chi/chi/v5"
+	"go.uber.org/zap"
 )
 
 type contextKey string
@@ -19,23 +19,21 @@ const contextKeyRole contextKey = "role"
 
 type FilterHandler struct {
 	service domain.FilterService
-	logger  *slog.Logger
+	logger  *zap.Logger
 }
 
-func NewFilterHandler(s domain.FilterService, logger *slog.Logger) *FilterHandler {
-	return &FilterHandler{
-		service: s,
-		logger:  logger,
-	}
+func NewFilterHandler(s domain.FilterService, logger *zap.Logger) *FilterHandler {
+	return &FilterHandler{service: s, logger: logger}
 }
 
-// GetAll @Summary List all Filters
-// @Description Admin için tüm dilleri, User için lokalize edilmiş datayı döner
-// @Tags Filters
-// @Produce json
-// @Success 200 {object} api.APIResponse[[]domain.FilterFullResponse] // Dizi olduğunu belirtmek için [] ekledik
-// @Failure 500 {object} api.APIResponse[any]
-// @Router /filters [get]
+// GetAll
+// @Summary      List all Filters
+// @Description  Admin ucun butun dilleri, User ucun lokalize edilmis datayi donecekj
+// @Tags         Filters
+// @Produce      json
+// @Success      200  {object}  api.APIResponse[[]FilterFullResponse]
+// @Failure      500  {object}  api.APIResponse[any]
+// @Router       /filters [get]
 func (h *FilterHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	filters, err := h.service.GetAll(r.Context())
 	if err != nil {
@@ -49,22 +47,21 @@ func (h *FilterHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if h.isAdmin(r.Context()) {
-		// Tip güvenliği ve Swagger uyumu için api.APIResponse yapısını doğrudan kullanıyoruz
 		api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Filters retrieved", MapToFullResponseList(filters)))
 	} else {
 		api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Filters retrieved", MapToResponseList(filters, lang)))
 	}
 }
 
-// GetByID @Summary Get Filter by ID
-// @Description ID'ye göre tek bir filtreyi getirir
-// @Tags Filters
-// @Param id path int true "Filter ID"
-// @Produce json
-// @Success 200 {object} api.APIResponse[domain.FilterFullResponse]
-// @Failure 400 {object} api.APIResponse[any]
-// @Failure 404 {object} api.APIResponse[any]
-// @Router /filters/{id} [get]
+// GetByID
+// @Summary      Get Filter by ID
+// @Tags         Filters
+// @Param        id path int true "Filter ID"
+// @Produce      json
+// @Success      200  {object}  api.APIResponse[FilterFullResponse]
+// @Failure      400  {object}  api.APIResponse[any]
+// @Failure      404  {object}  api.APIResponse[any]
+// @Router       /filters/{id} [get]
 func (h *FilterHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	id, err := h.parseID(r)
 	if err != nil {
@@ -91,11 +88,11 @@ func (h *FilterHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 }
 
 // Create @Summary Create a new Filter
-// @Description Yeni bir filtre oluşturur
+// @Description Create a new Filter
 // @Tags Filters
 // @Accept json
 // @Produce json
-// @Param body body domain.CreateFilterParams true "Filter Data"
+// @Param body body CreateFilterRequest true "Filter Data"
 // @Success 201 {object} api.APIResponse[any]
 // @Failure 400 {object} api.APIResponse[any]
 // @Failure 500 {object} api.APIResponse[any]
@@ -128,12 +125,12 @@ func (h *FilterHandler) Create(w http.ResponseWriter, r *http.Request) {
 }
 
 // Update @Summary Update a Filter
-// @Description Mevcut bir filtreyi günceller
+// @Description Update a Filter
 // @Tags Filters
 // @Accept json
 // @Produce json
 // @Param id path int true "Filter ID"
-// @Param body body domain.UpdateFilterParams true "Update Data"
+// @Param body body UpdateFilterRequest true "Update Data"
 // @Success 200 {object} api.APIResponse[any]
 // @Failure 400 {object} api.APIResponse[any]
 // @Failure 404 {object} api.APIResponse[any]
@@ -174,7 +171,7 @@ func (h *FilterHandler) Update(w http.ResponseWriter, r *http.Request) {
 }
 
 // Delete @Summary Delete a Filter
-// @Description ID'ye göre filtreyi siler
+// @Description ID Delete a Filter
 // @Tags Filters
 // @Param id path int true "Filter ID"
 // @Produce json
@@ -198,7 +195,6 @@ func (h *FilterHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Filter deleted successfully"))
 }
 
-// parseID - URL'den ID'yi okur ve uint'e çevirir
 func (h *FilterHandler) parseID(r *http.Request) (uint, error) {
 	id, err := strconv.ParseUint(chi.URLParam(r, "id"), 10, 32)
 	if err != nil || id == 0 {
@@ -207,13 +203,11 @@ func (h *FilterHandler) parseID(r *http.Request) (uint, error) {
 	return uint(id), nil
 }
 
-// isAdmin - Context'ten rolü okur, query param'a güvenmez
 func (h *FilterHandler) isAdmin(ctx context.Context) bool {
 	role, _ := ctx.Value(contextKeyRole).(string)
 	return role == "admin"
 }
 
-// handleError - Service hatalarını HTTP status kodlarına çevirir ve loglar
 func (h *FilterHandler) handleError(w http.ResponseWriter, r *http.Request, err error) {
 	switch {
 	case errors.Is(err, domain.ErrFilterNotFound):
@@ -222,9 +216,9 @@ func (h *FilterHandler) handleError(w http.ResponseWriter, r *http.Request, err 
 		api.WriteJSON(w, http.StatusBadRequest, api.ErrorResponse(err.Error()))
 	default:
 		h.logger.Error("unexpected error",
-			"method", r.Method,
-			"path", r.URL.Path,
-			"error", err,
+			zap.String("method", r.Method),
+			zap.String("path", r.URL.Path),
+			zap.Error(err),
 		)
 		api.WriteJSON(w, http.StatusInternalServerError, api.ErrorResponse("An internal error occurred"))
 	}

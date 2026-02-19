@@ -53,3 +53,9 @@ func WriteJSON(w http.ResponseWriter, status int, response any) {
 	w.WriteHeader(status)
 	_, _ = w.Write(buf)
 }
+
+type MessageOutput struct {
+	Body struct {
+		Message string `json:"message"`
+	}
+}

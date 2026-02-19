@@ -168,7 +168,7 @@ func (h *BannerHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Banner updated successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Banner updated successfully"))
 }
 
 // Delete /banners/{id}
@@ -192,5 +192,5 @@ func (h *BannerHandler) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Banner deleted successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Banner deleted successfully"))
 }
