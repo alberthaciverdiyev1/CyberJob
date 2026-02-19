@@ -156,7 +156,7 @@ func (h *CompanyCategoryHandler) Update(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Company Category updated successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Company Category updated successfully"))
 }
 
 // Delete DELETE /company-categories/{id}
@@ -180,5 +180,5 @@ func (h *CompanyCategoryHandler) Delete(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Company Category deleted successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Company Category deleted successfully"))
 }

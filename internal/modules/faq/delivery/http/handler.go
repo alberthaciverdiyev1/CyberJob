@@ -61,7 +61,7 @@ func (h *FaqHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 // @Accept json
 // @Produce json
 // @Param body body service.CreateFAQRequest true "FAQ Data"
-// @Success 201 {object} api.BaseResponse
+// @Success 201 {object} api.MessageResponse
 // @Router /faqs [post]
 func (h *FaqHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var req service.CreateFAQRequest
@@ -74,7 +74,8 @@ func (h *FaqHandler) Create(w http.ResponseWriter, r *http.Request) {
 		h.respondWithError(w, err)
 		return
 	}
-	api.WriteJSON(w, http.StatusCreated, api.SuccessResponse("FAQ created successfully", nil))
+	api.WriteJSON(w, http.StatusCreated, api.SuccessMessage("FAQ created successfully"))
+
 }
 
 // Update @Summary Update FAQ
@@ -83,7 +84,7 @@ func (h *FaqHandler) Create(w http.ResponseWriter, r *http.Request) {
 // @Param body body service.UpdateFAQRequest true "Update Data"
 // @Accept json
 // @Produce json
-// @Success 200 {object} api.BaseResponse
+// @Success 200 {object} api.MessageResponse
 // @Router /faqs/{id} [put]
 func (h *FaqHandler) Update(w http.ResponseWriter, r *http.Request) {
 	id, err := h.parseID(r)
@@ -103,13 +104,13 @@ func (h *FaqHandler) Update(w http.ResponseWriter, r *http.Request) {
 		h.respondWithError(w, err)
 		return
 	}
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("FAQ updated successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("FAQ updated successfully"))
 }
 
 // Delete @Summary Delete FAQ
 // @Tags FAQs
 // @Param id path int true "FAQ ID"
-// @Success 200 {object} api.BaseResponse
+// @Success 200 {object} api.MessageResponse
 // @Router /faqs/{id} [delete]
 func (h *FaqHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	id, err := h.parseID(r)
@@ -122,7 +123,7 @@ func (h *FaqHandler) Delete(w http.ResponseWriter, r *http.Request) {
 		h.respondWithError(w, err)
 		return
 	}
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("FAQ deleted successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("FAQ deleted successfully"))
 }
 
 func (h *FaqHandler) parseID(r *http.Request) (uint, error) {

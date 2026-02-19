@@ -206,7 +206,7 @@ func (h *CompanyHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Company updated successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Company updated successfully"))
 }
 
 // Delete DELETE /companies/{id}
@@ -229,5 +229,5 @@ func (h *CompanyHandler) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Company deleted successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Company deleted successfully"))
 }

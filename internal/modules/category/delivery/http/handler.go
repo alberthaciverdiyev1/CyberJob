@@ -22,7 +22,6 @@ func NewCategoryHandler(s domain.CategoryService) *CategoryHandler {
 // @Summary Create Category
 // @Tags Categories
 // @Param body body domain.CreateCategoryRequest true "Category Info"
-// @Success 201 {object} api.BaseResponse
 // @Router /categories [post]
 func (h *CategoryHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var req domain.CreateCategoryRequest
@@ -40,12 +39,11 @@ func (h *CategoryHandler) Create(w http.ResponseWriter, r *http.Request) {
 		api.WriteJSON(w, http.StatusInternalServerError, api.ErrorResponse(err.Error()))
 		return
 	}
-	api.WriteJSON(w, http.StatusCreated, api.SuccessResponse("Created", nil))
+	api.WriteJSON(w, http.StatusCreated, api.SuccessMessage("Created"))
 }
 
 // @Summary List All (Hierarchical)
 // @Tags Categories
-// @Success 200 {array} domain.CategoryResponse
 // @Router /categories [get]
 func (h *CategoryHandler) List(w http.ResponseWriter, r *http.Request) {
 	categories, err := h.service.GetAllWithChildren(r.Context())
@@ -58,7 +56,6 @@ func (h *CategoryHandler) List(w http.ResponseWriter, r *http.Request) {
 
 // @Summary List Simple (Flat)
 // @Tags Categories
-// @Success 200 {array} domain.CategoryResponse
 // @Router /categories/simple [get]
 func (h *CategoryHandler) ListSimple(w http.ResponseWriter, r *http.Request) {
 	categories, err := h.service.GetAll(r.Context())
@@ -72,7 +69,6 @@ func (h *CategoryHandler) ListSimple(w http.ResponseWriter, r *http.Request) {
 // @Summary Get Category
 // @Tags Categories
 // @Param id path int true "Category ID"
-// @Success 200 {object} domain.CategoryResponse
 // @Router /categories/{id} [get]
 func (h *CategoryHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	id, err := h.parseID(r)
@@ -93,7 +89,6 @@ func (h *CategoryHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 // @Tags Categories
 // @Param id path int true "Category ID"
 // @Param body body domain.UpdateCategoryRequest true "Update Info"
-// @Success 200 {object} api.BaseResponse
 // @Router /categories/{id} [put]
 func (h *CategoryHandler) Update(w http.ResponseWriter, r *http.Request) {
 	id, err := h.parseID(r)
@@ -113,13 +108,12 @@ func (h *CategoryHandler) Update(w http.ResponseWriter, r *http.Request) {
 		api.WriteJSON(w, http.StatusInternalServerError, api.ErrorResponse(err.Error()))
 		return
 	}
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Updated", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Updated"))
 }
 
 // @Summary Delete Category
 // @Tags Categories
 // @Param id path int true "Category ID"
-// @Success 200 {object} api.BaseResponse
 // @Router /categories/{id} [delete]
 func (h *CategoryHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	id, err := h.parseID(r)
@@ -132,7 +126,7 @@ func (h *CategoryHandler) Delete(w http.ResponseWriter, r *http.Request) {
 		api.WriteJSON(w, http.StatusInternalServerError, api.ErrorResponse(err.Error()))
 		return
 	}
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Deleted", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Deleted"))
 }
 
 func (h *CategoryHandler) parseID(r *http.Request) (uint, error) {

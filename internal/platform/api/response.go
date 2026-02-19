@@ -5,38 +5,51 @@ import (
 	"net/http"
 )
 
-type BaseResponse struct {
+type MessageResponse struct {
 	Success bool   `json:"success" example:"true"`
 	Message string `json:"message" example:"Operation successful"`
 }
 
 type APIResponse[T any] struct {
-	Success bool   `json:"success" example:"true"`
-	Message string `json:"message" example:"Operation successful"`
+	Success bool   `json:"success"`
+	Message string `json:"message"`
 	Data    T      `json:"data,omitempty"`
 }
 
-func SuccessResponse(message string, data interface{}) APIResponse[interface{}] {
-	return APIResponse[interface{}]{
+func SuccessResponse[T any](message string, data T) APIResponse[T] {
+	return APIResponse[T]{
 		Success: true,
 		Message: message,
 		Data:    data,
 	}
 }
 
-func ErrorResponse(message string) APIResponse[interface{}] {
-	return APIResponse[interface{}]{
+func SuccessMessage(message string) APIResponse[any] {
+	return APIResponse[any]{
+		Success: true,
+		Message: message,
+		Data:    nil,
+	}
+}
+
+func ErrorResponse(message string) APIResponse[any] {
+	return APIResponse[any]{
 		Success: false,
 		Message: message,
 		Data:    nil,
 	}
 }
 
-func WriteJSON(w http.ResponseWriter, status int, response interface{}) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	err := json.NewEncoder(w).Encode(response)
+func WriteJSON(w http.ResponseWriter, status int, response any) {
+	buf, err := json.Marshal(response)
 	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusInternalServerError)
+		_, _ = w.Write([]byte(`{"success":false,"message":"Internal server error"}`))
 		return
 	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
+	_, _ = w.Write(buf)
 }

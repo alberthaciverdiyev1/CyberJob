@@ -28,7 +28,7 @@ func NewPartnerHandler(s service.PartnerService) *PartnerHandler {
 // @Param name formData string true "Partner Name"
 // @Param link formData string true "Partner Link"
 // @Param image formData file true "Partner Image File"
-// @Success 201 {object} api.BaseResponse
+// @Success 201 {object} api.MessageResponse
 // @Router /partners [post]
 func (h *PartnerHandler) Create(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseMultipartForm(10 << 20); err != nil {
@@ -58,7 +58,7 @@ func (h *PartnerHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	api.WriteJSON(w, http.StatusCreated, api.SuccessResponse("Partner created successfully", nil))
+	api.WriteJSON(w, http.StatusCreated, api.SuccessMessage("Partner created successfully"))
 }
 
 // List @Summary List Partners
@@ -78,7 +78,7 @@ func (h *PartnerHandler) List(w http.ResponseWriter, r *http.Request) {
 // @Tags Partners
 // @Param id path int true "Partner ID"
 // @Param body body service.UpdatePartnerRequest true "Update Info"
-// @Success 200 {object} api.BaseResponse
+// @Success 200 {object} api.MessageResponse
 // @Router /partners/{id} [put]
 func (h *PartnerHandler) Update(w http.ResponseWriter, r *http.Request) {
 	id, err := h.parseID(r)
@@ -97,13 +97,13 @@ func (h *PartnerHandler) Update(w http.ResponseWriter, r *http.Request) {
 		h.respondWithError(w, err)
 		return
 	}
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Partner updated successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Partner updated successfully"))
 }
 
 // Delete @Summary Delete Partner
 // @Tags Partners
 // @Param id path int true "Partner ID"
-// @Success 200 {object} api.BaseResponse
+// @Success 200 {object} api.MessageResponse
 // @Router /partners/{id} [delete]
 func (h *PartnerHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	id, err := h.parseID(r)
@@ -116,7 +116,7 @@ func (h *PartnerHandler) Delete(w http.ResponseWriter, r *http.Request) {
 		h.respondWithError(w, err)
 		return
 	}
-	api.WriteJSON(w, http.StatusOK, api.SuccessResponse("Partner deleted successfully", nil))
+	api.WriteJSON(w, http.StatusOK, api.SuccessMessage("Partner deleted successfully"))
 }
 
 func (h *PartnerHandler) parseID(r *http.Request) (uint, error) {
