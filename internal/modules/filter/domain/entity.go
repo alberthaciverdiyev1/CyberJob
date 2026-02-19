@@ -1,6 +1,8 @@
 package domain
 
-import "github.com/alberthaciverdiyev1/CyberJob/internal/platform/db"
+import (
+	"github.com/alberthaciverdiyev1/CyberJob/internal/platform/db"
+)
 
 type Filter struct {
 	db.BaseEntity
