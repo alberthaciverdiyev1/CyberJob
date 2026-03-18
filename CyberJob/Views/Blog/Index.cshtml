@@ -1,0 +1,232 @@
+<style>
+    :root {
+        --blog-bg: #ffffff;
+        --blog-card: #ffffff;
+        --blog-title: #0B2036;
+        --blog-text: #64748B;
+        --hero-gradient: linear-gradient(59.74deg, rgba(255, 255, 255, 0.38) 69.22%, rgba(0, 149, 246, 0.38) 98.77%);
+    }
+
+    .dark {
+        --blog-bg: #000000;
+        --blog-card: #1A2332;
+        --blog-title: #ffffff;
+        --blog-text: #94A3B8;
+        --hero-gradient: linear-gradient(59.74deg, rgba(0, 0, 0, 0.38) 69.22%, rgba(0, 149, 246, 0.38) 98.77%);
+    }
+
+    .blog-page {
+        background-color: var(--blog-bg);
+        min-height: 100vh;
+        padding-top: 40px; /* Header ilə Hero arası məsafə */
+        padding-bottom: 100px;
+        transition: all 0.3s ease;
+    }
+
+    /* HERO BOX - Konteyner daxilində mərkəzlənmiş */
+    .hero-box {
+        width: 100%;
+        max-width: 1244px; /* Sənin verdiyin ölçü */
+        height: 272px; /* Sənin verdiyin ölçü */
+        margin: 0 auto 60px; /* Səhifəni mərkəzləyir və aşağıdakı gridlə məsafə qoyur */
+        border-radius: 10px;
+        background: var(--hero-gradient);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20px;
+        border: 1px solid rgba(0, 149, 246, 0.1);
+        box-sizing: border-box;
+    }
+
+    .dark .hero-box {
+        border-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-box h1 {
+        font-size: 40px;
+        font-weight: 800;
+        color: var(--blog-title);
+        margin-bottom: 12px;
+        text-align: center;
+    }
+
+    .hero-box p {
+        font-size: 16px;
+        color: var(--blog-text);
+        text-align: center;
+        max-width: 800px;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+
+    /* Axtarış Paneli */
+    .hero-search {
+        width: 100%;
+        max-width: 750px;
+        background: white;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        padding: 6px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .dark .hero-search {
+        background: #1A2332;
+    }
+
+    .hero-search input {
+        flex: 1;
+        border: none;
+        outline: none;
+        background: transparent;
+        padding: 0 20px;
+        color: var(--blog-title);
+        font-size: 15px;
+    }
+
+    .btn-search {
+        background: #00D4AA;
+        color: white;
+        height: 100%;
+        padding: 0 35px;
+        border-radius: 10px;
+        font-weight: 700;
+        transition: 0.3s;
+    }
+
+    /* Bloq Grid */
+    .blog-container {
+        max-width: 1244px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+    }
+
+    .blog-card {
+        background: var(--blog-card);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        transition: 0.3s;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .blog-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 25px;
+    }
+
+    .meta {
+        display: flex;
+        gap: 15px;
+        font-size: 12px;
+        color: #94A3B8;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .blog-card h3 {
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--blog-title);
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
+
+    .blog-card p {
+        font-size: 14px;
+        color: var(--blog-text);
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .more-link {
+        color: var(--blog-title);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .btn-load-more {
+        display: block;
+        margin: 60px auto 0;
+        padding: 12px 45px;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        background: white;
+        color: #475569;
+        font-weight: 700;
+        transition: 0.3s;
+    }
+
+    .dark .btn-load-more {
+        background: #1A2332;
+        color: white;
+        border-color: #2D3748;
+    }
+</style>
+
+<main class="blog-page">
+
+    <div class="blog-container">
+        <div class="hero-box">
+            <h1>Texnologiyanın Nəbzini Tutun</h1>
+            <p>Texnologiya dünyasında öz yerinizi tapmaq, inkişaf etmək və uğur qazanmaq üçün ekspert məsləhətləri və
+                faydalı məqalələr.</p>
+
+            <div class="hero-search">
+                <iconify-icon icon="ph:magnifying-glass-bold"
+                              style="margin-left: 15px; color: #94A3B8; font-size: 22px;"></iconify-icon>
+                <input type="text" placeholder="Mövzu və ya açar söz axtar...">
+                <button class="btn-search">Axtar</button>
+            </div>
+        </div>
+
+        <div class="blog-grid">
+            @foreach (var blog in Model)
+            {
+                <article class="blog-card">
+                    <img src="@blog.Image" alt="Blog Image">
+                    <div class="card-body">
+                        <div class="meta">
+                            <span class="flex items-center gap-1"><iconify-icon
+                                    icon="ph:calendar-blank-bold"></iconify-icon>@blog.CreatedAt</span>
+                            <span class="flex items-center gap-1"><iconify-icon
+                                    icon="ph:eye-bold"></iconify-icon> @blog.ReadCount</span>
+                        </div>
+                        <h3>@blog.Title</h3>
+                        <p>@blog.Description</p>
+                        <a asp-controller="Blog" asp-action="Details" asp-route-id="@blog.Id" class="more-link">Daha
+                            ətraflı
+                            <iconify-icon icon="ph:arrow-right-bold"></iconify-icon>
+                        </a>
+                    </div>
+                </article>
+            }
+        </div>
+
+        <button class="btn-load-more">Daha çox</button>
+    </div>
+</main>
+

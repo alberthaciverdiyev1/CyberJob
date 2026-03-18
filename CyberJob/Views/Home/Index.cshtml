@@ -1,0 +1,373 @@
+﻿@using CyberJob.Helpers
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0B2036;
+        margin: 0;
+        padding: 0;
+    }
+
+    .banner-section {
+        padding: 40px 0;
+        background-color: #f3f4f6;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .banner-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 380px;
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+    }
+
+    .banner-slide {
+        width: 680px;
+        height: 335px;
+        border-radius: 10px;
+        position: absolute;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        object-fit: cover;
+    }
+
+    .slide-main {
+        z-index: 30;
+        transform: scale(1) translateX(0);
+        box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.25);
+        opacity: 1;
+        filter: brightness(1);
+    }
+
+    .slide-left {
+        z-index: 10;
+        left: 50%;
+        transform: translateX(-85%) scale(0.85);
+        opacity: 0.7;
+        filter: brightness(0.8) blur(1px);
+    }
+
+    .slide-right {
+        z-index: 10;
+        right: 50%;
+        transform: translateX(85%) scale(0.85);
+        opacity: 0.7;
+        filter: brightness(0.8) blur(1px);
+    }
+
+    .card-base {
+        width: 301.5px;
+        height: 135.1px;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .premium-card-border {
+        background: linear-gradient(112.15deg, #C29D55 1.31%, #FFF3C9 21.23%, #C29D55 59.14%, #FFF3C9 88.73%);
+        padding: 3px;
+        border-radius: 17px;
+    }
+
+    .latest-card-border {
+        border: 1px solid #E5E7EB;
+        border-radius: 12px;
+        background: white;
+    }
+
+    .card-inner {
+        background: white;
+        border-radius: 14px;
+        padding: 12px 16px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .premium-badge-gradient {
+        background: linear-gradient(107.38deg, #E9CC81 7.1%, #B7872B 92.73%);
+    }
+</style>
+
+@{
+    int bannerCount = 0;
+}
+<main class="flex-grow bg-cyberMain dark:bg-black transition-colors duration-500">
+    <section class="relative pt-24 pb-32 px-8 overflow-hidden">
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="max-w-4xl mb-12">
+                <h1 style="font-weight: 700; font-size: 48px; line-height: 52px; color: #E6E6E6;" class="mb-4">
+                    Yeni imkanlar. Yeni karyera. Yeni sən!
+                </h1>
+                <p style="font-weight: 400; font-size: 24px; line-height: 32px; color: #CCCCCC;">
+                    Gələcəyin IT karyerası buradan başlayır.
+                </p>
+            </div>
+
+            <div style="width: 1009.47px; height: 74.83px;"
+                 class="bg-white dark:bg-[#0a0a0a] rounded-[20px] p-2 flex items-center shadow-2xl transition-all">
+                <div class="flex-1 flex items-center px-6">
+                    <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-2xl mr-3"></iconify-icon>
+                    <input type="text" placeholder="Şirkət axtar..."
+                           class="w-full py-4 text-gray-700 dark:text-gray-300 focus:outline-none text-lg font-medium bg-transparent placeholder:text-gray-400">
+                </div>
+                <button
+                    class="bg-cyberGreen text-white font-bold px-12 h-full rounded-[16px] transition-all hover:bg-[#00bc96] active:scale-95 text-lg">
+                    Axtar
+                </button>
+            </div>
+
+            <div style="width: 730.60px; height: 54px; margin-top: 24px; margin-left: 122px;"
+                 class="flex items-center gap-[23px] overflow-hidden">
+                @if (Model.Categories is not null)
+                {
+                    @foreach (var bCat in Model.Categories)
+                    {
+                        <a href="#"
+                           class="flex items-center justify-center border border-white rounded-[8px] text-white text-[15px] font-medium hover:bg-white hover:text-cyberMain transition-all shrink-0 px-6 h-full">@bCat.Name</a>
+                    }
+                }
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="flex flex-col items-center bg-white dark:bg-cyberMain font-sans text-black dark:text-white rounded-t-[40px] transition-colors duration-500">
+
+        <div class="banner-section dark:bg-cyberDark w-full transition-colors duration-500">
+            <div class="banner-wrapper" id="slider-container">
+                @foreach (var banner in Model.Banners)
+                {
+                    @if (banner.Location == "medium")
+                    {
+                        string slideClass = "";
+
+                        if (bannerCount == 0) slideClass = "slide-left";
+                        else if (bannerCount == 1) slideClass = "slide-right";
+                        else if (bannerCount == 2) slideClass = "slide-main";
+                        else slideClass = "slide-hidden";
+
+                        <img src="@banner.Image"
+                             class="banner-slide @slideClass"
+                             alt="">
+
+                        bannerCount++;
+                    }
+                }
+            </div>
+            <h2 class="text-[32px] font-bold mt-10 text-center dark:text-white">Hansı sahə üzrə axtarırsan?</h2>
+        </div>
+
+        <div class="w-full max-w-[1245px] px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px] mt-10 mb-24">
+            @if (Model.Categories != null)
+            {
+                @foreach (var category in Model.Categories)
+                {
+                    <div
+                        class="w-full h-[100px] border border-gray-100 dark:border-gray-800 shadow-sm rounded-[16px] flex flex-col items-center justify-center gap-2 hover:border-[#00D4AA] cursor-pointer bg-white dark:bg-cyberDark group transition-all">
+
+                        @if (!string.IsNullOrEmpty(category.Icon))
+                        {
+                            <i class="@category.Icon text-3xl text-cyberGreen"></i>
+                        }
+                        else
+                        {
+                            <i class="fa-solid fa-layer-group text-3xl text-cyberGreen"></i>
+                        }
+
+                        <span class="text-[14px] font-medium text-gray-700 dark:text-gray-300">
+                          @category.Name
+                      </span>
+                    </div>
+                }
+            }
+        </div>
+        <h2 class="text-[32px] font-bold mb-12 dark:text-white">Premium elanlar</h2>
+        <div id="premium-ads-container"
+             class="w-full max-w-[1245px] px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px] mb-20 justify-items-center">
+            @foreach (var vacancy in Model.PremiumVacancies)
+            {
+                <div class="premium-card-border card-base group hover:-translate-y-1 transition-all">
+                    <div
+                        class="card-inner dark:bg-cyberDark transition-colors border border-gray-100 dark:border-gray-800">
+                        <div
+                            class="premium-badge-gradient absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-0.5 rounded-full text-white text-[10px] font-bold uppercase z-10 shadow-sm">
+                            Premium
+                        </div>
+                        <div class="flex items-start gap-2.5 overflow-hidden">
+                            <div
+                                class="w-10 h-10 bg-cyberMain rounded-md flex items-center justify-center shrink-0 text-white font-bold text-[9px]">
+                                @vacancy.Company.Name
+                            </div>
+                            <div class="min-w-0">
+                                <h3
+                                    class="text-[14px] font-bold text-black dark:text-white leading-tight truncate">
+                                    @vacancy.Name</h3>
+                                <p class="text-[12px] text-[#2D9CDB] font-semibold">@vacancy.Company.Name</p></div>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="w-full h-[1px] bg-gray-100 dark:bg-gray-800 mb-2 transition-colors"></div>
+                            <div class="flex justify-between items-center">
+                                <div
+                                    class="text-gray-400 text-[10px] font-medium">@TimeHelper.ToRelativeDate(vacancy.CreatedAt) • @vacancy.ViewCount</div>
+                                <div class="text-[#B7872B] font-bold text-[12px]">@vacancy.Salary</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <h2 class="text-[32px] font-bold mb-12 dark:text-white">Ən son vakansiyalar</h2>
+        <div id="latest-jobs-container"
+             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px] mb-12 w-full max-w-[1242px]">
+            @foreach (var vacancy in Model.LatestVacancies)
+            {
+                <div
+                    class="latest-card-border dark:bg-cyberDark dark:border-gray-800 card-base p-4 transition-all hover:-translate-y-1 shadow-sm rounded-xl">
+                    <div class="flex items-start gap-3 overflow-hidden">
+                        <div
+                            class="w-10 h-10 bg-cyberMain rounded-md flex items-center justify-center text-white font-bold text-[9px]">
+                            @vacancy.Company.Name
+                        </div>
+                        <div class="min-w-0"><h3 class="text-[14px] font-bold text-black dark:text-white truncate">
+                                @vacancy.Name       </h3>
+                            <p class="text-[12px] text-[#2D9CDB] font-semibold">@vacancy.Company.Name</p></div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="w-full h-[1px] bg-gray-100 dark:bg-gray-800 mb-2 transition-colors"></div>
+                        <div class="flex justify-between items-center">
+                            <div
+                                class="text-gray-400 text-[10px] font-medium">@TimeHelper.ToRelativeDate(vacancy.CreatedAt) • @vacancy.ViewCount</div>
+                            <div class="text-cyberMain dark:text-[#00D4AA] font-bold text-[12px]">@vacancy.Salary</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <button
+            class="px-16 py-4 bg-cyberMain text-white font-bold rounded-[8px] mb-24 transition-colors hover:bg-black">
+            Daha çox
+        </button>
+
+        <div class="w-full max-w-[1245px] px-4">
+            <h2 class="text-center text-[32px] font-bold mb-12 text-cyberMain dark:text-white uppercase">Bizi seçən
+                şirkətlər!</h2>
+            <div class="flex justify-between items-center gap-12 mb-24 flex-wrap">
+                @if (Model.Partners != null)
+                {
+                    @foreach (var partner in Model.Partners)
+                    {
+                        <div class="flex items-center"><img src="@partner.Image" class="h-10 w-auto object-contain"
+                                                            alt=""></div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="relative w-full flex flex-col items-center z-10 pb-24">
+            <h2 class="text-xl font-bold mb-6 text-cyberMain dark:text-white uppercase tracking-widest">Statistika</h2>
+            <div
+                class="inline-flex bg-[#E8E8E8] dark:bg-cyberMain p-1 rounded-xl mb-16 border dark:border-gray-800 transition-colors relative z-20">
+                <button class="px-10 py-2 bg-[#278B8A] text-white rounded-lg text-sm font-semibold shadow-sm">İzləyici
+                </button>
+                <button
+                    class="px-10 py-2 text-gray-500 dark:text-gray-400 text-sm font-semibold hover:text-cyberMain dark:hover:text-white transition-all">
+                    Vakansiya
+                </button>
+            </div>
+
+            <div class="relative w-full max-w-5xl flex justify-between items-center px-10 py-10 mb-16">
+                <img src="/assets/images/vector.png" alt=""
+                     class="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full h-auto opacity-70 pointer-events-none z-0">
+                <img src="/assets/images/vector2.png" alt=""
+                     class="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full h-auto pointer-events-none z-0">
+
+                <div class="text-center z-10 relative"><p
+                        class="text-[56px] font-black text-cyberMain dark:text-white mb-2 leading-none">143</p>
+                    <p class="text-sm font-medium text-gray-400 uppercase tracking-widest">Günlük</p></div>
+                <div class="text-center z-10 relative"><p
+                        class="text-[56px] font-black text-cyberMain dark:text-white mb-2 leading-none">423</p>
+                    <p class="text-sm font-medium text-gray-400 uppercase tracking-widest">Həftəlik</p></div>
+                <div class="text-center z-10 relative"><p
+                        class="text-[56px] font-black text-cyberMain dark:text-white mb-2 leading-none">777</p>
+                    <p class="text-sm font-medium text-gray-400 uppercase tracking-widest">Aylıq</p></div>
+                <div class="text-center z-10 relative"><p
+                        class="text-[56px] font-black text-cyberMain dark:text-white mb-2 leading-none">434</p>
+                    <p class="text-sm font-medium text-gray-400 uppercase tracking-widest">Ümumi</p></div>
+            </div>
+
+            <div class="w-full flex justify-center px-4 mt-12">
+                <div style="width: 1427px; height: 280px; border-radius: 10px; overflow: hidden;"
+                     class="shadow-lg relative group">
+                    @foreach (var banner in Model.Banners)
+                    {
+                        @if (banner.Location == "large")
+                        {
+                            <img src="@banner.Image"
+                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                 alt="">
+                        }
+                    }
+
+                    <div class="absolute inset-0 bg-black/5 pointer-events-none"></div>
+                </div>
+            </div>
+        </div>
+
+        <section
+            class="w-full max-w-[1245px] mx-auto px-4 py-24 flex flex-col md:flex-row justify-between items-center gap-16 mb-12">
+            <div class="flex-1">
+                <h2 class="text-[54px] font-[800] text-cyberMain dark:text-white leading-[1.1] mb-4 text-center md:text-left tracking-tight transition-colors">
+                    Karyera yolunda<br>addımını bizlə at!</h2>
+                <p class="text-[20px] text-gray-400 dark:text-gray-500 font-medium tracking-wide text-center md:text-left">
+                    Uğurun kodunu bizdə aç</p>
+            </div>
+            <div class="w-full max-w-[500px]">
+                <div class="flex flex-col gap-5">
+                    <div class="relative">
+              <span class="absolute inset-y-0 left-6 flex items-center text-gray-400">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path
+                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline
+                        points="22,6 12,13 2,6"/></svg>
+              </span>
+                        <input type="email" placeholder="Emailini daxil et"
+                               class="w-full py-6 pl-16 pr-8 border border-gray-200 dark:border-gray-800 rounded-2xl text-lg focus:outline-none focus:border-[#278B8A] transition-all bg-white dark:bg-cyberDark dark:text-white shadow-sm placeholder:text-gray-300">
+                    </div>
+                    <button
+                        class="w-full py-6 bg-[#278B8A] text-white font-bold rounded-2xl text-[20px] hover:bg-[#1f6e6d] transition-all shadow-lg active:scale-95">
+                        Abunə ol
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </section>
+</main>
+
+
+<script>
+    function initSlider() {
+        const slides = document.querySelectorAll('.banner-slide');
+        if (slides.length === 0) return;
+        let currentPositions = ['slide-left', 'slide-right', 'slide-main'];
+        setInterval(() => {
+            currentPositions.unshift(currentPositions.pop());
+            slides.forEach((slide, index) => {
+                slide.className = 'banner-slide ' + currentPositions[index];
+            });
+        }, 3000);
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initSlider();
+    });
+</script>

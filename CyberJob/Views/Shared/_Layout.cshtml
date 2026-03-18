@@ -1,0 +1,152 @@
+﻿@using Microsoft.EntityFrameworkCore.Query
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyberMain: '#0B2036',
+            cyberGreen: '#009689',
+            promoGreen: '#00FF00'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F8FAFB;
+      margin: 0;
+    }
+
+    .company-card {
+      transition: all 0.3s ease;
+      border: 1px solid #E5E7EB;
+    }
+
+    .company-card:hover {
+      transform: translateY(-5px);
+      border-color: #009689;
+    }
+  </style>
+  <title>CyberJob</title>
+</head>
+<body class="dark:bg-black text-cyberMain dark:text-white antialiased transition-colors duration-500">
+@await Html.PartialAsync("_Header")
+
+
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0B2036;
+    margin: 0;
+    padding: 0;
+  }
+
+  .banner-section {
+    padding: 40px 0;
+    background-color: #f3f4f6;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .banner-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 380px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .banner-slide {
+    width: 680px;
+    height: 335px;
+    border-radius: 10px;
+    position: absolute;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover;
+  }
+
+  .slide-main {
+    z-index: 30;
+    transform: scale(1) translateX(0);
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.25);
+    opacity: 1;
+    filter: brightness(1);
+  }
+
+  .slide-left {
+    z-index: 10;
+    left: 50%;
+    transform: translateX(-85%) scale(0.85);
+    opacity: 0.7;
+    filter: brightness(0.8) blur(1px);
+  }
+
+  .slide-right {
+    z-index: 10;
+    right: 50%;
+    transform: translateX(85%) scale(0.85);
+    opacity: 0.7;
+    filter: brightness(0.8) blur(1px);
+  }
+
+  .card-base {
+    width: 301.5px;
+    height: 135.1px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .premium-card-border {
+    background: linear-gradient(112.15deg, #C29D55 1.31%, #FFF3C9 21.23%, #C29D55 59.14%, #FFF3C9 88.73%);
+    padding: 3px;
+    border-radius: 17px;
+  }
+
+  .latest-card-border {
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    background: white;
+  }
+
+  .card-inner {
+    background: white;
+    border-radius: 14px;
+    padding: 12px 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .premium-badge-gradient {
+    background: linear-gradient(107.38deg, #E9CC81 7.1%, #B7872B 92.73%);
+  }
+</style>
+
+<main class="flex-grow bg-cyberMain dark:bg-black transition-colors duration-500">
+  @RenderBody()
+</main>
+
+@await Html.PartialAsync("_Footer")
+</body>
+</html>
