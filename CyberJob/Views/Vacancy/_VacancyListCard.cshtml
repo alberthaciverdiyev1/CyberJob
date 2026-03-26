@@ -1,0 +1,55 @@
+﻿@using CyberJob.DTOs
+@model IEnumerable<VacancyListDto>
+@{
+    int i = 0;
+}
+
+@foreach (VacancyListDto vacancy in Model)
+{
+    <a href="/vacancies/@vacancy.Id" class="bg-white dark:bg-zinc-900 shadow-sm border border-gray-50 dark:border-zinc-800 flex items-center justify-between px-6 transition-all hover:border-[#00D4AA] hover:shadow-md cursor-pointer w-full block decoration-none"
+           style="min-height: 115px; border-radius: 24px; margin-bottom: 16px;">
+
+        <div class="flex items-center gap-6">
+            <div class="flex items-center justify-center overflow-hidden shrink-0 border border-gray-100"
+                 style="width: 76.44px; height: 75.56px; border-radius: 7px;">
+                <img src="@vacancy.Company.Logo" class="w-full h-full object-contain" alt="@vacancy.Company.Name">
+            </div>
+
+            <div class="flex flex-col justify-center">
+                <h3 class="font-bold text-[22px] dark:text-white leading-tight mb-1">@vacancy.Name</h3>
+                <p class="text-[#95A1B0] font-semibold text-[18px] flex items-center gap-2">
+                    @vacancy.Company.Name
+                    @if (vacancy.Company.IsVerified)
+                    {
+                        <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB]"></iconify-icon>
+                    }
+                    <span class="font-normal">@vacancy.CityName</span>
+                </p>
+                <div class="flex items-center gap-5 text-[15px] text-[#95A1B0] mt-1">
+                    <span class="flex items-center gap-1.5">
+                        <iconify-icon icon="ph:clock-light" class="text-xl"></iconify-icon>
+                        @vacancy.CreatedAt.ToString("dd.MM.yyyy")
+                    </span>
+                    <span class="flex items-center gap-1.5">
+                        <iconify-icon icon="ph:eye-light" class="text-xl"></iconify-icon>
+                        @vacancy.ViewCount baxış
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-right shrink-0">
+            <p class="text-[#278B8A] font-bold text-[19px]">@vacancy.Salary</p>
+        </div>
+    </a>
+
+    if (i == 4 || i == 14 || i == 29 || i == 44 || i == 59)
+    {
+        <div class="my-6 overflow-hidden w-full" style="height: 180px; border-radius: 24px;">
+            <img src="~/images/banner.jpg" alt="Reklam" class="w-full h-full object-cover">
+            </div>
+        }
+
+        i++;
+    }
+   

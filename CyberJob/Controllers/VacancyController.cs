@@ -16,22 +16,19 @@ public class VacancyController(
     public async Task<IActionResult> Index(VacancyFilterParams @params)
     {
         var vacancies = await vacancyService.GetListAsync(@params);
-        var banners = await bannerService.GetListAsync();
-        var filters = await filterService.GetFilterGroupAsync();
-        var categories = await categoryService.GetParentsWithChildrenAsync();
+
+        if (Request.Headers.ContainsKey("HX-Request"))
+        {
+            return PartialView("_VacancyListCard", vacancies);
+        }
 
         var model = new VacancyIndexVM
         {
             Vacancies = vacancies,
-            Banners = banners,
-            Filters = filters,
-            Categories = categories
+            Banners = await bannerService.GetListAsync(),
+            Filters = await filterService.GetFilterGroupAsync(@params.Lang),
+            Categories = await categoryService.GetParentsWithChildrenAsync(@params.Lang)
         };
-
-        if (Request.Headers.ContainsKey("HX-Request"))
-        {
-            return PartialView("_VacancyList", model.Vacancies);
-        }
 
         return View(model);
     }

@@ -48,7 +48,7 @@ public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params
         Company = new VacancyCompanyDto
         {
             Name = v.Company?.Name,
-            Logo = v.Company?.Logo,
+            Logo = v.Company?.Logo.ToAdminUrl(),
             IsVerified = v.Company?.IsVerified ?? false
         }
     }).ToList();

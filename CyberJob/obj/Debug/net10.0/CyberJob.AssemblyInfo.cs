@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CyberJob")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b656eccde93dacdc7c0be33465072a889b5933a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7413d5dc49928fcacd437474bda46eb8e2494bb")]
 [assembly: System.Reflection.AssemblyProductAttribute("CyberJob")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CyberJob")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
