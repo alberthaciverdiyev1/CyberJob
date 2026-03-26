@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "5a/D9BqOhf0=",
+  "dgSpecHash": "S/dP4L+I8Pc=",
   "success": true,
-  "projectFilePath": "/home/albert/Workspace/CyberJob/CyberJob/CyberJob.csproj",
+  "projectFilePath": "C:\\Users\\Albert\\Downloads\\YDRAY-Archive\\CyberJob\\CyberJob\\CyberJob.csproj",
   "expectedPackageFiles": [
-    "/home/albert/.nuget/packages/microsoft.entityframeworkcore/10.0.0/microsoft.entityframeworkcore.10.0.0.nupkg.sha512",
-    "/home/albert/.nuget/packages/microsoft.entityframeworkcore.abstractions/10.0.0/microsoft.entityframeworkcore.abstractions.10.0.0.nupkg.sha512",
-    "/home/albert/.nuget/packages/microsoft.entityframeworkcore.analyzers/10.0.0/microsoft.entityframeworkcore.analyzers.10.0.0.nupkg.sha512",
-    "/home/albert/.nuget/packages/microsoft.entityframeworkcore.relational/10.0.0/microsoft.entityframeworkcore.relational.10.0.0.nupkg.sha512",
-    "/home/albert/.nuget/packages/npgsql/10.0.0/npgsql.10.0.0.nupkg.sha512",
-    "/home/albert/.nuget/packages/npgsql.entityframeworkcore.postgresql/10.0.0/npgsql.entityframeworkcore.postgresql.10.0.0.nupkg.sha512"
+    "C:\\Users\\Albert\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.0\\microsoft.entityframeworkcore.10.0.0.nupkg.sha512",
+    "C:\\Users\\Albert\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.0\\microsoft.entityframeworkcore.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\Albert\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\10.0.0\\microsoft.entityframeworkcore.analyzers.10.0.0.nupkg.sha512",
+    "C:\\Users\\Albert\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\10.0.0\\microsoft.entityframeworkcore.relational.10.0.0.nupkg.sha512",
+    "C:\\Users\\Albert\\.nuget\\packages\\npgsql\\10.0.0\\npgsql.10.0.0.nupkg.sha512",
+    "C:\\Users\\Albert\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\10.0.0\\npgsql.entityframeworkcore.postgresql.10.0.0.nupkg.sha512"
   ],
   "logs": []
 }

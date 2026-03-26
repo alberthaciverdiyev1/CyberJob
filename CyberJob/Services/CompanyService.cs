@@ -1,5 +1,6 @@
 using CyberJob.Database;
 using CyberJob.Helpers;
+using CyberJob.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CyberJob.Services;
@@ -7,7 +8,7 @@ namespace CyberJob.Services;
 public class CompanyService(AppDbContext context)
 {
 
-    public async Task<(IEnumerable<object> Items, int TotalCount)> GetPagedListAsync(string? search, int page, int pageSize)
+    public async Task<(IEnumerable<dynamic> Items, int TotalCount)> GetPagedListAsync(string? search, int? page, int? pageSize)
     {
         var query = context.Companies
             .AsNoTracking()
@@ -20,24 +21,29 @@ public class CompanyService(AppDbContext context)
 
         int totalCount = await query.CountAsync();
 
-        var items = await query
-            .OrderByDescending(c => c.Id)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .Select(c => new
-            {
-                c.Id,
-                c.Name,
-                Logo = c.Logo.ToAdminUrl(), 
-                c.IsVerified,
-                c.IsActive,
-                VacancyCount = c.Vacancies.Count 
-            })
-            .ToListAsync();
+        var orderedQuery = query.OrderByDescending(c => c.Id);
 
-        return (items, totalCount);
+        IQueryable<Company> pagedQuery = orderedQuery;
+        if (page.HasValue && pageSize.HasValue)
+        {
+            pagedQuery = orderedQuery
+                .Skip((page.Value - 1) * pageSize.Value)
+                .Take(pageSize.Value);
+        }
+
+        var items = await pagedQuery.Select(c => new
+        {
+            c.Id,
+            c.Name,
+            Logo = c.Logo.ToAdminUrl(),
+            c.IsVerified,
+            c.IsActive,
+            VacancyCount = c.Vacancies.Count
+        })
+        .ToListAsync();
+
+        return (Items: items, TotalCount: totalCount);
     }
-    
     public async Task<object?> GetDetailsAsync(int id, string lang = "az")
     {
         var company = await context.Companies
@@ -61,7 +67,7 @@ public class CompanyService(AppDbContext context)
             company.IsVerified,
             company.CreatedAt,
             company.CompanyCategoryId,
-            CategoryName = company.Category?.Name.Translate(lang) ?? "" 
+            CategoryName = company.Category?.Name.Translate(lang) ?? ""
         };
     }
 }

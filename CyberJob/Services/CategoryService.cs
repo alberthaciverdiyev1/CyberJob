@@ -2,48 +2,48 @@ using Microsoft.EntityFrameworkCore;
 using CyberJob.Database;
 using CyberJob.Models;
 using CyberJob.Helpers;
+using CyberJob.DTOs; 
 
 namespace CyberJob.Services;
 
 public class CategoryService(AppDbContext context)
 {
-
-    public async Task<object> GetOnlyParentsAsync(string lang = "az")
+    public async Task<List<CategoryDto>> GetOnlyParentsAsync(string lang = "az")
     {
         var parents = await context.Categories
             .AsNoTracking()
-            .Where(c => c.ParentId == null) 
+            .Where(c => c.ParentId == null)
             .OrderBy(c => c.Id)
             .ToListAsync();
 
-        return parents.Select(c => new
+        return parents.Select(c => new CategoryDto
         {
-            c.Id,
+            Id = c.Id,
             Name = c.Name.Translate(lang),
-            c.Icon
+            Icon = c.Icon
         }).ToList();
     }
 
-    public async Task<object> GetParentsWithChildrenAsync(string lang = "az")
+    public async Task<List<CategoryDto>> GetParentsWithChildrenAsync(string lang = "az")
     {
         var categories = await context.Categories
-            .Include(c => c.SubCategories) 
+            .Include(c => c.SubCategories)
             .AsNoTracking()
-            .Where(c => c.ParentId == null) 
+            .Where(c => c.ParentId == null)
             .OrderBy(c => c.Id)
             .ToListAsync();
 
-        return categories.Select(c => new
+        return categories.Select(c => new CategoryDto
         {
-            c.Id,
+            Id = c.Id,
             Name = c.Name.Translate(lang),
-            c.Icon,
-            Children = c.SubCategories.Select(s => new
+            Icon = c.Icon,
+            SubCategories = c.SubCategories.Select(s => new CategoryDto
             {
-                s.Id,
+                Id = s.Id,
                 Name = s.Name.Translate(lang),
-                s.Icon,
-                s.ParentId
+                Icon = s.Icon,
+                ParentId = s.ParentId
             }).ToList()
         }).ToList();
     }

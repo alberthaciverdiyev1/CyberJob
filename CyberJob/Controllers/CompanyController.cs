@@ -4,19 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 namespace CyberJob.Controllers;
 
 [Route("companies")]
-
 public class CompanyController(CompanyService service) : Controller
 {
     [HttpGet("")]
     public async Task<IActionResult> Index(string? search, int page = 1)
     {
-        int pageSize = 12; 
-        var result = await service.GetPagedListAsync(search, page, pageSize);
+        const int pageSize = 12;
 
-        ViewBag.TotalPages = (int)Math.Ceiling(result.TotalCount / (double)pageSize);
+        var (items, totalCount) = await service.GetPagedListAsync(search, page, pageSize);
+
+        ViewBag.TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
         ViewBag.CurrentPage = page;
         ViewBag.Search = search;
 
-        return View(result.Items);
+        if (Request.Headers.ContainsKey("HX-Request"))
+        {
+            return PartialView("_CompanyCard", items);
+        }
+
+        return View(items);
     }
 }

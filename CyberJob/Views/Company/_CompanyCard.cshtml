@@ -1,0 +1,34 @@
+﻿@model dynamic
+
+@foreach (var company in Model)
+{
+    <div class="company-card">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-lg p-2 shrink-0 border border-gray-50">
+                <img src="@company.Logo" alt="@company.Name" class="max-w-full max-h-full object-contain">
+            </div>
+
+            <div class="min-w-0">
+                <div class="flex items-center gap-1">
+                    <h3 class="font-[900] text-[14px] text-[#0B2036] leading-tight truncate">@company.Name</h3>
+                    @if (company.IsVerified)
+                    {
+                        <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] text-[14px] shrink-0"></iconify-icon>
+                    }
+                </div>
+                <p class="text-[12px] text-[#95A1B0] font-bold mt-0.5">
+                    @company.VacancyCount <span class="font-medium">vakansiya</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="w-full flex items-center gap-2">
+            <a href="/companyprofile?view=vacancies" class="flex-1 py-2.5 bg-[#1A998D] text-white rounded-lg font-black text-[11px] hover:bg-[#147a70] transition-all text-center shadow-sm">
+                Vakansiyalara bax
+            </a>
+            <button class="w-10 h-10 flex items-center justify-center bg-[#F3F4F6] rounded-lg text-[#95A1B0] hover:text-[#1A998D] transition-all shrink-0">
+                <iconify-icon icon="ph:user-plus-bold" class="text-lg"></iconify-icon>
+            </button>
+        </div>
+    </div>
+}

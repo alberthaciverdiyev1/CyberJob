@@ -1,12 +1,13 @@
+using Microsoft.EntityFrameworkCore;
 using CyberJob.Database;
 using CyberJob.Helpers;
-using Microsoft.EntityFrameworkCore;
+using CyberJob.DTOs; 
 
 namespace CyberJob.Services;
 
 public class FilterService(AppDbContext context)
 {
-    public async Task<object> GetFilterGroupAsync(string lang = "az")
+    public async Task<List<FilterGroupDto>> GetFilterGroupAsync(string lang = "az")
     {
         var filters = await context.Filters
             .Include(f => f.SubFilters)
@@ -15,19 +16,21 @@ public class FilterService(AppDbContext context)
             .OrderBy(f => f.Id)
             .ToListAsync();
 
-        return filters.Select(f => new
+        return filters.Select(f => new FilterGroupDto
         {
-            f.Id,
-            f.Key, 
+            Id = f.Id,
+            Key = f.Key,
             Name = f.Name.Translate(lang),
             Options = f.SubFilters
                 .Where(s => s.DeletedAt == null)
-                .Select(s => new
+                .Select(s => new FilterOptionDto
                 {
-                    s.Id,
-                    s.Key,
+                    Id = s.Id,
+                    Key = s.Key,
                     Name = s.Name.Translate(lang)
-                }).ToList()
+                })
+                .OrderBy(s => s.Id)
+                .ToList()
         }).ToList();
     }
 }

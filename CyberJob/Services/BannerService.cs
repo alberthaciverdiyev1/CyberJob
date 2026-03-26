@@ -1,4 +1,5 @@
 using CyberJob.Database;
+using CyberJob.DTOs;
 using CyberJob.Helpers;
 using CyberJob.Models;
 using Microsoft.EntityFrameworkCore;
@@ -7,18 +8,19 @@ namespace CyberJob.Services;
 
 public class BannerService(AppDbContext context)
 {
-    public async Task<object> GetListAsync()
+    public async Task<List<BannerDto>> GetListAsync() 
     {
         return await context.Banners
-            .AsNoTracking() 
-            .Where(b => b.IsActive )
+            .AsNoTracking()
+            .Where(b => b.IsActive)
             .OrderByDescending(b => b.ExpirationDate)
-            .Select(b => new {
-                b.Id,
-                Image = b.Image.ToAdminUrl(), 
-                b.Location,
-                b.IsDesktop
+            .Select(b => new BannerDto
+            {
+                Id = b.Id,
+                Image = b.Image.ToAdminUrl(),
+                Location = b.Location,
+                IsDesktop = b.IsDesktop
             })
-            .ToListAsync();
+            .ToListAsync(); 
     }
 }

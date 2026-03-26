@@ -11,57 +11,65 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CyberJob
 build_property.RootNamespace = CyberJob
-build_property.ProjectDir = /home/albert/Workspace/CyberJob/CyberJob/
+build_property.ProjectDir = C:\Users\Albert\Downloads\YDRAY-Archive\CyberJob\CyberJob\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/albert/Workspace/CyberJob/CyberJob
+build_property.MSBuildProjectDirectory = C:\Users\Albert\Downloads\YDRAY-Archive\CyberJob\CyberJob
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/Blog/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmxvZy9EZXRhaWxzLmNzaHRtbA==
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Blog/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/Blog/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmxvZy9JbmRleC5jc2h0bWw=
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Blog/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/Company/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29tcGFueS9EZXRhaWxzLmNzaHRtbA==
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Company/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/Company/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29tcGFueS9JbmRleC5jc2h0bWw=
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Company/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Company/_CompanyCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueUNhcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/Shared/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/Shared/_Footer.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19Gb290ZXIuY3NodG1s
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/Shared/_Header.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19IZWFkZXIuY3NodG1s
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Shared/_Footer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Shared/_Header.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Vacancy/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjYW5jeVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/albert/Workspace/CyberJob/CyberJob/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-9ip9k11413
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Albert/Downloads/YDRAY-Archive/CyberJob/CyberJob/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-0z496n7z4k

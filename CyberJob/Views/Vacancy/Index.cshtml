@@ -1,0 +1,198 @@
+﻿@using CyberJob.DTOs
+<style>
+    body { font-family: 'Inter', sans-serif; background-color: #F8FAFB; }
+    .filter-scroll::-webkit-scrollbar { width: 5px; }
+    .filter-scroll::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
+    input[type="checkbox"], input[type="radio"] { accent-color: #00D4AA; cursor: pointer; }
+</style>
+
+<main class="dark:bg-black transition-colors duration-500 pb-20">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-10 py-8">
+        
+        <section class="relative bg-[#0B2036] overflow-hidden mx-auto mb-10 transition-all duration-300" 
+                 style="width: 1240px; height: 310px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+            
+            <div class="absolute z-0 pointer-events-none" 
+                 style="width: 321.36px; height: 271.15px; top: 14.05px; left: 5.89px;">
+                <img src="~/images/ironman.png" alt="CyberBot" class="w-full h-full object-contain">
+            </div>
+
+            <div class="relative z-10 w-full h-full flex flex-col items-center justify-center pt-4">
+                <div class="text-center mb-6">
+                    <h1 class="text-white text-4xl md:text-[44px] font-bold mb-3 tracking-tight">
+                        Hazırda <span class="text-[#00D4AA]">22 vakansiya</span> aktivdir
+                    </h1>
+                    <p class="text-gray-400 text-sm md:text-base font-medium opacity-90">
+                        Sənə uyğun iş imkanlarını indi kəşf et və müraciət et.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-[16px] p-1.5 flex items-center shadow-2xl w-full max-w-[700px] mb-6 border border-gray-100">
+                    <div class="flex-1 flex items-center px-4 text-left">
+                        <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-xl mr-3"></iconify-icon>
+                        <input type="text" placeholder="Şirkət axtar..." class="w-full py-2.5 text-gray-700 focus:outline-none text-md bg-transparent">
+                    </div>
+                    <button class="bg-[#00D4AA] text-white font-bold px-10 py-3 rounded-[12px] hover:bg-[#00bc96] transition-all shadow-md">Axtar</button>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-2">
+                    <style>
+                        .hero-tag { padding: 8px 18px; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: white; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+                        .hero-tag:hover { background: white; color: #0B2036; }
+                    </style>
+                    <a href="#" class="hero-tag">Software Development</a>
+                    <a href="#" class="hero-tag">Kibertəhlükəsizlik</a>
+                    <a href="#" class="hero-tag">Remote</a>
+                    <a href="#" class="hero-tag">İntern</a>
+                    <div class="relative group">
+                        <button class="hero-tag flex items-center gap-2">Digər <iconify-icon icon="ph:caret-down-bold"></iconify-icon></button>
+                        <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-36 bg-[#1A2E44] rounded-xl hidden group-hover:block z-50 border border-gray-700 shadow-xl">
+                            <a href="#" class="block px-4 py-2.5 text-white text-xs hover:bg-[#00D4AA]">Könüllü</a>
+                            <a href="#" class="block px-4 py-2.5 text-white text-xs hover:bg-[#00D4AA] border-t border-gray-700">Ödənişli</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <aside class="w-full lg:w-[320px] shrink-0">
+                <div class="bg-white dark:bg-zinc-900 rounded-[28px] p-6 shadow-sm border dark:border-zinc-800">
+                    <button class="w-full bg-[#00D4AA] text-white font-bold py-4 rounded-2xl mb-8">Filtr</button>
+                    
+                    <div class="mb-8">
+                        <h3 class="font-bold mb-4 dark:text-white">Maaş aralığı</h3>
+                        <div class="flex gap-2">
+                            <input type="text" placeholder="Ən az" class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none">
+                            <input type="text" placeholder="Ən çox" class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none">
+                        </div>
+                    </div>
+
+                    <hr class="my-6 dark:border-zinc-800">
+
+                    <div class="mb-8">
+                        <h3 class="font-bold mb-4 dark:text-white">Sahə</h3>
+                        <div class="space-y-3 max-h-[300px] overflow-y-auto pr-2 filter-scroll">
+
+                            @foreach(CategoryDto category in Model.Categories)
+                            {
+                            <label class="flex items-center justify-between cursor-pointer group">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-300">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white">@category.Name</span>
+                                </div>
+                                <span class="text-xs text-gray-400">@category.VacancyCount</span>
+                            </label>
+                            }
+                        </div>
+                    </div>
+
+                    <hr class="my-6 dark:border-zinc-800">
+                    @foreach (FilterGroupDto filter in Model.Filters)
+                    {
+                        <div class="mb-8"><h3 class="font-bold mb-4 dark:text-white">@filter.Name</h3>
+                            @foreach(var option in filter.Options)
+                            {
+
+                                <label class="flex items-center gap-3 mb-3"><input type="radio" name="@option.Key" class="w-4 h-4">
+                                    <span class="text-sm text-gray-600">@option.Name</span></label>
+                            }
+                        </div>
+                    <hr class="my-6 dark:border-zinc-800">
+
+                    }
+                    
+          
+                   
+                            @if (Model.Banners.FirstOrDefault(b =>b.Location =="small"))
+                            {
+
+                                          <div class="mt-10 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" 
+                                             style="width: 271px; height: 450px; border-radius: 1px 1px 16px 16px;">
+                                            <img src="@banner.Image" alt="Melissa Park" class="w-full h-full object-cover">
+                                        </div>
+                            }
+
+          
+                </div>
+            </aside>
+
+            <div class="flex-1">
+                <div class="flex justify-between items-center mb-6">
+                    <p class="text-gray-500 font-medium">Cəmi 22 nəticə tapıldı</p>
+                    <div class="relative inline-block text-left" id="sort-dropdown">
+                        <button onclick="toggleSortMenu()" class="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm flex items-center gap-2">
+                            Sırala <iconify-icon icon="ph:caret-down-bold"></iconify-icon>
+                        </button>
+                        <div id="sort-menu" class="hidden absolute right-0 mt-2 w-56 bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl z-50 border border-gray-100 dark:border-zinc-800 overflow-hidden">
+                            <a href="#" class="block px-4 py-3 text-sm hover:bg-gray-50">Maaşa görə artan</a>
+                            <a href="#" class="block px-4 py-3 text-sm bg-[#00D4AA] text-white font-bold">Ən köhnələr</a>
+                            <a href="#" class="block px-4 py-3 text-sm hover:bg-gray-50">Ən yenilər</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+   @for(int i = 0; i < 70; i++){
+
+    <a href="/jobdetails" class="bg-white dark:bg-zinc-900 shadow-sm border border-gray-50 dark:border-zinc-800 flex items-center justify-between px-6 transition-all hover:border-[#00D4AA] hover:shadow-md cursor-pointer w-full block decoration-none" 
+       style="height: 115px; border-radius: 24px; margin-bottom: 16px;">
+        
+        <div class="flex items-center gap-6">
+            <div class="flex items-center justify-center overflow-hidden shrink-0" 
+                 style="width: 76.44px; height: 75.56px; border-radius: 7px;">
+                <img src="~/images/kontakt.png" class="w-full h-full object-contain" alt="{{this.company}}">
+            </div>
+
+            <div class="flex flex-col justify-center">
+                <h3 class="font-bold text-[22px] dark:text-white leading-tight mb-1">{{this.title}}</h3>
+                <p class="text-[#95A1B0] font-semibold text-[18px] flex items-center gap-2">
+                    ABB
+                    <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB]"></iconify-icon> 
+                    <span class="font-normal">Baku</span>
+                </p>
+                <div class="flex items-center gap-5 text-[15px] text-[#95A1B0] mt-1">
+                    <span class="flex items-center gap-1.5"><iconify-icon icon="ph:clock-light" class="text-xl"></iconify-icon> today</span>
+                    <span class="flex items-center gap-1.5"><iconify-icon icon="ph:eye-light" class="text-xl"></iconify-icon> 5K baxış</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-right shrink-0">
+            <p class="text-[#278B8A] font-bold text-[19px]">Razılaşma ilə</p>
+        </div>
+    </a>
+
+    @if (i == 4 || i == 14 || i == 29 || i == 44 || i == 59){
+        <div class="my-6 overflow-hidden w-full" style="height: 180px; border-radius: 24px;">
+            <img src="~/images/banner.jpg" alt="Reklam" class="w-full h-full object-cover">
+        </div>
+    }
+                            }
+                            </div>
+                            </div>
+        </div>
+    </div>
+</main>
+
+<section class="w-full max-w-[1245px] mx-auto px-4 py-20 flex flex-col md:flex-row justify-between items-center gap-10 mb-12 border-t border-gray-100 dark:border-zinc-800 pt-24">
+    <div class="flex-1 text-center md:text-left">
+        <h2 class="text-[42px] md:text-[56px] font-[900] text-[#0B2036] dark:text-white leading-[1.1] mb-6 tracking-tighter">Karyera yolunda<br>addımını bizlə at!</h2>
+        <p class="text-[18px] md:text-[22px] text-gray-400 font-medium">Uğurun kodunu bizdə aç</p>
+    </div>
+    <div class="w-full max-w-[500px]">
+        <div class="flex flex-col gap-5">
+            <div class="relative group">
+                <span class="absolute inset-y-0 left-6 flex items-center text-gray-400"><iconify-icon icon="ph:envelope-simple-bold" width="26"></iconify-icon></span>
+                <input type="email" placeholder="Emailini daxil et" class="w-full py-6 pl-16 pr-8 border border-gray-200 dark:border-zinc-800 rounded-[24px] text-lg focus:outline-none focus:border-[#278B8A] bg-white dark:bg-zinc-900">
+            </div>
+            <button class="w-full py-6 bg-[#278B8A] text-white font-bold rounded-[24px] text-[20px] shadow-lg">Abunə ol</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleSortMenu() { document.getElementById('sort-menu').classList.toggle('hidden'); }
+    window.onclick = function(e) { if (!e.target.closest('#sort-dropdown')) document.getElementById('sort-menu').classList.add('hidden'); }
+</script>
+

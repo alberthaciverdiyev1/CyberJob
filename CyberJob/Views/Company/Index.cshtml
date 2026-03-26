@@ -91,13 +91,15 @@
                         <iconify-icon icon="ph:magnifying-glass-bold" class="text-xl"></iconify-icon>
                     </span>
 
-                    <form method="get" action="/companies">
-                        <input type="text" 
-                               name="search" 
-                               value="@ViewBag.Search" 
-                               placeholder="Şirkət axtar..." 
-                               class="w-full py-3.5 pl-12 pr-4 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:border-cyberGreen transition-all">
-                    </form>
+                    <input type="text"
+                           name="search"
+                           value="@ViewBag.Search"
+                           placeholder="Şirkət axtar..."
+                           class="w-full py-3.5 pl-12 pr-4 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:border-[#1A998D] transition-all"
+                           hx-get="/companies"
+                           hx-trigger="keyup changed delay:500ms, search"
+                           hx-target="#main-content-area"
+                           hx-push-url="true">
                 </div>
 
                 <div class="space-y-1">
@@ -112,12 +114,16 @@
             </div>
         </aside>
 
-        <div class="flex-1">
+        <div class="flex-1" id="main-content-area">
 
             <div class="sort-container">
                 <span class="sort-label">SIRALA</span>
                 <div class="sort-select-box">
-                    <select class="sort-select">
+                    <select class="sort-select"
+                            name="sort"
+                            hx-get="/companies"
+                            hx-target="#main-content-area"
+                            hx-trigger="change">
                         <option value="newest">Ən yeni</option>
                         <option value="popular">Məşhur</option>
                     </select>
@@ -126,43 +132,7 @@
             </div>
 
             <div id="companies-grid" class="flex flex-wrap gap-5">
-                @foreach (var company in Model)
-                {
-                    <div class="company-card">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-lg p-2 shrink-0 border border-gray-50">
-                                <img src="@company.Logo" alt="@company.Name"
-                                     class="max-w-full max-h-full object-contain">
-                            </div>
-
-                            <div class="min-w-0">
-                                <div class="flex items-center gap-1">
-                                    <h3 class="font-[900] text-[14px] text-[#0B2036] leading-tight truncate">@company.Name</h3>
-                                    @if (company.IsVerified)
-                                    {
-                                        <iconify-icon icon="material-symbols:verified"
-                                                      class="text-[#2D9CDB] text-[14px] shrink-0"></iconify-icon>
-                                    }
-                                </div>
-                                <p class="text-[12px] text-[#95A1B0] font-bold mt-0.5">@company.VacancyCount<span class="font-medium">vakansiya</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="w-full flex items-center gap-2">
-                            <a href="/companyprofile?view=vacancies"
-                               class="flex-1 py-2.5 bg-[#1A998D] text-white rounded-lg font-black text-[11px] hover:bg-[#147a70] transition-all text-center shadow-sm">
-                                Vakansiyalara bax
-                            </a>
-
-                            <button
-                                class="w-10 h-10 flex items-center justify-center bg-[#F3F4F6] rounded-lg text-[#95A1B0] hover:text-[#1A998D] transition-all shrink-0">
-                                <iconify-icon icon="ph:user-plus-bold" class="text-lg"></iconify-icon>
-                            </button>
-                        </div>
-                    </div>
-                }
+                <partial name="_CompanyCard" model="(dynamic)Model" />
             </div>
         </div>
     </div>
@@ -171,29 +141,35 @@
     
         @if (ViewBag.CurrentPage > 1)
         {
-            <a href="?page=@(ViewBag.CurrentPage - 1)&search=@ViewBag.Search" 
-               class="px-7 py-3 border border-gray-200 rounded-xl text-gray-500 font-bold text-[14px] hover:border-cyberGreen hover:text-cyberGreen transition-all">
+            <button hx-get="/companies?page=@(ViewBag.CurrentPage - 1)&search=@ViewBag.Search"
+                    hx-target="#main-content-area"
+                    hx-push-url="true"
+                    class="px-7 py-3 border border-gray-200 rounded-xl text-gray-500 font-bold text-[14px] hover:border-[#1A998D] hover:text-[#1A998D] transition-all">
                 Əvvəlki
-            </a>
+            </button>
         }
 
         @for (int i = 1; i <= ViewBag.TotalPages; i++)
         {
-            <a href="?page=@i&search=@ViewBag.Search" 
-               class="w-12 h-12 flex items-center justify-center rounded-xl font-bold text-[14px] transition-all
-           @(i == ViewBag.CurrentPage 
-               ? "bg-cyberGreen text-white shadow-lg shadow-emerald-700/20" 
-               : "border border-gray-200 text-gray-500 hover:border-cyberGreen hover:text-cyberGreen")">
+            <button hx-get="/companies?page=@i&search=@ViewBag.Search"
+                    hx-target="#main-content-area"
+                    hx-push-url="true"
+                    class="w-12 h-12 flex items-center justify-center rounded-xl font-bold text-[14px] transition-all
+                @(i == ViewBag.CurrentPage
+                   ? "bg-[#1A998D] text-white shadow-lg shadow-emerald-700/20"
+                   : "border border-gray-200 text-gray-500 hover:border-[#1A998D] hover:text-[#1A998D]")">
                 @i
-            </a>
+            </button>
         }
 
         @if (ViewBag.CurrentPage < ViewBag.TotalPages)
         {
-            <a href="?page=@(ViewBag.CurrentPage + 1)&search=@ViewBag.Search" 
-               class="px-7 py-3 border border-gray-200 rounded-xl text-gray-500 font-bold text-[14px] hover:border-cyberGreen hover:text-cyberGreen transition-all">
+            <button hx-get="/companies?page=@(ViewBag.CurrentPage + 1)&search=@ViewBag.Search"
+                    hx-target="#main-content-area"
+                    hx-push-url="true"
+                    class="px-7 py-3 border border-gray-200 rounded-xl text-gray-500 font-bold text-[14px] hover:border-[#1A998D] hover:text-[#1A998D] transition-all">
                 Növbəti
-            </a>
+            </button>
         }
     </div>
     
