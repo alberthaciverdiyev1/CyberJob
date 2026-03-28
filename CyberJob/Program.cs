@@ -19,6 +19,7 @@ builder.Services.AddScoped<BlogService>();
 builder.Services.AddScoped<CityService>();
 builder.Services.AddScoped<FilterService>();
 builder.Services.AddScoped<PartnerService>();
+builder.Services.AddScoped<FaqService>();
 
 var app = builder.Build();
 

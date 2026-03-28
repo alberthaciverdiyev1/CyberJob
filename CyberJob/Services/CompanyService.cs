@@ -1,4 +1,5 @@
 using CyberJob.Database;
+using CyberJob.DTOs;
 using CyberJob.Helpers;
 using CyberJob.Models;
 using Microsoft.EntityFrameworkCore;
@@ -69,5 +70,55 @@ public class CompanyService(AppDbContext context)
             company.CompanyCategoryId,
             CategoryName = company.Category?.Name.Translate(lang) ?? ""
         };
+    }
+
+    public async Task<List<CompanyListDto>> RankListAsync(string date,string? search)
+    {
+        var now = DateTime.UtcNow;
+        DateTime? startDate = null;
+        DateTime? endDate = null;
+
+        switch (date?.ToLower())
+        {
+            case "this_month":
+                startDate = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc);
+                break;
+            case "last_month":
+                var lastMonth = now.AddMonths(-1);
+                startDate = new DateTime(lastMonth.Year, lastMonth.Month, 1, 0, 0, 0, DateTimeKind.Utc);
+                endDate = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc).AddTicks(-1);
+                break;
+            case "all_time":
+            default:
+                startDate = null; 
+                break;
+        }
+
+        var query = context.Companies
+            .AsNoTracking()
+            .Where(c => c.IsActive && c.DeletedAt == null);
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            search = search.Trim().ToLower(); 
+            query = query.Where(c => c.Name.ToLower().Contains(search));
+        }
+
+        var result = await query.Select(c => new CompanyListDto
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Logo = c.Logo.ToAdminUrl(),
+                IsVerified = c.IsVerified,
+                VacancyCount = c.Vacancies.Count(v => 
+                    v.DeletedAt == null &&
+                    (!startDate.HasValue || v.CreatedAt >= startDate) &&
+                    (!endDate.HasValue || v.CreatedAt <= endDate))
+            })
+            .OrderByDescending(c => c.VacancyCount)
+            .ThenBy(c => c.Name) 
+            .ToListAsync();
+
+        return result;
     }
 }

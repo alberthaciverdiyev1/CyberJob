@@ -10,7 +10,9 @@
 			<nav class="hidden lg:flex items-center justify-center h-[24px]" style="gap: 55px;">
 				<a asp-controller="Vacancy"
 				  asp-action="Index" class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Vakansiyalar</a>
-				<a href="/ranking" class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Reytinq cədvəli</a>
+				<a asp-controller="Rank"
+				   asp-action="Index"
+				   class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Reytinq cədvəli</a>
 				<a asp-controller="Company" 
 				   asp-action="Index" 
 				   class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">

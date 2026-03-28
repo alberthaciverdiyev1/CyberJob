@@ -1,0 +1,300 @@
+﻿@using CyberJob.DTOs
+<style>
+    :root {
+        --bg-main: #1A2332; /* Aydın fon */
+        --bg-element: #010D10; /* Daxili element rəngi */
+        --text-main: #ffffff;
+        --border-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Dark Mode Aktiv olduqda */
+    .dark {
+        --bg-main: #010D10;
+        --bg-element: #1A2332;
+        --text-main: #ffffff;
+        --border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .ranking-page {
+        background-color: var(--bg-main);
+        min-height: 100vh;
+        color: var(--text-main);
+        transition: background-color 0.3s ease;
+    }
+
+    /* Podium Gradientləri */
+    .podium-gradient-gold {
+        background: linear-gradient(180deg, #FBD38D 0%, #ECC94B 50%, #B7791F 100%);
+    }
+
+    .podium-gradient-silver {
+        background: linear-gradient(180deg, #E2E8F0 0%, #A0AEC0 50%, #4A5568 100%);
+    }
+
+    .podium-gradient-bronze {
+        background: linear-gradient(180deg, #ED8936 0%, #C05621 50%, #7B341E 100%);
+    }
+
+    /* Elementlərin rəngi #010D10 */
+    .glass-tabs, .ranking-row, .search-input, .faq-item {
+        background-color: var(--bg-element) !important;
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+    }
+
+    .ranking-row:hover {
+        background-color: rgba(26, 153, 141, 0.05) !important;
+        transform: translateY(-2px);
+    }
+
+    /* İstədiyin Artım rəqəmi rəngi */
+    .badge-green {
+        background: rgba(26, 153, 141, 0.15);
+        color: #1A998D;
+    }
+
+    /* Düymə rəngləri */
+    .btn-more, .btn-active {
+        background-color: #154E4D;
+        color: white;
+    }
+
+    .btn-contact {
+        background-color: #1A998D;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .btn-contact:hover {
+        filter: brightness(1.1);
+        transform: translateY(-2px);
+    }
+
+    .logo-ring {
+        border: 4px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* FAQ Animasiyası */
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease-out;
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 300px;
+        padding-bottom: 24px;
+    }
+
+    .faq-item.active iconify-icon {
+        transform: rotate(180deg);
+    }
+</style>
+@{
+    Layout = Context.Request.Headers.ContainsKey("HX-Request") ? null : "_Layout";
+}
+
+<main class="ranking-page py-16 px-4 md:px-10">
+    <div class="max-w-[1200px] mx-auto text-center relative z-10">
+
+        @if (Layout != null)
+        {
+            <h1 class="text-3xl md:text-[40px] font-black mb-16 tracking-tight">Şirkət siyahısının üstünlükləri!</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-20">
+                <div class="flex flex-col items-center">
+                    <img src="~/images/winner.png" class="max-h-[180px] mb-6 drop-shadow-2xl" alt="Winner">
+                    <p class="opacity-80 text-sm leading-relaxed max-w-[260px]">
+                        Ayın lideri ol, <span class="font-bold text-white">1 aylıq "Blue Tick"</span> nişanını ödənişsiz
+                        əldə et.
+                    </p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="~/images/fly.png" class="max-h-[180px] mb-6 drop-shadow-2xl" alt="Fly">
+                    <p class="opacity-80 text-sm leading-relaxed max-w-[260px]">
+                        Nə qədər aktivsənsə, sıralamada bir o qədər öndəsən.
+                    </p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="~/images/strong.png" class="max-h-[180px] mb-6 drop-shadow-2xl" alt="Strong">
+                    <p class="opacity-80 text-sm leading-relaxed max-w-[260px]">
+                        Rəqabətə qoşul və şirkətinin nüfuzunu artır!
+                    </p>
+                </div>
+            </div>
+
+            string currentDate = Context.Request.Query["date"].ToString();
+            if (string.IsNullOrEmpty(currentDate)) currentDate = "this_month";
+
+            string activeClass = "btn-active text-white font-semibold";
+            string inactiveClass = "opacity-60 font-medium hover:opacity-100 transition";
+
+            <div class="inline-flex glass-tabs p-1 rounded-full mb-28 shadow-2xl">
+                <button hx-get="/rank?date=this_month" hx-target="#company-list-container" hx-push-url="true"
+                        hx-on:click="updateTabClasses(this)"
+                        class="filter-btn px-10 py-2.5 rounded-full text-sm @(currentDate == "this_month" ? activeClass : inactiveClass)">
+                    Aylıq
+                </button>
+
+                <button hx-get="/rank?date=last_month" hx-target="#company-list-container" hx-push-url="true"
+                        hx-on:click="updateTabClasses(this)"
+                        class="filter-btn px-10 py-2.5 rounded-full text-sm @(currentDate == "last_month" ? activeClass : inactiveClass)">
+                    Ötən ay
+                </button>
+
+                <button hx-get="/rank?date=all_time" hx-target="#company-list-container" hx-push-url="true"
+                        hx-on:click="updateTabClasses(this)"
+                        class="filter-btn px-10 py-2.5 rounded-full text-sm @(currentDate == "all_time" ? activeClass : inactiveClass)">
+                    Bütün vaxtlar
+                </button>
+            </div>
+        }
+
+        <div id="company-list-container">
+            @if (Model.Companies != null && Model.Companies.Count >= 3)
+            {
+                <div
+                    class="flex flex-col md:flex-row items-end justify-center gap-6 md:gap-4 max-w-[1000px] mx-auto mb-32">
+                    <div class="w-full md:w-[31%] flex flex-col items-center">
+                        <div class="w-20 h-20 rounded-full bg-white p-1 logo-ring mb-4 overflow-hidden">
+                            <img src="@Model.Companies[1].Logo" class="w-full h-full object-contain" alt="Rank 2">
+                        </div>
+                        <h3 class="font-bold mb-4">@Model.Companies[1].Name</h3>
+                        <div
+                            class="podium-gradient-silver w-full pt-8 pb-10 rounded-t-3xl md:h-[280px] flex flex-col items-center justify-between text-white shadow-xl">
+                            <div class="flex items-center gap-2 text-xs font-bold bg-white/20 px-4 py-1.5 rounded-full">
+                                <iconify-icon icon="ph:trophy-fill"></iconify-icon>
+                                @Model.Companies[1].VacancyCount Elan
+                            </div>
+                            <span class="text-[100px] font-black opacity-30">2</span>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-[36%] flex flex-col items-center z-20 scale-100 md:scale-105">
+                        <div
+                            class="w-24 h-24 rounded-full bg-white p-1 logo-ring mb-4 overflow-hidden shadow-2xl border-yellow-400">
+                            <img src="@Model.Companies[0].Logo" class="w-full h-full object-contain" alt="Rank 1">
+                        </div>
+                        <h3 class="font-bold text-xl mb-4">@Model.Companies[0].Name</h3>
+                        <div
+                            class="podium-gradient-gold w-full pt-10 pb-12 rounded-t-3xl md:h-[350px] flex flex-col items-center justify-between text-white shadow-2xl">
+                            <div class="flex items-center gap-2 text-sm font-bold bg-black/20 px-5 py-2 rounded-full">
+                                <iconify-icon icon="ph:trophy-fill" class="text-yellow-300"></iconify-icon>
+                                @Model.Companies[0].VacancyCount Elan
+                            </div>
+                            <span class="text-[140px] font-black opacity-40">1</span>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-[31%] flex flex-col items-center">
+                        <div class="w-20 h-20 rounded-full bg-white p-1 logo-ring mb-4 overflow-hidden">
+                            <img src="@Model.Companies[2].Logo" class="w-full h-full object-contain" alt="Rank 3">
+                        </div>
+                        <h3 class="font-bold mb-4">@Model.Companies[2].Name</h3>
+                        <div
+                            class="podium-gradient-bronze w-full pt-8 pb-8 rounded-t-3xl md:h-[220px] flex flex-col items-center justify-between text-white shadow-xl">
+                            <div class="flex items-center gap-2 text-xs font-bold bg-white/20 px-4 py-1.5 rounded-full">
+                                <iconify-icon icon="ph:trophy-fill"></iconify-icon>
+                                @Model.Companies[2].VacancyCount Elan
+                            </div>
+                            <span class="text-[90px] font-black opacity-30">3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-left w-full mt-20">
+                    <div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 gap-4">
+                        <h2 class="text-2xl font-bold">Bütün şirkətlər</h2>
+                        <div class="relative w-full md:w-80">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 opacity-50"><iconify-icon
+                                    icon="ph:magnifying-glass"></iconify-icon></span>
+                            <input type="text" 
+                                   name="search"
+                                   placeholder="Şirkət axtar..."
+                                   hx-get="/rank" 
+                                   hx-target="#company-list-container" 
+                                   hx-trigger="keyup changed delay:500ms"
+                                   hx-include=".filter-btn.btn-active"
+                                   hx-push-url="true"
+                                   class="search-input w-full pl-11 pr-4 py-3 rounded-2xl outline-none transition text-sm">
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        @for (int i = 3; i < Model.Companies.Count; i++)
+                        {
+                            var c = Model.Companies[i];
+                            int displayRank = i + 1;
+
+                            <div
+                                class="ranking-row grid grid-cols-6 items-center px-8 py-4 rounded-2xl cursor-pointer shadow-lg">
+                                <div
+                                    class="col-span-1 font-bold @(displayRank <= 10 ? "text-yellow-500" : "opacity-40")">
+                                    @displayRank
+                                </div>
+                                <div class="col-span-2 flex items-center gap-3">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-white p-1 flex items-center justify-center overflow-hidden border border-white/10">
+                                        <img src="@c.Logo" class="w-full h-full object-contain" alt="@c.Name">
+                                    </div>
+                                    <span class="font-semibold text-sm">@c.Name</span>
+                                </div>
+                                <div class="col-span-1 text-center text-sm font-medium">@c.VacancyCount</div>
+                                <div class="col-span-1 text-center text-sm font-medium">@c.VacancyCount</div>
+                                <div class="col-span-1 text-right">
+                                    <span class="badge-green px-3 py-1 rounded-lg text-[11px] font-bold">1%</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="py-20 opacity-50 italic">Kifayət qədər məlumat tapılmadı.</div>
+            }
+        </div>
+
+        @if (Layout != null)
+        {
+            <div class="text-center mb-12 mt-32">
+                <h2 class="text-3xl md:text-[40px] font-black mb-4">Tez-tez verilən suallar</h2>
+                <p class="opacity-60">Liderlərin reytinq cədvəli haqqında ən çox soruşulan suallar</p>
+            </div>
+
+            <div class="space-y-4 mb-20 text-left max-w-[1000px] mx-auto">
+                @foreach (FaqDto faq in Model.Faqs)
+                {
+                    <div class="faq-item rounded-2xl cursor-pointer" onclick="this.classList.toggle('active')">
+                        <div class="flex justify-between items-center p-6">
+                            <h3 class="font-semibold text-sm md:text-base pr-4">@faq.Question</h3>
+                            <iconify-icon icon="ph:caret-down-bold"
+                                          class="text-[#1A998D] transition-transform duration-300"></iconify-icon>
+                        </div>
+                        <div class="faq-answer px-6 text-gray-400 text-sm leading-relaxed">
+                            <div class="pb-6">@faq.Answer</div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</main>
+
+@if (Layout != null)
+{
+    @section Scripts {
+        <script>
+            window.updateTabClasses = function (clickedElement) {
+                const buttons = document.querySelectorAll('.filter-btn');
+                buttons.forEach(btn => {
+                    btn.classList.remove('btn-active', 'text-white', 'font-semibold');
+                    btn.classList.add('opacity-60', 'font-medium');
+                });
+                clickedElement.classList.add('btn-active', 'text-white', 'font-semibold');
+                clickedElement.classList.remove('opacity-60', 'font-medium');
+            }
+        </script>
+    }
+}
