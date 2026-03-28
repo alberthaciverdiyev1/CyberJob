@@ -7,22 +7,29 @@ public static class TimeHelper
         if (!dateTime.HasValue) return "";
 
         var timeSpan = DateTime.Now - dateTime.Value;
+        double seconds = timeSpan.TotalSeconds;
 
-        if (timeSpan <= TimeSpan.FromSeconds(60))
+        if (seconds < 0) return "Buna hazırlaşırıq :)"; 
+
+        if (seconds < 60)
             return "İndicə";
 
-        if (timeSpan <= TimeSpan.FromMinutes(60))
-            return timeSpan.Minutes + " dəqiqə əvvəl";
+        if (seconds < 3600) // 60 dəqiqə
+            return $"{(int)timeSpan.TotalMinutes} dəqiqə əvvəl";
 
-        if (timeSpan <= TimeSpan.FromHours(24))
-            return timeSpan.Hours + " saat əvvəl";
+        if (seconds < 86400) // 24 saat
+            return $"{(int)timeSpan.TotalHours} saat əvvəl";
 
-        if (timeSpan <= TimeSpan.FromDays(30))
-            return timeSpan.Days + " gün əvvəl";
+        if (seconds < 2592000) // 30 gün
+            return $"{(int)timeSpan.TotalDays} gün əvvəl";
 
-        if (timeSpan <= TimeSpan.FromDays(365))
-            return (timeSpan.Days / 30) + " ay əvvəl";
+        if (seconds < 31536000) // 365 gün
+        {
+            int months = (int)(timeSpan.TotalDays / 30);
+            return $"{(months <= 0 ? 1 : months)} ay əvvəl";
+        }
 
-        return (timeSpan.Days / 365) + " il əvvəl";
+        int years = (int)(timeSpan.TotalDays / 365);
+        return $"{years} il əvvəl";
     }
 }

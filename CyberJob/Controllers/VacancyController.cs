@@ -32,4 +32,30 @@ public class VacancyController(
 
         return View(model);
     }
+    [HttpGet("{Id:int}")]
+    public async Task<IActionResult> Details(int id)
+    {
+        // 1. Öncə əsas vakansiyanı gətiririk
+        var vacancy = await vacancyService.GetByIdAsync(id);
+
+        // 2. Əgər vakansiya tapılmazsa, dərhal 404 qaytarırıq
+        if (vacancy == null)
+        {
+            return NotFound();
+        }
+
+
+        var similarVacancies = await vacancyService.GetListAsync(new()
+        {
+            CategoryId = vacancy.CategoryId
+        });
+
+        VacancyDetailsVM model = new()
+        {
+            Vacancy = vacancy,
+            SimilarVacancies = similarVacancies
+        };
+
+        return View(model);
+    }
 }
