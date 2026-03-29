@@ -45,34 +45,51 @@ public class CompanyService(AppDbContext context)
 
         return (Items: items, TotalCount: totalCount);
     }
-    public async Task<object?> GetDetailsAsync(int id, string lang = "az")
+    public async Task<CompanyDetailsDto?> GetDetailsAsync(int id, string lang = "az")
     {
         var company = await context.Companies
             .Include(c => c.Category)
+            .Include(c => c.Vacancies)
+            .ThenInclude(v => v.City)
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Id == id && c.DeletedAt == null);
 
         if (company == null) return null;
 
-        return new
+        return new CompanyDetailsDto
         {
-            company.Id,
-            company.Name,
-            company.Email,
-            company.Phone,
-            company.Address,
+            Id = company.Id,
+            Name = company.Name,
+            Email = company.Email,
+            Phone = company.Phone,
+            Address = company.Address,
+            ShortAddress = company.ShortAddress,
+            FoundedYear = company.FoundedYear,
             About = company.About.Translate(lang),
-            company.Logo,
-            company.CoverImage,
-            company.BannerImage,
-            company.IsVerified,
-            company.CreatedAt,
-            company.CompanyCategoryId,
-            CategoryName = company.Category?.Name.Translate(lang) ?? ""
+            Logo = company.Logo.ToAdminUrl(),
+            CoverImage = company.CoverImage,
+            BannerImage = company.BannerImage,
+            IsVerified = company.IsVerified,
+            CreatedAt = company.CreatedAt,
+            CompanyCategoryId = company.CompanyCategoryId,
+            CategoryName = company.Category?.Name.Translate(lang) ?? "",
+            VacancyCount = company.Vacancies.Count,
+            Vacancies = company.Vacancies
+                .Where(v => v.DeletedAt == null)
+                .Select(v => new VacancyListDto
+                {
+                    Id = v.Id,
+                    Name = v.Name.Translate(lang),
+                    ViewCount = v.ViewCount,
+                    CityName = v.City?.Name.Translate(lang),
+                    CreatedAt = v.CreatedAt
+                })
+                .OrderByDescending(v => v.CreatedAt)
+                .ToList()
+
         };
     }
-
-    public async Task<List<CompanyListDto>> RankListAsync(string date,string? search)
+    public async Task<List<CompanyListDto>> RankListAsync(string date, string? search)
     {
         var now = DateTime.UtcNow;
         DateTime? startDate = null;
@@ -90,7 +107,7 @@ public class CompanyService(AppDbContext context)
                 break;
             case "all_time":
             default:
-                startDate = null; 
+                startDate = null;
                 break;
         }
 
@@ -100,23 +117,23 @@ public class CompanyService(AppDbContext context)
 
         if (!string.IsNullOrWhiteSpace(search))
         {
-            search = search.Trim().ToLower(); 
+            search = search.Trim().ToLower();
             query = query.Where(c => c.Name.ToLower().Contains(search));
         }
 
         var result = await query.Select(c => new CompanyListDto
-            {
-                Id = c.Id,
-                Name = c.Name,
-                Logo = c.Logo.ToAdminUrl(),
-                IsVerified = c.IsVerified,
-                VacancyCount = c.Vacancies.Count(v => 
-                    v.DeletedAt == null &&
-                    (!startDate.HasValue || v.CreatedAt >= startDate) &&
-                    (!endDate.HasValue || v.CreatedAt <= endDate))
-            })
+        {
+            Id = c.Id,
+            Name = c.Name,
+            Logo = c.Logo.ToAdminUrl(),
+            IsVerified = c.IsVerified,
+            VacancyCount = c.Vacancies.Count(v =>
+                v.DeletedAt == null &&
+                (!startDate.HasValue || v.CreatedAt >= startDate) &&
+                (!endDate.HasValue || v.CreatedAt <= endDate))
+        })
             .OrderByDescending(c => c.VacancyCount)
-            .ThenBy(c => c.Name) 
+            .ThenBy(c => c.Name)
             .ToListAsync();
 
         return result;

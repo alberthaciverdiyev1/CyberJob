@@ -23,12 +23,13 @@
         </div>
 
         <div class="w-full flex items-center gap-2">
-            <a href="/companyprofile?view=vacancies" class="flex-1 py-2.5 bg-[#1A998D] text-white rounded-lg font-black text-[11px] hover:bg-[#147a70] transition-all text-center shadow-sm">
-                Vakansiyalara bax
+            <a asp-controller="Company"
+               asp-action="Details"
+               asp-route-id="@company.Id"
+               class="flex-1 py-2.5 bg-[#1A998D] text-white rounded-lg font-black text-[11px] hover:bg-[#147a70] transition-all text-center shadow-sm">
+                Detallar
             </a>
-            <button class="w-10 h-10 flex items-center justify-center bg-[#F3F4F6] rounded-lg text-[#95A1B0] hover:text-[#1A998D] transition-all shrink-0">
-                <iconify-icon icon="ph:user-plus-bold" class="text-lg"></iconify-icon>
-            </button>
+
         </div>
     </div>
 }

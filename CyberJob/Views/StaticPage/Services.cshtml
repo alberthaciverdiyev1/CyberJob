@@ -1,0 +1,240 @@
+﻿@using CyberJob.DTOs
+<main class="max-w-[1440px] mx-auto px-6 md:px-10 py-16">
+
+    <div class="text-center mb-16">
+        <h1 class="text-[42px] font-bold dark:text-white mb-2">Xidmətlərimiz</h1>
+        <p class="text-gray-400 text-lg">Abunəlik paketləri ilə elanlarınızı maksimum görünürlükdə paylaşın</p>
+
+        <div class="mt-14 relative inline-block">
+            <div
+                class="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#F8E15C] text-cyberMain text-[14px] font-bold px-5 py-2 rounded-md shadow-sm whitespace-nowrap">
+                30%-ə qədər qənaət edin
+                <div class="absolute -right-10 top-2 rotate-[12deg]">
+                    <iconify-icon icon="akar-icons:arrow-back"
+                                  class="text-[#009689] text-4xl opacity-50 flip-horizontal"></iconify-icon>
+                </div>
+            </div>
+            <div
+                class="flex items-center bg-white dark:bg-zinc-900 p-1.5 rounded-2xl w-[220px] border border-gray-200 dark:border-zinc-800">
+                <button class="flex-1 py-3 text-[15px] font-bold text-gray-400">Aylıq</button>
+                <button class="flex-1 py-3 text-[15px] font-bold bg-[#4EA090] text-white rounded-xl">Paket</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-32 items-stretch px-4">
+
+        <div
+            class="bg-white dark:bg-zinc-900 rounded-[40px] cyber-card-shadow flex flex-col p-8 transition-transform hover:scale-[1.02]">
+            <div class="bg-[#EEEEEE] dark:bg-zinc-800 price-box text-center relative mb-10">
+                <div class="flex justify-between items-center mb-8">
+                    <span class="bg-white dark:bg-zinc-700 px-6 py-1.5 rounded-full text-[15px] font-bold">Basic</span>
+                    <span class="bg-[#00FF00] text-black text-[11px] font-black px-4 py-1.5 rounded-full uppercase">İlk 1 ay üçün</span>
+                </div>
+                <div class="text-gray-400 text-[14px] line-through mb-1">89 AZN/ay</div>
+                <div class="flex items-center justify-center gap-2">
+                    <span class="text-[44px] font-black leading-none">29 AZN\ay</span>
+                    <span class="bg-[#F8E15C] text-black text-[13px] font-black px-2 py-0.5 rounded">-30%</span>
+                </div>
+            </div>
+            <button
+                class="w-full py-5 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10">
+                Əldə et
+            </button>
+            <ul class="space-y-5 px-2">
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    2 Vakansiya
+                </li>
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    1 Premium
+                </li>
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    1 elan başa sabitmə 6 saat
+                </li>
+                <li class="flex items-center gap-4 text-[16px] font-bold text-red-500">
+                    <iconify-icon icon="gridicons:cross-circle" class="text-2xl"></iconify-icon>
+                    Blue Tick (1 ay)
+                </li>
+            </ul>
+        </div>
+
+        <div
+            class="bg-white dark:bg-zinc-900 rounded-[40px] cyber-card-shadow flex flex-col p-8 relative md:scale-[1.08] z-10">
+            <div
+                class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#2D4A53] text-white text-[12px] font-bold px-8 py-2 rounded-full flex items-center gap-2">
+                <iconify-icon icon="ic:round-star" class="text-yellow-400 text-xl"></iconify-icon>
+                Ən populyar
+            </div>
+            <div class="special-gradient price-box text-center relative mb-10 pt-12">
+                <div class="flex justify-between items-center mb-8">
+                    <span class="bg-white/20 text-white px-6 py-1.5 rounded-full text-[15px] font-bold">Standart</span>
+                    <span class="bg-[#00FF00] text-black text-[11px] font-black px-4 py-1.5 rounded-full uppercase">İlk 1 ay üçün</span>
+                </div>
+                <div class="text-white/50 text-[14px] line-through mb-1">149 AZN/ay</div>
+                <div class="flex items-center justify-center gap-2">
+                    <span class="text-[44px] font-black text-white leading-none">49 AZN\ay</span>
+                    <span class="bg-[#F8E15C] text-black text-[13px] font-black px-2 py-0.5 rounded">-30%</span>
+                </div>
+            </div>
+            <button
+                class="w-full py-5 bg-[#4EA090] text-white rounded-3xl font-bold text-lg mb-10 shadow-lg shadow-emerald-900/20">
+                Əldə et
+            </button>
+            <ul class="space-y-5 px-2">
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    5 Vakansiya
+                </li>
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    1 Premium
+                </li>
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    1 elan başa sabitmə 18 saat
+                </li>
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    Blue Tick (1 ay)
+                </li>
+            </ul>
+        </div>
+
+        <div
+            class="bg-white dark:bg-zinc-900 rounded-[40px] cyber-card-shadow flex flex-col p-8 transition-transform hover:scale-[1.02]">
+            <div class="bg-[#EEEEEE] dark:bg-zinc-800 price-box text-center relative mb-10">
+                <div class="flex justify-between items-center mb-8">
+                    <span
+                        class="bg-white dark:bg-zinc-700 px-6 py-1.5 rounded-full text-[15px] font-bold">Professional</span>
+                    <span class="bg-[#00FF00] text-black text-[11px] font-black px-4 py-1.5 rounded-full uppercase">İlk 1 ay üçün</span>
+                </div>
+                <div class="text-gray-400 text-[14px] line-through mb-1">249 AZN/ay</div>
+                <div class="flex items-center justify-center gap-2">
+                    <span class="text-[44px] font-black leading-none">79 AZN\ay</span>
+                    <span class="bg-[#F8E15C] text-black text-[13px] font-black px-2 py-0.5 rounded">-30%</span>
+                </div>
+            </div>
+            <button
+                class="w-full py-5 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10">
+                Əldə et
+            </button>
+            <ul class="space-y-5 px-2">
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    10 Vakansiya
+                </li>
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    2 Premium
+                </li>
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    3 elan başa sabitmə 24 saat
+                </li>
+                <li class="flex items-center gap-4 text-[16px] font-bold">
+                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                    Blue Tick (1 ay)
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="mb-40">
+        <h2 class="text-center text-[36px] font-bold mb-20 dark:text-white">Xidmətlərimizin üstünlükləri!</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="flex flex-col items-center text-center">
+                <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot2.png" alt="Blue Tick"
+                                                                class="max-h-full"></div>
+                <h3 class="text-[20px] font-bold max-w-[240px]">Etibar və Peşəkar İmic (Blue Tick)</h3>
+            </div>
+            <div class="flex flex-col items-center text-center">
+                <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot1.png" alt="Sürətli Nəticə"
+                                                                class="max-h-full"></div>
+                <h3 class="text-[20px] font-bold max-w-[260px]">Sürətli Nəticə və Doğru Namizəd</h3>
+            </div>
+            <div class="flex flex-col items-center text-center">
+                <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot3.png" alt="Maksimum Görünmə"
+                                                                class="max-h-full"></div>
+                <h3 class="text-[20px] font-bold max-w-[260px]">Maksimum Görünmə və Brend Tanınması</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-32 max-w-[960px] mx-auto">
+        <div class="text-center mb-14">
+            <h2 class="text-[32px] font-bold dark:text-white mb-2">Tez-tez verilən suallar</h2>
+            <p class="text-gray-400">Platformamız haqqında ən çox soruşulan suallar</p>
+        </div>
+        <div id="faq-container" class="space-y-4">
+
+            @if (Model.Faqs is not null)
+            {
+                foreach (FaqDto faq in Model.Faqs)
+                {
+                    <div
+                        class="faq-item bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl overflow-hidden cursor-pointer px-8 transition-all duration-300 mb-4">
+                        @* Tıklama alanı *@
+                        <div class="faq-header flex justify-between items-center py-6">
+                            <span class="font-bold text-[17px] dark:text-gray-200">@faq?.Question</span>
+                            <iconify-icon icon="ph:caret-down-bold"
+                                          class="faq-icon text-[#009689] text-xl transition-transform duration-300"></iconify-icon>
+                        </div>
+
+                        @* Cevap alanı: Başlangıçta yüksekliği 0 *@
+                        <div class="faq-answer-container transition-all duration-300 ease-in-out"
+                             style="max-height: 0; opacity: 0; overflow: hidden;">
+                            <div class="faq-answer text-gray-500 text-[15px] leading-relaxed pb-6">
+                                @faq?.Answer
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+
+    <section
+        class="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 rounded-[40px] p-12 text-center shadow-xl mb-20">
+        <h3 class="text-[26px] font-bold dark:text-white mb-3">Cavabınızı tapa bilmədiniz?</h3>
+        <p class="text-gray-400 text-lg mb-10">Dəstək komandamız sizə kömək etməkdən məmnun olacaq</p>
+        <button
+            class="bg-[#009689] hover:bg-[#007a6f] text-white font-bold py-5 px-16 rounded-3xl text-lg transition-all shadow-lg shadow-emerald-900/20">
+            Bizimlə əlaqə saxlayın
+        </button>
+    </section>
+
+</main>
+
+@section Scripts {
+
+    <script>document.addEventListener("DOMContentLoaded", function () {
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const header = item.querySelector('.faq-header');
+                const container = item.querySelector('.faq-answer-container');
+                const icon = item.querySelector('.faq-icon');
+
+                header.addEventListener('click', () => {
+                    const isOpen = container.style.maxHeight !== "0px";
+
+                    document.querySelectorAll('.faq-answer-container').forEach(el => {
+                        el.style.maxHeight = "0px";
+                        el.style.opacity = "0";
+                        el.closest('.faq-item').classList.remove('border-[#009689]', 'ring-1', 'ring-[#009689]');
+                        el.closest('.faq-item').querySelector('.faq-icon').style.transform = "rotate(0deg)";
+                    });
+
+                    if (!isOpen) {
+                        container.style.maxHeight = container.scrollHeight + "px";
+                        container.style.opacity = "1";
+                        icon.style.transform = "rotate(180deg)";
+                        item.classList.add('border-[#009689]', 'ring-1', 'ring-[#009689]');
+                    }
+                });
+            });
+        });</script>
+}

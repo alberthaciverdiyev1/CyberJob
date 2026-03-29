@@ -85,13 +85,15 @@ public class Vacancy
     public virtual ICollection<VacancyFilter> VacancyFilters { get; set; } = new List<VacancyFilter>();
 }
 
-public class VacancyFilterParams
-{
-    public string Lang { get; set; } = "az";
-    public int? CityId { get; set; }
-    public int? CategoryId { get; set; }
-    public int? FilterId { get; set; }
-    public string? Search { get; set; }
-    public bool? IsPremium { get; set; } 
-    public int Take { get; set; } = 10; 
-}
+    public class VacancyFilterParams
+    {
+        public string Lang { get; set; } = "az";
+        public int? CityId { get; set; }
+        public int? CategoryId { get; set; }
+        public Dictionary<string, string>? Filters { get; set; } = new();
+        public string? Search { get; set; }
+        public bool? IsPremium { get; set; } 
+        public int? CompanyId { get; set; } 
+        
+        public int Take { get; set; } = 10; 
+    }

@@ -23,6 +23,14 @@ namespace CyberJob.Models
         [Column("address")]
         public string? Address { get; set; }
 
+
+        [Column("short_address")]
+        public string? ShortAddress { get; set; }
+
+        [Column("founded_year")]
+
+        public int? FoundedYear { get; set; }
+
         [Column("about", TypeName = "json")]
         public string? About { get; set; }
 
@@ -56,7 +64,7 @@ namespace CyberJob.Models
 
         [Column("deleted_at")]
         public DateTime? DeletedAt { get; set; }
-        
+
         public virtual ICollection<Vacancy> Vacancies { get; set; } = new HashSet<Vacancy>();
     }
 }

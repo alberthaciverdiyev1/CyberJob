@@ -6,9 +6,9 @@
         public string Name { get; set; }
         public string Salary { get; set; }
         public int ViewCount { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public bool IsPremium { get; set; }
-        public string CityName { get; set; }
+        public string? CityName { get; set; }
         public VacancyCompanyDto Company { get; set; }
     }
 

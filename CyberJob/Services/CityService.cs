@@ -1,12 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using CyberJob.Database;
 using CyberJob.Helpers;
+using CyberJob.Models;
 
 namespace CyberJob.Services;
 
 public class CityService(AppDbContext context)
 {
-    public async Task<object> GetAllAsync(string lang = "az")
+    public async Task<List<City>> GetAllAsync(string lang = "az")
     {
         var cities = await context.Cities
             .AsNoTracking()
@@ -14,10 +15,10 @@ public class CityService(AppDbContext context)
             .OrderBy(c => c.Id)
             .ToListAsync();
 
-        return cities.Select(c => new
+        return cities.Select(c => new City()
         {
-            c.Id,
-            Name = c.Name.Translate(lang) 
+            Id = c.Id,
+            Name = c.Name.Translate(lang)
         }).ToList();
     }
 }

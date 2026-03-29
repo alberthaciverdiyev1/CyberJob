@@ -1,37 +1,45 @@
-<header class="w-full bg-[#0B2036] dark:bg-black border-b border-white/10 sticky top-0 z-[100] transition-colors duration-300">
-		<div class="max-w-[1440px] mx-auto px-10 h-[96px] flex items-center justify-between">
-			<div class="flex items-center shrink-0 cursor-pointer" onclick="location.href='/'">
+<header
+	class="w-full bg-[#0B2036] dark:bg-black border-b border-white/10 sticky top-0 z-[100] transition-colors duration-300">
+	<div class="max-w-[1440px] mx-auto px-10 h-[96px] flex items-center justify-between">
+		<div class="flex items-center shrink-0 cursor-pointer" onclick="location.href='/'">
 			<img src="~/images/cyberlogo.png"
-				 alt="CyberJob Logo"
-				 asp-append-version="true"
-				 style="width: 183px; height: 34px;"
-				 class="object-contain object-left transition-transform hover:scale-105" />
+			     alt="CyberJob Logo"
+			     asp-append-version="true"
+			     style="width: 183px; height: 34px;"
+			     class="object-contain object-left transition-transform hover:scale-105"/>
 		</div>
-			<nav class="hidden lg:flex items-center justify-center h-[24px]" style="gap: 55px;">
-				<a asp-controller="Vacancy"
-				  asp-action="Index" class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Vakansiyalar</a>
-				<a asp-controller="Rank"
-				   asp-action="Index"
-				   class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Reytinq cədvəli</a>
-				<a asp-controller="Company" 
-				   asp-action="Index" 
-				   class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">
-					Şirkətlər
-				</a>
-				<a href="/services" class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Xidmətlər</a>
-				<a href="/about" class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Haqqımızda</a>
-				<a href="/blogs" class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Bloqlar</a>
-				<a href="/contact" class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Əlaqə</a>
-			</nav>
-			<div class="flex items-center gap-3 shrink-0">
-				<button id="theme-toggle" class="w-[42px] h-[42px] flex items-center justify-center rounded-lg border border-white/10 text-white hover:bg-white/5 transition-all">
-					<svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-					</svg>
-				</button>
-				<div class="flex items-center gap-2 cursor-pointer group px-2 py-2 rounded-lg hover:bg-white/5">
-					<span class="text-white font-bold text-[15px] tracking-wide uppercase">AZ</span>
-				</div>
+		<nav class="hidden lg:flex items-center justify-center h-[24px]" style="gap: 55px;">
+			<a asp-controller="Vacancy"
+			   asp-action="Index"
+			   class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Vakansiyalar</a>
+			<a asp-controller="Rank"
+			   asp-action="Index"
+			   class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Reytinq
+				cədvəli</a>
+			<a asp-controller="Company"
+			   asp-action="Index"
+			   class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">
+				Şirkətlər
+			</a>
+			<a
+				asp-controller="StaticPage"
+				asp-action="Services"
+				class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Xidmətlər</a>
+			<a href="/about" class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Haqqımızda</a>
+			<a href="/blogs" class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Bloqlar</a>
+			<a href="/contact" class="nav-link text-white text-[15px] font-medium hover:text-[#00D4AA] transition-all">Əlaqə</a>
+		</nav>
+		<div class="flex items-center gap-3 shrink-0">
+			<button id="theme-toggle"
+			        class="w-[42px] h-[42px] flex items-center justify-center rounded-lg border border-white/10 text-white hover:bg-white/5 transition-all">
+				<svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+				     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg>
+			</button>
+			<div class="flex items-center gap-2 cursor-pointer group px-2 py-2 rounded-lg hover:bg-white/5">
+				<span class="text-white font-bold text-[15px] tracking-wide uppercase">AZ</span>
 			</div>
 		</div>
-	</header>
+	</div>
+</header>

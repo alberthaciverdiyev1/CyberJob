@@ -10,50 +10,62 @@ namespace CyberJob.Services;
 public class VacancyService(AppDbContext context)
 {
 
-    public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params)
+public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params)
+{
+    var query = context.Vacancies
+        .Include(v => v.Company)
+        .Include(v => v.City)
+        .Include(v => v.VacancyFilters) 
+        .AsNoTracking()
+        .Where(v => v.IsActive && v.DeletedAt == null);
+
+    if (@params.CityId.HasValue)
+        query = query.Where(v => v.CityId == @params.CityId);
+    if (@params.CategoryId.HasValue)
+        query = query.Where(v => v.CategoryId == @params.CategoryId);
+    if (@params.IsPremium.HasValue)
+        query = query.Where(v => v.IsPremium == @params.IsPremium);
+    if (@params.CompanyId.HasValue)
+        query = query.Where(v => v.CompanyId == @params.CompanyId);
+    if (!string.IsNullOrEmpty(@params.Search))
+        query = query.Where(v => v.Name.ToLower().Contains(@params.Search.ToLower()));
+
+    if (@params.Filters != null && @params.Filters.Any())
     {
-        var query = context.Vacancies
-            .Include(v => v.Company)
-            .Include(v => v.City)
-            .AsNoTracking()
-            .Where(v => v.IsActive && v.DeletedAt == null);
-
-        if (@params.CityId.HasValue)
-            query = query.Where(v => v.CityId == @params.CityId);
-        if (@params.CategoryId.HasValue)
-            query = query.Where(v => v.CategoryId == @params.CategoryId);
-        if (@params.IsPremium.HasValue)
-            query = query.Where(v => v.IsPremium == @params.IsPremium);
-        if (!string.IsNullOrEmpty(@params.Search))
-            query = query.Where(v => v.Name.ToLower().Contains(@params.Search.ToLower()));
-        if (@params.FilterId.HasValue)
-            query = query.Where(v => v.VacancyFilters.Any(vf => vf.FilterId == @params.FilterId));
-
-        var vacancies = await query
-            .OrderByDescending(v => v.CreatedAt)
-            .Take(@params.Take)
-            .ToListAsync();
-
-        return vacancies.Select(v => new VacancyListDto
+        foreach (var filter in @params.Filters)
         {
-            Id = v.Id,
-            Name = v.Name,
-            Salary = (v.MinSalary == null && v.MaxSalary == null)
-                     ? "Razılaşma yolu ilə"
-                     : $"{v.MinSalary} - {v.MaxSalary} AZN",
-            ViewCount = v.ViewCount,
-            CreatedAt = v.CreatedAt ?? DateTime.MinValue,
-            IsPremium = v.IsPremium,
-            CityName = v.City?.Name.Translate(@params.Lang)!,
-            Company = new VacancyCompanyDto
+            if (!string.IsNullOrEmpty(filter.Value))
             {
-                Name = v.Company?.Name!,
-                Logo = v.Company?.Logo?.ToAdminUrl()!,
-                IsVerified = v.Company?.IsVerified ?? false
+                query = query.Where(v => v.VacancyFilters.Any(vf => 
+                    vf.FilterId.ToString() == filter.Key));
             }
-        }).ToList();
+        }
     }
 
+    var vacancies = await query
+        .OrderByDescending(v => v.CreatedAt)
+        .Take(@params.Take)
+        .ToListAsync();
+
+    return vacancies.Select(v => new VacancyListDto
+    {
+        Id = v.Id,
+        Name = v.Name,
+        Salary = (v.MinSalary == null && v.MaxSalary == null)
+                 ? "Razılaşma yolu ilə"
+                 : $"{v.MinSalary} - {v.MaxSalary} AZN",
+        ViewCount = v.ViewCount,
+        CreatedAt = v.CreatedAt ?? DateTime.MinValue,
+        IsPremium = v.IsPremium,
+        CityName = v.City?.Name.Translate(@params.Lang)!,
+        Company = new VacancyCompanyDto
+        {
+            Name = v.Company?.Name!,
+            Logo = v.Company?.Logo?.ToAdminUrl()!,
+            IsVerified = v.Company?.IsVerified ?? false
+        }
+    }).ToList();
+}
 
     public async Task<VacancyDetailDto?> GetByIdAsync(int id, string lang = "az")
     {

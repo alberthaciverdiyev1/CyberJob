@@ -1,0 +1,281 @@
+@using CyberJob.DTOs
+
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #F8FAFB;
+    }
+
+    .company-header-bg {
+        background: linear-gradient(75.4deg, rgba(255, 255, 255, 0.38) 66.45%, rgba(157, 214, 252, 0.38) 81.18%, rgba(0, 149, 246, 0.38) 96.14%);
+        border-radius: 24px;
+        border: 1px solid #E1E8F0;
+        padding: 40px;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        margin-top: 20px;
+    }
+
+    .company-logo-box {
+        width: 267.14px;
+        height: 197.35px;
+        background: white;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        flex-shrink: 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    .stat-card {
+        background: white;
+        border: 1px solid #E5E7EB;
+        border-radius: 16px;
+        padding: 18px 22px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        min-width: 250px;
+    }
+
+    .stat-title {
+        background: linear-gradient(180deg, #0095F6 0%, #005790 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+        font-size: 15px;
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: #0095F6;
+        font-weight: 500;
+        margin-bottom: 2px;
+    }
+
+    /* --- TAB SİSTEMİ --- */
+    .nav-tabs {
+        border-bottom: 1.5px solid #E5E7EB;
+        display: flex;
+        gap: 40px;
+        margin-bottom: 30px;
+    }
+
+    .nav-tab {
+        font-size: 18px;
+        font-weight: 700;
+        padding-bottom: 12px;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: #95A1B0;
+    }
+
+    .nav-tab.active {
+        color: #009689;
+    }
+
+    .nav-tab.active::after {
+        content: "";
+        position: absolute;
+        bottom: -1.5px;
+        left: 0;
+        width: 100%;
+        height: 3.5px;
+        background: #009689;
+        border-radius: 10px;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    /* --- VAKANSİYALAR DİZAYNI (image_050c1c.png uyğun) --- */
+    .filter-sidebar {
+        width: 320px;
+        background: white;
+        border-radius: 20px;
+        padding: 24px;
+        border: 1px solid #F0F0F0;
+        flex-shrink: 0;
+        position: sticky;
+        top: 20px;
+    }
+
+    .filter-input {
+        width: 100%;
+        padding: 14px;
+        background: #F9FAFB;
+        border: 1px solid #F0F0F0;
+        border-radius: 12px;
+        font-size: 14px;
+        outline: none;
+        transition: border 0.3s;
+    }
+
+    .filter-input:focus {
+        border-color: #009689;
+    }
+
+    .job-row-card {
+        background: white;
+        border-radius: 24px;
+        border: 1px solid #F0F0F0;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s;
+        margin-bottom: 16px;
+    }
+
+    .job-row-card:hover {
+        border-color: #009689;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    }
+
+    .btn-apply {
+        padding: 16px 40px;
+        background: #569894;
+        color: white;
+        border-radius: 20px;
+        font-weight: 900;
+        transition: background 0.3s;
+    }
+
+    .btn-apply:hover {
+        background: #457d79;
+    }
+</style>
+
+
+<main class="max-w-[1440px] mx-auto px-6 md:px-10 py-10">
+
+    <section class="company-header-bg mb-10">
+        <div class="company-logo-box">
+            <img src="@Model.Company.Logo" alt="@Model.Company.Name" class="w-full h-full object-contain">
+        </div>
+
+        <div class="flex-1">
+            <div class="flex items-center gap-4 mb-8">
+                <h1 class="text-[36px] font-[900] text-[#0B2036]">@Model.Company.Name</h1>
+                @if (Model.Company.IsVerified)
+                {
+                    <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] text-3xl"></iconify-icon>
+                }
+                <div class="bg-white border border-[#009689] text-[#009689] px-4 py-1.5 rounded-lg font-bold text-sm">
+                    @Model.Company.VacancyCount vakansiya
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-5">
+                <div class="stat-card">
+                    <img src="~/images/check.png" style="width: 32px; height: 32px;" alt="@Model.Company.CategoryName">
+                    <div><p class="stat-label">Kateqoriya</p>
+                        <p class="stat-title">@Model.Company.CategoryName</p></div>
+                </div>
+                <div class="stat-card">
+                    <img src="~/images/time.png" style="width: 32px; height: 32px;" alt="Tarix">
+                    <div><p class="stat-label">Təsis tarixi</p>
+                        <p class="stat-title">@Model.Company.FoundedYear</p></div>
+                </div>
+                <div class="stat-card">
+                    <img src="~/images/location.png" style="width: 32px; height: 32px;" alt="Ünvan">
+                    <div><p class="stat-label">Ünvan</p>
+                        <p class="stat-title">@Model.Company.ShortAddress</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="nav-tabs">
+        <div class="nav-tab active" onclick="openTab(event, 'vacancies')">Vakansiyalar</div>
+        <div class="nav-tab" onclick="openTab(event, 'about')">Şirkət haqqında</div>
+    </nav>
+
+    <div id="about" class="tab-content">
+        <section class="max-w-[1200px] bg-white p-10 rounded-[24px] border border-gray-100">
+            <h2 class="text-[24px] font-black text-[#0B2036] mb-8">@Model.Company.Name - Şirkət profili</h2>
+            <div class="text-[#4F5B67] text-[16px] leading-[1.8] space-y-6">
+
+                @Html.Raw(Model.Company.About.Replace("\n", "<br>"))
+
+            </div>
+            <div class="mt-12 space-y-4 border-t pt-8">
+                <p class="font-bold text-[#0B2036]">Ünvan: <span
+                        class="font-normal text-[#4F5B67]">@Model.Company.Address</span></p>
+                <p class="font-bold text-[#0B2036]">E-poçt: <a href="mailto:@Model.Company.Email"
+                                                               class="text-[#009689] font-bold">@Model.Company.Email</a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <div id="vacancies" class="tab-content active">
+        <div class="flex flex-col lg:flex-row gap-8 items-start">
+            <aside class="filter-sidebar">
+                <form class="space-y-4"
+                      hx-get="/companies/@Model.Company.Id/vacancies"
+                      hx-target="#vacancy-list"
+                      hx-trigger="load change, keyup delay:500ms from:.filter-input, submit">
+
+                    <input type="text" name="Search" placeholder="Vəzifə adı" class="filter-input">
+
+                    <select name="CityId" class="filter-input text-gray-400">
+                        <option value="">Şəhər seç</option>
+                        @foreach (var city in Model.Cities)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                    @foreach (FilterGroupDto filter in Model.Filters)
+                    {
+                        <select name="Filters[@filter.Key]" class="filter-input text-gray-400">
+                            <option value="">@filter.Name</option>
+                            @foreach (var option in filter.Options)
+                            {
+                                <option value="@option.Key">@option.Name</option>
+                            }
+                        </select>
+                    }
+
+                    <button type="submit"
+                            class="w-full py-4 bg-[#569894] text-white font-bold rounded-xl shadow-lg shadow-[#569894]/20">
+                        Axtar
+                    </button>
+                </form>
+            </aside>
+
+            <div id="vacancy-list" class="flex-1 w-full space-y-4">
+                <div class="flex justify-center p-10 htmx-indicator">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#569894]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("nav-tab");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
+
