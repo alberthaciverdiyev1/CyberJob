@@ -1,0 +1,141 @@
+﻿  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #F8FAFB; }
+    
+    .mission-card { transition: all 0.3s ease; border: 1px solid #E5E7EB; }
+    .mission-card:hover { transform: translateY(-5px); border-color: #00D4AA; }
+    
+    .team-card { 
+        border-radius: 24px; 
+        overflow: hidden; 
+        background: white;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+    
+    .team-img-wrapper {
+        height: 300px; 
+        display: flex;
+        align-items: flex-end; 
+        justify-content: center;
+        background: white;
+        overflow: hidden;
+    }
+
+    .team-img-wrapper img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        object-position: bottom;
+    }
+
+    .special-scale {
+        transform: scale(1.15); 
+        transform-origin: bottom;
+    }
+
+    .dark .mission-card { border-color: #1f2937; background-color: #0a0a0a; }
+    .dark .team-card { background-color: #0a0a0a; }
+    .dark .team-img-wrapper { background-color: white; }
+  </style>
+
+  <main class="max-w-[1440px] mx-auto px-6 md:px-10 py-16">
+    
+    <section class="flex flex-col lg:flex-row items-center gap-16 mb-32">
+      <div class="flex-1">
+        <h1 class="text-[44px] font-bold mb-8">Bizim Hekayəmiz</h1>
+        <div class="space-y-6 text-black dark:text-gray-300 leading-relaxed text-lg">
+          <p>CyberJob, Azərbaycanda İT sahəsinə maraq göstərən insanların yaşadığı real bir ehtiyacdan doğdu. İT tələbələri, kurs bitirənlər və junior mütəxəssislər hər gün müxtəlif elan saytlarında iş axtarır, onlarca səhifəni ayrı-ayrılıqda yoxlayır, amma İT-yə xüsusi yönəlik tək bir mərkəz tapmırdı.</p>
+          <p>İT sahəsində öz yolunu tapmağa çalışan bir gəncin başqalarına da yol açmaq istəyi isə CyberJob-un əsasını qoydu. İdeya ondan doğdu ki, bu sahədə vakansiyalar çoxdur, amma onlar dağınıq şəkildə paylaşılır və bir çox insanlar bu fürsətləri ya gec tapır, ya da ümumiyyətlə görmür.</p>
+        </div>
+      </div>
+      <div class="flex-1 flex justify-center">
+        <img src="~/images/cyberjoblogo.png" alt="CyberJob Logo" class="max-w-[400px] w-full h-auto">
+      </div>
+    </section>
+
+    <section class="mb-32">
+      <div class="bg-white dark:bg-zinc-900 rounded-[17px] min-h-[511px] p-12 md:p-16 shadow-sm border border-gray-100 dark:border-zinc-800 flex flex-col justify-center">
+        <h2 class="text-[32px] md:text-[36px] font-bold mb-16 text-left dark:text-white">Missiyamız və dəyərlərimiz</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 items-start w-full">
+          <div class="flex flex-col items-center text-center">
+            <div class="h-40 flex items-center justify-center mb-8"><img src="~/images/about1.png" class="max-h-full w-auto"></div>
+            <p class="font-bold text-[18px] leading-tight">Namizədlər üçün<br>doğru iş seçimi</p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="h-40 flex items-center justify-center mb-8"><img src="~/images/about2.png" class="max-h-full w-auto"></div>
+            <p class="font-bold text-[18px] leading-tight">Şirkətlərə doğru<br>namizədləri təqdim etmək</p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="h-40 flex items-center justify-center mb-8"><img src="~/images/about3.png" class="max-h-full w-auto"></div>
+            <p class="font-bold text-[18px] leading-tight">Sadə və rahat<br>istifadə</p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="h-40 flex items-center justify-center mb-8"><img src="~/images/about4.png" class="max-h-full w-auto"></div>
+            <p class="font-bold text-[18px] leading-tight">Etibar və şəffaflıq</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-32">
+      <h2 class="text-[42px] font-bold text-center mb-16"><span class="border-b-4 border-cyberGreen pb-2">Komandamız</span></h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <div class="team-card shadow-sm group">
+          <div class="team-img-wrapper"><img src="~/images/boyukaga.png" class="special-scale"></div>
+          <div class="bg-[#2D4A53] py-6 text-center text-white">
+            <h3 class="font-bold text-lg">Böyükağa Zeynalov</h3>
+            <p class="text-xs opacity-70">Təsisçi & CEO</p>
+          </div>
+        </div>
+
+        <div class="team-card shadow-sm">
+          <div class="team-img-wrapper"><img src="~/images/albert.png"></div>
+          <div class="bg-[#D4C379] py-6 text-center text-white">
+            <h3 class="font-bold text-lg">Albert Hacıverdiyev</h3>
+            <p class="text-xs opacity-70">Full stack developer</p>
+          </div>
+        </div>
+
+        <div class="team-card shadow-sm">
+          <div class="team-img-wrapper"><img src="~/images/jale.png"></div>
+          <div class="bg-[#4A2053] py-6 text-center text-white">
+            <h3 class="font-bold text-lg">Jalə Əzimli</h3>
+            <p class="text-xs opacity-70">Marketinq mütəxəssisi</p>
+          </div>
+        </div>
+
+        <div class="team-card shadow-sm">
+          <div class="team-img-wrapper"><img src="~/images/inahat.png"></div>
+          <div class="bg-[#E49F83] py-6 text-center text-white">
+            <h3 class="font-bold text-lg">İnahat Bağırova</h3>
+            <p class="text-xs opacity-70">UI/UX Dizayner</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="w-full max-w-[1245px] mx-auto px-4 py-24 flex flex-col md:flex-row justify-between items-center gap-16 mb-12">
+        <div class="flex-1">
+          <h2 class="text-[54px] font-[800] text-cyberMain dark:text-white leading-[1.1] mb-4 text-center md:text-left">Karyera yolunda<br>addımını bizlə at!</h2>
+          <p class="text-[20px] text-gray-400 dark:text-gray-500 font-medium">Uğurun kodunu bizdə aç</p>
+        </div>
+        <div class="w-full max-w-[500px]">
+          <div class="flex flex-col gap-5">
+            <div class="relative">
+              <span class="absolute inset-y-0 left-6 flex items-center text-gray-400">
+                <iconify-icon icon="ph:envelope-simple-bold" width="24"></iconify-icon>
+              </span>
+              <input type="email" placeholder="Emailini daxil et" class="w-full py-6 pl-16 pr-8 border border-gray-200 dark:border-gray-800 rounded-2xl bg-white dark:bg-zinc-900">
+            </div>
+            <button class="w-full py-6 bg-[#278B8A] text-white font-bold rounded-2xl text-[20px]">Abunə ol</button>
+          </div>
+        </div>
+      </section>
+
+  </main>
+
+

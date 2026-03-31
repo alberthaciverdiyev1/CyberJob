@@ -17,4 +17,10 @@ public class StaticPageController(FaqService faqService) : Controller
         };
         return View(model);
     }
+
+    [HttpGet("/about")]
+    public async Task<IActionResult> About()
+    {
+        return View();
+    }
 }
