@@ -23,4 +23,10 @@ public class StaticPageController(FaqService faqService) : Controller
     {
         return View();
     }
+
+    [HttpGet("/contact")]
+    public async Task<IActionResult> Contact()
+    {
+        return View();
+    }
 }

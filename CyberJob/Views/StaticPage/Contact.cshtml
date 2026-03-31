@@ -1,0 +1,110 @@
+﻿
+<style>
+    body { font-family: 'Inter', sans-serif; background-color: #F8FAFB; }
+    /* Şəkillər üçün hover effekti */
+    .qr-img-wrapper { 
+        transition: all 0.3s ease; 
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+    .qr-img-wrapper:hover { 
+        transform: translateY(-8px); 
+        filter: brightness(1.05); 
+    }
+</style>
+
+<main class="max-w-[1440px] mx-auto px-4 md:px-10 py-16">
+    <div class="text-center mb-16">
+        <h1 class="text-[32px] md:text-[40px] font-black text-[#0B2036] dark:text-white mb-2">Kömək üçün buradayıq</h1>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-8 items-start">
+        
+        <div class="w-full lg:w-1/2 bg-white dark:bg-zinc-900 rounded-[32px] p-8 md:p-12 shadow-sm border border-gray-50 dark:border-zinc-800">
+            <h2 class="text-[20px] md:text-[24px] font-bold text-[#0B2036] dark:text-white mb-4">Hürmətli istifadəçi</h2>
+            <p class="text-[#4F5B67] dark:text-gray-400 text-[16px] md:text-[18px] leading-relaxed mb-12">
+                Bizimlə əlaqə saxlamaq üçün aşağıdakı məlumatlardan istifadə edə bilərsiniz.
+            </p>
+
+            <h3 class="text-[20px] font-bold text-[#0B2036] dark:text-white mb-8">Əlaqə məlumatları</h3>
+
+            <div class="space-y-8">
+                <div class="flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-xl shrink-0">
+                        <iconify-icon icon="ph:phone-fill"></iconify-icon>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm">Telefon</p>
+                        <p class="text-[#0B2036] dark:text-white font-bold text-lg">+994 10 811 67 42</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-xl shrink-0">
+                        <iconify-icon icon="ph:envelope-simple-fill"></iconify-icon>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm">Email</p>
+                        <p class="text-[#0B2036] dark:text-white font-bold text-lg">info@cyberjob.az</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-xl shrink-0">
+                        <iconify-icon icon="ph:map-pin-fill"></iconify-icon>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm">Ünvan</p>
+                        <p class="text-[#0B2036] dark:text-white font-bold text-lg">Bakı, Azərbaycan</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-xl shrink-0">
+                        <iconify-icon icon="ph:clock-fill"></iconify-icon>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm">İş saatları</p>
+                        <p class="text-[#0B2036] dark:text-white font-bold text-lg">B.e – Cümə, 09:00 – 18:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full lg:w-1/2 bg-white dark:bg-zinc-900 rounded-[32px] p-8 md:p-12 shadow-sm border border-gray-50 dark:border-zinc-800">
+            <h2 class="text-[20px] md:text-[24px] font-bold text-[#0B2036] dark:text-white mb-4">Sosial şəbəkələr</h2>
+            <p class="text-[#4F5B67] dark:text-gray-400 text-[16px] mb-8">
+                QR kodları skan edərək sosial media hesablarımıza keçid edin
+            </p>
+
+            <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                
+                <div class="qr-img-wrapper">
+                    <img src="~/images/qr1.png" alt="WhatsApp" style="width: 170px; height: 210px;">
+                </div>
+
+                <div class="qr-img-wrapper">
+                    <img src="~/images/qr2.png" alt="Instagram" style="width: 170px; height: 210px;">
+                </div>
+
+                <div class="qr-img-wrapper">
+                    <img src="~/images/qr3.png" alt="Linkedin" style="width: 170px; height: 210px;">
+                </div>
+
+                <div class="qr-img-wrapper">
+                    <img src="~/images/qr4.png" alt="Telegram" style="width: 170px; height: 210px;">
+                </div>
+
+                <div class="qr-img-wrapper">
+                    <img src="~/images/qr5.png" alt="Facebook" style="width: 170px; height: 210px;">
+                </div>
+
+                <div class="qr-img-wrapper">
+                    <img src="~/images/qr6.png" alt="WhatsApp Business" style="width: 170px; height: 210px;">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
