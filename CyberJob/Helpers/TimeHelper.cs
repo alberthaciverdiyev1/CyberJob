@@ -9,7 +9,7 @@ public static class TimeHelper
         var timeSpan = DateTime.Now - dateTime.Value;
         double seconds = timeSpan.TotalSeconds;
 
-        if (seconds < 0) return "Buna hazırlaşırıq :)"; 
+        if (seconds < 0) return "Indice"; 
 
         if (seconds < 60)
             return "İndicə";

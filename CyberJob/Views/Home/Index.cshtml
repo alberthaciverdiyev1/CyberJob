@@ -26,8 +26,8 @@
     }
 
     .banner-slide {
-        width: 680px;
-        height: 335px;
+        width: 850px;
+        height: 384px;
         border-radius: 10px;
         position: absolute;
         transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -44,7 +44,7 @@
 
     .slide-left {
         z-index: 10;
-        left: 50%;
+        left: 40%;
         transform: translateX(-85%) scale(0.85);
         opacity: 0.7;
         filter: brightness(0.8) blur(1px);
@@ -52,15 +52,15 @@
 
     .slide-right {
         z-index: 10;
-        right: 50%;
+        right: 40%;
         transform: translateX(85%) scale(0.85);
         opacity: 0.7;
         filter: brightness(0.8) blur(1px);
     }
 
     .card-base {
-        width: 301.5px;
-        height: 135.1px;
+        width: 100%;
+        min-height: 160px;
         display: flex;
         flex-direction: column;
         transition: all 0.3s ease;
@@ -161,69 +161,84 @@
                     }
                 }
             </div>
-            <h2 class="text-[32px] font-bold mt-10 text-center dark:text-white">Hansı sahə üzrə axtarırsan?</h2>
         </div>
 
-        <div class="w-full max-w-[1245px] px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px] mt-10 mb-24">
+        <div class="w-full max-w-[1445px] px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px] mt-3 mx-auto">
+            <h2 class="col-span-full text-[32px] font-bold text-center dark:text-white mb-4">
+                Hansı sahə üzrə axtarırsan?
+            </h2>
             @if (Model.Categories != null)
             {
                 @foreach (var category in Model.Categories)
                 {
                     <div
-                        class="w-full h-[100px] border border-gray-100 dark:border-gray-800 shadow-sm rounded-[16px] flex flex-col items-center justify-center gap-2 hover:border-[#00D4AA] cursor-pointer bg-white dark:bg-cyberDark group transition-all">
+                        class="w-full h-[100px] border border-gray-200 dark:border-gray-800 shadow-sm rounded-[16px] flex flex-col items-center justify-center gap-2 hover:border-[#00D4AA] cursor-pointer bg-white dark:bg-cyberDark group transition-all">
 
-                        @if (!string.IsNullOrEmpty(category.Icon))
-                        {
-                            <i class="@category.Icon text-3xl text-cyberGreen"></i>
-                        }
-                        else
-                        {
-                            <i class="fa-solid fa-layer-group text-3xl text-cyberGreen"></i>
-                        }
+                        <div class="flex items-center justify-center">
+                            @if (!string.IsNullOrEmpty(category.Icon))
+                            {
+                                @if (category.Icon.Contains("heroicon"))
+                                {
+                                    var iconName = category.Icon.Replace("heroicon-c-", "").Replace("heroicon-o-", "").Replace("heroicon-s-", "");
+                                    var folder = category.Icon.Contains("-o-") ? "24/outline" : "20/solid";
+                                    var iconUrl = $"https://raw.githubusercontent.com/tailwindlabs/heroicons/master/src/{folder}/{iconName}.svg";
 
-                        <span class="text-[14px] font-medium text-gray-700 dark:text-gray-300">
-                          @category.Name
-                      </span>
+                                    <span class="w-8 h-8 bg-cyberGreen group-hover:bg-[#00D4AA] transition-all"
+                                          style="mask: url('@iconUrl') no-repeat center;
+                                          -webkit-mask: url('@iconUrl') no-repeat center;
+                                          mask-size: contain; -webkit-mask-size: contain;
+                                          display: inline-block;">
+                        </span>
+                                }
+                                else
+                                {
+                                    <i class="@category.Icon text-3xl text-cyberGreen group-hover:text-[#00D4AA] transition-all"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="fa-solid fa-layer-group text-3xl text-cyberGreen"></i>
+                            }
+                        </div>
+
+                        <span
+                            class="text-[14px] font-medium text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors">
+                @category.Name
+            </span>
                     </div>
                 }
             }
         </div>
-        <h2 class="text-[32px] font-bold mb-12 dark:text-white">Premium elanlar</h2>
-        <div id="premium-ads-container"
-             class="w-full max-w-[1245px] px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px] mb-20 justify-items-center">
+<h2 class="text-[32px] font-bold mt-16 mb-8 dark:text-white text-center">Premium elanlar</h2>
+        <div id="premium-ads-container" class="w-full max-w-[1445px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[10px] mb-20">
             @foreach (var vacancy in Model.PremiumVacancies)
             {
-                <div class="premium-card-border card-base group hover:-translate-y-1 transition-all">
-                    <div
-                        class="card-inner dark:bg-cyberDark transition-colors border border-gray-100 dark:border-gray-800">
-                        <div
-                            class="premium-badge-gradient absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-0.5 rounded-full text-white text-[10px] font-bold uppercase z-10 shadow-sm">
-                            Premium
-                        </div>
-                        <div class="flex items-start gap-2.5 overflow-hidden">
-                            <div
-                                class="w-10 h-10 bg-cyberMain rounded-md flex items-center justify-center shrink-0 text-white font-bold text-[9px]">
-                                @vacancy.Company.Name
+                <div class="w-full premium-card-border card-base group hover:-translate-y-1 transition-all">
+                    <div class="card-inner dark:bg-cyberDark transition-colors border border-gray-100 dark:border-gray-800">
+                        <div class="premium-badge-gradient absolute top-2 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-white text-sm font-bold uppercase z-10 shadow-sm">Premium</div>
+                        
+                        <div class="flex items-start gap-2.5 mt-12 overflow-hidden">
+                            <div class="w-10 h-10 rounded-md overflow-hidden shrink-0">
+                                <img src="@vacancy.Company.Logo" alt="@vacancy.Company.Name" class="w-full h-full object-cover"/>
                             </div>
                             <div class="min-w-0">
-                                <h3
-                                    class="text-[14px] font-bold text-black dark:text-white leading-tight truncate">
-                                    @vacancy.Name</h3>
-                                <p class="text-[12px] text-[#2D9CDB] font-semibold">@vacancy.Company.Name</p></div>
+                                <h3 class="text-[16px] font-bold text-black dark:text-white leading-tight truncate">@vacancy.Name</h3>
+                                <p class="text-[14px] text-gray-400 font-semibold truncate">@vacancy.Company.Name</p>
+                            </div>
                         </div>
+
                         <div class="mt-auto">
-                            <div class="w-full h-[1px] bg-gray-100 dark:bg-gray-800 mb-2 transition-colors"></div>
-                            <div class="flex justify-between items-center">
-                                <div
-                                    class="text-gray-400 text-[10px] font-medium">@TimeHelper.ToRelativeDate(vacancy.CreatedAt) • @vacancy.ViewCount</div>
-                                <div class="text-[#B7872B] font-bold text-[12px]">@vacancy.Salary</div>
+                            <div class="w-full h-[0.5px] bg-gray-400/20 dark:bg-gray-800/40 mb-2"></div>
+                            <div class="flex justify-between items-center text-gray-400 text-sm">
+                                    <span class="flex items-center gap-1"><i class="fa-regular fa-calendar-days text-[9px]"></i> @vacancy.CreatedAt.ToString("dd.MM.yyyy")</span>
+                                    <span class="flex items-center gap-1"><i class="fa-regular fa-eye text-[9px]"></i> @vacancy.ViewCount</span>
+                                     <span class="text-[#B7872B] font-bold ">@vacancy.Salary</span>
                             </div>
                         </div>
                     </div>
                 </div>
             }
         </div>
-
         <h2 class="text-[32px] font-bold mb-12 dark:text-white">Ən son vakansiyalar</h2>
         <div id="latest-jobs-container"
              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px] mb-12 w-full max-w-[1242px]">
@@ -257,7 +272,7 @@
             Daha çox
         </button>
 
-        <div class="w-full max-w-[1245px] px-4">
+        <div class="w-full max-w-[1445px] px-4">
             <h2 class="text-center text-[32px] font-bold mb-12 text-cyberMain dark:text-white uppercase">Bizi seçən
                 şirkətlər!</h2>
             <div class="flex justify-between items-center gap-12 mb-24 flex-wrap">
@@ -323,7 +338,7 @@
         </div>
 
         <section
-            class="w-full max-w-[1245px] mx-auto px-4 py-24 flex flex-col md:flex-row justify-between items-center gap-16 mb-12">
+            class="w-full max-w-[1445px] mx-auto px-4 py-24 flex flex-col md:flex-row justify-between items-center gap-16 mb-12">
             <div class="flex-1">
                 <h2 class="text-[54px] font-[800] text-cyberMain dark:text-white leading-[1.1] mb-4 text-center md:text-left tracking-tight transition-colors">
                     Karyera yolunda<br>addımını bizlə at!</h2>

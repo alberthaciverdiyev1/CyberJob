@@ -8,15 +8,17 @@
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-
-    <style>
-        .htmx-request #companies-grid {
-        opacity: 0.5;
-        transition: opacity 0.2s ease-in;
-        }
-    </style>
+  <style>
+    .htmx-request #companies-grid {
+      opacity: 0.5;
+      transition: opacity 0.2s ease-in;
+    }
+  </style>
 
   <script>
     tailwind.config = {
@@ -157,6 +159,6 @@
 </main>
 
 @await Html.PartialAsync("_Footer")
-@await RenderSectionAsync("Scripts",false)
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>
