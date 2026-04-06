@@ -28,7 +28,7 @@ public class HomeController(
             var latestVacancies = await vacancyService.GetListAsync(new VacancyFilterParams {
                 Lang = lang,
                 IsPremium = false,
-                Take = 12
+                Take = 8
             });
 
             var model = new
