@@ -41,7 +41,9 @@
             cyberGreen: '#009689',
             promoGreen: '#00FF00',
             darkGreen: '#154E4D',
-            lightGreen: "#1A998D"
+            lightGreen: "#1A998D",
+            darkMode:'#010C0F',
+            extraLightGreen:"#00D4AA"
           }
         }
       }
@@ -67,15 +69,16 @@
   </style>
   <title>CyberJob</title>
 </head>
-<body class="dark:bg-black text-cyberMain dark:text-white antialiased transition-colors duration-500">
+<body class="bg-gray-100 dark:bg-darkMode text-cyberMain dark:text-white antialiased transition-colors duration-500">
 @await Html.PartialAsync("_Header")
 
 
-<main class="flex-grow bg-cyberMain dark:bg-black transition-colors duration-500">
+<main class="flex-grow bg-cyberMain dark:bg-darkMode transition-colors duration-500">
   @RenderBody()
 </main>
 
 @await Html.PartialAsync("_Footer")
 @await RenderSectionAsync("Scripts", false)
+<script src="~/js/theme.js"></script>
 </body>
 </html>
