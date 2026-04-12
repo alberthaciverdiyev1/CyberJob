@@ -10,23 +10,23 @@
 
             <div class="min-w-0">
                 <div class="flex items-center gap-1">
-                    <h3 class="font-[900] text-[14px] text-[#0B2036] leading-tight truncate">@company.Name</h3>
+                    <h3 class="font-bold text-md text-[#0B2036] leading-tight truncate">@company.Name</h3>
                     @if (company.IsVerified)
                     {
-                        <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] text-[14px] shrink-0"></iconify-icon>
+                        <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] text-sm shrink-0"></iconify-icon>
                     }
                 </div>
-                <p class="text-[12px] text-[#95A1B0] font-bold mt-0.5">
-                    @company.VacancyCount <span class="font-medium">vakansiya</span>
-                </p>
             </div>
         </div>
+                <p class="text-sm text-gray-500 font-semibold mt-0.5">
+                    @company.VacancyCount <span class="font-medium">vakansiya</span>
+                </p>
 
         <div class="w-full flex items-center gap-2">
             <a asp-controller="Company"
                asp-action="Details"
                asp-route-id="@company.Id"
-               class="flex-1 py-2.5 bg-[#1A998D] text-white rounded-lg font-black text-[11px] hover:bg-[#147a70] transition-all text-center shadow-sm">
+               class="flex-1 py-2.5 bg-lightGreen text-white rounded-lg font-semibold text-sm hover:bg-darkGreen transition-all text-center shadow-sm">
                 Detallar
             </a>
 

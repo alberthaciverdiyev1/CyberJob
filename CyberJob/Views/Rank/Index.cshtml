@@ -1,43 +1,11 @@
 ﻿@using CyberJob.DTOs
-<style>
 
-
-    /* Podium Gradientləri */
-    .podium-gradient-gold {
-        background: linear-gradient(180deg, #FBD38D 0%, #ECC94B 50%, #B7791F 100%);
-    }
-
-    .podium-gradient-silver {
-        background: linear-gradient(180deg, #E2E8F0 0%, #A0AEC0 50%, #4A5568 100%);
-    }
-
-    .podium-gradient-bronze {
-        background: linear-gradient(180deg, #ED8936 0%, #C05621 50%, #7B341E 100%);
-    }
-
-
-    /* FAQ Animasiyası */
-    .faq-answer {
-        max-height: 0;
-        overflow: hidden;
-        transition: all 0.3s ease-out;
-    }
-
-    .faq-item.active .faq-answer {
-        max-height: 300px;
-        padding-bottom: 24px;
-    }
-
-    .faq-item.active iconify-icon {
-        transform: rotate(180deg);
-    }
-
-    .podium-top {
-        clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
-    }
-</style>
 @{
     Layout = Context.Request.Headers.ContainsKey("HX-Request") ? null : "_Layout";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/rank.css"/>
+
 }
 
 <div class="w-full mx-auto pt-16 bg-[#0B2036]">

@@ -1,95 +1,23 @@
-<style>
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #F8FAFB;
-        margin: 0;
-    }
+@section Styles {
+    <link rel="stylesheet" href="~/css/company.css"/>
+}
 
-    .company-card {
-        width: 219.86px;
-        height: 184.80px;
-        transition: all 0.3s ease;
-        border: 1px solid #1A998D;
-        background-color: #FFFFFF;
-        border-radius: 10px; 
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        flex-shrink: 0;
-    }
+<main class=" mx-auto px-36 py-16">
 
-    .company-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0px 8px 25px rgba(26, 153, 141, 0.15);
-    }
-
-    
-    .sort-container {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        margin-bottom: 24px;
-    }
-
-    .sort-label {
-        font-size: 11px;
-        font-weight: 800;
-        color: #9CA3AF;
-        text-transform: uppercase;
-        margin-left: 2px;
-    }
-
-    .sort-select-box {
-        position: relative;
-        width: 200px;
-    }
-
-    .sort-select {
-        width: 100%;
-        padding: 10px 16px;
-        background-color: white;
-        border: 1px solid #1A998D;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 600;
-        color: #1A998D;
-        appearance: none;
-        outline: none;
-        cursor: pointer;
-    }
-
-    .sort-icon {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #1A998D;
-        pointer-events: none;
-    }
-
-    .sidebar-active {
-        background-color: #1A998D;
-        color: white !important;
-    }
-</style>
-
-<main class="max-w-[1440px] mx-auto px-6 md:px-10 py-16">
-
-    <div class="text-center mb-16">
-        <h1 class="text-[40px] font-[900] mb-3 
-               text-[#0B2036] dark:text-white transition-colors duration-300">
+    <div class="text-center mb-16 font-semibold ">
+        <h1 class="text-4xl mb-3 
+               text-black dark:text-white transition-colors duration-300">
             Şirkətlər
         </h1>
-        <p class="text-[18px] font-medium opacity-80 
-              text-[#000000] dark:text-white transition-colors duration-300">
+        <p class="text-lg font-medium
+              text-black dark:text-white transition-colors duration-300">
             Arzuladığınız iş yerini tapmaq üçün şirkətlərin siyahısı ilə tanış olun.
         </p>
     </div>
 
     <div class="flex flex-col lg:flex-row gap-10">
         <aside class="w-full lg:w-[300px] shrink-0">
-            <div class="bg-white rounded-[24px] border border-gray-100 p-6 sticky top-28 shadow-sm">
+            <div class="bg-white rounded-[24px] border border-lightGreen p-6 sticky top-28 shadow-sm">
                 <div class="relative mb-8">
                     <span class="absolute inset-y-0 left-4 flex items-center text-[#1A998D]">
                         <iconify-icon icon="ph:magnifying-glass-bold" class="text-xl"></iconify-icon>
@@ -99,7 +27,7 @@
                            name="search"
                            value="@ViewBag.Search"
                            placeholder="Şirkət axtar..."
-                           class="w-full py-3.5 pl-12 pr-4 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:border-[#1A998D] transition-all"
+                           class="w-full py-3.5 pl-12 pr-4 bg-gray-50  border border-lightGreen  rounded-xl text-sm focus:outline-none focus:border-[#1A998D] transition-all"
                            hx-get="/companies"
                            hx-trigger="keyup changed delay:500ms, search"
                            hx-target="#main-content-area"
@@ -110,7 +38,7 @@
                     @foreach (var company in Model)
                     {
                         <a href="#"
-                           class="sidebar-link @(company.IsActive ? "sidebar-active" : "text-gray-500 hover:bg-gray-50") flex items-center px-5 py-3.5 rounded-xl text-[14px] font-bold transition-all">
+                           class="sidebar-link @(company.IsActive ? "sidebar-active" : "text-gray-500 hover:bg-gray-50") flex items-center px-5 py-3.5 rounded-xl text-md    font-bold transition-all">
                             @company.Name
                         </a>
                     }
@@ -121,7 +49,6 @@
         <div class="flex-1" id="main-content-area">
 
             <div class="sort-container">
-                <span class="sort-label">SIRALA</span>
                 <div class="sort-select-box">
                     <select class="sort-select"
                             name="sort"
