@@ -1,11 +1,6 @@
 @using CyberJob.DTOs
 
 <style>
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #F8FAFB;
-    }
-
     .company-header-bg {
         background: linear-gradient(75.4deg, rgba(255, 255, 255, 0.38) 66.45%, rgba(157, 214, 252, 0.38) 81.18%, rgba(0, 149, 246, 0.38) 96.14%);
         border-radius: 24px;
@@ -58,7 +53,7 @@
 
     /* --- TAB SİSTEMİ --- */
     .nav-tabs {
-        border-bottom: 1.5px solid #E5E7EB;
+        border-bottom: 1.5px solid black;
         display: flex;
         gap: 40px;
         margin-bottom: 30px;
@@ -66,12 +61,10 @@
 
     .nav-tab {
         font-size: 18px;
-        font-weight: 700;
         padding-bottom: 12px;
         position: relative;
         cursor: pointer;
         transition: all 0.3s;
-        color: #95A1B0;
     }
 
     .nav-tab.active {
@@ -143,7 +136,7 @@
 
     .btn-apply {
         padding: 16px 40px;
-        background: #569894;
+        background: #1A998D;
         color: white;
         border-radius: 20px;
         font-weight: 900;
@@ -156,62 +149,75 @@
 </style>
 
 
-<main class="max-w-[1440px] mx-auto px-6 md:px-10 py-10">
+<div class="px-28 mx-auto py-10">
 
-    <section class="company-header-bg mb-10">
-        <div class="company-logo-box">
-            <img src="@Model.Company.Logo" alt="@Model.Company.Name" class="w-full h-full object-contain">
+    <section
+        class="mb-10 p-8 flex flex-col md:flex-row items-center gap-8 rounded-xl border-2 border-[#BDE3F9] bg-gradient-to-r from-white via-[#F0F9FF] to-[#CBE9FB]">
+
+        <div class="w-52 h-40 rounded-2xl flex items-center justify-center shadow-lg overflow-hidden">
+            <img src="@Model.Company.Logo" alt="@Model.Company.Name" class="w-full h-full object-cover">
         </div>
-
+        
         <div class="flex-1">
-            <div class="flex items-center gap-4 mb-8">
-                <h1 class="text-[36px] font-[900] text-[#0B2036]">@Model.Company.Name</h1>
+            <div class="flex items-center gap-4 mb-6">
+                <h1 class="text-4xl font-bold">@Model.Company.Name</h1>
                 @if (Model.Company.IsVerified)
                 {
-                    <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] text-3xl"></iconify-icon>
+                    <iconify-icon icon="material-symbols:verified" class="text-lightBlue text-2xl"></iconify-icon>
                 }
-                <div class="bg-white border border-[#009689] text-[#009689] px-4 py-1.5 rounded-lg font-bold text-sm">
+                <div class="bg-white border border-lightBlue text-lightBlue px-4 py-1 text-sm font-medium">
                     @Model.Company.VacancyCount vakansiya
                 </div>
             </div>
 
-            <div class="flex flex-wrap gap-5">
-                <div class="stat-card">
-                    <img src="~/images/check.png" style="width: 32px; height: 32px;" alt="@Model.Company.CategoryName">
-                    <div><p class="stat-label">Kateqoriya</p>
-                        <p class="stat-title">@Model.Company.CategoryName</p></div>
+            <div class="flex flex-wrap gap-4">
+                <div
+                    class="flex items-center gap-3 bg-white border-2 border-extraLightBlue rounded-[15px] px-6 py-4 min-w-[220px]">
+                    <iconify-icon icon="fluent:checkbox-person-24-regular"
+                                  class="text-[#007CC2] text-3xl"></iconify-icon>
+                    <div>
+                        <p class="text-[#007CC2] text-[13px] font-medium leading-tight">Kateqoriya</p>
+                        <p class="text-[#007CC2] text-[14px] font-semibold">@Model.Company.CategoryName</p>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <img src="~/images/time.png" style="width: 32px; height: 32px;" alt="Tarix">
-                    <div><p class="stat-label">Təsis tarixi</p>
-                        <p class="stat-title">@Model.Company.FoundedYear</p></div>
+
+                <div
+                    class="flex items-center gap-3 bg-white border-2 border-extraLightBlue rounded-[15px] px-6 py-4 min-w-[160px]">
+                    <iconify-icon icon="fluent:clock-24-regular" class="text-[#007CC2] text-3xl"></iconify-icon>
+                    <div>
+                        <p class="text-[#007CC2] text-[13px] font-medium leading-tight">Təsis tarixi</p>
+                        <p class="text-[#007CC2] text-[14px] font-semibold">@Model.Company.FoundedYear</p>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <img src="~/images/location.png" style="width: 32px; height: 32px;" alt="Ünvan">
-                    <div><p class="stat-label">Ünvan</p>
-                        <p class="stat-title">@Model.Company.ShortAddress</p></div>
+
+                <div
+                    class="flex items-center gap-3 bg-white border-2 border-extraLightBlue rounded-[15px] px-6 py-4 min-w-[160px]">
+                    <iconify-icon icon="fluent:location-24-regular" class="text-[#007CC2] text-3xl"></iconify-icon>
+                    <div>
+                        <p class="text-[#007CC2] text-[13px] font-medium leading-tight">Ünvan</p>
+                        <p class="text-[#007CC2] text-[14px] font-semibold">@Model.Company.ShortAddress</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <nav class="nav-tabs">
+    <nav class="nav-tabs font-semibold mx-12">
         <div class="nav-tab active" onclick="openTab(event, 'vacancies')">Vakansiyalar</div>
         <div class="nav-tab" onclick="openTab(event, 'about')">Şirkət haqqında</div>
     </nav>
 
     <div id="about" class="tab-content">
-        <section class="max-w-[1200px] bg-white p-10 rounded-[24px] border border-gray-100">
-            <h2 class="text-[24px] font-black text-[#0B2036] mb-8">@Model.Company.Name - Şirkət profili</h2>
-            <div class="text-[#4F5B67] text-[16px] leading-[1.8] space-y-6">
+        <section class="p-10">
+            <h2 class="text-3xl text-black font-semibold mb-8">@Model.Company.Name - Şirkət profili</h2>
+            <div class="text-gray-800 text-lg leading-[1.8] space-y-6">
 
                 @Html.Raw(Model.Company.About.Replace("\n", "<br>"))
 
             </div>
             <div class="mt-12 space-y-4 border-t pt-8">
-                <p class="font-bold text-[#0B2036]">Ünvan: <span
-                        class="font-normal text-[#4F5B67]">@Model.Company.Address</span></p>
-                <p class="font-bold text-[#0B2036]">E-poçt: <a href="mailto:@Model.Company.Email"
+                <p class="font-bold">Ünvan: <span
+                        class="font-normal text-gray-800">@Model.Company.Address</span></p>
+                <p class="font-bold">E-poçt: <a href="mailto:@Model.Company.Email"
                                                                class="text-[#009689] font-bold">@Model.Company.Email</a>
                 </p>
             </div>
@@ -247,7 +253,7 @@
                     }
 
                     <button type="submit"
-                            class="w-full py-4 bg-[#569894] text-white font-bold rounded-xl shadow-lg shadow-[#569894]/20">
+                            class="w-full py-4 bg-lightGreen text-white font-bold rounded-xl shadow-lg">
                         Axtar
                     </button>
                 </form>
@@ -255,13 +261,13 @@
 
             <div id="vacancy-list" class="flex-1 w-full space-y-4">
                 <div class="flex justify-center p-10 htmx-indicator">
-                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#569894]"></div>
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-lightGreen"></div>
                 </div>
             </div>
         </div>
     </div>
 
-</main>
+</div>
 
 <script>
     function openTab(evt, tabName) {

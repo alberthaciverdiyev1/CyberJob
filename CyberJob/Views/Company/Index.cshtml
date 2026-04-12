@@ -17,9 +17,9 @@
 
     <div class="flex flex-col lg:flex-row gap-10">
         <aside class="w-full lg:w-[300px] shrink-0">
-            <div class="bg-white rounded-[24px] border border-lightGreen p-6 sticky top-28 shadow-sm">
+            <div class="bg-white rounded-2xl border border-lightGreen p-6 sticky top-28 shadow-sm">
                 <div class="relative mb-8">
-                    <span class="absolute inset-y-0 left-4 flex items-center text-[#1A998D]">
+                    <span class="absolute inset-y-0 left-4 flex items-center text-lightGreen">
                         <iconify-icon icon="ph:magnifying-glass-bold" class="text-xl"></iconify-icon>
                     </span>
 
@@ -27,7 +27,7 @@
                            name="search"
                            value="@ViewBag.Search"
                            placeholder="Şirkət axtar..."
-                           class="w-full py-3.5 pl-12 pr-4 bg-gray-50  border border-lightGreen  rounded-xl text-sm focus:outline-none focus:border-[#1A998D] transition-all"
+                           class="w-full py-3.5 pl-12 pr-4 bg-gray-50 border border-lightGreen  rounded-xl text-sm focus:outline-none focus:border-[#1A998D] transition-all"
                            hx-get="/companies"
                            hx-trigger="keyup changed delay:500ms, search"
                            hx-target="#main-content-area"

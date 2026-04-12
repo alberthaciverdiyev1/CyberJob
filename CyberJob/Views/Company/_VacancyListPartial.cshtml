@@ -12,26 +12,37 @@ else
     {
         <div class="job-row-card">
             <div class="flex items-center gap-7">
-                <div class="w-[110px] h-[100px] bg-white rounded-2xl flex items-center justify-center p-2 shrink-0 border border-gray-50">
-                    <img src="@vacancy.Company?.Logo" alt="logo" class="w-full h-full object-contain">
+                <div
+                    class="w-28 h-28 bg-white rounded-full flex items-center justify-center shrink-0 border border-gray-100 shadow-sm overflow-hidden">
+                    <img src="@vacancy.Company?.Logo" alt="logo" class="w-full h-full object-cover">
                 </div>
 
                 <div>
-                    <h3 class="text-[20px] font-black text-[#0B2036] mb-1.5">@vacancy?.Name</h3>
-                    <p class="text-[#0095F6] font-bold flex items-center gap-2 text-[16px]">
+                    <h3 class="text-lg font-semibold text-black mb-1.5">@vacancy?.Name</h3>
+                    <p class="text-gray-400 font-semibold flex items-center gap-2 text-lg">
                         @vacancy?.Company?.Name
-                        <span class="text-gray-400 font-medium ml-2">@vacancy?.CityName</span>
+                        @if (vacancy.Company.IsVerified)
+                        {
+                            <iconify-icon icon="material-symbols:verified"
+                                          class="text-[#2D9CDB] text-sm shrink-0"></iconify-icon>
+                        }
+                        <span class="text-gray-400 font-semibold">@vacancy?.CityName</span>
                     </p>
                     <div class="flex items-center gap-6 text-gray-400 text-sm mt-3 font-medium">
-                        <span class="flex items-center gap-2"><iconify-icon icon="ph:clock-light" class="text-xl"></iconify-icon> @vacancy?.CreatedAt</span>
-                        <span class="flex items-center gap-2"><iconify-icon icon="ph:eye-light" class="text-xl"></iconify-icon> @vacancy?.ViewCount baxış</span>
+                        <span class="flex items-center gap-2">
+                            <iconify-icon icon="ph:clock-light" class="text-xl"></iconify-icon>
+                            @vacancy.CreatedAt?.ToString("dd.MM.yyyy")
+                            </span>
+                        <span class="flex items-center gap-2">
+                            <iconify-icon icon="ph:eye-light" class="text-xl"></iconify-icon>
+                            @vacancy?.ViewCount baxış</span>
                     </div>
                 </div>
             </div>
             <a asp-controller="Vacancy"
                asp-action="Details"
                asp-route-id="@vacancy.Id"
-               class="btn-apply text-center flex items-center justify-center">Detallı</a>
+               class="rounded-full bg-lightGreen px-10 py-4 text-center text-lg flex text-white items-center justify-center">Müraciət et</a>
         </div>
     }
 }
