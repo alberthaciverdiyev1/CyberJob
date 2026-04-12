@@ -1,0 +1,37 @@
+﻿.mission-card { transition: all 0.3s ease; border: 1px solid #E5E7EB; }
+.mission-card:hover { transform: translateY(-5px); border-color: #00D4AA; }
+
+.team-card {
+    border-radius: 24px;
+    overflow: hidden;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.team-img-wrapper {
+    height: 300px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background: white;
+    overflow: hidden;
+}
+
+.team-img-wrapper img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    object-position: bottom;
+}
+
+.special-scale {
+    transform: scale(1.15);
+    transform-origin: bottom;
+}
+
+.dark .mission-card { border-color: #1f2937; background-color: #0a0a0a; }
+.dark .team-card { background-color: #0a0a0a; }
+.dark .team-img-wrapper { background-color: white; }
