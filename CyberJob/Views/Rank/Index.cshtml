@@ -1,26 +1,6 @@
 ﻿@using CyberJob.DTOs
 <style>
-    :root {
-        --bg-main: #1A2332; /* Aydın fon */
-        --bg-element: #010D10; /* Daxili element rəngi */
-        --text-main: #ffffff;
-        --border-color: rgba(255, 255, 255, 0.05);
-    }
 
-    /* Dark Mode Aktiv olduqda */
-    .dark {
-        --bg-main: #010D10;
-        --bg-element: #1A2332;
-        --text-main: #ffffff;
-        --border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .ranking-page {
-        background-color: var(--bg-main);
-        min-height: 100vh;
-        color: var(--text-main);
-        transition: background-color 0.3s ease;
-    }
 
     /* Podium Gradientləri */
     .podium-gradient-gold {
@@ -35,45 +15,6 @@
         background: linear-gradient(180deg, #ED8936 0%, #C05621 50%, #7B341E 100%);
     }
 
-    /* Elementlərin rəngi #010D10 */
-    .glass-tabs, .ranking-row, .search-input, .faq-item {
-        background-color: var(--bg-element) !important;
-        border: 1px solid var(--border-color);
-        backdrop-filter: blur(10px);
-    }
-
-    .ranking-row:hover {
-        background-color: rgba(26, 153, 141, 0.05) !important;
-        transform: translateY(-2px);
-    }
-
-    /* İstədiyin Artım rəqəmi rəngi */
-    .badge-green {
-        background: rgba(26, 153, 141, 0.15);
-        color: #1A998D;
-    }
-
-    /* Düymə rəngləri */
-    .btn-more, .btn-active {
-        background-color: #154E4D;
-        color: white;
-    }
-
-    .btn-contact {
-        background-color: #1A998D;
-        color: white;
-        transition: all 0.3s ease;
-    }
-
-    .btn-contact:hover {
-        filter: brightness(1.1);
-        transform: translateY(-2px);
-    }
-
-    .logo-ring {
-        border: 4px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    }
 
     /* FAQ Animasiyası */
     .faq-answer {
@@ -90,197 +31,306 @@
     .faq-item.active iconify-icon {
         transform: rotate(180deg);
     }
+
+    .podium-top {
+        clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+    }
 </style>
 @{
     Layout = Context.Request.Headers.ContainsKey("HX-Request") ? null : "_Layout";
 }
 
-<main class="ranking-page py-16 px-4 md:px-10">
-    <div class="max-w-[1200px] mx-auto text-center relative z-10">
+<div class="w-full mx-auto pt-16 bg-[#0B2036]">
 
-        @if (Layout != null)
-        {
-            <h1 class="text-3xl md:text-[40px] font-black mb-16 tracking-tight">Şirkət siyahısının üstünlükləri!</h1>
+    @if (Layout != null)
+    {
+        <h1 class="text-5xl flex flex-1 justify-center text-white font-semibold mb-16 tracking-tight">Şirkət siyahısının
+            üstünlükləri!</h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-20">
-                <div class="flex flex-col items-center">
-                    <img src="~/images/winner.png" class="max-h-[180px] mb-6 drop-shadow-2xl" alt="Winner">
-                    <p class="opacity-80 text-sm leading-relaxed max-w-[260px]">
-                        Ayın lideri ol, <span class="font-bold text-white">1 aylıq "Blue Tick"</span> nişanını ödənişsiz
-                        əldə et.
-                    </p>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="~/images/fly.png" class="max-h-[180px] mb-6 drop-shadow-2xl" alt="Fly">
-                    <p class="opacity-80 text-sm leading-relaxed max-w-[260px]">
-                        Nə qədər aktivsənsə, sıralamada bir o qədər öndəsən.
-                    </p>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="~/images/strong.png" class="max-h-[180px] mb-6 drop-shadow-2xl" alt="Strong">
-                    <p class="opacity-80 text-sm leading-relaxed max-w-[260px]">
-                        Rəqabətə qoşul və şirkətinin nüfuzunu artır!
-                    </p>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 mb-20">
+            <div class="flex flex-col items-center relative group">
+
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#14516D]/60 rounded-full blur-[50px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
+
+                <img src="~/images/winner.png" class="relative z-10 h-72 mb-6 drop-shadow-2xl" alt="Winner">
+
+                <p class="relative z-10 text-md text-white leading-relaxed max-w-[260px]">
+                    Ayın lideri ol, <span class="font-bold">1 aylıq "Blue Tick"</span> nişanını ödənişsiz
+                    əldə et.
+                </p>
             </div>
+            <div class="flex flex-col items-center relative group">
 
-            string currentDate = Context.Request.Query["date"].ToString();
-            if (string.IsNullOrEmpty(currentDate)) currentDate = "this_month";
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#14516D]/60 rounded-full blur-[50px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
 
-            string activeClass = "btn-active text-white font-semibold";
-            string inactiveClass = "opacity-60 font-medium hover:opacity-100 transition";
+                <img src="~/images/fly.png" class="relative z-10 h-72 mb-6 drop-shadow-2xl" alt="Fly">
 
-            <div class="inline-flex glass-tabs p-1 rounded-full mb-28 shadow-2xl">
+                <p class="relative z-10 text-md text-white leading-relaxed max-w-[260px]">
+                    Nə qədər aktivsənsə, sıralamada bir o qədər öndəsən.
+                </p>
+            </div>
+            <div class="flex flex-col items-center relative group">
+
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#14516D]/60 rounded-full blur-[50px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
+
+                <img src="~/images/strong.png" class="relative z-10 h-72 mb-6 drop-shadow-2xl" alt="Strong">
+
+                <p class="relative z-10 text-md text-white leading-relaxed max-w-[260px]">
+                    Rəqabətə qoşul və şirkətinin nüfuzunu artır!
+                </p>
+            </div>
+        </div>
+
+        <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen leading-[0] -mt-48">
+            <svg viewBox="0 0 1440 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                <defs>
+                    <filter id="colorGlow" x="-20%" y="-20%" width="140%" height="300%">
+                        <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#14516D" flood-opacity="0.7"/>
+                    </filter>
+                </defs>
+
+                <path d="M0 20C360 200 1080 200 1440 20"
+                      stroke="#14516D"
+                      stroke-width="4"
+                      stroke-linecap="round"
+                      fill="none"
+                      filter="url(#colorGlow)"/>
+            </svg>
+        </div>
+
+        string currentDate = Context.Request.Query["date"].ToString();
+        if (string.IsNullOrEmpty(currentDate)) currentDate = "this_month";
+
+        string activeClass = "bg-zinc-800 text-white font-semibold";
+        string inactiveClass = "opacity-60 font-medium hover:opacity-100 transition";
+
+        <div class="w-full flex justify-center -mt-24">
+            <div
+                class="inline-flex bg-black/40 backdrop-blur-md p-1 rounded-2xl mb-28 shadow-2xl border border-white/10">
                 <button hx-get="/rank?date=this_month" hx-target="#company-list-container" hx-push-url="true"
                         hx-on:click="updateTabClasses(this)"
-                        class="filter-btn px-10 py-2.5 rounded-full text-sm @(currentDate == "this_month" ? activeClass : inactiveClass)">
+                        class="filter-btn px-16 py-2.5 rounded-xl text-sm text-white @(currentDate == "this_month" ? activeClass : inactiveClass)">
                     Aylıq
                 </button>
 
                 <button hx-get="/rank?date=last_month" hx-target="#company-list-container" hx-push-url="true"
                         hx-on:click="updateTabClasses(this)"
-                        class="filter-btn px-10 py-2.5 rounded-full text-sm @(currentDate == "last_month" ? activeClass : inactiveClass)">
+                        class="filter-btn px-16 py-2.5 rounded-xl text-sm text-white  @(currentDate == "last_month" ? activeClass : inactiveClass)">
                     Ötən ay
                 </button>
 
                 <button hx-get="/rank?date=all_time" hx-target="#company-list-container" hx-push-url="true"
                         hx-on:click="updateTabClasses(this)"
-                        class="filter-btn px-10 py-2.5 rounded-full text-sm @(currentDate == "all_time" ? activeClass : inactiveClass)">
+                        class="filter-btn px-16 py-2.5 rounded-xl text-sm text-white @(currentDate == "all_time" ? activeClass : inactiveClass)">
                     Bütün vaxtlar
                 </button>
             </div>
-        }
+        </div>
+    }
 
-        <div id="company-list-container">
-            @if (Model.Companies != null && Model.Companies.Count >= 3)
-            {
-                <div
-                    class="flex flex-col md:flex-row items-end justify-center gap-6 md:gap-4 max-w-[1000px] mx-auto mb-32">
-                    <div class="w-full md:w-[31%] flex flex-col items-center">
-                        <div class="w-20 h-20 rounded-full bg-white p-1 logo-ring mb-4 overflow-hidden">
-                            <img src="@Model.Companies[1].Logo" class="w-full h-full object-contain" alt="Rank 2">
-                        </div>
-                        <h3 class="font-bold mb-4">@Model.Companies[1].Name</h3>
-                        <div
-                            class="podium-gradient-silver w-full pt-8 pb-10 rounded-t-3xl md:h-[280px] flex flex-col items-center justify-between text-white shadow-xl">
-                            <div class="flex items-center gap-2 text-xs font-bold bg-white/20 px-4 py-1.5 rounded-full">
-                                <iconify-icon icon="ph:trophy-fill"></iconify-icon>
-                                @Model.Companies[1].VacancyCount Elan
-                            </div>
-                            <span class="text-[100px] font-black opacity-30">2</span>
-                        </div>
+
+    <div id="company-list-container"    >
+        @if (Model.Companies != null && Model.Companies.Count >= 3)
+        {
+            <div
+                class="flex flex-col md:flex-row items-end justify-center gap-6 md:gap-12 px-4 md:px-12 lg:px-24 mx-auto mb-32">
+
+                <div class="w-full md:w-[28%] flex flex-col items-center relative">
+                    <div
+                        class="w-48 h-48 rounded-full bg-white p-1 border-[8px] border-slate-400 mb-4 overflow-hidden shadow-lg">
+                        <img src="@Model.Companies[1].Logo" class="w-full h-full object-cover" alt="Rank 2">
                     </div>
+                    <h3 class="font-bold mb-2 text-2xl text-white">@Model.Companies[1].Name</h3>
 
-                    <div class="w-full md:w-[36%] flex flex-col items-center z-20 scale-100 md:scale-105">
+                    <div class="relative w-full flex flex-col items-center">
                         <div
-                            class="w-24 h-24 rounded-full bg-white p-1 logo-ring mb-4 overflow-hidden shadow-2xl border-yellow-400">
-                            <img src="@Model.Companies[0].Logo" class="w-full h-full object-contain" alt="Rank 1">
+                            class="absolute top-5 z-30 podium-gradient-silver p-3 rounded-xl shadow-lg border border-white/20">
+                            <iconify-icon icon="ph:trophy-fill" class="text-white text-3xl block"></iconify-icon>
                         </div>
-                        <h3 class="font-bold text-xl mb-4">@Model.Companies[0].Name</h3>
-                        <div
-                            class="podium-gradient-gold w-full pt-10 pb-12 rounded-t-3xl md:h-[350px] flex flex-col items-center justify-between text-white shadow-2xl">
-                            <div class="flex items-center gap-2 text-sm font-bold bg-black/20 px-5 py-2 rounded-full">
-                                <iconify-icon icon="ph:trophy-fill" class="text-yellow-300"></iconify-icon>
-                                @Model.Companies[0].VacancyCount Elan
-                            </div>
-                            <span class="text-[140px] font-black opacity-40">1</span>
-                        </div>
-                    </div>
 
-                    <div class="w-full md:w-[31%] flex flex-col items-center">
-                        <div class="w-20 h-20 rounded-full bg-white p-1 logo-ring mb-4 overflow-hidden">
-                            <img src="@Model.Companies[2].Logo" class="w-full h-full object-contain" alt="Rank 3">
-                        </div>
-                        <h3 class="font-bold mb-4">@Model.Companies[2].Name</h3>
+                        <div class="podium-gradient-silver h-14 w-full podium-top"></div>
                         <div
-                            class="podium-gradient-bronze w-full pt-8 pb-8 rounded-t-3xl md:h-[220px] flex flex-col items-center justify-between text-white shadow-xl">
-                            <div class="flex items-center gap-2 text-xs font-bold bg-white/20 px-4 py-1.5 rounded-full">
-                                <iconify-icon icon="ph:trophy-fill"></iconify-icon>
-                                @Model.Companies[2].VacancyCount Elan
-                            </div>
-                            <span class="text-[90px] font-black opacity-30">3</span>
+                            class="podium-gradient-silver w-full pt-10 pb-12 h-96 flex flex-col items-center justify-between text-white shadow-xl relative">
+                            <span class="font-bold opacity-90">@Model.Companies[1].VacancyCount Elan</span>
+                            <span class="text-8xl font-bold mb-20">2</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="text-left w-full mt-20">
-                    <div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 gap-4">
-                        <h2 class="text-2xl font-bold">Bütün şirkətlər</h2>
-                        <div class="relative w-full md:w-80">
-                            <span class="absolute left-4 top-1/2 -translate-y-1/2 opacity-50"><iconify-icon
-                                    icon="ph:magnifying-glass"></iconify-icon></span>
-                            <input type="text" 
-                                   name="search"
-                                   placeholder="Şirkət axtar..."
-                                   hx-get="/rank" 
-                                   hx-target="#company-list-container" 
-                                   hx-trigger="keyup changed delay:500ms"
-                                   hx-include=".filter-btn.btn-active"
-                                   hx-push-url="true"
-                                   class="search-input w-full pl-11 pr-4 py-3 rounded-2xl outline-none transition text-sm">
+                <div class="w-full md:w-[28%] flex flex-col items-center z-20 scale-100 md:scale-105 mb-36 relative">
+                    <div
+                        class="w-48 h-48 rounded-full bg-white p-1 border-[8px] border-yellow-500 mb-4 overflow-hidden shadow-[0_0_30px_rgba(234,179,8,0.4)]">
+                        <img src="@Model.Companies[0].Logo" class="w-full h-full object-contain" alt="Rank 1">
+                    </div>
+                    <h3 class="font-bold mb-4 text-2xl text-white">@Model.Companies[0].Name</h3>
+
+                    <div class="relative w-full flex flex-col items-center">
+                        <div
+                            class="absolute top-5 z-30 podium-gradient-gold p-4 rounded-xl shadow-[0_0_20px_rgba(234,179,8,0.5)] border border-yellow-200/50">
+                            <iconify-icon icon="ph:trophy-fill" class="text-white text-4xl block"></iconify-icon>
+                        </div>
+
+                        <div class="podium-gradient-gold h-14 w-full podium-top"></div>
+                        <div
+                            class="podium-gradient-gold w-full pt-12 pb-14 h-96 flex flex-col items-center justify-between text-white shadow-2xl relative">
+                            <span class="font-bold text-lg">@Model.Companies[0].VacancyCount Elan</span>
+                            <span class="text-9xl font-bold mb-20">1</span>
                         </div>
                     </div>
+                </div>
 
-                    <div class="space-y-3">
+                <div class="w-full md:w-[28%] flex flex-col items-center relative">
+                    <div
+                        class="w-48 h-48 rounded-full bg-white p-1 border-[8px] border-orange-700 mb-4 overflow-hidden shadow-lg">
+                        <img src="@Model.Companies[2].Logo" class="w-full h-full object-contain" alt="Rank 3">
+                    </div>
+                    <h3 class="font-bold mb-4 text-2xl text-white">@Model.Companies[2].Name</h3>
+
+                    <div class="relative w-full flex flex-col items-center">
+                        <div
+                            class="absolute top-5 z-30 podium-gradient-bronze p-3 rounded-xl shadow-lg border border-white/10">
+                            <iconify-icon icon="ph:trophy-fill" class="text-white text-3xl block"></iconify-icon>
+                        </div>
+
+                        <div class="podium-gradient-bronze h-14 w-full podium-top"></div>
+                        <div
+                            class="podium-gradient-bronze w-full pt-10 pb-8 h-96 flex flex-col items-center justify-between text-white shadow-xl relative">
+                            <span class="font-bold opacity-90">@Model.Companies[2].VacancyCount Elan</span>
+                            <span class="text-8xl font-bold mb-20">3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-left w-full mt-20 px-36">
+                <div class="flex flex-col md:flex-row justify-end items-end md:items-center mb-4 gap-4">
+                    <div class="relative w-full md:w-80">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 opacity-50 text-white mt-1">
+                            <iconify-icon icon="ph:magnifying-glass"></iconify-icon>
+                        </span>
+                        <input type="text"
+                               name="search"
+                               placeholder="Şirkət axtar..."
+                               class="w-full pl-11 pr-4 py-3 rounded-xl outline-none bg-white/5 border border-white/10 text-white transition focus:border-white/30 text-sm">
+                    </div>
+                </div>
+
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full border-separate border-spacing-y-3">
+                        <thead class="text-white opacity-90 text-sm tracking-wider">
+                        <tr>
+                            <th class="px-8 font-semibold text-left">Sıra</th>
+                            <th class="font-semibold text-left">Şirkət</th>
+                            <th class="font-semibold text-center">Elanlar</th>
+                            <th class="font-semibold text-center">Baxışlar</th>
+                            <th class="px-8 font-semibold text-right">Artım</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         @for (int i = 3; i < Model.Companies.Count; i++)
                         {
                             var c = Model.Companies[i];
                             int displayRank = i + 1;
 
-                            <div
-                                class="ranking-row grid grid-cols-6 items-center px-8 py-4 rounded-2xl cursor-pointer shadow-lg">
-                                <div
-                                    class="col-span-1 font-bold @(displayRank <= 10 ? "text-yellow-500" : "opacity-40")">
+                            <tr class="bg-tableColor hover:bg-white/10 transition-all cursor-pointer shadow-lg group">
+                                <td width="5"
+                                    class="py-3 rounded-l-2xl font-bold text-center text-lg @(displayRank <= 10 ? "text-yellow-500" : "text-white/40")">
                                     @displayRank
-                                </div>
-                                <div class="col-span-2 flex items-center gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-white p-1 flex items-center justify-center overflow-hidden border border-white/10">
-                                        <img src="@c.Logo" class="w-full h-full object-contain" alt="@c.Name">
+                                </td>
+
+                                <td class="py-3 col-span-2">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-white p-1 flex items-center justify-center overflow-hidden border border-white/10 shadow-sm">
+                                            <img src="@c.Logo" class="w-full h-full object-contain" alt="@c.Name">
+                                        </div>
+                                        <span class="font-bold text-sm text-white tracking-wide">@c.Name</span>
+                                        @if (c.IsVerified)
+                                        {
+                                            <iconify-icon icon="material-symbols:verified"
+                                                          class="text-[#2D9CDB] -mx-3"></iconify-icon>
+                                        }
                                     </div>
-                                    <span class="font-semibold text-sm">@c.Name</span>
-                                </div>
-                                <div class="col-span-1 text-center text-sm font-medium">@c.VacancyCount</div>
-                                <div class="col-span-1 text-center text-sm font-medium">@c.VacancyCount</div>
-                                <div class="col-span-1 text-right">
-                                    <span class="badge-green px-3 py-1 rounded-lg text-[11px] font-bold">1%</span>
-                                </div>
-                            </div>
+                                </td>
+
+                                <td class="py-3 text-center text-sm font-semibold text-white">
+                                    @c.VacancyCount <span class="text-[10px] opacity-50 block font-normal md:inline">Elan</span>
+                                </td>
+
+                                <td class="py-3 text-center text-sm font-semibold text-white hidden md:table-cell">
+                                    @c.VacancyCount
+                                </td>
+
+                                <td class="py-3 pr-8 text-right rounded-r-2xl">
+                                    <span
+                                        class="bg-green-500/10 text-green-500 px-3 py-1.5 rounded-lg text-xs font-black">
+                                        +1%
+                                    </span>
+                                </td>
+                            </tr>
                         }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="flex flex-1 justify-center mt-3">
+
+                <button class="bg-lightGreen hover:bg-darkGreen px-10 py-4 text-white text-lg rounded-lg font-bold">
+                    Daha Cox
+                </button>
+            </div>
+        }
+        else
+        {
+            <div class="py-20 opacity-50 text-white italic">Kifayət qədər məlumat tapılmadı.</div>
+        }
+    </div>
+
+    @if (Layout != null)
+    {
+        @if (Model.Faqs != null && Model.Faqs.Count > 0)
+        {
+            <div class="text-center mb-12 mt-32">
+                <h2 class="text-4xl font-black text-white mb-4">Tez-tez verilən suallar</h2>
+                <p class="text-white/60 text-lg">Liderlərin reytinq cədvəli haqqında ən çox soruşulan suallar</p>
+            </div>
+        }
+
+        <div class="space-y-4 mb-20 text-left px-36 mx-auto">
+            @foreach (FaqDto faq in Model.Faqs)
+            {
+                <div class="faq-item border bg-tableColor border-lightGreen text-white rounded-2xl cursor-pointer"
+                     onclick="this.classList.toggle('active')">
+                    <div class="flex justify-between items-center p-6">
+                        <h3 class="font-semibold text-sm md:text-base pr-4">@faq.Question</h3>
+                        <iconify-icon icon="ph:caret-down-bold"
+                                      class="text-[#1A998D] transition-transform duration-300"></iconify-icon>
+                    </div>
+                    <div class="faq-answer px-6 text-gray-400 text-sm leading-relaxed">
+                        <div class="pb-6">@faq.Answer</div>
                     </div>
                 </div>
             }
-            else
-            {
-                <div class="py-20 opacity-50 italic">Kifayət qədər məlumat tapılmadı.</div>
-            }
+
         </div>
-
-        @if (Layout != null)
-        {
-            <div class="text-center mb-12 mt-32">
-                <h2 class="text-3xl md:text-[40px] font-black mb-4">Tez-tez verilən suallar</h2>
-                <p class="opacity-60">Liderlərin reytinq cədvəli haqqında ən çox soruşulan suallar</p>
-            </div>
-
-            <div class="space-y-4 mb-20 text-left max-w-[1000px] mx-auto">
-                @foreach (FaqDto faq in Model.Faqs)
-                {
-                    <div class="faq-item rounded-2xl cursor-pointer" onclick="this.classList.toggle('active')">
-                        <div class="flex justify-between items-center p-6">
-                            <h3 class="font-semibold text-sm md:text-base pr-4">@faq.Question</h3>
-                            <iconify-icon icon="ph:caret-down-bold"
-                                          class="text-[#1A998D] transition-transform duration-300"></iconify-icon>
-                        </div>
-                        <div class="faq-answer px-6 text-gray-400 text-sm leading-relaxed">
-                            <div class="pb-6">@faq.Answer</div>
-                        </div>
-                    </div>
-                }
-            </div>
-        }
-    </div>
-</main>
+        <div class="flex flex-col items-center mx-36 justify-center bg-tableColor border border-lightGreen text-white rounded-2xl p-12">
+            <p class="text-xl mb-2">Cavabınızı tapa bilmədiniz?</p>
+    
+            <p class="text-md opacity-60 mb-8 text-center max-w-md">
+                Dəstək komandamız sizə kömək etməkdən məmnun olacaq
+            </p>
+    
+            <a href="/contact" class="transition-transform hover:scale-105 active:scale-95">
+                <button class="bg-lightGreen hover:bg-darkGreen px-10 py-4 text-white text-lg rounded-xl font-bold shadow-lg transition-colors">
+                    Bizimlə əlaqə saxlayın
+                </button>
+            </a>
+        </div>
+    }
+</div>
 
 @if (Layout != null)
 {

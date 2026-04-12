@@ -14,8 +14,13 @@
                  w-full block no-underline min-h-28 rounded-3xl mb-4
                      @(vacancy.IsPremium ? "!border-gold border-4" : "bg-white dark:bg-zinc-900")                
                 ">
-        
-        <div class="flex items-center gap-6">
+        @* @(vacancy.IsPremium ? "![border-image:linear-gradient(to_right,#E2C68E,#F3E2B9,#B08B45)1] !border-solid border-4 rounded-lg" : "bg-white dark:bg-zinc-900") *@
+        @if (vacancy.IsPremium)
+        {
+            <div class="absolute -top-0 right-3 bg-gradient-to-b from-goldStart to-goldEnd px-4 py-1 rounded-r-lg rounded-b-lg  shadow-sm">
+                <span class="text-sm font-bold text-gray-100 uppercase tracking-wider">PREMİUM</span>
+            </div>
+        }        <div class="flex items-center gap-6">
             <div class="flex items-center justify-center overflow-hidden shrink-0 border border-gray-100 w-20 h-20 rounded-lg">
                 <img src="@vacancy.Company.Logo" class="w-full h-full object-fit" alt="@vacancy.Company.Name">
             </div>

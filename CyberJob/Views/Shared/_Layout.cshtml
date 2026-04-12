@@ -12,7 +12,7 @@
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"/>
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-  
+
   @await RenderSectionAsync("Styles", required: false)
 
   <style>
@@ -42,9 +42,12 @@
             promoGreen: '#00FF00',
             darkGreen: '#154E4D',
             lightGreen: "#1A998D",
-            darkMode:'#010C0F',
-            extraLightGreen:"#00D4AA",
-            gold:"#C29D55"
+            darkMode: '#010C0F',
+            extraLightGreen: "#00D4AA",
+            gold: "#C29D55",
+            goldStart:"#F3E2B9",
+            goldEnd:"#B08B45",
+            tableColor:"#293047"
           }
         }
       }
@@ -70,11 +73,11 @@
   </style>
   <title>CyberJob</title>
 </head>
-<body class="bg-gray-100 dark:bg-darkMode text-cyberMain dark:text-white antialiased transition-colors duration-500">
+<body class="bg-gray-50 dark:bg-darkMode text-cyberMain dark:text-white antialiased transition-colors duration-500">
 @await Html.PartialAsync("_Header")
 
 
-<main class="flex-grow bg-cyberMain dark:bg-darkMode transition-colors duration-500">
+<main class="flex-grow dark:bg-darkMode transition-colors duration-500">
   @RenderBody()
 </main>
 
