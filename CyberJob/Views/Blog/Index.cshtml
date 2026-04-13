@@ -216,7 +216,13 @@
                                     icon="ph:eye-bold"></iconify-icon> @blog.ReadCount</span>
                         </div>
                         <h3>@blog.Title</h3>
-                        <p>@blog.Description</p>
+                        @{
+                            var cleanText = System.Text.RegularExpressions.Regex.Replace(blog.Description ?? "", "<.*?>", string.Empty);
+    
+                            var summary = cleanText.Length > 75 ? cleanText.Substring(0, 75) + "..." : cleanText;
+                        }
+
+                        <p>@summary</p>
                         <a asp-controller="Blog" asp-action="Details" asp-route-id="@blog.Id" class="more-link">Daha
                             ətraflı
                             <iconify-icon icon="ph:arrow-right-bold"></iconify-icon>
