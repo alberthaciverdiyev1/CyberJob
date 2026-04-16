@@ -54,16 +54,26 @@ public class HomeController(
         var rootPath = Directory.GetCurrentDirectory();
         var fullPath = Path.Combine(rootPath, "wwwroot", path ?? "");
 
+        // 1. Klasör ise: HTML Link Listesi Oluştur
         if (Directory.Exists(fullPath))
         {
-            var content = Directory.GetFileSystemEntries(fullPath)
-                .Select(x => Path.GetFileName(x) + (Directory.Exists(x) ? "/" : ""))
-                .ToList();
+            var entries = Directory.GetFileSystemEntries(fullPath);
+        
+            var html = $"<html><body style='font-family:sans-serif; padding:20px;'>";
+            html += "<a href='?path=" + Path.GetDirectoryName(path)?.Replace("\\", "/") + "'>[ .. Back ]</a><br><br>";
+            html += "<ul>";
+
+            foreach (var entry in entries)
+            {
+                var name = Path.GetFileName(entry);
+                var isDir = Directory.Exists(entry);
+                var combinedPath = string.IsNullOrEmpty(path) ? name : Path.Combine(path, name).Replace("\\", "/");
             
-            return Ok(new {
-                CurrentPath = fullPath,
-                Contents = content
-            });
+                html += $"<li><a href='?path={combinedPath}'>{name}{(isDir ? "/" : "")}</a></li>";
+            }
+
+            html += "</ul></body></html>";
+            return Content(html, "text/html");
         }
 
         if (System.IO.File.Exists(fullPath))
@@ -75,7 +85,6 @@ public class HomeController(
             }
 
             var content = System.IO.File.ReadAllBytes(fullPath);
-        
             return File(content, contentType);
         }
 
