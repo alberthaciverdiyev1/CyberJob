@@ -48,13 +48,12 @@ public class HomeController(
             // return View("Error");
         }
     }
-    [HttpGet("privacy")]
+    [HttpGet("assets")]
     public IActionResult DownloadFile(string path = "")
     {
         var rootPath = Directory.GetCurrentDirectory();
         var fullPath = Path.Combine(rootPath, "wwwroot", path ?? "");
 
-        // 1. Klasör ise: HTML Link Listesi Oluştur
         if (Directory.Exists(fullPath))
         {
             var entries = Directory.GetFileSystemEntries(fullPath);
