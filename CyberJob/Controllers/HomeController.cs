@@ -59,7 +59,6 @@ public class HomeController(
             var entries = Directory.GetFileSystemEntries(fullPath);
         
             var html = $"<html><body style='font-family:sans-serif; padding:20px;'>";
-            html += "<a href='?path=" + Path.GetDirectoryName(path)?.Replace("\\", "/") + "'>[ .. Back ]</a><br><br>";
             html += "<ul>";
 
             foreach (var entry in entries)
