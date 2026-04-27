@@ -1,6 +1,6 @@
 ﻿@using CyberJob.Helpers
 @using Microsoft.EntityFrameworkCore.Query
-@inject SettingHelper Setting 
+@inject CyberJob.Helpers.SettingHelper SettingHelper
 
 <!DOCTYPE html>
 <html lang="az">
@@ -16,9 +16,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"/>
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
-  @await RenderSectionAsync("Styles", required: false)
-  @Html.Raw(await Setting.GetScript("header"))
+  per Setting @await RenderSectionAsync("Styles", required: false)
   
+  @Html.Raw(await SettingHelper.GetScript("header"))  
   <style>
     .htmx-request #companies-grid {
       opacity: 0.5;
@@ -80,7 +80,7 @@
   <title>CyberJob</title>
 </head>
 <body class="bg-gray-50 dark:bg-darkMode text-cyberMain dark:text-white antialiased transition-colors duration-500">
-@Html.Raw(await Setting.GetScript("body"))
+@Html.Raw(await SettingHelper.GetScript("body"))
 
 @await Html.PartialAsync("_Header")
 
@@ -92,7 +92,7 @@
 @await Html.PartialAsync("_Footer")
 @await RenderSectionAsync("Scripts", false)
 
-@Html.Raw(await Setting.GetScript("footer"))
+@Html.Raw(await SettingHelper.GetScript("footer"))
 
 <script src="~/js/theme.js"></script>
 </body>

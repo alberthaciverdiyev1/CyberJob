@@ -7,12 +7,11 @@ namespace CyberJob.Helpers;
 
 public class SettingHelper(AppDbContext context)
 {
-    private readonly AppDbContext _context = context;
     private Setting? _cachedSettings;
     
     public async Task<string?> Get(string key)
     {
-        _cachedSettings ??= await _context.Settings.FirstOrDefaultAsync();
+        _cachedSettings ??= await context.Settings.FirstOrDefaultAsync();
 
         if (_cachedSettings == null) return null;
 

@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("CyberJobConnection"))
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+builder.Services.AddScoped<CyberJob.Helpers.SettingHelper>();
 
 builder.Services.AddScoped<BannerService>();  
 builder.Services.AddScoped<VacancyService>();
