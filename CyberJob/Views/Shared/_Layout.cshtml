@@ -16,7 +16,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"/>
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
-  per Setting @await RenderSectionAsync("Styles", required: false)
+  @await RenderSectionAsync("Styles", required: false)
   
   @Html.Raw(await SettingHelper.GetScript("header"))  
   <style>
