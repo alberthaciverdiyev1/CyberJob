@@ -7,6 +7,7 @@ namespace CyberJob.Models;
 public class Setting
 {
     [Key]
+    [Column("id")]
     public int Id { get; set; }
 
     [Column("phone_number")]
