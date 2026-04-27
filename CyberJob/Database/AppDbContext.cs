@@ -15,6 +15,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Partner> Partners { get; set; }
     public DbSet<Faq> Faqs { get; set; }
     public DbSet<Filter> Filters { get; set; }
+    
+    public DbSet<Setting> Settings { get; set; }
     public DbSet<Vacancy> Vacancies { get; set; }
     public DbSet<VacancyFilter> VacancyFilters { get; set; }
 

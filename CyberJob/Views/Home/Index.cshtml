@@ -69,8 +69,7 @@
             </div>
         </div>
 
-        <div class="w-full max-w-[1445px] px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px] mt-3 mx-auto">
-            <h2 class="col-span-full text-[32px] font-bold text-center dark:text-white mb-4">
+        <div class="hidden sm:grid w-full max-w-[1445px] px-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px] mt-3 mx-auto">            <h2 class="col-span-full text-[32px] font-bold text-center dark:text-white mb-4">
                 Hansı sahə üzrə axtarırsan?
             </h2>
             @if (Model.Categories != null)
@@ -108,38 +107,55 @@
                         </div>
 
                         <span
-                            class="text-[14px] font-medium text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors">
+                            class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors">
                 @category.Name
             </span>
                     </div>
                 }
             }
         </div>
-        <h2 class="text-3xl font-bold mt-16 mb-8 dark:text-white text-center">Premium elanlar</h2>
+        <h2 class="text-3xl font-bold mt-16 mb-8 dark:text-white  text-center">Premium elanlar</h2>
         <div id="premium-ads-container"
-             class="w-full max-w-[1445px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-20">
+             class="w-full max-w-[1445px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-10 sm:mb-20">
             @foreach (var vacancy in Model.PremiumVacancies)
             {
-                <div class="w-full premium-card-border card-base group hover:-translate-y-1 transition-all">
+                <div class="w-full premium-card-border card-base group hover:-translate-y-1 transition-all dark:bg-black">
                     <div
-                        class="card-inner dark:bg-cyberDark transition-colors border border-gray-100 dark:border-gray-800">
+                        class="card-inner dark:bg-black transition-colors border border-gray-100 dark:border-gray-800">
                         <div
-                            class="premium-badge-gradient absolute top-2 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-white text-sm font-bold uppercase z-10 shadow-sm">
+                            class="premium-badge-gradient absolute sm:top-2 left-3/4 sm:left-1/2 sm:-translate-x-1/2 px-4 sm:px-6 py-1 sm:py-2 rounded-b-2xl sm:rounded-full text-white text-sm font-bold uppercase z-10 shadow-sm">
                             Premium
                         </div>
 
-                        <div class="flex items-start gap-2.5 mt-12 overflow-hidden">
-                            <div class="w-10 h-10 rounded-md overflow-hidden shrink-0">
+                        <div class="flex items-start gap-2.5 my-2 sm:mt-12 overflow-hidden">
+                            <div class="size-16 sm:size-10 rounded-full sm:rounded-md overflow-hidden shrink-0">
                                 <img src="@vacancy.Company.Logo" alt="@vacancy.Company.Name"
                                      class="w-full h-full object-cover"/>
                             </div>
                             <div class="min-w-0">
-                                <h3 class="text-[16px] font-bold text-black dark:text-white leading-tight truncate">@vacancy.Name</h3>
-                                <p class="text-[14px] text-gray-400 font-semibold truncate">@vacancy.Company.Name</p>
-                            </div>
+                                <h3 class="text-md font-bold text-black dark:text-white leading-tight truncate">@vacancy.Name</h3>
+                                <div class="mt-4 sm:mt-1 flex items-center justify-between w-full">
+                                    <span class="text-md text-gray-400 font-semibold truncate flex items-center mr-16 gap-1">
+                                        @vacancy.Company.Name
+                                        @if (vacancy.Company.IsVerified)
+                                        {
+                                            <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB]"></iconify-icon>
+                                        }
+                                    </span>
+
+                                        <span class="sm:hidden flex items-center gap-1 text-gray-400 mr-16">
+                                            <i class="fa-regular fa-clock text-md"></i> 
+                                            @vacancy.CreatedAt.ToString("dd.MM.yyyy")
+                                        </span>
+                                        <span class="sm:hidden flex items-center gap-1 text-gray-400 mr-16">
+                                            <i class="fa-regular fa-eye text-md"></i> 
+                                            @vacancy.ViewCount
+                                        </span>
+                                </div>
+                                </div>
                         </div>
 
-                        <div class="mt-auto">
+                        <div class="mt-auto hidden sm:block">
                             <div class="w-full h-[0.5px] bg-gray-400/20 dark:bg-gray-800/40 mb-2"></div>
                             <div class="flex justify-between items-center text-gray-400 text-sm">
                                 <span class="flex items-center gap-1"><i
@@ -153,27 +169,44 @@
                 </div>
             }
         </div>
-        <h2 class="text-3xl font-bold mb-9 dark:text-white">Ən son vakansiyalar</h2>
+        <h2 class="text-3xl font-bold mb-5 sm:mb-9 dark:text-white">Ən son vakansiyalar</h2>
         <div id="latest-jobs-container"
              class="w-full max-w-[1445px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[10px] mb-10">
 
             @foreach (var vacancy in Model.LatestVacancies)
             {
                 <div
-                    class="border border-gray-400 dark:bg-cyberDark dark:border-gray-800 card-base p-4 transition-all hover:-translate-y-1 shadow-sm rounded-2xl">
-                    <div class="flex items-start gap-2.5 mt-6 overflow-hidden">
-                        <div class="w-10 h-10 rounded-md overflow-hidden shrink-0">
+                    class="border border-gray-300 sm:border-gray-400  dark:bg-cyberDark sm:dark:border-gray-800 card-base px-4  sm:p-4 transition-all hover:-translate-y-1 shadow-sm rounded-2xl">
+                    <div class="flex items-start gap-2.5 my-2 sm:mt-12  overflow-hidden">
+                        <div class="size-16 sm:size-10 rounded-full sm:rounded-md overflow-hidden shrink-0">
                             <img src="@vacancy.Company.Logo" alt="@vacancy.Company.Name"
                                  class="w-full h-full object-cover"/>
                         </div>
                         <div class="min-w-0">
                             <h3 class="text-[16px] font-bold text-black dark:text-white leading-tight truncate">@vacancy.Name</h3>
-                            <p class="text-[14px] text-gray-400 font-semibold truncate">@vacancy.Company.Name</p>
+                            <div class="mt-4 sm:mt-1 flex items-center justify-between w-full">
+                                <span class="text-md text-gray-400 font-semibold truncate flex items-center mr-16 gap-1">
+                                    @vacancy.Company.Name
+                                    @if (vacancy.Company.IsVerified)
+                                    {
+                                        <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB]"></iconify-icon>
+                                    }
+                                </span>
+
+                                <span class="sm:hidden flex items-center gap-1 text-gray-400 mr-16">
+                                    <i class="fa-regular fa-clock text-md"></i> 
+                                    @vacancy.CreatedAt.ToString("dd.MM.yyyy")
+                                </span>
+                                <span class="sm:hidden flex items-center gap-1 text-gray-400 mr-16">
+                                    <i class="fa-regular fa-eye text-md"></i> 
+                                    @vacancy.ViewCount
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="mt-auto">
                         <div class="w-full h-[0.5px] bg-gray-400/20 dark:bg-gray-800/40 mb-2"></div>
-                        <div class="flex justify-between items-center text-gray-400 text-sm">
+                        <div class="hidden sm:block flex justify-between items-center text-gray-400 text-sm">
                             <span class="flex items-center gap-1"><i
                                     class="fa-regular fa-clock text-md"></i> @vacancy.CreatedAt.ToString("dd.MM.yyyy")</span>
                             <span class="flex items-center gap-1"><i

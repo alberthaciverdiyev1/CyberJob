@@ -58,7 +58,7 @@
 
 .card-base {
     width: 100%;
-    min-height: 160px;
+    min-height: 80px;
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease;
