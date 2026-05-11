@@ -1,4 +1,4 @@
-﻿@using CyberJob.DTOs
+@using CyberJob.DTOs
 @model IEnumerable<VacancyListDto>
 @{
     int i = 0;
@@ -6,56 +6,56 @@
 
 @foreach (VacancyListDto vacancy in Model)
 {
-    <a href="/vacancies/@vacancy.Id" 
-       class="relative bg-white dark:bg-zinc-900 shadow-sm
-                border border-gray-50 dark:border-zinc-800 
-                flex items-center justify-between px-6 transition-all
+    <a href="/vacancies/@vacancy.Id"
+       class="block relative bg-white dark:bg-zinc-900 shadow-sm
+                border border-gray-50 dark:border-zinc-800
+                flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-4 sm:py-0 transition-all
                 hover:border-extraLightGreen hover:shadow-md cursor-pointer
-                 w-full block no-underline min-h-28 rounded-3xl mb-4
-                     @(vacancy.IsPremium ? "!border-gold border-4" : "bg-white dark:bg-zinc-900")                
+                 w-full no-underline min-h-24 sm:min-h-28 rounded-3xl mb-4
+                     @(vacancy.IsPremium ? "!border-gold border-2 sm:border-4" : "bg-white dark:bg-zinc-900")
                 ">
-        @* @(vacancy.IsPremium ? "![border-image:linear-gradient(to_right,#E2C68E,#F3E2B9,#B08B45)1] !border-solid border-4 rounded-lg" : "bg-white dark:bg-zinc-900") *@
         @if (vacancy.IsPremium)
         {
-            <div class="absolute -top-0 right-3 bg-gradient-to-b from-goldStart to-goldEnd px-4 py-1 rounded-r-lg rounded-b-lg  shadow-sm">
-                <span class="text-sm font-bold text-gray-100 uppercase tracking-wider">PREMİUM</span>
+            <div class="absolute -top-0 right-3 bg-gradient-to-b from-goldStart to-goldEnd px-3 sm:px-4 py-0.5 sm:py-1 rounded-r-lg rounded-b-lg shadow-sm">
+                <span class="text-[11px] sm:text-sm font-bold text-gray-100 uppercase tracking-wider">PREMİUM</span>
             </div>
-        }        <div class="flex items-center gap-6">
-            <div class="flex items-center justify-center overflow-hidden shrink-0 border border-gray-100 w-20 h-20 rounded-lg">
-                <img src="@vacancy.Company.Logo" class="w-full h-full object-fit" alt="@vacancy.Company.Name">
+        }
+        <div class="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
+            <div class="flex items-center justify-center overflow-hidden shrink-0 border border-gray-100 dark:border-gray-700 w-14 h-14 sm:w-20 sm:h-20 rounded-lg">
+                <img src="@vacancy.Company.Logo" class="w-full h-full object-cover" alt="@vacancy.Company.Name">
             </div>
 
-            <div class="flex flex-col justify-center">
-                <h3 class="font-bold text-xl dark:text-white leading-tight mb-1">@vacancy.Name</h3>
-                <p class="text-gray-400 font-semibold text-lg flex items-center gap-2">
+            <div class="flex flex-col justify-center min-w-0 flex-1">
+                <h3 class="font-bold text-base sm:text-xl dark:text-white leading-tight mb-0.5 sm:mb-1 truncate">@vacancy.Name</h3>
+                <p class="text-gray-400 font-semibold text-sm sm:text-lg flex items-center gap-2 flex-wrap">
                     @vacancy.Company.Name
                     @if (vacancy.Company.IsVerified)
                     {
-                        <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB]"></iconify-icon>
+                        <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] shrink-0"></iconify-icon>
                     }
-                    <span >@vacancy.CityName</span>
+                    <span class="text-xs sm:text-base">@vacancy.CityName</span>
                 </p>
-                <div class="flex items-center gap-5 text-sm text-gray-400 mt-1 font-semibold ">
-                    <span class="flex items-center gap-1.5">
-                        <iconify-icon icon="ph:clock-light" class="text-xl"></iconify-icon>
+                <div class="flex items-center gap-3 sm:gap-5 text-xs sm:text-sm text-gray-400 mt-0.5 sm:mt-1 font-semibold">
+                    <span class="flex items-center gap-1 sm:gap-1.5">
+                        <iconify-icon icon="ph:clock-light" class="text-base sm:text-xl"></iconify-icon>
                         @vacancy.CreatedAt?.ToString("dd.MM.yyyy")
                         </span>
-                    <span class="flex items-center gap-1.5">
-                        <iconify-icon icon="ph:eye-light" class="text-xl"></iconify-icon>
+                    <span class="flex items-center gap-1 sm:gap-1.5">
+                        <iconify-icon icon="ph:eye-light" class="text-base sm:text-xl"></iconify-icon>
                         @vacancy.ViewCount baxış
                     </span>
                 </div>
             </div>
         </div>
 
-        <div class="absolute bottom-3 right-6 text-right shrink-0">
-            <p class="text-darkGreen font-bold text-md">@vacancy.Salary</p>
+        <div class="text-right shrink-0 mt-2 sm:mt-0 self-end sm:self-center">
+            <p class="text-darkGreen font-bold text-sm sm:text-md">@vacancy.Salary</p>
         </div>
     </a>
 
     if (i == 4 || i == 14 || i == 29 || i == 44 || i == 59)
     {
-        <div class="my-6 overflow-hidden w-full h-44 rounded-3xl">
+        <div class="my-4 sm:my-6 overflow-hidden w-full h-32 sm:h-44 rounded-2xl">
             <img src="~/images/banner.jpg" alt="Reklam" class="w-full h-full object-cover">
         </div>
     }

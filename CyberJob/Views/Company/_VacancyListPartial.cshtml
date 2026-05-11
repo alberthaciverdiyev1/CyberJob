@@ -1,25 +1,25 @@
-﻿@model IEnumerable<CyberJob.DTOs.VacancyListDto>
+@model IEnumerable<CyberJob.DTOs.VacancyListDto>
 
 @if (!Model.Any())
 {
-    <div class="p-10 text-center bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-        <p class="text-gray-500 font-medium">Axtarışa uyğun vakansiya tapılmadı.</p>
+    <div class="p-8 sm:p-10 text-center bg-gray-50 dark:bg-zinc-900 rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-700">
+        <p class="text-gray-500 dark:text-gray-400 font-medium">Axtarışa uyğun vakansiya tapılmadı.</p>
     </div>
 }
 else
 {
     @foreach (var vacancy in Model)
     {
-        <div class="job-row-card">
-            <div class="flex items-center gap-7">
+        <div class="bg-white dark:bg-[#0a0a0a] rounded-3xl border border-gray-100 dark:border-gray-800 p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between transition-all hover:border-[#009689] hover:shadow-[0_10px_30px_rgba(0,0,0,0.04)] mb-4 gap-4 sm:gap-0">
+            <div class="flex items-center gap-4 sm:gap-7 w-full sm:w-auto">
                 <div
-                    class="w-28 h-28 bg-white rounded-full flex items-center justify-center shrink-0 border border-gray-100 shadow-sm overflow-hidden">
+                    class="w-16 h-16 sm:w-24 sm:h-24 bg-white dark:bg-zinc-800 rounded-full flex items-center justify-center shrink-0 border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
                     <img src="@vacancy.Company?.Logo" alt="logo" class="w-full h-full object-cover">
                 </div>
 
-                <div>
-                    <h3 class="text-lg font-semibold text-black mb-1.5">@vacancy?.Name</h3>
-                    <p class="text-gray-400 font-semibold flex items-center gap-2 text-lg">
+                <div class="min-w-0 flex-1">
+                    <h3 class="text-base sm:text-lg font-semibold text-black dark:text-white mb-1 truncate">@vacancy?.Name</h3>
+                    <p class="text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-2 text-sm sm:text-lg flex-wrap">
                         @vacancy?.Company?.Name
                         @if (vacancy.Company.IsVerified)
                         {
@@ -28,13 +28,13 @@ else
                         }
                         <span class="text-gray-400 font-semibold">@vacancy?.CityName</span>
                     </p>
-                    <div class="flex items-center gap-6 text-gray-400 text-sm mt-3 font-medium">
-                        <span class="flex items-center gap-2">
-                            <iconify-icon icon="ph:clock-light" class="text-xl"></iconify-icon>
+                    <div class="flex items-center gap-4 sm:gap-6 text-gray-400 text-xs sm:text-sm mt-2 sm:mt-3 font-medium">
+                        <span class="flex items-center gap-1 sm:gap-2">
+                            <iconify-icon icon="ph:clock-light" class="text-base sm:text-xl"></iconify-icon>
                             @vacancy.CreatedAt?.ToString("dd.MM.yyyy")
                             </span>
-                        <span class="flex items-center gap-2">
-                            <iconify-icon icon="ph:eye-light" class="text-xl"></iconify-icon>
+                        <span class="flex items-center gap-1 sm:gap-2">
+                            <iconify-icon icon="ph:eye-light" class="text-base sm:text-xl"></iconify-icon>
                             @vacancy?.ViewCount baxış</span>
                     </div>
                 </div>
@@ -42,7 +42,7 @@ else
             <a asp-controller="Vacancy"
                asp-action="Details"
                asp-route-id="@vacancy.Id"
-               class="rounded-full bg-lightGreen px-10 py-4 text-center text-lg flex text-white items-center justify-center">Müraciət et</a>
+               class="rounded-[20px] bg-[#1A998D] hover:bg-[#457d79] px-6 sm:px-10 py-3 sm:py-4 text-center text-sm sm:text-lg text-white font-bold transition-all whitespace-nowrap w-full sm:w-auto mt-3 sm:mt-0">Müraciət et</a>
         </div>
     }
 }

@@ -1,250 +1,86 @@
-﻿@using CyberJob.DTOs
+@using CyberJob.DTOs
 @using CyberJob.Helpers
-<style>
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #F8FAFB;
-    }
+@section Styles {
+    <link rel="stylesheet" href="~/css/vacancy-details.css"/>
+}
 
-    .main-container {
-        max-width: 1440px;
-        margin: 0 auto;
-        padding: 40px 100px;
-    }
-
-    /* Üst Header Kartı */
-    .job-header-card {
-        width: 490px;
-        height: 170px;
-        background: white;
-        border-radius: 15px;
-        padding: 30px;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-    }
-
-    /* Reklam Banneri */
-    .ad-banner {
-        width: 730px;
-        height: 170px;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    }
-
-    /* Sidebar */
-    .sidebar-card {
-        width: 400px;
-        background: white;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-    }
-
-    .sidebar-head {
-        background: #0B2036;
-        color: white;
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    /* Social CTA */
-    .social-cta-banner {
-        width: 1239px;
-        height: 79px;
-        background: white;
-        border-radius: 15px;
-        border: 1px solid #E5E7EB;
-        display: flex;
-        items-center;
-        justify-content: space-between;
-        padding: 0 30px;
-        margin: 60px 0;
-    }
-
-    /* Alt Vakansiya Kartları */
-    .bottom-job-card {
-        background: white;
-        border: 1px solid #E5E7EB;
-        border-radius: 20px;
-        padding: 20px;
-        transition: all 0.3s;
-    }
-
-    .bottom-job-card:hover {
-        border-color: #009689;
-        transform: translateY(-5px);
-    }
-
-    /* --- YENİ ŞİKAYƏT MODALI DİZAYNI (2-Cİ ŞƏKİLƏ UYĞUN) --- */
-    .modal-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4);
-        z-index: 1000;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .modal-content {
-        background: white;
-        width: 720px; /* Şəkildəki kimi daha geniş */
-        border-radius: 24px;
-        padding: 40px;
-        position: relative;
-    }
-
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-    }
-
-    .modal-header h2 {
-        font-size: 24px;
-        font-weight: 800;
-        color: #0B2036;
-    }
-
-    .close-modal {
-        cursor: pointer;
-        font-size: 28px;
-        color: #95A1B0;
-    }
-
-    /* İki sütunlu checkbox sahəsi */
-    .report-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-
-    .report-option {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        cursor: pointer;
-        font-weight: 600;
-        color: #0B2036;
-        font-size: 16px;
-    }
-
-    .report-option input[type="checkbox"] {
-        width: 22px;
-        height: 22px;
-        border: 2px solid #E5E7EB;
-        border-radius: 6px;
-        accent-color: #52A38F; /* Şəkildəki yaşıl tonu */
-        cursor: pointer;
-    }
-
-    .report-submit-btn {
-        width: 100%;
-        max-width: 320px; /* Düymə mərkəzdə və stabil ölçüdə */
-        background: #52A38F;
-        color: white;
-        font-weight: 700;
-        padding: 16px;
-        border-radius: 12px;
-        margin: 20px auto 0;
-        display: block;
-        font-size: 18px;
-        transition: background 0.3s;
-    }
-
-    .report-submit-btn:hover {
-        background: #438a78;
-    }
-</style>
-
-<main class="main-container">
-    <div class="flex justify-between items-center mb-12">
-        <div class="job-header-card">
-            <div class="w-24 h-24 shrink-0">
-                <img src="@Model.Vacancy.Company.Logo" alt="Kontakt" class="w-full h-full object-contain">
+<main class="max-w-[1440px] mx-auto px-4 sm:px-10 lg:px-[100px] py-6 sm:py-10">
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 sm:mb-12">
+        <div class="w-full max-w-[490px] bg-white dark:bg-[#0a0a0a] rounded-[15px] p-5 sm:p-6 flex items-center gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 shrink-0">
+                <img src="@Model.Vacancy.Company.Logo" alt="Logo" class="w-full h-full object-contain">
             </div>
-            <div>
-                <h1 class="text-[24px] font-[900] text-[#0B2036]">@Model.Vacancy.Name</h1>
-                <p class="text-[#95A1B0] font-bold text-lg flex items-center gap-2">
+            <div class="min-w-0">
+                <h1 class="text-[18px] sm:text-[22px] lg:text-[24px] font-[900] text-[#0B2036] dark:text-white truncate">@Model.Vacancy.Name</h1>
+                <p class="text-[#95A1B0] dark:text-gray-400 font-bold text-sm sm:text-lg flex items-center gap-2">
                     @Model.Vacancy.Company.Name
-                    <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB]"></iconify-icon>
+                    <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] shrink-0"></iconify-icon>
                 </p>
-                <div class="flex items-center gap-4 mt-3">
+                <div class="flex items-center gap-3 sm:gap-4 mt-2 sm:mt-3 flex-wrap">
                     <span
-                        class="bg-[#FFF8E7] text-[#FFB800] px-3 py-1 rounded-md text-xs font-bold border border-[#FFB800]/20">Son tarix @Model.Vacancy.ExpireDate   </span>
-                    <span class="text-[#95A1B0] text-xs flex items-center gap-1">
+                        class="bg-[#FFF8E7] text-[#FFB800] px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold border border-[#FFB800]/20">Son tarix @Model.Vacancy.ExpireDate   </span>
+                    <span class="text-[#95A1B0] text-[10px] sm:text-xs flex items-center gap-1">
                         <iconify-icon icon="ph:eye-bold"></iconify-icon> @Model.Vacancy.ViewCount baxış
                     </span>
                 </div>
             </div>
         </div>
 
-        <div class="ad-banner">
-            <img src="@(Model.Vacancy.BannerImage ?? Model.Vacancy.Company?.BannerImage ?? "")" 
-                 alt="Reklam" 
+        <div class="w-full max-w-[730px] lg:w-[730px] h-[120px] sm:h-[170px] rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <img src="@(Model.Vacancy.BannerImage ?? Model.Vacancy.Company?.BannerImage ?? "")"
+                 alt="Reklam"
                  class="w-full h-full object-cover">
         </div>
     </div>
 
-    <div class="flex gap-10">
-        <div class="flex-1 bg-white p-10 rounded-[15px] shadow-sm">
-            <h3 class="text-[20px] font-black text-[#0B2036] mb-6">İşin təsviri</h3>
-            <div class="text-[#4F5B67] leading-relaxed space-y-4 text-[15px]">
+    <div class="flex flex-col lg:flex-row gap-6 sm:gap-10">
+        <div class="flex-1 bg-white dark:bg-[#0a0a0a] p-6 sm:p-10 rounded-[15px] shadow-sm">
+            <h3 class="text-[18px] sm:text-[20px] font-black text-[#0B2036] dark:text-white mb-4 sm:mb-6">İşin təsviri</h3>
+            <div class="text-[#4F5B67] dark:text-gray-300 leading-relaxed space-y-4 text-[14px] sm:text-[15px]">
                 @Html.Raw(Model.Vacancy.Description.Replace("\n", "<br>"))
             </div>
 
-            <h3 class="text-[20px] font-black text-[#0B2036] mt-10 mb-6">Xüsusi tələblər</h3>
-            <div class="text-[#4F5B67] leading-relaxed space-y-4 text-[15px]">
+            <h3 class="text-[18px] sm:text-[20px] font-black text-[#0B2036] dark:text-white mt-8 sm:mt-10 mb-4 sm:mb-6">Xüsusi tələblər</h3>
+            <div class="text-[#4F5B67] dark:text-gray-300 leading-relaxed space-y-4 text-[14px] sm:text-[15px]">
                 @Html.Raw(Model.Vacancy.Requirements.Replace("\n", "<br>"))
             </div>
 
-            <div class="mt-10 pt-6 border-t flex gap-6 text-[#95A1B0] font-bold text-sm">
-                <button class="flex items-center gap-2">
+            <div class="mt-8 sm:mt-10 pt-6 border-t dark:border-gray-700 flex gap-4 sm:gap-6 text-[#95A1B0] font-bold text-xs sm:text-sm">
+                <button class="flex items-center gap-2 hover:text-[#009689] transition-colors">
                     <iconify-icon icon="ph:share-network-bold"></iconify-icon>
                     Paylaş
                 </button>
-                <button onclick="openModal()" class="flex items-center gap-2">
+                <button onclick="openModal()" class="flex items-center gap-2 hover:text-red-500 transition-colors">
                     <iconify-icon icon="ph:warning-circle-bold"></iconify-icon>
                     Şikayət et
                 </button>
             </div>
         </div>
 
-        <aside class="w-[400px] shrink-0">
-            <div class="sidebar-card">
-                <div class="sidebar-head">
+        <aside class="w-full lg:w-[400px] shrink-0">
+            <div class="w-full max-w-[400px] bg-white dark:bg-[#0a0a0a] rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+                <div class="bg-[#0B2036] dark:bg-black text-white p-3.5 sm:p-4 flex items-center justify-center gap-2.5">
                     <iconify-icon icon="ph:info-bold"></iconify-icon>
                     <span class="font-bold">Qısa məlumat</span>
                 </div>
-                <div class="p-8 space-y-6">
-                    <div class="flex justify-between items-center border-b pb-4">
-                        <span class="text-gray-400">Şəhər</span>
-                        <span class="font-bold text-[#0B2036]">@Model.Vacancy.City</span>
+                <div class="p-6 sm:p-8 space-y-5 sm:space-y-6">
+                    <div class="flex justify-between items-center border-b dark:border-gray-700 pb-4 gap-4">
+                        <span class="text-gray-400 dark:text-gray-500 shrink-0">Şəhər</span>
+                        <span class="font-bold text-[#0B2036] dark:text-white text-right">@Model.Vacancy.City</span>
                     </div>
                     @foreach (FilterDetailDto v in Model.Vacancy.Filters)
                     {
-                        <div class="flex justify-between items-center border-b pb-4">
-                            <span class="text-gray-400">@v.ParentName</span>
-                            <span class="font-bold text-[#0B2036]">@v.Name</span>
+                        <div class="flex justify-between items-center border-b dark:border-gray-700 pb-4 gap-4">
+                            <span class="text-gray-400 dark:text-gray-500 shrink-0">@v.ParentName</span>
+                            <span class="font-bold text-[#0B2036] dark:text-white text-right">@v.Name</span>
                         </div>
                     }
-                    <div class="flex justify-between items-center border-b pb-4">
-                        <span class="text-gray-400">Əmək haqqı</span>
-                        <span class="font-bold text-[#0B2036]">@Model.Vacancy.Salary</span>
+                    <div class="flex justify-between items-center border-b dark:border-gray-700 pb-4 gap-4">
+                        <span class="text-gray-400 dark:text-gray-500 shrink-0">Əmək haqqı</span>
+                        <span class="font-bold text-[#0B2036] dark:text-white text-right">@Model.Vacancy.Salary</span>
                     </div>
                     <button
-                        class="w-full bg-[#009689] text-white font-black py-4 rounded-xl flex items-center justify-center gap-3">
+                        class="w-full bg-[#009689] text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-[#007a6f] transition-all text-sm sm:text-base">
                         <iconify-icon icon="ph:envelope-simple-bold"></iconify-icon>
                        @(Model.Vacancy.Email ?? Model.Vacancy.Company.Email)
                     </button>
@@ -253,15 +89,15 @@
         </aside>
     </div>
 
-    <div class="social-cta-wrapper flex justify-center w-full mb-12">
-        <div class="social-cta-banner">
-            <div class="flex items-center gap-4 h-full">
-                <div class="flex-shrink-0 flex items-center justify-center" style="width: 53px; height: 74px;">
+    <div class="social-cta-wrapper flex justify-center w-full mb-8 sm:mb-12">
+        <div class="w-full max-w-[1239px] bg-white dark:bg-[#0a0a0a] rounded-[15px] border border-gray-200 dark:border-gray-700 flex items-center justify-between px-5 my-8 sm:my-10 min-h-[70px] flex-col sm:flex-row gap-4 py-4 sm:py-0">
+            <div class="flex items-center gap-3 sm:gap-4">
+                <div class="flex-shrink-0 flex items-center justify-center w-[40px] sm:w-[53px] h-[50px] sm:h-[74px]">
                     <img src="~/images/robotelan.png" alt="robot" class="w-full h-full object-contain">
                 </div>
-                <span class="cta-text">Yeni İT vakansiyaları – bütün platformalarda!</span>
+                <span class="text-sm sm:text-base font-semibold text-[#0B2036] dark:text-white">Yeni İT vakansiyaları – bütün platformalarda!</span>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 sm:gap-3">
                 <a href="#" class="social-icon"><img src="~/images/insta.png" alt="Instagram"></a>
                 <a href="#" class="social-icon"><img src="~/images/tg.png" alt="Telegram"></a>
                 <a href="#" class="social-icon"><img src="~/images/vp.png" alt="WhatsApp"></a>
@@ -271,21 +107,21 @@
     </div>
 
     <section>
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-[28px] font-black text-[#0B2036]">Daha çox elan</h2>
+        <div class="flex justify-between items-center mb-6 sm:mb-8">
+            <h2 class="text-[22px] sm:text-[28px] font-black text-[#0B2036] dark:text-white">Daha çox elan</h2>
         </div>
 
-        <div class="grid grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             @foreach(VacancyListDto v in Model.SimilarVacancies){
-            <div class="bottom-job-card">
+            <div class="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-700 rounded-[20px] p-5 transition-all duration-300 hover:border-[#009689] hover:-translate-y-1">
                 <div class="flex items-center gap-3 mb-4">
-                    <img src="@v.Company.Logo" alt="vtb" class="w-10 h-10 object-contain">
-                    <div>
-                        <h4 class="font-bold text-[14px] text-[#0B2036] leading-tight">@v.Name</h4>
-                        <p class="text-[#2D9CDB] text-[12px] font-bold">@v.Company.Name</p>
+                    <img src="@v.Company.Logo" alt="logo" class="w-8 h-8 sm:w-10 sm:h-10 object-contain">
+                    <div class="min-w-0">
+                        <h4 class="font-bold text-[13px] sm:text-[14px] text-[#0B2036] dark:text-white leading-tight truncate">@v.Name</h4>
+                        <p class="text-[#2D9CDB] text-[11px] sm:text-[12px] font-bold truncate">@v.Company.Name</p>
                     </div>
                 </div>
-                <div class="flex justify-between items-center text-[11px] text-[#95A1B0]">
+                <div class="flex justify-between items-center text-[10px] sm:text-[11px] text-[#95A1B0] dark:text-gray-400">
                     <div class="flex items-center gap-2">
                         <span>@((v.CreatedAt as DateTime?).ToRelativeDate())</span>
                         <span><iconify-icon icon="ph:eye-bold"></iconify-icon> @v.ViewCount</span>
@@ -296,61 +132,61 @@
            }
         </div>
 
-        <div class="flex justify-center items-center gap-4 mt-10">
+        <div class="flex justify-center items-center gap-4 mt-8 sm:mt-10">
             <button
-                class="w-12 h-12 rounded-full border border-[#E5E7EB] flex items-center justify-center text-[#0B2036] hover:border-[#009689] hover:text-[#009689] transition-all group">
-                <iconify-icon icon="ph:caret-left-bold" class="text-xl"></iconify-icon>
+                class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#E5E7EB] dark:border-gray-700 flex items-center justify-center text-[#0B2036] dark:text-white hover:border-[#009689] hover:text-[#009689] transition-all group">
+                <iconify-icon icon="ph:caret-left-bold" class="text-lg sm:text-xl"></iconify-icon>
             </button>
             <button
-                class="w-12 h-12 rounded-full border border-[#E5E7EB] flex items-center justify-center text-[#0B2036] hover:border-[#009689] hover:text-[#009689] transition-all group">
-                <iconify-icon icon="ph:caret-right-bold" class="text-xl"></iconify-icon>
+                class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#E5E7EB] dark:border-gray-700 flex items-center justify-center text-[#0B2036] dark:text-white hover:border-[#009689] hover:text-[#009689] transition-all group">
+                <iconify-icon icon="ph:caret-right-bold" class="text-lg sm:text-xl"></iconify-icon>
             </button>
         </div>
     </section>
 </main>
 
 <div id="reportModal" class="modal-overlay" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <div class="modal-header">
-            <h2>Şikayət</h2>
-            <span class="close-modal" onclick="closeModal()">
+    <div class="w-full max-w-[720px] bg-white dark:bg-[#1a1a1a] rounded-3xl p-8 sm:p-6 relative max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-extrabold text-[#0B2036] dark:text-white">Şikayət</h2>
+            <span class="cursor-pointer text-2xl sm:text-[28px] text-[#95A1B0]" onclick="closeModal()">
                 <iconify-icon icon="material-symbols:close-rounded"></iconify-icon>
             </span>
         </div>
 
         <form id="reportForm">
-            <div class="report-grid">
-                <label class="report-option">
-                    <input type="checkbox" name="reason" value="1">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-8">
+                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="1">
                     Əlaqə saxlamaq olmur
                 </label>
-                <label class="report-option">
-                    <input type="checkbox" name="reason" value="2" checked>
+                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="2" checked>
                     Elan aktual deyil
                 </label>
-                <label class="report-option">
-                    <input type="checkbox" name="reason" value="3">
+                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="3">
                     Real iş elanı deyil
                 </label>
-                <label class="report-option">
-                    <input type="checkbox" name="reason" value="4">
+                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="4">
                     Ünvan düzgün deyil
                 </label>
-                <label class="report-option">
-                    <input type="checkbox" name="reason" value="5">
+                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="5">
                     İşin təsviri düzgün deyil
                 </label>
-                <label class="report-option">
-                    <input type="checkbox" name="reason" value="6">
+                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="6">
                     Əmək bazarı üzrə aşağı maaş təklifi
                 </label>
-                <label class="report-option">
-                    <input type="checkbox" name="reason" value="7">
+                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="7">
                     Digər
                 </label>
             </div>
 
-            <button type="submit" class="report-submit-btn">Göndər</button>
+            <button type="submit" class="w-full max-w-[320px] bg-[#52A38F] hover:bg-[#438a78] text-white font-bold py-4 rounded-xl mx-auto mt-5 block text-lg transition-colors">Göndər</button>
         </form>
     </div>
 </div>

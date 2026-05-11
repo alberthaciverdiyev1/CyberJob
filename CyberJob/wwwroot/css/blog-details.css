@@ -1,0 +1,10 @@
+:root { --b-title: #0B2036; --b-text: #334155; }
+.dark { --b-title: #ffffff; --b-text: #94A3B8; }
+
+.article-content { font-size: 16px; line-height: 1.8; color: var(--b-text); }
+.article-content p { margin-bottom: 25px; }
+.article-content h2 { font-size: clamp(18px, 3vw, 22px); font-weight: 800; color: var(--b-title); margin: 40px 0 20px; }
+.article-content ul { margin-bottom: 25px; padding-left: 5px; }
+.article-content li { margin-bottom: 12px; list-style: none; position: relative; padding-left: 20px; }
+.article-content li::before { content: "\2022"; position: absolute; left: 0; color: var(--b-title); font-weight: bold; }
+.article-content strong { color: var(--b-title); font-weight: 700; }

@@ -1,16 +1,16 @@
-﻿@model dynamic
+@model dynamic
 
 @foreach (var company in Model)
 {
-    <div class="company-card">
+    <div class="w-full min-w-[200px] max-w-full sm:max-w-[280px] h-[180px] transition-all duration-300 border border-[#1A998D] bg-white dark:bg-[#0a0a0a] rounded-[10px] p-5 flex flex-col justify-between shrink-0 hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(26,153,141,0.15)]">
         <div class="flex items-center gap-3">
-            <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-lg shrink-0 border border-gray-50 overflow-hidden">
+            <div class="w-12 h-12 flex items-center justify-center bg-gray-50 dark:bg-zinc-800 rounded-lg shrink-0 border border-gray-50 dark:border-zinc-700 overflow-hidden">
                 <img src="@company.Logo" alt="@company.Name" class="w-full h-full object-cover">
             </div>
 
-            <div class="min-w-0">
+            <div class="min-w-0 flex-1">
                 <div class="flex items-center gap-1">
-                    <h3 class="font-semibold text-lg text-black leading-tight truncate">@company.Name</h3>
+                    <h3 class="font-semibold text-sm sm:text-lg text-black dark:text-white leading-tight truncate">@company.Name</h3>
                     @if (company.IsVerified)
                     {
                         <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] text-sm shrink-0"></iconify-icon>
@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-                <p class="text-sm text-gray-500 font-semibold mt-0.5">
+                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-semibold mt-0.5">
                     @company.VacancyCount <span class="font-medium">vakansiya</span>
                 </p>
 
@@ -26,7 +26,7 @@
             <a asp-controller="Company"
                asp-action="Details"
                asp-route-id="@company.Id"
-               class="flex-1 py-2.5 bg-lightGreen text-white rounded-lg font-semibold text-sm hover:bg-darkGreen transition-all text-center shadow-sm">
+               class="flex-1 py-2.5 bg-lightGreen text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-darkGreen transition-all text-center shadow-sm">
                 Detallar
             </a>
 

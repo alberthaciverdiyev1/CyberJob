@@ -1,123 +1,16 @@
-<style>
-    :root {
-        --b-detail-bg: #ffffff;
-        --b-detail-title: #0B2036;
-        --b-detail-text: #334155;
-        --b-detail-meta: #64748B;
-        --b-detail-border: #E2E8F0;
-    }
+@section Styles {
+    <link rel="stylesheet" href="~/css/blog-details.css"/>
+}
 
-    .dark {
-        --b-detail-bg: #000000;
-        --b-detail-title: #ffffff;
-        --b-detail-text: #94A3B8;
-        --b-detail-meta: #64748B;
-        --b-detail-border: #1E293B; 
-    }
+<main class="bg-white dark:bg-black min-h-screen py-10 sm:py-16 lg:py-[60px_0_100px] transition-all duration-300">
+    <div class="max-w-[900px] mx-auto px-5">
 
-    .blog-detail-page {
-        background-color: var(--b-detail-bg);
-        min-height: 100vh;
-        padding: 60px 0 100px;
-        transition: all 0.3s ease;
-    }
-
-    .content-container {
-        max-width: 900px; /* Dizayndakı kimi mətni mərkəzdə və dar saxlayırıq */
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    /* Başlıq Hissəsi */
-    .blog-header {
-        margin-bottom: 30px;
-    }
-
-    .blog-header h1 {
-        font-size: 32px; 
-        font-weight: 800;
-        color: var(--b-detail-title);
-        margin-bottom: 10px;
-        line-height: 1.3;
-    }
-
-    .blog-header .date {
-        font-size: 14px;
-        color: var(--b-detail-meta);
-        font-weight: 500;
-    }
-
-    /* Şəkillər */
-    .featured-img {
-        width: 100%;
-        height: 462px;
-        border-radius: 16px;
-        margin-bottom: 35px;
-        display: block;
-        object-fit: cover;
-    }
-
-    /* Məqalə Mətni */
-    .article-content {
-        font-size: 16px;
-        line-height: 1.8;
-        color: var(--b-detail-text);
-    }
-
-    .article-content p {
-        margin-bottom: 25px;
-    }
-
-    .article-content h2 {
-        font-size: 22px;
-        font-weight: 800;
-        color: var(--b-detail-title);
-        margin: 40px 0 20px;
-    }
-
-    .article-content ul {
-        margin-bottom: 25px;
-        padding-left: 5px;
-    }
-
-    .article-content li {
-        margin-bottom: 12px;
-        list-style: none;
-        position: relative;
-        padding-left: 20px;
-    }
-
-    .article-content li::before {
-        content: "•";
-        position: absolute;
-        left: 0;
-        color: var(--b-detail-title);
-        font-weight: bold;
-    }
-
-    .sub-image {
-        width: 100%;
-        border-radius: 12px;
-        margin: 30px 0;
-        display: block;
-    }
-
-    /* Güclü vurğular */
-    .article-content strong {
-        color: var(--b-detail-title);
-        font-weight: 700;
-    }
-</style>
-
-<main class="blog-detail-page">
-    <div class="content-container">
-        
-        <header class="blog-header">
-            <h1>@Model.Title</h1>
-            <span class="date">@Model.CreatedAt</span>
+        <header class="mb-8">
+            <h1 class="text-[clamp(22px,4vw,32px)] font-extrabold text-[#0B2036] dark:text-white mb-2.5 leading-tight">@Model.Title</h1>
+            <span class="text-sm text-[#64748B] dark:text-[#64748B] font-medium">@Model.CreatedAt</span>
         </header>
 
-        <img src="@Model.Image" alt="IT Professions" class="featured-img">
+        <img src="@Model.Image" alt="IT Professions" class="w-full h-auto max-h-[462px] rounded-2xl mb-9 block object-cover aspect-video">
 
         <div class="article-content">
 

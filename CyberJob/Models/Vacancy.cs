@@ -92,8 +92,10 @@ public class Vacancy
         public int? CategoryId { get; set; }
         public Dictionary<string, string>? Filters { get; set; } = new();
         public string? Search { get; set; }
-        public bool? IsPremium { get; set; } 
-        public int? CompanyId { get; set; } 
-        
-        public int Take { get; set; } = 10; 
+        public bool? IsPremium { get; set; }
+        public int? CompanyId { get; set; }
+        public float? MinSalary { get; set; }
+        public float? MaxSalary { get; set; }
+
+        public int Take { get; set; } = 10;
     }

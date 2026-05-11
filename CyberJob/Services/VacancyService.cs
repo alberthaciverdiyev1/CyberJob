@@ -36,11 +36,16 @@ public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params
         {
             if (!string.IsNullOrEmpty(filter.Value))
             {
-                query = query.Where(v => v.VacancyFilters.Any(vf => 
+                query = query.Where(v => v.VacancyFilters.Any(vf =>
                     vf.FilterId.ToString() == filter.Key));
             }
         }
     }
+
+    if (@params.MinSalary.HasValue)
+        query = query.Where(v => v.MaxSalary >= @params.MinSalary || v.MaxSalary == null);
+    if (@params.MaxSalary.HasValue)
+        query = query.Where(v => v.MinSalary <= @params.MaxSalary || v.MinSalary == null);
 
     var vacancies = await query
         .OrderByDescending(v => v.CreatedAt)

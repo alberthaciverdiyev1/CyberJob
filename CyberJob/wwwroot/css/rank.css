@@ -1,4 +1,4 @@
-﻿
+
 /* Podium Gradientləri */
 .podium-gradient-gold {
     background: linear-gradient(180deg, #FBD38D 0%, #ECC94B 50%, #B7791F 100%);
@@ -30,4 +30,11 @@
 
 .podium-top {
     clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+    .podium-top {
+        clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+    }
 }

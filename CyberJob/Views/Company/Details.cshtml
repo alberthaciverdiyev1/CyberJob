@@ -1,78 +1,78 @@
 @using CyberJob.DTOs
-
 @section Styles {
     <link rel="stylesheet" href="~/css/companyDetails.css"/>
 }
 
-<div class="px-28 mx-auto py-10">
+<div class="px-4 sm:px-8 lg:px-28 mx-auto py-6 sm:py-10">
 
     <section
-        class="mb-10 p-8 flex flex-col md:flex-row items-center gap-8 rounded-xl border-2 border-[#BDE3F9] bg-gradient-to-r from-white via-[#F0F9FF] to-[#CBE9FB]">
+        class="mb-8 sm:mb-10 p-6 sm:p-8 flex flex-col md:flex-row items-center gap-6 sm:gap-8 rounded-xl border-2 border-[#BDE3F9] dark:border-blue-900/50 bg-gradient-to-r from-white via-[#F0F9FF] to-[#CBE9FB] dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-800">
 
-        <div class="w-52 h-40 rounded-2xl flex items-center justify-center shadow-lg overflow-hidden">
-            <img src="@Model.Company.Logo" alt="@Model.Company.Name" class="w-full h-full object-cover">
+        <div class="w-[180px] h-[140px] sm:w-[220px] sm:h-[160px] lg:w-[267px] lg:h-[197px] bg-white rounded-[10px] flex items-center justify-center p-4 sm:p-6 shrink-0 shadow-lg overflow-hidden">
+            <img src="@Model.Company.Logo" alt="@Model.Company.Name" class="w-full h-full object-contain">
         </div>
-        
-        <div class="flex-1">
-            <div class="flex items-center gap-4 mb-6">
-                <h1 class="text-4xl font-bold">@Model.Company.Name</h1>
+
+        <div class="flex-1 w-full">
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold dark:text-white">@Model.Company.Name</h1>
                 @if (Model.Company.IsVerified)
                 {
-                    <iconify-icon icon="material-symbols:verified" class="text-lightBlue text-2xl"></iconify-icon>
+                    <iconify-icon icon="material-symbols:verified" class="text-lightBlue text-xl sm:text-2xl shrink-0"></iconify-icon>
                 }
-                <div class="bg-white border border-lightBlue text-lightBlue px-4 py-1 text-sm font-medium">
+                <div class="bg-white dark:bg-zinc-800 border border-lightBlue dark:border-blue-800 text-lightBlue dark:text-blue-400 px-3 sm:px-4 py-1 text-[11px] sm:text-sm font-medium rounded-md whitespace-nowrap">
                     @Model.Company.VacancyCount vakansiya
                 </div>
             </div>
 
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-3 sm:gap-4">
                 <div
-                    class="flex items-center gap-3 bg-white border-2 border-extraLightBlue rounded-[15px] px-6 py-4 min-w-[220px]">
+                    class="flex items-center gap-2 sm:gap-3 bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-700 rounded-2xl px-4 sm:px-6 py-[18px] sm:py-4 flex-1 min-w-[140px] sm:min-w-[220px]">
                     <iconify-icon icon="fluent:checkbox-person-24-regular"
-                                  class="text-[#007CC2] text-3xl"></iconify-icon>
-                    <div>
-                        <p class="text-[#007CC2] text-[13px] font-medium leading-tight">Kateqoriya</p>
-                        <p class="text-[#007CC2] text-[14px] font-semibold">@Model.Company.CategoryName</p>
+                                  class="text-[#007CC2] text-2xl sm:text-3xl shrink-0"></iconify-icon>
+                    <div class="min-w-0">
+                        <p class="text-[#007CC2] dark:text-blue-400 text-[11px] sm:text-[13px] font-medium leading-tight">Kateqoriya</p>
+                        <p class="text-[#007CC2] dark:text-blue-400 text-[12px] sm:text-[14px] font-semibold truncate">@Model.Company.CategoryName</p>
                     </div>
                 </div>
 
                 <div
-                    class="flex items-center gap-3 bg-white border-2 border-extraLightBlue rounded-[15px] px-6 py-4 min-w-[160px]">
-                    <iconify-icon icon="fluent:clock-24-regular" class="text-[#007CC2] text-3xl"></iconify-icon>
-                    <div>
-                        <p class="text-[#007CC2] text-[13px] font-medium leading-tight">Təsis tarixi</p>
-                        <p class="text-[#007CC2] text-[14px] font-semibold">@Model.Company.FoundedYear</p>
+                    class="flex items-center gap-2 sm:gap-3 bg-white dark:bg-zinc-900 border-2 border-extraLightBlue dark:border-blue-900/50 rounded-[15px] px-4 sm:px-6 py-3 sm:py-4 flex-1 min-w-[130px] sm:min-w-[160px]">
+                    <iconify-icon icon="fluent:clock-24-regular" class="text-[#007CC2] text-2xl sm:text-3xl shrink-0"></iconify-icon>
+                    <div class="min-w-0">
+                        <p class="text-[#007CC2] dark:text-blue-400 text-[11px] sm:text-[13px] font-medium leading-tight">Təsis tarixi</p>
+                        <p class="text-[#007CC2] dark:text-blue-400 text-[12px] sm:text-[14px] font-semibold">@Model.Company.FoundedYear</p>
                     </div>
                 </div>
 
                 <div
-                    class="flex items-center gap-3 bg-white border-2 border-extraLightBlue rounded-[15px] px-6 py-4 min-w-[160px]">
-                    <iconify-icon icon="fluent:location-24-regular" class="text-[#007CC2] text-3xl"></iconify-icon>
-                    <div>
-                        <p class="text-[#007CC2] text-[13px] font-medium leading-tight">Ünvan</p>
-                        <p class="text-[#007CC2] text-[14px] font-semibold">@Model.Company.ShortAddress</p>
+                    class="flex items-center gap-2 sm:gap-3 bg-white dark:bg-zinc-900 border-2 border-extraLightBlue dark:border-blue-900/50 rounded-[15px] px-4 sm:px-6 py-3 sm:py-4 flex-1 min-w-[130px] sm:min-w-[160px]">
+                    <iconify-icon icon="fluent:location-24-regular" class="text-[#007CC2] text-2xl sm:text-3xl shrink-0"></iconify-icon>
+                    <div class="min-w-0">
+                        <p class="text-[#007CC2] dark:text-blue-400 text-[11px] sm:text-[13px] font-medium leading-tight">Ünvan</p>
+                        <p class="text-[#007CC2] dark:text-blue-400 text-[12px] sm:text-[14px] font-semibold truncate">@Model.Company.ShortAddress</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <nav class="nav-tabs font-semibold mx-12">
-        <div class="nav-tab active" onclick="openTab(event, 'vacancies')">Vakansiyalar</div>
-        <div class="nav-tab" onclick="openTab(event, 'about')">Şirkət haqqında</div>
+
+    <nav class="nav-tabs font-semibold mx-0 sm:mx-12 overflow-x-auto">
+        <div class="nav-tab active whitespace-nowrap" onclick="openTab(event, 'vacancies')">Vakansiyalar</div>
+        <div class="nav-tab whitespace-nowrap" onclick="openTab(event, 'about')">Şirkət haqqında</div>
     </nav>
 
     <div id="about" class="tab-content">
-        <section class="p-10">
-            <h2 class="text-3xl text-black font-semibold mb-8">@Model.Company.Name - Şirkət profili</h2>
-            <div class="text-gray-800 text-lg leading-[1.8] space-y-6">
+        <section class="p-6 sm:p-10">
+            <h2 class="text-2xl sm:text-3xl text-black dark:text-white font-semibold mb-6 sm:mb-8">@Model.Company.Name - Şirkət profili</h2>
+            <div class="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-[1.8] space-y-6">
 
                 @Html.Raw(Model.Company.About.Replace("\n", "<br>"))
 
             </div>
-            <div class="mt-12 space-y-4 border-t pt-8">
-                <p class="font-bold">Ünvan: <span
-                        class="font-normal text-gray-800">@Model.Company.Address</span></p>
-                <p class="font-bold">E-poçt: <a href="mailto:@Model.Company.Email"
+            <div class="mt-8 sm:mt-12 space-y-4 border-t dark:border-gray-700 pt-8">
+                <p class="font-bold dark:text-white">Ünvan: <span
+                        class="font-normal text-gray-600 dark:text-gray-400">@Model.Company.Address</span></p>
+                <p class="font-bold dark:text-white">E-poçt: <a href="mailto:@Model.Company.Email"
                                                                class="text-lightGreen font-bold">@Model.Company.Email</a>
                 </p>
             </div>
@@ -80,16 +80,16 @@
     </div>
 
     <div id="vacancies" class="tab-content active">
-        <div class="flex flex-col lg:flex-row gap-8 items-start">
-            <aside class="filter-sidebar">
+        <div class="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start">
+            <aside class="w-full lg:w-[320px] bg-white dark:bg-[#0a0a0a] rounded-[20px] p-6 border border-gray-100 dark:border-gray-800 shrink-0 sticky top-20">
                 <form class="space-y-4"
                       hx-get="/companies/@Model.Company.Id/vacancies"
                       hx-target="#vacancy-list"
                       hx-trigger="load change, keyup delay:500ms from:.filter-input, submit">
 
-                    <input type="text" name="Search" placeholder="Vəzifə adı" class="filter-input">
+                    <input type="text" name="Search" placeholder="Vəzifə adı" class="w-full px-4 py-3.5 bg-gray-50 dark:bg-[#1a1a1a] border border-gray-100 dark:border-gray-700 rounded-xl text-sm outline-none transition-colors focus:border-[#009689] dark:text-gray-200 dark:placeholder-gray-500">
 
-                    <select name="CityId" class="filter-input text-gray-400">
+                    <select name="CityId" class="filter-input text-gray-400 dark:text-gray-300">
                         <option value="">Şəhər seç</option>
                         @foreach (var city in Model.Cities)
                         {
@@ -98,7 +98,7 @@
                     </select>
                     @foreach (FilterGroupDto filter in Model.Filters)
                     {
-                        <select name="Filters[@filter.Key]" class="filter-input text-gray-400">
+                        <select name="Filters[@filter.Key]" class="filter-input text-gray-400 dark:text-gray-300">
                             <option value="">@filter.Name</option>
                             @foreach (var option in filter.Options)
                             {
@@ -108,7 +108,7 @@
                     }
 
                     <button type="submit"
-                            class="w-full py-4 bg-lightGreen text-white font-bold rounded-xl shadow-lg">
+                            class="w-full py-4 bg-lightGreen text-white font-bold rounded-xl shadow-lg hover:bg-darkGreen transition-all">
                         Axtar
                     </button>
                 </form>

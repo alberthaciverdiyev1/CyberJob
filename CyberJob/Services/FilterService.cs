@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using CyberJob.Database;
 using CyberJob.Helpers;
-using CyberJob.DTOs; 
+using CyberJob.DTOs;
 
 namespace CyberJob.Services;
 
@@ -16,6 +16,24 @@ public class FilterService(AppDbContext context)
             .OrderBy(f => f.Id)
             .ToListAsync();
 
+        var childFilterIds = filters
+            .SelectMany(f => f.SubFilters)
+            .Where(s => s.DeletedAt == null)
+            .Select(s => s.Id)
+            .ToList();
+
+        var vacancyCounts = new Dictionary<int, int>();
+        if (childFilterIds.Count != 0)
+        {
+            vacancyCounts = await context.VacancyFilters
+                .Where(vf => childFilterIds.Contains(vf.FilterId)
+                    && vf.Vacancy.IsActive
+                    && vf.Vacancy.DeletedAt == null)
+                .GroupBy(vf => vf.FilterId)
+                .Select(g => new { FilterId = g.Key, Count = g.Count() })
+                .ToDictionaryAsync(x => x.FilterId, x => x.Count);
+        }
+
         return filters.Select(f => new FilterGroupDto
         {
             Id = f.Id,
@@ -27,7 +45,8 @@ public class FilterService(AppDbContext context)
                 {
                     Id = s.Id,
                     Key = s.Key,
-                    Name = s.Name.Translate(lang)
+                    Name = s.Name.Translate(lang),
+                    VacancyCount = vacancyCounts.GetValueOrDefault(s.Id, 0)
                 })
                 .OrderBy(s => s.Id)
                 .ToList()

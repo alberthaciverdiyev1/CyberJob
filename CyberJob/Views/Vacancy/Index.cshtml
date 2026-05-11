@@ -1,121 +1,173 @@
-﻿@using CyberJob.DTOs
-<style>
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #F8FAFB;
-    }
+@using CyberJob.DTOs
 
-    .filter-scroll::-webkit-scrollbar {
-        width: 5px;
-    }
+@section Styles {
+    <link rel="stylesheet" href="~/css/vacancy.css"/>
+}
 
-    .filter-scroll::-webkit-scrollbar-thumb {
-        background: #E5E7EB;
-        border-radius: 10px;
-    }
+<section
+    class="sm:hidden relative bg-[#0B2036] dark:bg-[#000A0C] overflow-hidden mx-auto mb-8 transition-all duration-300 min-h-[300px] flex items-center justify-center">
 
-    input[type="checkbox"], input[type="radio"] {
-        accent-color: #00D4AA;
-        cursor: pointer;
-    }
-</style>
+    <div class="relative z-10 w-full flex flex-col items-center justify-center px-6 py-10">
+        <div class="text-center mb-8">
+            <h1 class="text-white text-[28px] font-bold mb-3 tracking-tight leading-tight">
+                Hazırda <span class="text-[#00D4AA] drop-shadow-[0_0_10px_rgba(0,212,170,0.5)]">22 vakansiya</span>
+                aktivdir
+            </h1>
+            <p class="text-white text-[20px] leading-relaxed mx-auto">
+                Sənə uyğun iş imkanlarını indi kəşf et və müraciət et.
+            </p>
+        </div>
 
-    <div class="w-full mx-auto px-28 mt-16">
-
-        <section
-            class="relative bg-cyberMain overflow-hidden mx-auto mb-10 transition-all duration-300 h-[310px] rounded-2xl border border-white/10">
-
-            <div class="absolute z-0 pointer-events-none w-[321.36px] h-[271.15px] top-[14.05px] left-[5.89px]">
-                <img src="~/images/ironman.png" alt="CyberBot" class="w-full h-full object-contain">
+        <div class="w-full bg-[#0d2137]/60 border border-white/20 rounded-[20px] p-2 flex items-center shadow-lg">
+            <div class="flex-1 flex items-center px-3">
+                <input type="text"
+                       id="searchInputMobile"
+                       name="Search"
+                       placeholder="Şirkət və ya vakansiya axtar..."
+                       class="w-full py-3 text-white placeholder:text-white/40 focus:outline-none bg-transparent text-[13px]"
+                       hx-get="/vacancies"
+                       hx-target="#vacancy-list-container">
             </div>
 
-            <div class="relative z-10 w-full h-full flex flex-col items-center justify-center pt-4">
-                <div class="text-center mb-6">
-                    <h1 class="text-white text-4xl md:text-[44px] font-bold mb-3 tracking-tight">
-                        Hazırda <span class="text-[#00D4AA]">22 vakansiya</span> aktivdir
-                    </h1>
-                    <p class="text-gray-50 text-sm md:text-base font-medium opacity-90">
-                        Sənə uyğun iş imkanlarını indi kəşf et və müraciət et.
-                    </p>
-                </div>
+            <div class="flex items-center gap-2">
+                <button
+                    class="bg-[#00D4AA] text-[#0B2036] w-24 py-2 flex items-center justify-center rounded-xl active:scale-95 transition-all shadow-[0_0_15px_rgba(0,212,170,0.4)]">
+                    <iconify-icon icon="ph:magnifying-glass-bold" class="text-xl"></iconify-icon>
+                </button>
 
-                <div
-                    class="bg-white rounded-lg p-1.5 flex items-center shadow-2xl w-full max-w-5xl mb-6 border border-gray-100">
-                    <div class="flex-1 flex items-center px-4 text-left bg-gray-100 rounded-lg">
-                        <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-xl mr-3"></iconify-icon>
+                <button id="mobile-filter-toggle"
+                        class="w-full flex items-center justify-center gap-2  border border-gray-200 dark:border-zinc-800 py-2 rounded-xl font-bold text-sm shadow-sm transition-all  bg-[#00D4AA] text-[#0B2036]">
+                    <span id="mobile-filter-text">Filtrlər</span>
+                    <iconify-icon icon="ph:caret-down-bold" class="text-xs" id="mobile-filter-arrow"></iconify-icon>
+                </button>
+            </div>
+        </div>
 
-                        <input type="text"
-                               id="searchInput"
-                               name="Search"
-                               placeholder="İş elanı axtar..."
-                               class="w-full py-2.5 text-gray-700 focus:outline-none text-md bg-gray-100"
-                               hx-get="/vacancies"
-                               hx-target="#vacancy-list-container"
-                               hx-trigger="keyup[key=='Enter']"
-                               hx-indicator=".loader">
+    </div>
+</section>
+<div class="w-full mx-auto px-4 sm:px-6 lg:px-28 mt-8 sm:mt-16">
 
-                        <div class="loader htmx-indicator ml-2">
-                            <iconify-icon icon="line-md:loading-twotone-loop"
-                                          class="text-gray-700 text-2xl"></iconify-icon>
-                        </div>
+    <section
+        class="hidden sm:block relative bg-cyberMain overflow-hidden mx-auto mb-8 sm:mb-10 transition-all duration-300 min-h-[310px] rounded-2xl border border-white/10">
+    
+        <div class="absolute z-0 pointer-events-none w-[180px] sm:w-[321px] h-[180px] sm:h-[271px] top-0 sm:top-[14px] left-0 sm:left-[5px] opacity-30 sm:opacity-100">
+            <img src="~/images/ironman.png" alt="CyberBot" class="w-full h-full object-contain">
+        </div>
+    
+        <div class="relative z-10 w-full h-full flex flex-col items-center justify-center px-4 sm:px-8 py-6 sm:py-8">
+            <div class="text-center mb-4 sm:mb-6">
+                <h1 class="text-white text-2xl sm:text-3xl md:text-[44px] font-bold mb-2 sm:mb-3 tracking-tight">
+                    Hazırda <span class="text-[#00D4AA]">22 vakansiya</span> aktivdir
+                </h1>
+                <p class="text-gray-50 text-xs sm:text-sm md:text-base font-medium opacity-90">
+                    Sənə uyğun iş imkanlarını indi kəşf et və müraciət et.
+                </p>
+            </div>
+    
+            <div
+                class="bg-white rounded-lg p-1.5 flex flex-col sm:flex-row items-stretch sm:items-center shadow-2xl w-full max-w-5xl mb-4 sm:mb-6 border border-gray-100">
+                <div class="flex-1 flex items-center px-4 text-left bg-gray-100 rounded-lg">
+                    <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-xl mr-3 shrink-0"></iconify-icon>
+    
+                    <input type="text"
+                           id="searchInput"
+                           name="Search"
+                           placeholder="İş elanı axtar..."
+                           class="w-full py-2.5 text-gray-700 focus:outline-none text-md bg-gray-100"
+                           hx-get="/vacancies"
+                           hx-target="#vacancy-list-container"
+                           hx-trigger="keyup[key=='Enter']"
+                           hx-indicator=".loader">
+    
+                    <div class="loader htmx-indicator ml-2">
+                        <iconify-icon icon="line-md:loading-twotone-loop"
+                                      class="text-gray-700 text-2xl"></iconify-icon>
                     </div>
-
-                    <button hx-get="/vacancies"
-                            hx-target="#vacancy-list-container"
-                            hx-include="#searchInput"
-                            hx-indicator=".loader"
-                            class="bg-extraLightGreen ml-2 text-white font-bold px-16 py-3 rounded-lg hover:bg-lightGreen transition-all shadow-md">
-                        Axtar
-                    </button>
                 </div>
-
-                <div class="flex flex-wrap justify-center gap-2">
-                    @{
-                        int c = 0;
-                    }
-
-                    @foreach (CategoryDto category in Model.Categories)
-                    {
-                        if (c <= 4)
-                        {
-                            <a href="/vacancies?CategoryId=@category.Id"
-                               hx-get="/vacancies?CategoryId=@category.Id"
-                               hx-target="#vacancy-list-container"
-                               hx-push-url="true"
-                               class="px-[18px] py-2 border border-white/20 rounded-[10px] text-white text-[13px] font-medium transition-all duration-200 hover:bg-white hover:text-[#0B2036] cursor-pointer">
-                                @category.Name
-                            </a>
-                        }
-
-                        c++;
-                    }
-                </div>
+    
+                <button hx-get="/vacancies"
+                        hx-target="#vacancy-list-container"
+                        hx-include="#searchInput"
+                        hx-indicator=".loader"
+                        class="bg-extraLightGreen mt-2 sm:mt-0 sm:ml-2 text-white font-bold px-8 sm:px-16 py-3 rounded-lg hover:bg-lightGreen transition-all shadow-md whitespace-nowrap">
+                    Axtar
+                </button>
             </div>
-        </section>
-        <div class="flex flex-col lg:flex-row gap-8">
-            <aside class="w-full lg:w-[320px] shrink-0" id="filter-section">
-                <div class="bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-sm border dark:border-zinc-800">
-                    <button hx-get="/vacancies"
-                            hx-target="#vacancy-list-container"
-                            hx-include="#filter-section, #searchInput"
-                            hx-indicator=".loader"
-                            class="w-full bg-lightGreen text-white font-bold py-3 rounded-t-2xl mb-2 hover:bg-extraLightGreen transition-all">
-                        Filtr
-                    </button>
-                    <div class="mb-4">
-                        <h3 class="mb-4 dark:text-white font-semibold">Maaş aralığı</h3>
+    
+            <div class="flex flex-wrap justify-center gap-2 px-2">
+                @{
+                    int c = 0;
+                }
+    
+                @foreach (CategoryDto category in Model.Categories)
+                {
+                    if (c <= 4)
+                    {
+                        <a href="/vacancies?CategoryId=@category.Id"
+                           hx-get="/vacancies?CategoryId=@category.Id"
+                           hx-target="#vacancy-list-container"
+                           hx-push-url="true"
+                           class="px-3 sm:px-[18px] py-1.5 sm:py-2 border border-white/20 rounded-[10px] text-white text-[11px] sm:text-[13px] font-medium transition-all duration-200 hover:bg-white hover:text-[#0B2036] cursor-pointer whitespace-nowrap">
+                            @category.Name
+                        </a>
+                    }
+    
+                    c++;
+                }
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Mobile Filter Toggle -->
+    @* <div class="lg:hidden mb-4"> *@
+    @*     <button id="mobile-filter-toggle" *@
+    @*             class="w-full flex items-center justify-center gap-2 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 py-3 px-4 rounded-xl font-bold text-sm shadow-sm transition-all"> *@
+    @*         <iconify-icon icon="ph:funnel-bold"></iconify-icon> *@
+    @*         <span id="mobile-filter-text">Filtrlər</span> *@
+    @*         <iconify-icon icon="ph:caret-down-bold" class="text-xs" id="mobile-filter-arrow"></iconify-icon> *@
+    @*     </button> *@
+    @* </div> *@
+
+    <div class="flex flex-col lg:flex-row gap-8">
+        <aside class="w-full lg:w-[320px] shrink-0 hidden lg:block" id="filter-section">
+            <div id="filter-content"
+                 class="bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-sm border dark:border-zinc-800 lg:block">
+                <button hx-get="/vacancies"
+                        hx-target="#vacancy-list-container"
+                        hx-include="#filter-section, #searchInput"
+                        hx-indicator=".loader"
+                        class="w-full bg-lightGreen text-white font-bold py-3 rounded-t-2xl mb-2 hover:bg-extraLightGreen transition-all">
+                    Filtr
+                </button>
+                <div class="mb-4">
+                    <div class="filter-section-toggle flex items-center justify-between mb-4"
+                         onclick="toggleFilterSection('salary-range')">
+                        <h3 class="dark:text-white font-semibold">Maaş aralığı</h3>
+                        <iconify-icon icon="ph:caret-down-bold" class="filter-icon text-gray-500"
+                                      id="salary-range-icon"></iconify-icon>
+                    </div>
+                    <div id="salary-range" class="filter-section-content">
                         <div class="flex gap-2">
                             <input type="text" placeholder="Ən az" name="MinSalary"
-                                   class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none text-center placeholder:font-bold font-bold">
+                                   class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none text-center placeholder:font-bold font-bold dark:text-white">
                             <input type="text" placeholder="Ən çox" name="MaxSalary"
-                                   class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none text-center placeholder:font-bold font-bold">
+                                   class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none text-center placeholder:font-bold font-bold dark:text-white">
                         </div>
                     </div>
+                </div>
 
-                    <hr class="my-6 dark:border-zinc-800">
+                <hr class="my-6 dark:border-zinc-800">
 
-                    <div class="mb-4">
-                        <h3 class="font-bold mb-4 dark:text-white">Sahə</h3>
+                <div class="mb-4">
+                    <div class="filter-section-toggle flex items-center justify-between mb-4"
+                         onclick="toggleFilterSection('category-section')">
+                        <h3 class="font-bold dark:text-white">Sahə</h3>
+                        <iconify-icon icon="ph:caret-down-bold" class="filter-icon text-gray-500"
+                                      id="category-section-icon"></iconify-icon>
+                    </div>
+                    <div id="category-section" class="filter-section-content">
                         <div class="space-y-3 pr-2">
 
                             @foreach (CategoryDto category in Model.Categories)
@@ -133,7 +185,7 @@
                                         </span>
                                     </div>
                                     <span
-                                        class="text-xs font-medium text-gray-500 px-3 py-1 bg-gray-100 border  rounded-full">
+                                        class="text-xs font-medium text-gray-500 px-3 py-1 bg-gray-100 border rounded-full">
                                         @category.VacancyCount
                                         </span>
                                 </label>
@@ -141,13 +193,20 @@
                             }
                         </div>
                     </div>
+                </div>
 
-                    <hr class="my-3  border-gray-400 dark:border-zinc-800">
-                    @foreach (FilterGroupDto filter in Model.Filters)
-                    {
-                        <div class="mb-4">
-                            <h3 class="font-bold my-2 dark:text-white">@filter.Name</h3>
+                <hr class="my-3 border-gray-400 dark:border-zinc-800">
+                @foreach (FilterGroupDto filter in Model.Filters)
+                {
+                    <div class="mb-4">
+                        <div class="filter-section-toggle flex items-center justify-between my-2"
+                             onclick="toggleFilterSection('filter-group-@filter.Id')">
+                            <h3 class="font-bold dark:text-white">@filter.Name</h3>
+                            <iconify-icon icon="ph:caret-down-bold" class="filter-icon text-gray-500"
+                                          id="filter-group-@filter.Id-icon"></iconify-icon>
+                        </div>
 
+                        <div id="filter-group-@filter.Id" class="filter-section-content">
                             <div class="flex flex-col space-y-3 pr-2">
                                 @foreach (var option in filter.Options)
                                 {
@@ -160,84 +219,104 @@
 
                                             <span
                                                 class="text-sm font-semibold text-gray-700 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">
-                                                @option.Name
-                                            </span>
+                                                    @option.Name
+                                                </span>
                                         </div>
 
-                                        @* @if(option.Count > 0) *@
-                                        @* { *@
                                         <span
                                             class="text-xs font-medium text-gray-500 px-3 py-1 bg-gray-100 border border-gray-200 rounded-full">
-                                            @* @option.Count *@
-                                            10
-                                        </span>
-                                        @* } *@
+                                                @option.VacancyCount
+                                            </span>
                                     </label>
                                     <hr class="border-gray-300 dark:border-zinc-800 last:hidden"/>
                                 }
                             </div>
                         </div>
+                    </div>
 
-                        <hr class="my-3 w-full border-gray-400 dark:border-zinc-800 last:hidden">
-                    }
+                    <hr class="my-3 w-full border-gray-400 dark:border-zinc-800 last:hidden">
+                }
 
 
-                    @if (Model.Banners.Count > 0)
+                @if (Model.Banners.Count > 0)
+                {
+                    @foreach (BannerDto banner in Model.Banners)
                     {
-                        @foreach (BannerDto banner in Model.Banners)
+                        if (banner.Location == "small")
                         {
-                            if (banner.Location == "small")
-                            {
-                                <div
-                                    class="mt-10 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                                    style="width: 271px; height: 450px; border-radius: 1px 1px 16px 16px;">
-                                    <img src="@banner.Image" alt="Melissa Park" class="w-full h-full object-cover">
-                                </div>
-                                break;
-                            }
+                            <div
+                                class="mt-10 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer hidden lg:block"
+                                style="width: 271px; height: 450px; border-radius: 1px 1px 16px 16px;">
+                                <img src="@banner.Image" alt="Banner" class="w-full h-full object-cover">
+                            </div>
+                            break;
                         }
                     }
+                }
 
-                </div>
-            </aside>
+            </div>
+        </aside>
 
-            <div class="flex-1">
-                <div class="flex justify-end items-center mb-6">
-                    <div class="relative inline-block text-left" id="sort-dropdown">
-                        <button onclick="toggleSortMenu()"
-                                class="bg-white dark:bg-zinc-900 border  border-gray-100 dark:border-zinc-800 py-2.5 px-10 rounded-xl font-bold text-sm shadow-sm flex items-center">
-                            <span class="mr-2">Sırala</span>
-                            <iconify-icon icon="ph:caret-down-bold"></iconify-icon>
-                        </button>
-                        <div id="sort-menu"
-                             class="hidden absolute right-0 mt-2 w-56 bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl z-50 border border-gray-100 dark:border-zinc-800 overflow-hidden">
-                            <a href="#" class="block px-4 py-3 text-sm rounded-lg font-semibold hover:bg-gray-50">Maaşa görə artan</a>
-                            <a href="#" class="block px-4 py-3 text-sm rounded-lg font-semibold hover:bg-gray-50">Maaşa görə azalan</a>
-                            <a href="#" class="block px-4 py-3 text-sm rounded-lg font-semibold hover:bg-gray-50">Bu günün elanları</a>
-                            <a href="#" class="block px-4 py-3 text-sm rounded-lg font-semibold bg-lightGreen text-white font-bold">Ən köhnələr</a>
-                            <a href="#" class="block px-4 py-3 text-sm rounded-lg font-semibold hover:bg-gray-50">Ən yenilər</a>
-                            <a href="#" class="block px-4 py-3 text-sm rounded-lg font-semibold hover:bg-gray-50">Son müraciət tarixinə</a>
-                            <a href="#" class="block px-4 py-3 text-sm rounded-lg font-semibold hover:bg-gray-50">Baxış sayına görə artan</a>
-                            <a href="#" class="block px-4 py-3 text-sm rounded-lg font-semibold hover:bg-gray-50">Baxış sayına görə azalan</a>
-                        </div>
+        <div class="flex-1 min-w-0">
+            <div class="flex justify-end items-center mb-6">
+                <div class="relative inline-block text-left" id="sort-dropdown">
+                    <button onclick="toggleSortMenu()"
+                            class="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 py-2.5 px-6 sm:px-10 rounded-xl font-bold text-xs sm:text-sm shadow-sm flex items-center">
+                        <span class="mr-2">Sırala</span>
+                        <iconify-icon icon="ph:caret-down-bold"></iconify-icon>
+                    </button>
+                    <div id="sort-menu"
+                         class="hidden absolute right-0 mt-2 w-48 sm:w-56 bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl z-50 border border-gray-100 dark:border-zinc-800 overflow-hidden">
+                        <a href="#"
+                           class="block px-4 py-3 text-xs sm:text-sm rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-zinc-800">Maaşa
+                            görə artan</a>
+                        <a href="#"
+                           class="block px-4 py-3 text-xs sm:text-sm rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-zinc-800">Maaşa
+                            görə azalan</a>
+                        <a href="#"
+                           class="block px-4 py-3 text-xs sm:text-sm rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-zinc-800">Bu
+                            günün elanları</a>
+                        <a href="#"
+                           class="block px-4 py-3 text-xs sm:text-sm rounded-lg font-semibold bg-lightGreen text-white font-bold">Ən
+                            köhnələr</a>
+                        <a href="#"
+                           class="block px-4 py-3 text-xs sm:text-sm rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-zinc-800">Ən
+                            yenilər</a>
+                        <a href="#"
+                           class="block px-4 py-3 text-xs sm:text-sm rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-zinc-800">Son
+                            müraciət tarixinə</a>
+                        <a href="#"
+                           class="block px-4 py-3 text-xs sm:text-sm rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-zinc-800">Baxış
+                            sayına görə artan</a>
+                        <a href="#"
+                           class="block px-4 py-3 text-xs sm:text-sm rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-zinc-800">Baxış
+                            sayına görə azalan</a>
                     </div>
                 </div>
+            </div>
 
-                <div class="space-y-4" id="vacancy-list-container">
-
-
-                    <partial name="_VacancyListCard" model="Model.Vacancies"/>
+            <div class="space-y-4" id="vacancy-list-container">
 
 
-                </div>
+                <partial name="_VacancyListCard" model="Model.Vacancies"/>
+
+
             </div>
         </div>
     </div>
+</div>
 
 
 <partial name="../Sections/_Subscribe"/>
 
 <script>
+    function toggleFilterSection(id) {
+        const content = document.getElementById(id);
+        const icon = document.getElementById(id + '-icon');
+        content.classList.toggle('collapsed');
+        if (icon) icon.classList.toggle('rotated');
+    }
+
     function toggleSortMenu() {
         document.getElementById('sort-menu').classList.toggle('hidden');
     }
@@ -245,5 +324,20 @@
     window.onclick = function (e) {
         if (!e.target.closest('#sort-dropdown')) document.getElementById('sort-menu').classList.add('hidden');
     }
-</script>
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterToggle = document.getElementById('mobile-filter-toggle');
+        const filterSection = document.getElementById('filter-section');
+        const filterText = document.getElementById('mobile-filter-text');
+        const filterArrow = document.getElementById('mobile-filter-arrow');
+
+        if (filterToggle && filterSection) {
+            filterToggle.addEventListener('click', function () {
+                const isHidden = filterSection.classList.toggle('hidden');
+                filterSection.classList.toggle('block');
+                if (filterText) filterText.textContent = isHidden ? 'Filtrlər' : 'Bağla';
+                if (filterArrow) filterArrow.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+        }
+    });
+</script>

@@ -9,44 +9,36 @@ public class HomeController(
     VacancyService vacancyService,
     CategoryService categoryService,
     PartnerService partnerService,
-    CompanyService companyService) : Controller
+    StatisticsService statisticsService) : Controller
 {
     public async Task<IActionResult> Index([FromQuery] string lang = "az")
     {
-        try 
+        var banners = await bannerService.GetListAsync();
+        var categories = await categoryService.GetOnlyParentsAsync(lang);
+        var partners = await partnerService.GetListAsync();
+        var premiumVacancies = await vacancyService.GetListAsync(new VacancyFilterParams { Lang = lang, IsPremium = true, Take = 8 });
+        var latestVacancies = await vacancyService.GetListAsync(new VacancyFilterParams { Lang = lang, IsPremium = false, Take = 8 });
+        var (visitorDaily, visitorWeekly, visitorMonthly, visitorTotal) = await statisticsService.GetVisitorStatsAsync();
+        var (vacancyDaily, vacancyWeekly, vacancyMonthly, vacancyTotal) = await statisticsService.GetVacancyStatsAsync();
+
+        var model = new HomeIndexVM
         {
-            var banners = await bannerService.GetListAsync(); 
-            var categories = await categoryService.GetOnlyParentsAsync(lang);
-            var partners = await partnerService.GetListAsync();
-        
-            var premiumVacancies = await vacancyService.GetListAsync(new VacancyFilterParams {
-                Lang = lang,
-                IsPremium = true,
-                Take = 8
-            });
+            Banners = banners,
+            Categories = categories,
+            Partners = partners,
+            PremiumVacancies = premiumVacancies,
+            LatestVacancies = latestVacancies,
+            VisitorDaily = visitorDaily,
+            VisitorWeekly = visitorWeekly,
+            VisitorMonthly = visitorMonthly,
+            VisitorTotal = visitorTotal,
+            VacancyDaily = vacancyDaily,
+            VacancyWeekly = vacancyWeekly,
+            VacancyMonthly = vacancyMonthly,
+            VacancyTotal = vacancyTotal
+        };
 
-            var latestVacancies = await vacancyService.GetListAsync(new VacancyFilterParams {
-                Lang = lang,
-                IsPremium = false,
-                Take = 8
-            });
-
-            var model = new
-            {
-                Banners = banners,
-                Categories = categories,
-                Partners = partners,
-                PremiumVacancies = premiumVacancies,
-                LatestVacancies = latestVacancies
-            };
-
-            return View(model);
-        }
-        catch (Exception ex)
-        {
-            throw;
-            // return View("Error");
-        }
+        return View(model);
     }
     [HttpGet("assets")]
     public IActionResult DownloadFile(string path = "")
