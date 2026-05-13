@@ -9,8 +9,53 @@
 @{
     int bannerCount = 0;
 }
-<section class="relative pt-16 sm:pt-24 pb-16 sm:pb-32 px-4 sm:px-8 overflow-hidden">
-    <div class="max-w-[1440px] mx-auto relative z-10">
+@* <section class="relative pt-16 sm:pt-24 pb-16 sm:pb-32 px-4 sm:px-8 overflow-hidden" style="background-image: url('@Url.Content("~/images/hero.svg")'); background-repeat: no-repeat; background-size: cover; background-position: center;"> *@
+@*     <div class="max-w-[1440px] mx-auto relative z-10"> *@
+@*         <div class="max-w-4xl mb-8 sm:mb-12"> *@
+@*             <h1 style="font-size: clamp(28px, 5vw, 48px); line-height: 1.1;" class="mb-4 font-bold text-[#E6E6E6]"> *@
+@*                 Yeni imkanlar. Yeni karyera. Yeni sən! *@
+@*             </h1> *@
+@*             <p style="font-size: clamp(16px, 2.5vw, 24px); line-height: 1.4;" class="font-normal text-[#CCCCCC]"> *@
+@*                 Gələcəyin IT karyerası buradan başlayır. *@
+@*             </p> *@
+@*         </div> *@
+@* *@
+@*         <div class="w-full max-w-[1009px] bg-white dark:bg-[#0a0a0a] rounded-lg p-1.5 sm:p-2 flex flex-col sm:flex-row items-stretch sm:items-center shadow-2xl transition-all"> *@
+@*             <div class="flex-1 flex items-center px-3 sm:px-6 bg-gray-200 mx-0 sm:mx-2 rounded-lg mb-2 sm:mb-0"> *@
+@*                 <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-xl sm:text-2xl mr-2 sm:mr-3 shrink-0"></iconify-icon> *@
+@*                 <input type="text" placeholder="Şirkət axtar..." *@
+@*                        class="w-full py-3 sm:py-4 text-gray-700 dark:text-gray-300 focus:outline-none text-base sm:text-lg font-medium bg-transparent placeholder:text-gray-400"> *@
+@*             </div> *@
+@*             <button *@
+@*                 class="bg-cyberGreen text-white font-bold px-8 sm:px-12 py-3 sm:py-4 rounded-[12px] sm:rounded-[16px] transition-all hover:bg-[#00bc96] active:scale-95 text-base sm:text-lg whitespace-nowrap"> *@
+@*                 Axtar *@
+@*             </button> *@
+@*         </div> *@
+@* *@
+@*         <div class="w-full max-w-[730px] mt-4 sm:mt-6 ml-0 sm:ml-[122px]"> *@
+@*             <div class="flex items-center gap-2 sm:gap-[23px] overflow-x-auto pb-2 scrollbar-hide"> *@
+@*                 @if (Model.Categories is not null) *@
+@*                 { *@
+@*                     @foreach (var bCat in Model.Categories) *@
+@*                     { *@
+@*                         <a href="#" *@
+@*                            class="flex items-center justify-center border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-cyberMain transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-0 h-auto sm:h-full whitespace-nowrap">@bCat.Name</a> *@
+@*                     } *@
+@*                 } *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </section> *@
+
+<section class="relative pt-16 sm:pt-[220px] pb-16 sm:pb-32 px-4 sm:px-8 overflow-hidden" 
+         style="background-image: url('@Url.Content("~/images/hero.svg")'); 
+                background-repeat: no-repeat; 
+                background-size: 70%; 
+                background-position: right -65% center;">
+
+    <div class="absolute left-[25%] bottom-[10%] w-[500px] h-[500px] bg-cyberGreen/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
+    
+    <div class="max-w-[1740px] mx-auto relative z-10">
         <div class="max-w-4xl mb-8 sm:mb-12">
             <h1 style="font-size: clamp(28px, 5vw, 48px); line-height: 1.1;" class="mb-4 font-bold text-[#E6E6E6]">
                 Yeni imkanlar. Yeni karyera. Yeni sən!
@@ -20,37 +65,38 @@
             </p>
         </div>
 
-        <div class="w-full max-w-[1009px] bg-white dark:bg-[#0a0a0a] rounded-lg p-1.5 sm:p-2 flex flex-col sm:flex-row items-stretch sm:items-center shadow-2xl transition-all">
-            <div class="flex-1 flex items-center px-3 sm:px-6 bg-gray-200 mx-0 sm:mx-2 rounded-lg mb-2 sm:mb-0">
+        <!-- Input Container -->
+        <div class="w-full max-w-[1100px] bg-white dark:bg-[#1a1a1a] rounded-xl p-1.5 sm:p-2 flex flex-col sm:flex-row items-stretch sm:items-center transition-all border border-white/10 shadow-2xl relative z-20">
+            <div class="flex-1 flex items-center px-3 sm:px-6 bg-gray-100 dark:bg-zinc-800/50 mx-0 sm:mx-2 rounded-xl mb-2 sm:mb-0 border border-transparent focus-within:border-cyberGreen/30 transition-all">
                 <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-xl sm:text-2xl mr-2 sm:mr-3 shrink-0"></iconify-icon>
-                <input type="text" placeholder="Şirkət axtar..."
+                <input type="text" placeholder="Şirkət, sahə axtar..."
                        class="w-full py-3 sm:py-4 text-gray-700 dark:text-gray-300 focus:outline-none text-base sm:text-lg font-medium bg-transparent placeholder:text-gray-400">
             </div>
-            <button
-                class="bg-cyberGreen text-white font-bold px-8 sm:px-12 py-3 sm:py-4 rounded-[12px] sm:rounded-[16px] transition-all hover:bg-[#00bc96] active:scale-95 text-base sm:text-lg whitespace-nowrap">
+            <button class="bg-extraLightGreen text-white font-bold px-8 sm:px-32 py-3 sm:py-4 rounded-xl sm:rounded-xl transition-all hover:bg-cyberGreen active:scale-95 text-base sm:text-lg whitespace-nowrap">
                 Axtar
             </button>
         </div>
 
-        <div class="w-full max-w-[730px] mt-4 sm:mt-6 ml-0 sm:ml-[122px]">
+        <div class="w-full max-w-[730px] mt-4 sm:mt-6 ml-0 sm:ml-[122px] relative z-20">
             <div class="flex items-center gap-2 sm:gap-[23px] overflow-x-auto pb-2 scrollbar-hide">
                 @if (Model.Categories is not null)
                 {
                     @foreach (var bCat in Model.Categories)
                     {
                         <a href="#"
-                           class="flex items-center justify-center border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-cyberMain transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-0 h-auto sm:h-full whitespace-nowrap">@bCat.Name</a>
+                           class="flex items-center justify-center border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-black hover:border-white transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-3 h-auto ">
+                            @bCat.Name
+                        </a>
                     }
                 }
             </div>
         </div>
     </div>
 </section>
-
 <section
     class="flex flex-col items-center font-sans text-black dark:text-white rounded-t-[40px] transition-colors duration-500">
 
-    <div class="py-5 sm:py-10 bg-gray-100 dark:bg-[#0a0a0a] w-full overflow-hidden transition-colors duration-500">
+    <div class="py-5 sm:py-10 bg-gray-400 w-full overflow-hidden transition-colors duration-500">
         <div class="relative flex justify-center items-center h-[220px] sm:h-[300px] lg:h-[380px] w-full max-w-[1440px] mx-auto px-4" id="slider-container">
             @foreach (var banner in Model.Banners)
             {
@@ -73,7 +119,7 @@
         </div>
     </div>
 
-    <div class="w-full max-w-[1445px] px-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-[20px] mt-3 mx-auto">
+    <div class="w-full max-w-[1300px] px-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-[20px] mt-3 mx-auto">
         <h2 class="col-span-full text-[22px] sm:text-[32px] font-bold text-center dark:text-white mb-2 sm:mb-4">
             Hansı sahə üzrə axtarırsan?
         </h2>
@@ -122,7 +168,7 @@
 
     <h2 class="text-2xl sm:text-3xl font-bold mt-10 sm:mt-16 mb-6 sm:mb-8 dark:text-white text-center">Premium elanlar</h2>
     <div id="premium-ads-container"
-         class="w-full max-w-[1445px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8 sm:mb-20">
+         class="w-full max-w-[1300px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8 sm:mb-20">
         @foreach (var vacancy in Model.PremiumVacancies)
         {
             <div class="w-full premium-card-border min-h-[80px] flex flex-col relative group hover:-translate-y-1 transition-all dark:bg-black">
@@ -171,7 +217,7 @@
 
     <h2 class="text-2xl sm:text-3xl font-bold mb-5 sm:mb-9 dark:text-white">Ən son vakansiyalar</h2>
     <div id="latest-jobs-container"
-         class="w-full max-w-[1445px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-[10px] mb-8 sm:mb-10">
+         class="w-full max-w-[1300px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-[10px] mb-8 sm:mb-10">
 
         @foreach (var vacancy in Model.LatestVacancies)
         {
@@ -210,7 +256,7 @@
     </div>
 
     <button
-        class="px-16 sm:px-24 py-4 sm:py-6 bg-darkGreen text-white font-bold rounded-lg mb-8 sm:mb-10 transition-colors hover:bg-black text-base sm:text-lg">
+        class="px-16 sm:px-24 py-4 sm:py-5 bg-darkGreen text-white font-bold rounded-lg mb-8 sm:mb-10 transition-colors hover:bg-black text-base sm:text-lg">
         Daha çox
     </button>
 
