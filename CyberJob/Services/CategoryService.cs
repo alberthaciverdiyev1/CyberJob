@@ -8,20 +8,28 @@ namespace CyberJob.Services;
 
 public class CategoryService(AppDbContext context)
 {
-    public async Task<List<CategoryDto>> GetOnlyParentsAsync(string lang = "az")
-    {
-        var parents = await context.Categories
-            .AsNoTracking()
-            .Where(c => c.ParentId == null)
-            .OrderBy(c => c.Id)
-            .ToListAsync();
+// Dosya: e.g., YourProject.Application/Services/CategoryService.cs
 
-        return parents.Select(c => new CategoryDto
+    public async Task<List<CategoryDto>> GetOnlyParentsAsync(string lang = "az", int limit = 0)
+    {
+        IQueryable<Category> query = context.Categories
+            .AsNoTracking()
+            .Where(c => c.ParentId == null);
+
+        if (limit > 0)
         {
-            Id = c.Id,
-            Name = c.Name.Translate(lang),
-            Icon = c.Icon
-        }).ToList();
+            query = query.Take(limit);
+        }
+
+        return await query
+            .OrderBy(c => c.Id)
+            .Select(c => new CategoryDto
+            {
+                Id = c.Id,
+                Name = c.Name.Translate(lang), 
+                Icon = c.Icon
+            })
+            .ToListAsync();
     }
 
     public async Task<List<CategoryDto>> GetParentsWithChildrenAsync(string lang = "az")

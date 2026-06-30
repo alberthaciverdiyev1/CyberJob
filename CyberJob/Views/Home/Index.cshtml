@@ -9,53 +9,16 @@
 @{
     int bannerCount = 0;
 }
-@* <section class="relative pt-16 sm:pt-24 pb-16 sm:pb-32 px-4 sm:px-8 overflow-hidden" style="background-image: url('@Url.Content("~/images/hero.svg")'); background-repeat: no-repeat; background-size: cover; background-position: center;"> *@
-@*     <div class="max-w-[1440px] mx-auto relative z-10"> *@
-@*         <div class="max-w-4xl mb-8 sm:mb-12"> *@
-@*             <h1 style="font-size: clamp(28px, 5vw, 48px); line-height: 1.1;" class="mb-4 font-bold text-[#E6E6E6]"> *@
-@*                 Yeni imkanlar. Yeni karyera. Yeni sən! *@
-@*             </h1> *@
-@*             <p style="font-size: clamp(16px, 2.5vw, 24px); line-height: 1.4;" class="font-normal text-[#CCCCCC]"> *@
-@*                 Gələcəyin IT karyerası buradan başlayır. *@
-@*             </p> *@
-@*         </div> *@
-@* *@
-@*         <div class="w-full max-w-[1009px] bg-white dark:bg-[#0a0a0a] rounded-lg p-1.5 sm:p-2 flex flex-col sm:flex-row items-stretch sm:items-center shadow-2xl transition-all"> *@
-@*             <div class="flex-1 flex items-center px-3 sm:px-6 bg-gray-200 mx-0 sm:mx-2 rounded-lg mb-2 sm:mb-0"> *@
-@*                 <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-xl sm:text-2xl mr-2 sm:mr-3 shrink-0"></iconify-icon> *@
-@*                 <input type="text" placeholder="Şirkət axtar..." *@
-@*                        class="w-full py-3 sm:py-4 text-gray-700 dark:text-gray-300 focus:outline-none text-base sm:text-lg font-medium bg-transparent placeholder:text-gray-400"> *@
-@*             </div> *@
-@*             <button *@
-@*                 class="bg-cyberGreen text-white font-bold px-8 sm:px-12 py-3 sm:py-4 rounded-[12px] sm:rounded-[16px] transition-all hover:bg-[#00bc96] active:scale-95 text-base sm:text-lg whitespace-nowrap"> *@
-@*                 Axtar *@
-@*             </button> *@
-@*         </div> *@
-@* *@
-@*         <div class="w-full max-w-[730px] mt-4 sm:mt-6 ml-0 sm:ml-[122px]"> *@
-@*             <div class="flex items-center gap-2 sm:gap-[23px] overflow-x-auto pb-2 scrollbar-hide"> *@
-@*                 @if (Model.Categories is not null) *@
-@*                 { *@
-@*                     @foreach (var bCat in Model.Categories) *@
-@*                     { *@
-@*                         <a href="#" *@
-@*                            class="flex items-center justify-center border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-cyberMain transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-0 h-auto sm:h-full whitespace-nowrap">@bCat.Name</a> *@
-@*                     } *@
-@*                 } *@
-@*             </div> *@
-@*         </div> *@
-@*     </div> *@
-@* </section> *@
 
-<section class="relative pt-16 sm:pt-[220px] pb-16 sm:pb-32 px-4 sm:px-8 overflow-hidden" 
+<section class="relative pt-16 sm:pt-[220px] pb-16 sm:pb-32 px-4 sm:px-8 overflow-hidden bg-[#0B2036] dark:bg-black" 
          style="background-image: url('@Url.Content("~/images/hero.svg")'); 
                 background-repeat: no-repeat; 
-                background-size: 70%; 
-                background-position: right -65% center;">
+                background-size: 55%; 
+                background-position: right -5% center;">
 
     <div class="absolute left-[25%] bottom-[10%] w-[500px] h-[500px] bg-cyberGreen/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
     
-    <div class="max-w-[1740px] mx-auto relative z-10">
+    <div class="max-w-[1600px] mx-auto relative z-10">
         <div class="max-w-4xl mb-8 sm:mb-12">
             <h1 style="font-size: clamp(28px, 5vw, 48px); line-height: 1.1;" class="mb-4 font-bold text-[#E6E6E6]">
                 Yeni imkanlar. Yeni karyera. Yeni sən!
@@ -66,18 +29,20 @@
         </div>
 
         <!-- Input Container -->
-        <div class="w-full max-w-[1100px] bg-white dark:bg-[#1a1a1a] rounded-xl p-1.5 sm:p-2 flex flex-col sm:flex-row items-stretch sm:items-center transition-all border border-white/10 shadow-2xl relative z-20">
-            <div class="flex-1 flex items-center px-3 sm:px-6 bg-gray-100 dark:bg-zinc-800/50 mx-0 sm:mx-2 rounded-xl mb-2 sm:mb-0 border border-transparent focus-within:border-cyberGreen/30 transition-all">
+        <div class="w-full max-w-[1200px] bg-transparent md:bg-white rounded-xl border border-gray-200 p-1.5 flex flex-row items-center transition-all border border-white/10 shadow-2xl relative z-20">
+            <div class="flex-1 flex items-center px-3 sm:px-6 bg-transparent sm:bg-gray-100 mx-2 rounded-xl border border-transparent focus-within:border-cyberGreen/30 transition-all">
                 <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-xl sm:text-2xl mr-2 sm:mr-3 shrink-0"></iconify-icon>
                 <input type="text" placeholder="Şirkət, sahə axtar..."
-                       class="w-full py-3 sm:py-4 text-gray-700 dark:text-gray-300 focus:outline-none text-base sm:text-lg font-medium bg-transparent placeholder:text-gray-400">
+                       class="w-full py-3 sm:py-4 text-gray-700 focus:outline-none text-base sm:text-lg font-medium bg-transparent placeholder:text-gray-400">
             </div>
-            <button class="bg-extraLightGreen text-white font-bold px-8 sm:px-32 py-3 sm:py-4 rounded-xl sm:rounded-xl transition-all hover:bg-cyberGreen active:scale-95 text-base sm:text-lg whitespace-nowrap">
-                Axtar
+
+            <button class="bg-extraLightGreen text-white font-bold px-6 sm:px-32 py-3 sm:py-4 rounded-xl transition-all hover:bg-cyberGreen active:scale-95 text-base sm:text-lg whitespace-nowrap">
+                <i class="fa-solid fa-magnifying-glass text-2xl sm:hidden"></i>
+                <span class="hidden sm:block">Axtar</span>
             </button>
         </div>
 
-        <div class="w-full max-w-[730px] mt-4 sm:mt-6 ml-0 sm:ml-[122px] relative z-20">
+        <div class="w-full max-w-[730px] mt-4 sm:mt-6 ml-0 sm:ml-[122px] relative z-20 hidden sm:block">
             <div class="flex items-center gap-2 sm:gap-[23px] overflow-x-auto pb-2 scrollbar-hide">
                 @if (Model.Categories is not null)
                 {
@@ -88,6 +53,10 @@
                             @bCat.Name
                         </a>
                     }
+                    <a asp-controller="Vacancy" asp-action="Index"
+                       class="flex items-center justify-center border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-black hover:border-white transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-3 h-auto ">
+                       Diger
+                    </a>
                 }
             </div>
         </div>
@@ -255,10 +224,10 @@
         }
     </div>
 
-    <button
+    <a  asp-controller="Vacancy" asp-action="Index"
         class="px-16 sm:px-24 py-4 sm:py-5 bg-darkGreen text-white font-bold rounded-lg mb-8 sm:mb-10 transition-colors hover:bg-black text-base sm:text-lg">
         Daha çox
-    </button>
+    </a>
 
     @if (Model.Partners.Any())
     {
@@ -273,14 +242,14 @@
                     @foreach (var partner in Model.Partners)
                     {
                         <li>
-                            <img src="@partner.Image" class="h-10 sm:h-13 w-auto object-contain" alt=""/>
+                            <img src="@partner.Image" class="h-10 sm:h-16 w-auto object-contain" alt=""/>
                         </li>
                     }
 
                     @foreach (var partner in Model.Partners)
                     {
                         <li>
-                            <img src="@partner.Image" class="h-10 sm:h-13 w-auto object-contain" alt=""/>
+                            <img src="@partner.Image" class="h-10 sm:h-16 w-auto object-contain" alt=""/>
                         </li>
                     }
                 </ul>
@@ -313,22 +282,22 @@
 
             <div class="flex flex-wrap justify-center gap-6 sm:gap-12 mt-10 sm:mt-14 relative z-10" id="stats-container">
                 <div class="text-center">
-                    <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-8 leading-none stat-value" id="stat-daily">@Model.VisitorDaily</p>
+                    <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-10 leading-none stat-value" id="stat-daily">@Model.VisitorDaily</p>
                     <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">G&uuml;nl&uuml;k</p>
                 </div>
 
                 <div class="text-center">
-                    <p class="text-3xl sm:text-6xl font-semibold dark:text-white mb-3 sm:mb-8 leading-none stat-value" id="stat-weekly">@Model.VisitorWeekly</p>
+                    <p class="text-3xl sm:text-6xl font-semibold dark:text-white mb-3 sm:mb-10 leading-none stat-value" id="stat-weekly">@Model.VisitorWeekly</p>
                     <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">Həftəlik</p>
                 </div>
 
                 <div class="text-center">
-                    <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-8 leading-none stat-value" id="stat-monthly">@Model.VisitorMonthly</p>
+                    <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-10 leading-none stat-value" id="stat-monthly">@Model.VisitorMonthly</p>
                     <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">Aylıq</p>
                 </div>
 
                 <div class="text-center">
-                    <p class="text-3xl sm:text-6xl font-semibold dark:text-white mb-3 sm:mb-8 leading-none stat-value" id="stat-total">@Model.VisitorTotal</p>
+                    <p class="text-3xl sm:text-6xl font-semibold dark:text-white mb-3 sm:mb-10 leading-none stat-value" id="stat-total">@Model.VisitorTotal</p>
                     <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">&Uuml;mumi</p>
                 </div>
             </div>
