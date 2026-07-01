@@ -22,6 +22,7 @@ builder.Services.AddScoped<FilterService>();
 builder.Services.AddScoped<PartnerService>();
 builder.Services.AddScoped<FaqService>();
 builder.Services.AddScoped<StatisticsService>();
+builder.Services.AddScoped<SubscribeService>();
 
 var app = builder.Build();
 

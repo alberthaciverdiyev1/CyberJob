@@ -19,6 +19,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Setting> Settings { get; set; }
     public DbSet<Vacancy> Vacancies { get; set; }
     public DbSet<VacancyFilter> VacancyFilters { get; set; }
+    public DbSet<Subscribe> Subscribes { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

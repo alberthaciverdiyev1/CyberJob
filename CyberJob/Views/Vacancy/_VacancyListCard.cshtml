@@ -7,12 +7,12 @@
 @foreach (VacancyListDto vacancy in Model)
 {
     <a href="/vacancies/@vacancy.Id"
-       class="block relative bg-white dark:bg-zinc-900 shadow-sm
-                border border-gray-50 dark:border-zinc-800
+       class="block relative bg-white dark:bg-black shadow-sm
+                border-2 border-white dark:border-zinc-800
                 flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-4 sm:py-0 transition-all
                 hover:border-extraLightGreen hover:shadow-md cursor-pointer
                  w-full no-underline min-h-24 sm:min-h-28 rounded-3xl mb-4
-                     @(vacancy.IsPremium ? "!border-gold border-2 sm:border-4" : "bg-white dark:bg-zinc-900")
+                     @(vacancy.IsPremium ? "!border-gold border-2 sm:border-4" : "bg-white dark:bg-black")
                 ">
         @if (vacancy.IsPremium)
         {

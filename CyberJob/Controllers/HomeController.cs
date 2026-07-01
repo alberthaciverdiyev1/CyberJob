@@ -9,7 +9,8 @@ public class HomeController(
     VacancyService vacancyService,
     CategoryService categoryService,
     PartnerService partnerService,
-    StatisticsService statisticsService) : Controller
+    StatisticsService statisticsService,
+    SubscribeService subscribeService) : Controller
 {
     public async Task<IActionResult> Index([FromQuery] string lang = "az")
     {
@@ -40,6 +41,14 @@ public class HomeController(
 
         return View(model);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Subscribe([FromBody] Subscribe request)
+    {
+        var (success, message) = await subscribeService.SubscribeAsync(request.Email);
+        return Json(new { success, message });
+    }
+
     [HttpGet("assets")]
     public IActionResult DownloadFile(string path = "")
     {

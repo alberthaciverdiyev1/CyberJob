@@ -3,6 +3,7 @@
 @{
     Layout = Context.Request.Headers.ContainsKey("HX-Request") ? null : "_Layout";
 }
+
 @section Styles {
     <link rel="stylesheet" href="~/css/rank.css"/>
 
@@ -12,7 +13,8 @@
 
     @if (Layout != null)
     {
-        <h1 class="text-3xl sm:text-5xl flex justify-center text-white font-semibold mb-10 sm:mb-16 tracking-tight px-4 text-center">Şirkət siyahısının
+        <h1 class="text-3xl sm:text-5xl flex justify-center text-white font-semibold mb-10 sm:mb-16 tracking-tight px-4 text-center">
+            Şirkət siyahısının
             üstünlükləri!</h1>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 mb-16 sm:mb-20 gap-8 sm:gap-0">
@@ -21,7 +23,8 @@
                 <div
                     class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#14516D]/60 rounded-full blur-[50px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
 
-                <img src="~/images/winner.png" class="relative z-10 h-48 sm:h-72 mb-4 sm:mb-6 drop-shadow-2xl" alt="Winner">
+                <img src="~/images/winner.png" class="relative z-10 h-48 sm:h-72 mb-4 sm:mb-6 drop-shadow-2xl"
+                     alt="Winner">
 
                 <p class="relative z-10 text-sm sm:text-md text-white leading-relaxed max-w-[260px] text-center px-2">
                     Ayın lideri ol, <span class="font-bold">1 aylıq "Blue Tick"</span> nişanını ödənişsiz
@@ -44,7 +47,8 @@
                 <div
                     class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#14516D]/60 rounded-full blur-[50px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
 
-                <img src="~/images/strong.png" class="relative z-10 h-48 sm:h-72 mb-4 sm:mb-6 drop-shadow-2xl" alt="Strong">
+                <img src="~/images/strong.png" class="relative z-10 h-48 sm:h-72 mb-4 sm:mb-6 drop-shadow-2xl"
+                     alt="Strong">
 
                 <p class="relative z-10 text-sm sm:text-md text-white leading-relaxed max-w-[260px] text-center px-2">
                     Rəqabətə qoşul və şirkətinin nüfuzunu artır!
@@ -75,7 +79,7 @@
         string activeClass = "bg-zinc-800 text-white font-semibold";
         string inactiveClass = "opacity-60 font-medium hover:opacity-100 transition";
 
-        <div class="w-full flex justify-center -mt-16 sm:-mt-24">
+        <div class="w-full flex justify-center  md:-mt-6 sm:-mt-24">
             <div
                 class="inline-flex bg-black/40 backdrop-blur-md p-1 rounded-2xl mb-16 sm:mb-28 shadow-2xl border border-white/10 overflow-x-auto">
                 <button hx-get="/rank?date=this_month" hx-target="#company-list-container" hx-push-url="true"
@@ -103,74 +107,72 @@
     <div id="company-list-container">
         @if (Model.Companies != null && Model.Companies.Count >= 3)
         {
-            <div
-                class="flex flex-col md:flex-row items-center md:items-end justify-center gap-6 sm:gap-8 md:gap-12 px-4 mx-auto mb-16 sm:mb-32">
+            <div class="flex flex-row items-end justify-center gap-2 sm:gap-8 md:gap-12 px-2 mx-auto mb-16 sm:mb-32">
 
-                <!-- 2nd Place -->
-                <div class="w-full sm:w-[60%] md:w-[28%] flex flex-col items-center relative order-2 md:order-1">
+                <div class="w-1/3 flex flex-col items-center relative order-2 md:order-1">
                     <div
-                        class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-white p-1 border-[4px] sm:border-[6px] md:border-[8px] border-slate-400 mb-3 sm:mb-4 overflow-hidden shadow-lg">
+                        class="w-16 h-16 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-white p-1 border-[3px] sm:border-[6px] border-slate-400 mb-2 sm:mb-4 overflow-hidden shadow-lg">
                         <img src="@Model.Companies[1].Logo" class="w-full h-full object-cover" alt="Rank 2">
                     </div>
-                    <h3 class="font-bold mb-2 sm:mb-4 text-lg sm:text-xl md:text-2xl text-white text-center truncate max-w-[200px] sm:max-w-none">@Model.Companies[1].Name</h3>
+                    <h3 class="font-bold mb-1 sm:mb-4 text-[10px] sm:text-xl md:text-2xl text-white text-center truncate w-full">@Model.Companies[1].Name</h3>
 
                     <div class="relative w-full flex flex-col items-center">
                         <div
-                            class="absolute top-3 sm:top-5 z-30 podium-gradient-silver p-2 sm:p-3 rounded-xl shadow-lg border border-white/20">
-                            <iconify-icon icon="ph:trophy-fill" class="text-white text-2xl sm:text-3xl block"></iconify-icon>
+                            class="absolute top-3 sm:top-5 z-30 podium-gradient-silver p-1 sm:p-3 rounded-lg sm:rounded-xl shadow-lg border border-white/20">
+                            <iconify-icon icon="ph:trophy-fill"
+                                          class="text-white text-sm sm:text-3xl block"></iconify-icon>
                         </div>
-
-                        <div class="podium-gradient-silver h-10 sm:h-14 w-full podium-top"></div>
+                        <div class="podium-gradient-silver h-6 sm:h-14 w-full podium-top"></div>
                         <div
-                            class="podium-gradient-silver w-full pt-6 sm:pt-10 pb-8 sm:pb-12 h-64 sm:h-72 md:h-96 flex flex-col items-center justify-between text-white shadow-xl relative">
-                            <span class="font-bold opacity-90 text-sm sm:text-base">@Model.Companies[1].VacancyCount Elan</span>
-                            <span class="text-5xl sm:text-7xl md:text-8xl font-bold mb-8 sm:mb-12 md:mb-20">2</span>
+                            class="podium-gradient-silver w-full pt-4 sm:pt-10 pb-4 sm:pb-12 h-32 sm:h-72 md:h-96 flex flex-col items-center justify-between text-white shadow-xl relative">
+                            <span
+                                class="font-bold opacity-90 text-[8px] sm:text-base">@Model.Companies[1].VacancyCount Elan</span>
+                            <span class="text-xl sm:text-7xl md:text-8xl font-bold mb-4 sm:mb-20">2</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 1st Place -->
-                <div class="w-full sm:w-[60%] md:w-[28%] flex flex-col items-center z-20 scale-100 md:scale-105 mb-0 md:mb-36 order-1 md:order-2">
+                <div class="w-1/3 flex flex-col items-center z-20 scale-100 md:mb-20 order-1 md:order-2">
                     <div
-                        class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-white p-1 border-[4px] sm:border-[6px] md:border-[8px] border-yellow-500 mb-3 sm:mb-4 overflow-hidden shadow-[0_0_30px_rgba(234,179,8,0.4)]">
+                        class="w-20 h-20 sm:w-48 sm:h-48 rounded-full bg-white p-1 border-[4px] sm:border-[8px] border-yellow-500 mb-2 sm:mb-4 overflow-hidden shadow-[0_0_20px_rgba(234,179,8,0.4)]">
                         <img src="@Model.Companies[0].Logo" class="w-full h-full object-contain" alt="Rank 1">
                     </div>
-                    <h3 class="font-bold mb-2 sm:mb-4 text-lg sm:text-xl md:text-2xl text-white text-center truncate max-w-[200px] sm:max-w-none">@Model.Companies[0].Name</h3>
+                    <h3 class="font-bold mb-1 sm:mb-4 text-[10px] sm:text-xl md:text-2xl text-white text-center truncate w-full">@Model.Companies[0].Name</h3>
 
                     <div class="relative w-full flex flex-col items-center">
                         <div
-                            class="absolute top-3 sm:top-5 z-30 podium-gradient-gold p-2 sm:p-4 rounded-xl shadow-[0_0_20px_rgba(234,179,8,0.5)] border border-yellow-200/50">
-                            <iconify-icon icon="ph:trophy-fill" class="text-white text-2xl sm:text-4xl block"></iconify-icon>
+                            class="absolute top-5 z-30 podium-gradient-gold p-1.5 sm:p-4 rounded-lg sm:rounded-xl shadow-lg border border-yellow-200/50">
+                            <iconify-icon icon="ph:trophy-fill"
+                                          class="text-white text-base sm:text-4xl block"></iconify-icon>
                         </div>
-
-                        <div class="podium-gradient-gold h-10 sm:h-14 w-full podium-top"></div>
+                        <div class="podium-gradient-gold h-8 sm:h-14 w-full podium-top"></div>
                         <div
-                            class="podium-gradient-gold w-full pt-6 sm:pt-12 pb-8 sm:pb-14 h-64 sm:h-72 md:h-96 flex flex-col items-center justify-between text-white shadow-2xl relative">
-                            <span class="font-bold text-sm sm:text-lg">@Model.Companies[0].VacancyCount Elan</span>
-                            <span class="text-6xl sm:text-8xl md:text-9xl font-bold mb-8 sm:mb-12 md:mb-20">1</span>
+                            class="podium-gradient-gold w-full pt-6 sm:pt-12 pb-6 sm:pb-14 h-40 sm:h-72 md:h-96 flex flex-col items-center justify-between text-white shadow-2xl relative">
+                            <span class="font-bold text-[8px] sm:text-lg">@Model.Companies[0].VacancyCount Elan</span>
+                            <span class="text-2xl sm:text-8xl md:text-9xl font-bold mb-6 sm:mb-20">1</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3rd Place -->
-                <div class="w-full sm:w-[60%] md:w-[28%] flex flex-col items-center relative order-3">
+                <div class="w-1/3 flex flex-col items-center relative order-3">
                     <div
-                        class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-white p-1 border-[4px] sm:border-[6px] md:border-[8px] border-orange-700 mb-3 sm:mb-4 overflow-hidden shadow-lg">
+                        class="w-16 h-16 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-white p-1 border-[3px] sm:border-[6px] border-orange-700 mb-2 sm:mb-4 overflow-hidden shadow-lg">
                         <img src="@Model.Companies[2].Logo" class="w-full h-full object-contain" alt="Rank 3">
                     </div>
-                    <h3 class="font-bold mb-2 sm:mb-4 text-lg sm:text-xl md:text-2xl text-white text-center truncate max-w-[200px] sm:max-w-none">@Model.Companies[2].Name</h3>
+                    <h3 class="font-bold mb-1 sm:mb-4 text-[10px] sm:text-xl md:text-2xl text-white text-center truncate w-full">@Model.Companies[2].Name</h3>
 
                     <div class="relative w-full flex flex-col items-center">
                         <div
-                            class="absolute top-3 sm:top-5 z-30 podium-gradient-bronze p-2 sm:p-3 rounded-xl shadow-lg border border-white/10">
-                            <iconify-icon icon="ph:trophy-fill" class="text-white text-2xl sm:text-3xl block"></iconify-icon>
+                            class="absolute top-3 sm:top-5 z-30 podium-gradient-bronze p-1 sm:p-3 rounded-lg sm:rounded-xl shadow-lg border border-white/10">
+                            <iconify-icon icon="ph:trophy-fill"
+                                          class="text-white text-sm sm:text-3xl block"></iconify-icon>
                         </div>
-
-                        <div class="podium-gradient-bronze h-10 sm:h-14 w-full podium-top"></div>
+                        <div class="podium-gradient-bronze h-6 sm:h-14 w-full podium-top"></div>
                         <div
-                            class="podium-gradient-bronze w-full pt-6 sm:pt-10 pb-6 sm:pb-8 h-64 sm:h-72 md:h-96 flex flex-col items-center justify-between text-white shadow-xl relative">
-                            <span class="font-bold opacity-90 text-sm sm:text-base">@Model.Companies[2].VacancyCount Elan</span>
-                            <span class="text-5xl sm:text-7xl md:text-8xl font-bold mb-8 sm:mb-12 md:mb-20">3</span>
+                            class="podium-gradient-bronze w-full pt-4 sm:pt-10 pb-4 sm:pb-8 h-32 sm:h-72 md:h-96 flex flex-col items-center justify-between text-white shadow-xl relative">
+                            <span
+                                class="font-bold opacity-90 text-[8px] sm:text-base">@Model.Companies[2].VacancyCount Elan</span>
+                            <span class="text-xl sm:text-7xl md:text-8xl font-bold mb-4 sm:mb-20">3</span>
                         </div>
                     </div>
                 </div>
@@ -190,7 +192,8 @@
                 </div>
 
                 <div class="w-full overflow-x-auto">
-                    <table class="w-full border-separate border-spacing-y-2 sm:border-spacing-y-3 min-w-[600px] sm:min-w-0">
+                    <table
+                        class="w-full border-separate border-spacing-y-2 sm:border-spacing-y-3 min-w-[600px] sm:min-w-0">
                         <thead class="text-white opacity-90 text-xs sm:text-sm tracking-wider">
                         <tr>
                             <th class="px-3 sm:px-8 font-semibold text-left">Sıra</th>
@@ -218,7 +221,8 @@
                                             class="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-white p-0.5 sm:p-1 flex items-center justify-center overflow-hidden border border-white/10 shadow-sm shrink-0">
                                             <img src="@c.Logo" class="w-full h-full object-contain" alt="@c.Name">
                                         </div>
-                                        <span class="font-bold text-xs sm:text-sm text-white tracking-wide truncate max-w-[120px] sm:max-w-none">@c.Name</span>
+                                        <span
+                                            class="font-bold text-xs sm:text-sm text-white tracking-wide truncate max-w-[120px] sm:max-w-none">@c.Name</span>
                                         @if (c.IsVerified)
                                         {
                                             <iconify-icon icon="material-symbols:verified"
@@ -250,14 +254,16 @@
 
             <div class="flex justify-center mt-4 sm:mt-3 pb-8 sm:pb-0">
 
-                <button class="bg-lightGreen hover:bg-darkGreen px-8 sm:px-10 py-3 sm:py-4 text-white text-base sm:text-lg rounded-lg font-bold">
+                <a asp-controller="Company" asp-action="Index"
+                    class="bg-lightGreen hover:bg-darkGreen px-8 sm:px-10 py-3 sm:py-4 text-white text-base sm:text-lg rounded-lg font-bold">
                     Daha Cox
-                </button>
+                </a>
             </div>
         }
         else
         {
-            <div class="py-16 sm:py-20 opacity-50 text-white italic text-center px-4">Kifayət qədər məlumat tapılmadı.</div>
+            <div class="py-16 sm:py-20 opacity-50 text-white italic text-center px-4">Kifayət qədər məlumat tapılmadı.
+            </div>
         }
     </div>
 
@@ -267,7 +273,8 @@
         {
             <div class="text-center mb-8 sm:mb-12 mt-16 sm:mt-32 px-4">
                 <h2 class="text-2xl sm:text-4xl font-black text-white mb-3 sm:mb-4">Tez-tez verilən suallar</h2>
-                <p class="text-white/60 text-base sm:text-lg">Liderlərin reytinq cədvəli haqqında ən çox soruşulan suallar</p>
+                <p class="text-white/60 text-base sm:text-lg">Liderlərin reytinq cədvəli haqqında ən çox soruşulan
+                    suallar</p>
             </div>
         }
 
@@ -288,15 +295,17 @@
             }
 
         </div>
-        <div class="flex flex-col items-center mx-4 sm:mx-8 lg:mx-36 justify-center bg-tableColor border border-lightGreen text-white rounded-2xl p-6 sm:p-12">
+        <div
+            class="flex flex-col items-center mx-4 sm:mx-8 lg:mx-36 justify-center bg-tableColor border border-lightGreen text-white rounded-2xl p-6 sm:p-12">
             <p class="text-lg sm:text-xl mb-2">Cavabınızı tapa bilmədiniz?</p>
 
             <p class="text-sm sm:text-md opacity-60 mb-6 sm:mb-8 text-center max-w-md">
                 Dəstək komandamız sizə kömək etməkdən məmnun olacaq
             </p>
 
-            <a href="/contact" class="transition-transform hover:scale-105 active:scale-95">
-                <button class="bg-lightGreen hover:bg-darkGreen px-8 sm:px-10 py-3 sm:py-4 text-white text-base sm:text-lg rounded-xl font-bold shadow-lg transition-colors">
+            <a asp-controller="StaticPage" asp-action="Contact" class="transition-transform hover:scale-105 active:scale-95">
+                <button
+                    class="bg-lightGreen hover:bg-darkGreen px-8 sm:px-10 py-3 sm:py-4 text-white text-base sm:text-lg rounded-xl font-bold shadow-lg transition-colors">
                     Bizimlə əlaqə saxlayın
                 </button>
             </a>

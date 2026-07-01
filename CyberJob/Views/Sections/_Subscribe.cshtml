@@ -1,32 +1,80 @@
-  <section class="w-full mx-auto px-4 sm:px-6 md:px-28 py-16 sm:py-24 flex flex-col md:flex-row justify-between items-center gap-8 sm:gap-16 mb-8 sm:mb-12">
+<section class="w-full mx-auto px-4 sm:px-6 md:px-28 py-16 sm:py-24 flex flex-col md:flex-row justify-between items-center gap-8 sm:gap-16 mb-8 sm:mb-12">
 
-            <div class="flex-1 w-full text-center md:text-left">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black dark:text-white mb-4 sm:mb-6 leading-[1.1] tracking-tight">
-                    <span class="block mb-2 sm:mb-4">Karyera yolunda</span>
-                    <span class="block">addımını bizlə at!</span>
-                    </h2>
-                <p class="text-lg sm:text-xl md:text-2xl text-gray-500 dark:text-gray-400 font-medium">
-                    Uğurun kodunu bizdə aç
-                </p>
+    <div class="flex-1 w-full text-center md:text-left">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black dark:text-white mb-4 sm:mb-6 leading-[1.1] tracking-tight">
+            <span class="block mb-2 sm:mb-4">Karyera yolunda</span>
+            <span class="block">addımını bizlə at!</span>
+        </h2>
+        <p class="text-lg sm:text-xl md:text-2xl text-gray-500 dark:text-gray-400 font-medium">
+            Uğurun kodunu bizdə aç
+        </p>
+    </div>
+
+    <div class="flex-1 w-full">
+        <div class="flex flex-col gap-4 sm:gap-6 w-full justify-between items-stretch">
+
+            <div class="relative group w-full">
+                <span class="absolute inset-y-0 left-4 sm:left-6 flex items-center text-gray-400 group-focus-within:text-lightGreen transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </span>
+                <input id="subscribeEmail" type="email" placeholder="Emailini daxil et"
+                       class="w-full py-6 sm:py-8 pl-12 sm:pl-16 pr-6 sm:pr-8 bg-gray-50/50 dark:bg-[#0a0a0a] border border-gray-400 dark:border-gray-800 rounded-xl focus:outline-none focus:border-lightGreen text-base sm:text-lg dark:text-white placeholder:text-gray-400 transition-all shadow-sm">
             </div>
 
-            <div class="flex-1 w-full">
-                <div class="flex flex-col gap-4 sm:gap-6 w-full justify-between items-stretch">
+            <button id="subscribeBtn" onclick="handleSubscribe()"
+                    class="w-full py-3 sm:py-4 bg-lightGreen text-white font-bold rounded-xl text-lg sm:text-xl hover:bg-darkGreen shadow-lg transition-all active:scale-[0.98]">
+                Abunə ol
+            </button>
 
-                    <div class="relative group w-full">
-                        <span class="absolute inset-y-0 left-4 sm:left-6 flex items-center text-gray-400 group-focus-within:text-lightGreen transition-colors">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                <polyline points="22,6 12,13 2,6"/>
-                            </svg>
-                        </span>
-                        <input type="email" placeholder="Emailini daxil et"
-                               class="w-full py-6 sm:py-8 pl-12 sm:pl-16 pr-6 sm:pr-8 bg-gray-50/50 dark:bg-[#0a0a0a] border border-gray-400 dark:border-gray-800 rounded-xl focus:outline-none focus:border-lightGreen text-base sm:text-lg dark:text-white placeholder:text-gray-400 transition-all shadow-sm">
-                    </div>
+            <div id="subscribeMessage" class="text-base font-medium text-center hidden"></div>
+        </div>
+    </div>
+</section>
 
-                    <button class="w-full py-3 sm:py-4 bg-lightGreen text-white font-bold rounded-xl text-lg sm:text-xl hover:bg-darkGreen shadow-lg transition-all active:scale-[0.98]">
-                        Abunə ol
-                    </button>
-                </div>
-            </div>
-        </section>
+<script>
+    function handleSubscribe() {
+        const email = document.getElementById('subscribeEmail').value.trim();
+        const btn = document.getElementById('subscribeBtn');
+        const msg = document.getElementById('subscribeMessage');
+
+        msg.classList.add('hidden');
+
+        if (!email) {
+            showMessage('Zəhmət olmasa email daxil edin.', 'red');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Göndərilir...';
+
+        fetch('/Home/Subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email })
+        })
+        .then(res => res.json())
+        .then(data => {
+            showMessage(data.message, data.success ? 'green' : 'red');
+            if (data.success) {
+                document.getElementById('subscribeEmail').value = '';
+            }
+        })
+        .catch(() => {
+            showMessage('Xəta baş verdi. Yenidən cəhd edin.', 'red');
+        })
+        .finally(() => {
+            btn.disabled = false;
+            btn.textContent = 'Abunə ol';
+        });
+    }
+
+    function showMessage(text, color) {
+        const msg = document.getElementById('subscribeMessage');
+        msg.textContent = text;
+        msg.classList.remove('hidden', 'text-green-600', 'text-red-500');
+        msg.classList.add(color === 'green' ? 'text-green-600' : 'text-red-500');
+    }
+</script>
