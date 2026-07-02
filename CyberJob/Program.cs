@@ -23,6 +23,8 @@ builder.Services.AddScoped<PartnerService>();
 builder.Services.AddScoped<FaqService>();
 builder.Services.AddScoped<StatisticsService>();
 builder.Services.AddScoped<SubscribeService>();
+builder.Services.AddScoped<SubscriptionPlanService>();
+builder.Services.AddScoped<LegalTermAndUserAgreementService>();
 
 var app = builder.Build();
 

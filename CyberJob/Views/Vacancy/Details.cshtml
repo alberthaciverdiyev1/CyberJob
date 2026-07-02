@@ -1,24 +1,27 @@
 @using CyberJob.DTOs
 @using CyberJob.Helpers
+@inject CyberJob.Helpers.SettingHelper SettingHelper
+
+
 @section Styles {
     <link rel="stylesheet" href="~/css/vacancy-details.css"/>
 }
 
 <main class="max-w-[1440px] mx-auto px-4 sm:px-10 lg:px-[100px] py-6 sm:py-10">
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 sm:mb-12">
-        <div class="w-full max-w-[490px] bg-white dark:bg-[#0a0a0a] rounded-[15px] p-5 sm:p-6 flex items-center gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+        <div class="w-full max-w-[490px] bg-white dark:bg-cyberGray rounded-[15px] p-5 sm:p-6 flex items-center gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
             <div class="w-16 h-16 sm:w-20 sm:h-20 shrink-0">
                 <img src="@Model.Vacancy.Company.Logo" alt="Logo" class="w-full h-full object-contain">
             </div>
             <div class="min-w-0">
-                <h1 class="text-[18px] sm:text-[22px] lg:text-[24px] font-[900] text-[#0B2036] dark:text-white truncate">@Model.Vacancy.Name</h1>
+                <h1 class="text-lg sm:text-xl lg:text-2xl font-bold dark:text-white truncate">@Model.Vacancy.Name</h1>
                 <p class="text-[#95A1B0] dark:text-gray-400 font-bold text-sm sm:text-lg flex items-center gap-2">
                     @Model.Vacancy.Company.Name
                     <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] shrink-0"></iconify-icon>
                 </p>
                 <div class="flex items-center gap-3 sm:gap-4 mt-2 sm:mt-3 flex-wrap">
                     <span
-                        class="bg-[#FFF8E7] text-[#FFB800] px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold border border-[#FFB800]/20">Son tarix @Model.Vacancy.ExpireDate   </span>
+                        class="text-orange-400 px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold border border-[#FFB800]/20">Son tarix @Model.Vacancy.ExpireDate?.ToString("dd.MM.yyyy")  </span>
                     <span class="text-[#95A1B0] text-[10px] sm:text-xs flex items-center gap-1">
                         <iconify-icon icon="ph:eye-bold"></iconify-icon> @Model.Vacancy.ViewCount baxış
                     </span>
@@ -34,7 +37,7 @@
     </div>
 
     <div class="flex flex-col lg:flex-row gap-6 sm:gap-10">
-        <div class="flex-1 bg-white dark:bg-[#0a0a0a] p-6 sm:p-10 rounded-[15px] shadow-sm">
+        <div class="flex-1 bg-white dark:bg-black p-6 sm:p-10 rounded-[15px] shadow-sm">
             <h3 class="text-[18px] sm:text-[20px] font-black text-[#0B2036] dark:text-white mb-4 sm:mb-6">İşin təsviri</h3>
             <div class="text-[#4F5B67] dark:text-gray-300 leading-relaxed space-y-4 text-[14px] sm:text-[15px]">
                 @Html.Raw(Model.Vacancy.Description.Replace("\n", "<br>"))
@@ -58,67 +61,78 @@
         </div>
 
         <aside class="w-full lg:w-[400px] shrink-0">
-            <div class="w-full max-w-[400px] bg-white dark:bg-[#0a0a0a] rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
-                <div class="bg-[#0B2036] dark:bg-black text-white p-3.5 sm:p-4 flex items-center justify-center gap-2.5">
+            <div class="w-full max-w-[400px] bg-white dark:bg-cyberMain rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+                <div class="bg-cyberMain dark:bg-black text-white p-3.5 sm:p-4 flex items-center justify-center gap-2.5">
                     <iconify-icon icon="ph:info-bold"></iconify-icon>
                     <span class="font-bold">Qısa məlumat</span>
                 </div>
-                <div class="p-6 sm:p-8 space-y-5 sm:space-y-6">
+                <div class="p-6 sm:p-8 space-y-5 sm:space-y-6 dark:bg-black">
                     <div class="flex justify-between items-center border-b dark:border-gray-700 pb-4 gap-4">
-                        <span class="text-gray-400 dark:text-gray-500 shrink-0">Şəhər</span>
-                        <span class="font-bold text-[#0B2036] dark:text-white text-right">@Model.Vacancy.City</span>
+                        <span class="text-black font-bold dark:text-white shrink-0">Şəhər</span>
+                        <span class="font-bold text-gray-400 dark:text-gray-400 text-right">@Model.Vacancy.City</span>
                     </div>
                     @foreach (FilterDetailDto v in Model.Vacancy.Filters)
                     {
                         <div class="flex justify-between items-center border-b dark:border-gray-700 pb-4 gap-4">
-                            <span class="text-gray-400 dark:text-gray-500 shrink-0">@v.ParentName</span>
-                            <span class="font-bold text-[#0B2036] dark:text-white text-right">@v.Name</span>
+                            <span class="text-black font-bold dark:text-white shrink-0">@v.ParentName</span>
+                            <span class="font-bold text-gray-400 text-right">@v.Name</span>
                         </div>
                     }
                     <div class="flex justify-between items-center border-b dark:border-gray-700 pb-4 gap-4">
-                        <span class="text-gray-400 dark:text-gray-500 shrink-0">Əmək haqqı</span>
-                        <span class="font-bold text-[#0B2036] dark:text-white text-right">@Model.Vacancy.Salary</span>
+                        <span class="text-black font-bold dark:text-white shrink-0">Əmək haqqı</span>
+                        <span class="font-bold text-gray-400 dark:text-gray-400 text-right">@Model.Vacancy.Salary</span>
                     </div>
-                    <button
-                        class="w-full bg-[#009689] text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-[#007a6f] transition-all text-sm sm:text-base">
+                    <a href="mailto:@(Model.Vacancy.Email ?? Model.Vacancy.Company.Email)"
+                        class="w-full bg-[#009689] text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-[#007a6f] transition-all text-sm sm:text-base hover:cursor-pointer">
                         <iconify-icon icon="ph:envelope-simple-bold"></iconify-icon>
                        @(Model.Vacancy.Email ?? Model.Vacancy.Company.Email)
-                    </button>
+                    </a>
                 </div>
             </div>
         </aside>
     </div>
 
     <div class="social-cta-wrapper flex justify-center w-full mb-8 sm:mb-12">
-        <div class="w-full max-w-[1239px] bg-white dark:bg-[#0a0a0a] rounded-[15px] border border-gray-200 dark:border-gray-700 flex items-center justify-between px-5 my-8 sm:my-10 min-h-[70px] flex-col sm:flex-row gap-4 py-4 sm:py-0">
+        <div class="w-full max-w-[1239px] bg-white dark:bg-darkGreen rounded-2xl border border-b-cyberGreen dark:border-gray-700 flex items-center justify-between px-5 my-8 sm:my-10 min-h-[70px] flex-col sm:flex-row gap-4 py-4 sm:py-0">
             <div class="flex items-center gap-3 sm:gap-4">
                 <div class="flex-shrink-0 flex items-center justify-center w-[40px] sm:w-[53px] h-[50px] sm:h-[74px]">
                     <img src="~/images/robotelan.png" alt="robot" class="w-full h-full object-contain">
                 </div>
-                <span class="text-sm sm:text-base font-semibold text-[#0B2036] dark:text-white">Yeni İT vakansiyaları – bütün platformalarda!</span>
+                <span class="text-xl sm:text-base font-semibold text-black dark:text-white">Yeni İT vakansiyaları – bütün platformalarda!</span>
             </div>
             <div class="flex items-center gap-2 sm:gap-3">
-                <a href="#" class="social-icon"><img src="~/images/insta.png" alt="Instagram"></a>
-                <a href="#" class="social-icon"><img src="~/images/tg.png" alt="Telegram"></a>
-                <a href="#" class="social-icon"><img src="~/images/vp.png" alt="WhatsApp"></a>
-                <a href="#" class="social-icon"><img src="~/images/linkedin.png" alt="LinkedIn"></a>
+                <a href="@(await SettingHelper.Get("instagram_url"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <img src="~/images/insta.png" alt="Instagram" width="24" height="24" loading="lazy">
+                </a>
+
+                <a href="@(await SettingHelper.Get("telegram_number"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                    <img src="~/images/tg.png" alt="Telegram" width="24" height="24" loading="lazy">
+                </a>
+
+                <a href="@(await SettingHelper.Get("whatsapp_number"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <img src="~/images/vp.png" alt="WhatsApp" width="24" height="24" loading="lazy">
+                </a>
+
+                <a href="@(await SettingHelper.Get("linkedin_url"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <img src="~/images/linkedin.png" alt="LinkedIn" width="24" height="24" loading="lazy">
+                </a>
             </div>
         </div>
     </div>
 
     <section>
         <div class="flex justify-between items-center mb-6 sm:mb-8">
-            <h2 class="text-[22px] sm:text-[28px] font-black text-[#0B2036] dark:text-white">Daha çox elan</h2>
+            <h2 class="text-xl sm:text-3xl font-black text-black dark:text-white">Daha çox elan</h2>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             @foreach(VacancyListDto v in Model.SimilarVacancies){
-            <div class="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-700 rounded-[20px] p-5 transition-all duration-300 hover:border-[#009689] hover:-translate-y-1">
+            <div class="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 rounded-[20px] p-5 transition-all duration-300 hover:border-[#009689] hover:-translate-y-1">
                 <div class="flex items-center gap-3 mb-4">
                     <img src="@v.Company.Logo" alt="logo" class="w-8 h-8 sm:w-10 sm:h-10 object-contain">
                     <div class="min-w-0">
-                        <h4 class="font-bold text-[13px] sm:text-[14px] text-[#0B2036] dark:text-white leading-tight truncate">@v.Name</h4>
-                        <p class="text-[#2D9CDB] text-[11px] sm:text-[12px] font-bold truncate">@v.Company.Name</p>
+                        <h4 class="font-bold text-[13px] sm:text-[14px] text-black dark:text-white leading-tight truncate">@v.Name</h4>
+                        <p class="text-gray-400 text-[11px] sm:text-[12px] font-bold truncate">@v.Company.Name</p>
                     </div>
                 </div>
                 <div class="flex justify-between items-center text-[10px] sm:text-[11px] text-[#95A1B0] dark:text-gray-400">
@@ -130,18 +144,20 @@
                 </div>
             </div>
            }
-        </div>
+            
+            <a asp-controller="Vacancy" asp-action="Index" class="sm:hidden py-2 mt-3 text-center text-white bg-cyberGreen rounded-xl hover: cursor-pointer"> Daha Cox</a>
+        </div> 
 
-        <div class="flex justify-center items-center gap-4 mt-8 sm:mt-10">
-            <button
-                class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#E5E7EB] dark:border-gray-700 flex items-center justify-center text-[#0B2036] dark:text-white hover:border-[#009689] hover:text-[#009689] transition-all group">
-                <iconify-icon icon="ph:caret-left-bold" class="text-lg sm:text-xl"></iconify-icon>
-            </button>
-            <button
-                class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#E5E7EB] dark:border-gray-700 flex items-center justify-center text-[#0B2036] dark:text-white hover:border-[#009689] hover:text-[#009689] transition-all group">
-                <iconify-icon icon="ph:caret-right-bold" class="text-lg sm:text-xl"></iconify-icon>
-            </button>
-        </div>
+        @* <div class="flex justify-center items-center gap-4 mt-8 sm:mt-10"> *@
+        @*     <button *@
+        @*         class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#E5E7EB] dark:border-gray-700 flex items-center justify-center text-[#0B2036] dark:text-white hover:border-[#009689] hover:text-[#009689] transition-all group"> *@
+        @*         <iconify-icon icon="ph:caret-left-bold" class="text-lg sm:text-xl"></iconify-icon> *@
+        @*     </button> *@
+        @*     <button *@
+        @*         class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#E5E7EB] dark:border-gray-700 flex items-center justify-center text-[#0B2036] dark:text-white hover:border-[#009689] hover:text-[#009689] transition-all group"> *@
+        @*         <iconify-icon icon="ph:caret-right-bold" class="text-lg sm:text-xl"></iconify-icon> *@
+        @*     </button> *@
+        @* </div> *@
     </section>
 </main>
 

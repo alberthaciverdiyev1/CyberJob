@@ -1,4 +1,10 @@
-﻿@using CyberJob.DTOs
+@using CyberJob.DTOs
+@using CyberJob.ViewModels
+@model ServicesVM
+@{
+    var monthlyPlans = Model.Plans?.Where(p => p.Type == "monthly").ToList() ?? new List<SubscriptionPlanDto>();
+    var yearlyPlans = Model.Plans?.Where(p => p.Type == "yearly").ToList() ?? new List<SubscriptionPlanDto>();
+}
 <main class="max-w-[1440px] mx-auto px-6 md:px-10 py-16">
 
     <div class="text-center mb-16">
@@ -6,160 +12,113 @@
         <p class="text-gray-400 text-lg">Abunəlik paketləri ilə elanlarınızı maksimum görünürlükdə paylaşın</p>
 
         <div class="mt-14 relative inline-block">
-            <div
-                class="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#F8E15C] text-cyberMain text-[14px] font-bold px-5 py-2 rounded-md shadow-sm whitespace-nowrap">
+            <div id="saveBadge"
+                 class="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#F8E15C] text-cyberMain text-md font-bold px-5 py-2 rounded-md shadow-sm whitespace-nowrap">
                 30%-ə qədər qənaət edin
                 <div class="absolute -right-10 top-2 rotate-[12deg]">
                     <iconify-icon icon="akar-icons:arrow-back"
-                                  class="text-[#009689] text-4xl opacity-50 flip-horizontal"></iconify-icon>
+                                  class="text-black text-4xl opacity-50 flip-horizontal"></iconify-icon>
                 </div>
             </div>
-            <div
-                class="flex items-center bg-white dark:bg-zinc-900 p-1.5 rounded-2xl w-[220px] border border-gray-200 dark:border-zinc-800">
-                <button class="flex-1 py-3 text-[15px] font-bold text-gray-400">Aylıq</button>
-                <button class="flex-1 py-3 text-[15px] font-bold bg-[#4EA090] text-white rounded-xl">Paket</button>
+            <div class="flex items-center bg-white dark:bg-zinc-900 p-1.5 rounded-2xl w-[220px] border border-gray-200 dark:border-zinc-800">
+                <button id="monthlyBtn"
+                        class="toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300"
+                        data-period="monthly">Aylıq</button>
+                <button id="yearlyBtn"
+                        class="toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300"
+                        data-period="yearly">İllik</button>
             </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-32 items-stretch px-4">
-
-        <div
-            class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md shadow-cyberGreen flex flex-col px-2 transition-transform hover:scale-[1.02]">
-            <div class=" rounded-t-xl rounded-b-3xl shadow-2xl shadow-green-500/200 px-2">
-                <div class="bg-gray-100 dark:bg-zinc-800 price-box text-center relative mb-10 rounded-3xl">
-                    <div class="flex justify-between items-center mb-8 mt-3 mx-3 pt-3   ">
-                        <span class="bg-white dark:bg-zinc-700 px-6 py-1.5 rounded-full text-[15px] font-bold">Basic</span>
-                        <span class="bg-[#00FF00] text-black text-[11px] font-black px-4 py-1.5 rounded-full uppercase">İlk 1 ay üçün</span>
+    <!-- Monthly Plans -->
+    <div id="monthlyPlans" class="plan-group grid grid-cols-1 md:grid-cols-3 gap-10 mb-32 items-stretch px-4">
+        @foreach (SubscriptionPlanDto subscription in monthlyPlans)
+        {
+            <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md shadow-cyberGreen flex flex-col px-2 transition-transform hover:scale-[1.02]">
+                <div class="rounded-t-xl rounded-b-3xl shadow-2xl shadow-green-500/200 px-2">
+                    <div class="bg-gray-100 dark:bg-zinc-800 price-box text-center relative mb-10 rounded-3xl">
+                        <div class="flex justify-between items-center mb-8 mt-3 mx-3 pt-3">
+                            <span class="bg-white dark:bg-zinc-700 px-6 py-1.5 rounded-full text-[15px] font-bold">@subscription.Name</span>
+                            <span class="bg-green-500 text-black text-sm font-black px-4 py-1.5 rounded-full uppercase">İlk 1 ay üçün</span>
+                        </div>
+                        <div class="text-gray-400 text-lg line-through mb-1">@subscription.OldPrice AZN/ay</div>
+                        <div class="flex items-center justify-center gap-2 pb-4">
+                            <span class="text-5xl font-bold leading-none">@subscription.NewPrice <span class="price-unit">AZN/ay</span></span>
+                            @{
+                                var discount = subscription.OldPrice > 0 ? (subscription.OldPrice - subscription.NewPrice) / subscription.OldPrice * 100 : 0;
+                            }
+                            <span class="bg-[#F8E15C] text-black text-[13px] font-black px-2 py-0.5 rounded">-@discount.ToString("F0")%</span>
+                        </div>
                     </div>
-                    <div class="text-gray-400 text-lg line-through mb-1">89 AZN/ay</div>
-                    <div class="flex items-center justify-center gap-2 pb-4">
-                        <span class="text-5xl font-bold leading-none">29 AZN\ay</span>
-                        <span class="bg-[#F8E15C] text-black text-[13px] font-black px-2 py-0.5 rounded">-30%</span>
-                    </div>
+                    <button class="w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10">
+                        Əldə et
+                    </button>
                 </div>
-                <button
-                    class="w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10">
-                    Əldə et
-                </button>
+                <ul class="space-y-5 px-2 mt-10 mb-5">
+                    @foreach (var feature in subscription.Options)
+                    {
+                        <li class="flex items-center gap-4 text-[16px] font-bold">
+                            <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                            @feature.Name
+                        </li>
+                    }
+                </ul>
             </div>
-            <ul class="space-y-5 px-2 mt-10">
-                <li class="flex items-center gap-4 text-[16px] font-bold">
-                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
-                    2 Vakansiya
-                </li>
-                <li class="flex items-center gap-4 text-[16px] font-bold">
-                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
-                    1 Premium
-                </li>
-                <li class="flex items-center gap-4 text-[16px] font-bold">
-                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
-                    1 elan başa sabitmə 6 saat
-                </li>
-                <li class="flex items-center gap-4 text-[16px] font-bold text-red-500">
-                    <iconify-icon icon="gridicons:cross-circle" class="text-2xl"></iconify-icon>
-                    Blue Tick (1 ay)
-                </li>
-            </ul>
-        </div>
+        }
+    </div>
 
-            <div
-            class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md shadow-cyberGreen flex flex-col px-2 transition-transform hover:scale-[1.02]">
-            <div class=" rounded-t-xl rounded-b-3xl shadow-2xl shadow-green-500/200 px-2">
-                <div class="bg-cyberGreen dark:bg-zinc-800 price-box text-center relative mb-10 rounded-3xl">
-                    <div class="flex justify-between items-center mb-8 mt-3 mx-3 pt-3   ">
-                        <span class="bg-white dark:bg-zinc-700 px-6 py-1.5 rounded-full text-[15px] font-bold">Basic</span>
-                        <span class="bg-[#00FF00] text-black text-[11px] font-black px-4 py-1.5 rounded-full uppercase">İlk 1 ay üçün</span>
+    <!-- Yearly Plans -->
+    <div id="yearlyPlans" class="plan-group grid grid-cols-1 md:grid-cols-3 gap-10 mb-32 items-stretch px-4 hidden">
+        @foreach (SubscriptionPlanDto subscription in yearlyPlans)
+        {
+            <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md shadow-cyberGreen flex flex-col px-2 transition-transform hover:scale-[1.02]">
+                <div class="rounded-t-xl rounded-b-3xl shadow-2xl shadow-green-500/200 px-2">
+                    <div class="bg-gray-100 dark:bg-zinc-800 price-box text-center relative mb-10 rounded-3xl">
+                        <div class="flex justify-between items-center mb-8 mt-3 mx-3 pt-3">
+                            <span class="bg-white dark:bg-zinc-700 px-6 py-1.5 rounded-full text-[15px] font-bold">@subscription.Name</span>
+                            <span class="bg-green-500 text-black text-sm font-black px-4 py-1.5 rounded-full uppercase">İlk 1 il üçün</span>
+                        </div>
+                        <div class="text-gray-400 text-lg line-through mb-1">@subscription.OldPrice AZN/il</div>
+                        <div class="flex items-center justify-center gap-2 pb-4">
+                            <span class="text-5xl font-bold leading-none">@subscription.NewPrice <span class="price-unit">AZN/il</span></span>
+                            @{
+                                var discount = subscription.OldPrice > 0 ? (subscription.OldPrice - subscription.NewPrice) / subscription.OldPrice * 100 : 0;
+                            }
+                            <span class="bg-[#F8E15C] text-black text-[13px] font-black px-2 py-0.5 rounded">-@discount.ToString("F0")%</span>
+                        </div>
                     </div>
-                    <div class="text-gray-400 text-lg line-through mb-1">89 AZN/ay</div>
-                    <div class="flex items-center justify-center gap-2 pb-4">
-                        <span class="text-5xl font-bold leading-none">29 AZN\ay</span>
-                        <span class="bg-[#F8E15C] text-black text-[13px] font-black px-2 py-0.5 rounded">-30%</span>
-                    </div>
+                    <button class="w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10">
+                        Əldə et
+                    </button>
                 </div>
-                <button
-                    class="w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10">
-                    Əldə et
-                </button>
+                <ul class="space-y-5 px-2 mt-10 mb-5">
+                    @foreach (var feature in subscription.Options)
+                    {
+                        <li class="flex items-center gap-4 text-[16px] font-bold">
+                            <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                            @feature.Name
+                        </li>
+                    }
+                </ul>
             </div>
-            <ul class="space-y-5 px-2 mt-10">
-                <li class="flex items-center gap-4 text-[16px] font-bold">
-                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
-                    2 Vakansiya
-                </li>
-                <li class="flex items-center gap-4 text-[16px] font-bold">
-                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
-                    1 Premium
-                </li>
-                <li class="flex items-center gap-4 text-[16px] font-bold">
-                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
-                    1 elan başa sabitmə 6 saat
-                </li>
-                <li class="flex items-center gap-4 text-[16px] font-bold text-red-500">
-                    <iconify-icon icon="gridicons:cross-circle" class="text-2xl"></iconify-icon>
-                    Blue Tick (1 ay)
-                </li>
-            </ul>
-        </div>
-
-         <div
-            class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md shadow-cyberGreen flex flex-col px-2 transition-transform hover:scale-[1.02]">
-            <div class=" rounded-t-xl rounded-b-3xl shadow-2xl shadow-green-500/200 px-2">
-                <div class="bg-gray-100 dark:bg-zinc-800 price-box text-center relative mb-10 rounded-3xl">
-                    <div class="flex justify-between items-center mb-8 mt-3 mx-3 pt-3   ">
-                        <span class="bg-white dark:bg-zinc-700 px-6 py-1.5 rounded-full text-[15px] font-bold">Basic</span>
-                        <span class="bg-[#00FF00] text-black text-[11px] font-black px-4 py-1.5 rounded-full uppercase">İlk 1 ay üçün</span>
-                    </div>
-                    <div class="text-gray-400 text-lg line-through mb-1">89 AZN/ay</div>
-                    <div class="flex items-center justify-center gap-2 pb-4">
-                        <span class="text-5xl font-bold leading-none">29 AZN\ay</span>
-                        <span class="bg-[#F8E15C] text-black text-[13px] font-black px-2 py-0.5 rounded">-30%</span>
-                    </div>
-                </div>
-                <button
-                    class="w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10">
-                    Əldə et
-                </button>
-            </div>
-            <ul class="space-y-5 px-2 mt-10">
-                <li class="flex items-center gap-4 text-[16px] font-bold">
-                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
-                    2 Vakansiya
-                </li>
-                <li class="flex items-center gap-4 text-[16px] font-bold">
-                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
-                    1 Premium
-                </li>
-                <li class="flex items-center gap-4 text-[16px] font-bold">
-                    <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
-                    1 elan başa sabitmə 6 saat
-                </li>
-                <li class="flex items-center gap-4 text-[16px] font-bold text-red-500">
-                    <iconify-icon icon="gridicons:cross-circle" class="text-2xl"></iconify-icon>
-                    Blue Tick (1 ay)
-                </li>
-            </ul>
-        </div>
-
+        }
     </div>
 
     <section class="mb-40">
         <h2 class="text-center text-[36px] font-bold mb-20 dark:text-white">Xidmətlərimizin üstünlükləri!</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div class="flex flex-col items-center text-center">
-                <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot2.png" alt="Blue Tick"
-                                                                class="max-h-full"></div>
-                <h3 class="text-[20px] font-bold max-w-[240px]">Etibar və Peşəkar İmic (Blue Tick)</h3>
+                <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot2.png" alt="Blue Tick" class="max-h-full"></div>
+                <h3 class="text-xl font-bold max-w-[240px]">Etibar və Peşəkar İmic (Blue Tick)</h3>
             </div>
             <div class="flex flex-col items-center text-center">
-                <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot1.png" alt="Sürətli Nəticə"
-                                                                class="max-h-full"></div>
-                <h3 class="text-[20px] font-bold max-w-[260px]">Sürətli Nəticə və Doğru Namizəd</h3>
+                <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot1.png" alt="Sürətli Nəticə" class="max-h-full"></div>
+                <h3 class="text-xl font-bold max-w-[260px]">Sürətli Nəticə və Doğru Namizəd</h3>
             </div>
             <div class="flex flex-col items-center text-center">
-                <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot3.png" alt="Maksimum Görünmə"
-                                                                class="max-h-full"></div>
-                <h3 class="text-[20px] font-bold max-w-[260px]">Maksimum Görünmə və Brend Tanınması</h3>
+                <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot3.png" alt="Maksimum Görünmə" class="max-h-full"></div>
+                <h3 class="text-xl font-bold max-w-[260px]">Maksimum Görünmə və Brend Tanınması</h3>
             </div>
         </div>
     </section>
@@ -170,26 +129,17 @@
             <p class="text-gray-400">Platformamız haqqında ən çox soruşulan suallar</p>
         </div>
         <div id="faq-container" class="space-y-4">
-
             @if (Model.Faqs is not null)
             {
                 foreach (FaqDto faq in Model.Faqs)
                 {
-                    <div
-                        class="faq-item bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl overflow-hidden cursor-pointer px-8 transition-all duration-300 mb-4">
-                        @* Tıklama alanı *@
+                    <div class="faq-item bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl overflow-hidden cursor-pointer px-8 transition-all duration-300 mb-4">
                         <div class="faq-header flex justify-between items-center py-6">
                             <span class="font-bold text-[17px] dark:text-gray-200">@faq?.Question</span>
-                            <iconify-icon icon="ph:caret-down-bold"
-                                          class="faq-icon text-[#009689] text-xl transition-transform duration-300"></iconify-icon>
+                            <iconify-icon icon="ph:caret-down-bold" class="faq-icon text-[#009689] text-xl transition-transform duration-300"></iconify-icon>
                         </div>
-
-                        @* Cevap alanı: Başlangıçta yüksekliği 0 *@
-                        <div class="faq-answer-container transition-all duration-300 ease-in-out"
-                             style="max-height: 0; opacity: 0; overflow: hidden;">
-                            <div class="faq-answer text-gray-500 text-[15px] leading-relaxed pb-6">
-                                @faq?.Answer
-                            </div>
+                        <div class="faq-answer-container transition-all duration-300 ease-in-out" style="max-height: 0; opacity: 0; overflow: hidden;">
+                            <div class="faq-answer text-gray-500 text-[15px] leading-relaxed pb-6">@faq?.Answer</div>
                         </div>
                     </div>
                 }
@@ -197,12 +147,10 @@
         </div>
     </section>
 
-    <section
-        class="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 rounded-[40px] p-12 text-center shadow-xl mb-20">
+    <section class="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 rounded-[40px] p-12 text-center shadow-xl mb-20">
         <h3 class="text-[26px] font-bold dark:text-white mb-3">Cavabınızı tapa bilmədiniz?</h3>
         <p class="text-gray-400 text-lg mb-10">Dəstək komandamız sizə kömək etməkdən məmnun olacaq</p>
-        <button
-            class="bg-[#009689] hover:bg-[#007a6f] text-white font-bold py-5 px-16 rounded-3xl text-lg transition-all shadow-lg shadow-emerald-900/20">
+        <button class="bg-cyberGreen hover:bg-darkGreen text-white font-bold py-5 px-16 rounded-3xl text-lg transition-all shadow-lg shadow-emerald-900/20">
             Bizimlə əlaqə saxlayın
         </button>
     </section>
@@ -210,10 +158,36 @@
 </main>
 
 @section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // --- Plan Toggle ---
+            const monthlyBtn = document.getElementById('monthlyBtn');
+            const yearlyBtn = document.getElementById('yearlyBtn');
+            const monthlyPlans = document.getElementById('monthlyPlans');
+            const yearlyPlans = document.getElementById('yearlyPlans');
 
-    <script>document.addEventListener("DOMContentLoaded", function () {
+            function activatePeriod(period) {
+                if (period === 'monthly') {
+                    monthlyBtn.className = 'toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300 bg-cyberGreen text-white';
+                    yearlyBtn.className = 'toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300 text-gray-400';
+                    monthlyPlans.classList.remove('hidden');
+                    yearlyPlans.classList.add('hidden');
+                } else {
+                    yearlyBtn.className = 'toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300 bg-cyberGreen text-white';
+                    monthlyBtn.className = 'toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300 text-gray-400';
+                    yearlyPlans.classList.remove('hidden');
+                    monthlyPlans.classList.add('hidden');
+                }
+            }
+
+            monthlyBtn.addEventListener('click', () => activatePeriod('monthly'));
+            yearlyBtn.addEventListener('click', () => activatePeriod('yearly'));
+
+            // Start with monthly active
+            activatePeriod('monthly');
+
+            // --- FAQ Toggle ---
             const faqItems = document.querySelectorAll('.faq-item');
-
             faqItems.forEach(item => {
                 const header = item.querySelector('.faq-header');
                 const container = item.querySelector('.faq-answer-container');
@@ -237,5 +211,6 @@
                     }
                 });
             });
-        });</script>
+        });
+    </script>
 }

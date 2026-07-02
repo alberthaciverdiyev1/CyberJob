@@ -1,0 +1,71 @@
+@using CyberJob.DTOs
+@model List<LegalTermAndUserAgreementDto>
+
+<div class="max-w-5xl mx-auto py-10">
+    <div class="text-center mb-12">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Hüquqi Məlumat və Xidmət Şərtləri</h1>
+        <p class="text-gray-500">Platformadan istifadə üçün bütün vacib sənədlər burada.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        @foreach (LegalTermAndUserAgreementDto item in Model)
+        {
+            <div class="bg-white p-6 rounded-xl border border-gray-200 flex justify-between items-center shadow-sm">
+                <div>
+                    <h3 class="font-semibold text-lg text-gray-800">@item.Title</h3>
+                    <button class="view-btn mt-2 text-teal-600 font-medium text-sm hover:underline"
+                            data-title="@item.Title"
+                            data-index="@Model.IndexOf(item)">
+                        Bax
+                    </button>
+                </div>
+                <div class="bg-teal-50 p-3 rounded-lg text-teal-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+            </div>
+
+            @* Store content in a hidden div to avoid HTML-in-attribute issues *@
+            <div id="content-@Model.IndexOf(item)" class="hidden">@Html.Raw(item.Content)</div>
+        }
+    </div>
+</div>
+
+<div id="legal-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 hidden">
+    <div class="bg-white rounded-2xl p-8 max-w-lg w-full shadow-2xl relative">
+        <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">✕</button>
+        @* <h2 id="modal-title" class="text-xl font-bold mb-6 text-gray-800"></h2> *@
+        <h2 class="text-xl font-bold mb-6 text-gray-800">Hüquqi Xəbərdarlıq</h2>
+        <div id="modal-content" class="text-gray-600 space-y-4 text-sm leading-relaxed"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('legal-modal');
+        const closeBtn = document.getElementById('close-modal');
+        @* const modalTitle = document.getElementById('modal-title'); *@
+        const modalContent = document.getElementById('modal-content');
+
+        document.querySelectorAll('.view-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const title = button.getAttribute('data-title');
+                const index = button.getAttribute('data-index');
+                const contentDiv = document.getElementById('content-' + index);
+
+                @* modalTitle.innerText = title; *@
+                modalContent.innerHTML = contentDiv ? contentDiv.innerHTML : '';
+                modal.classList.remove('hidden');
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
+</script>

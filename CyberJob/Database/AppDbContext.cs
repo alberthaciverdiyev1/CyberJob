@@ -20,6 +20,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Vacancy> Vacancies { get; set; }
     public DbSet<VacancyFilter> VacancyFilters { get; set; }
     public DbSet<Subscribe> Subscribes { get; set; }
+    public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
+    public DbSet<SubscriptionPlanOption> SubscriptionPlanOptions { get; set; }
+    public DbSet<LegalTermAndUserAgreement> LegalTermAndUserAgreements { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -2,6 +2,7 @@
 using CyberJob.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using QRCoder;
 
 namespace CyberJob.Helpers;
 
@@ -23,7 +24,7 @@ public class SettingHelper(AppDbContext context)
         return property?.GetValue(_cachedSettings)?.ToString();
     }
 
-    public  async Task<string> GetScript(string type)
+    public async Task<string> GetScript(string type)
     {
         string columnName = type.ToLower() switch
         {
@@ -34,5 +35,14 @@ public class SettingHelper(AppDbContext context)
         };
 
         return await Get(columnName) ?? string.Empty;
+    }
+    
+    public string GenerateQrSvg(string url)
+    {
+        using var qrGenerator = new QRCodeGenerator();
+        using var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
+        using var qrCode = new SvgQRCode(qrCodeData);
+        
+        return qrCode.GetGraphic(20);
     }
 }

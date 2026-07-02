@@ -1,93 +1,124 @@
+@using CyberJob.Helpers
+@inject CyberJob.Helpers.SettingHelper SettingHelper
+
 
 <main class="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 py-8 sm:py-16">
     <div class="text-center mb-12 sm:mb-16">
-        <h1 class="text-[28px] sm:text-[32px] md:text-[40px] font-black text-[#0B2036] dark:text-white mb-2">Kömək üçün buradayıq</h1>
+        <h1 class="text-[28px] sm:text-[32px] md:text-[40px] font-black text-[#0B2036] dark:text-white mb-2">Kömək üçün
+            buradayıq</h1>
     </div>
 
     <div class="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start">
 
-        <div class="w-full lg:w-1/2 bg-white dark:bg-zinc-900 rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 md:p-12 shadow-sm border border-gray-50 dark:border-zinc-800">
-            <h2 class="text-[18px] sm:text-[20px] md:text-[24px] font-bold text-[#0B2036] dark:text-white mb-3 sm:mb-4">Hürmətli istifadəçi</h2>
+        <div
+            class="w-full lg:w-1/2 bg-white dark:bg-black rounded-2xl p-6 sm:p-8 md:p-12 shadow-sm border border-gray-50 dark:border-zinc-800">
+            <h2 class="text-[18px] sm:text-[20px] md:text-[24px] font-bold text-[#0B2036] dark:text-white mb-3 sm:mb-4">
+                Hürmətli istifadəçi</h2>
             <p class="text-[#4F5B67] dark:text-gray-400 text-[14px] sm:text-[16px] md:text-[18px] leading-relaxed mb-8 sm:mb-12">
                 Bizimlə əlaqə saxlamaq üçün aşağıdakı məlumatlardan istifadə edə bilərsiniz.
             </p>
 
-            <h3 class="text-[18px] sm:text-[20px] font-bold text-[#0B2036] dark:text-white mb-6 sm:mb-8">Əlaqə məlumatları</h3>
+            <h3 class="text-[18px] sm:text-[20px] font-bold text-[#0B2036] dark:text-white mb-6 sm:mb-8">Əlaqə
+                məlumatları</h3>
 
             <div class="space-y-6 sm:space-y-8">
                 <div class="flex items-center gap-4 sm:gap-5">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-lg sm:text-xl shrink-0">
+                    <div
+                        class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-lg sm:text-xl shrink-0">
                         <iconify-icon icon="ph:phone-fill"></iconify-icon>
                     </div>
                     <div class="min-w-0">
                         <p class="text-gray-400 text-xs sm:text-sm">Telefon</p>
-                        <p class="text-[#0B2036] dark:text-white font-bold text-base sm:text-lg truncate">+994 10 811 67 42</p>
+                        <p class="text-[#0B2036] dark:text-white font-bold text-base sm:text-lg truncate">@(await SettingHelper.Get("phone_number"))</p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-4 sm:gap-5">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-lg sm:text-xl shrink-0">
+                    <div
+                        class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-lg sm:text-xl shrink-0">
                         <iconify-icon icon="ph:envelope-simple-fill"></iconify-icon>
                     </div>
                     <div class="min-w-0">
                         <p class="text-gray-400 text-xs sm:text-sm">Email</p>
-                        <p class="text-[#0B2036] dark:text-white font-bold text-base sm:text-lg truncate">info@cyberjob.az</p>
+                        <p class="text-[#0B2036] dark:text-white font-bold text-base sm:text-lg truncate">@(await SettingHelper.Get("mail"))</p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-4 sm:gap-5">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-lg sm:text-xl shrink-0">
+                    <div
+                        class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-lg sm:text-xl shrink-0">
                         <iconify-icon icon="ph:map-pin-fill"></iconify-icon>
                     </div>
                     <div>
                         <p class="text-gray-400 text-xs sm:text-sm">Ünvan</p>
-                        <p class="text-[#0B2036] dark:text-white font-bold text-base sm:text-lg">Bakı, Azərbaycan</p>
+                        <p class="text-[#0B2036] dark:text-white font-bold text-base sm:text-lg">@(await SettingHelper.Get("address"))</p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-4 sm:gap-5">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-lg sm:text-xl shrink-0">
+                    <div
+                        class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#569894] flex items-center justify-center text-white text-lg sm:text-xl shrink-0">
                         <iconify-icon icon="ph:clock-fill"></iconify-icon>
                     </div>
                     <div>
                         <p class="text-gray-400 text-xs sm:text-sm">İş saatları</p>
-                        <p class="text-[#0B2036] dark:text-white font-bold text-base sm:text-lg">B.e – Cümə, 09:00 – 18:00</p>
+                        <p class="text-[#0B2036] dark:text-white font-bold text-base sm:text-lg">@(await SettingHelper.Get("working_hours"))</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="w-full lg:w-1/2 bg-white dark:bg-zinc-900 rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 md:p-12 shadow-sm border border-gray-50 dark:border-zinc-800">
-            <h2 class="text-[18px] sm:text-[20px] md:text-[24px] font-bold text-[#0B2036] dark:text-white mb-3 sm:mb-4">Sosial şəbəkələr</h2>
+        <div
+            class="w-full lg:w-1/2 bg-white dark:bg-black rounded-2xl p-6 sm:p-8 md:p-12 shadow-sm border border-gray-50 dark:border-zinc-800">
+            <h2 class="text-[18px] sm:text-[20px] md:text-[24px] font-bold text-[#0B2036] dark:text-white mb-3 sm:mb-4">
+                Sosial şəbəkələr</h2>
             <p class="text-[#4F5B67] dark:text-gray-400 text-[14px] sm:text-[16px] mb-6 sm:mb-8">
                 QR kodları skan edərək sosial media hesablarımıza keçid edin
             </p>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 justify-items-center">
 
-                <div class="transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105">
-                    <img src="~/images/qr1.png" alt="WhatsApp" style="width: 170px; height: 210px; max-width: 100%; height: auto; aspect-ratio: 170/210;">
-                </div>
+                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
+                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("whatsapp_number")))
+                    </div>
+                    <p class="pt-2">WhatsApp</p>
+                </a>
 
-                <div class="transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105">
-                    <img src="~/images/qr2.png" alt="Instagram" style="width: 170px; height: 210px; max-width: 100%; height: auto; aspect-ratio: 170/210;">
-                </div>
+                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
+                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("whatsapp_business_number")))
+                    </div>
+                    <p class="pt-2">WhatsApp Business</p>
+                </a>
 
-                <div class="transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105">
-                    <img src="~/images/qr3.png" alt="Linkedin" style="width: 170px; height: 210px; max-width: 100%; height: auto; aspect-ratio: 170/210;">
-                </div>
+                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
+                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("facebook_url")))
+                    </div>
+                    <p class="pt-2">Facebook</p>
+                </a>
 
-                <div class="transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105">
-                    <img src="~/images/qr4.png" alt="Telegram" style="width: 170px; height: 210px; max-width: 100%; height: auto; aspect-ratio: 170/210;">
-                </div>
+                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
+                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("linkedin_url")))
+                    </div>
+                    <p class="pt-2">Linkedin</p>
+                </a>
 
-                <div class="transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105">
-                    <img src="~/images/qr5.png" alt="Facebook" style="width: 170px; height: 210px; max-width: 100%; height: auto; aspect-ratio: 170/210;">
-                </div>
+                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
+                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("telegram_number")))
+                    </div>
+                    <p class="pt-2">Telegram</p>
+                </a>
 
-                <div class="transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105">
-                    <img src="~/images/qr6.png" alt="WhatsApp Business" style="width: 170px; height: 210px; max-width: 100%; height: auto; aspect-ratio: 170/210;">
-                </div>
+                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
+                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("instagram_url")))
+                    </div>
+                    <p class="pt-2">Instagram</p>
+                </a>
 
             </div>
         </div>
