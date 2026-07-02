@@ -47,8 +47,22 @@ public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params
     if (@params.MaxSalary.HasValue)
         query = query.Where(v => v.MinSalary <= @params.MaxSalary || v.MinSalary == null);
 
+    if (@params.SortBy == "today")
+        query = query.Where(v => v.CreatedAt.HasValue && v.CreatedAt.Value.Date == DateTime.UtcNow.Date);
+
+    query = @params.SortBy switch
+    {
+        "salary_asc" => query.OrderBy(v => v.MinSalary ?? 0),
+        "salary_desc" => query.OrderByDescending(v => v.MinSalary ?? 0),
+        "oldest" => query.OrderBy(v => v.CreatedAt),
+        "newest" or "today" => query.OrderByDescending(v => v.CreatedAt),
+        "expire_date" => query.OrderBy(v => v.ExpireDate),
+        "views_asc" => query.OrderBy(v => v.ViewCount),
+        "views_desc" => query.OrderByDescending(v => v.ViewCount),
+        _ => query.OrderByDescending(v => v.CreatedAt)
+    };
+
     var vacancies = await query
-        .OrderByDescending(v => v.CreatedAt)
         .Take(@params.Take)
         .ToListAsync();
 
