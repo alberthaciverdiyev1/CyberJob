@@ -1,3 +1,7 @@
+@using CyberJob.DTOs
+@using CyberJob.Helpers
+@inject CyberJob.Helpers.SettingHelper SettingHelper
+
 <partial name="../Sections/_MobileMenu"/>
 
 <footer class="w-full bg-[#0B2036] dark:bg-black pt-12 sm:pt-20 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-10 text-white border-t border-white/5 transition-all">
@@ -40,20 +44,20 @@
             <div class="text-gray-400 text-[13px] sm:text-[15px] font-medium text-center md:text-left">
                 &copy; 2025-2026 Cyberjob. B&uuml;t&uuml;n h&uuml;quqlar qorunur. V&Ouml;EN: 6501782182
             </div>
-            <div class="flex items-center gap-[8px] sm:gap-[10px] flex-wrap justify-center">
-                <a href="#" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-[8px] flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden">
+            <div class="flex items-center gap-md sm:gap-[10px] flex-wrap justify-center">
+                <a href="@(await SettingHelper.Get("whatsapp_number"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden">
                     <img src="~/images/vpicon.png" alt="WhatsApp" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
                 </a>
-                <a href="#" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-[8px] flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden">
+                <a href="@(await SettingHelper.Get("instagram_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden">
                     <img src="~/images/instaicon.png" alt="Instagram" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
                 </a>
-                <a href="#" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-[8px] flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden">
+                <a href="@(await SettingHelper.Get("telegram_number"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden">
                     <img src="~/images/lnkicon.png" alt="Linkedin" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
                 </a>
-                <a href="#" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-[8px] flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden">
+                <a href="@(await SettingHelper.Get("facebook_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden">
                     <img src="~/images/fbicon.png" alt="Facebook" class="w-[30px] sm:w-[32px] h-[30px] sm:h-[32px] object-contain transition-transform group-hover:scale-110" />
                 </a>
-                <a href="#" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-[8px] flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden">
+                <a href="@(await SettingHelper.Get("linkedin_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden">
                     <img src="~/images/tgicon.png" alt="Telegram" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
                 </a>
             </div>

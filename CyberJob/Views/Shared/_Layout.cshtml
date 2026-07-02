@@ -7,7 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true">
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -45,42 +45,6 @@
       transition: none !important;
     }
   </style>
-
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          animation: {
-            'infinite-scroll': 'infinite-scroll 25s linear infinite',
-          },
-          keyframes: {
-            'infinite-scroll': {
-              from: {transform: 'translateX(0)'},
-              to: {transform: 'translateX(-50%)'},
-            }
-          },
-          colors: {
-            cyberMain: '#0B2036',
-            cyberDark: '#010C0F',
-            cyberGreen: '#009689',
-            cyberGray: '#262626',
-            promoGreen: '#00FF00',
-            darkGreen: '#154E4D',
-            lightGreen: "#1A998D",
-            darkMode: '#010C0F',
-            extraLightGreen: "#00D4AA",
-            gold: "#C29D55",
-            goldStart:"#F3E2B9",
-            goldEnd:"#B08B45",
-            tableColor:"#293047",
-            lightBlue:"#2D9CDB",
-            extraLightBlue: "#9DD6FC",
-          }
-        }
-      }
-    }
-  </script>
 
   <title>CyberJob</title>
 </head>
