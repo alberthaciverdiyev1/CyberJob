@@ -76,51 +76,71 @@
                 QR kodları skan edərək sosial media hesablarımıza keçid edin
             </p>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 justify-items-center">
+   <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 justify-items-center">
 
-                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
-                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
-                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("whatsapp_number")))
-                    </div>
-                    <p class="pt-2">WhatsApp</p>
-                </a>
-
-                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
-                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
-                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("whatsapp_business_number")))
-                    </div>
-                    <p class="pt-2">WhatsApp Business</p>
-                </a>
-
-                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
-                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
-                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("facebook_url")))
-                    </div>
-                    <p class="pt-2">Facebook</p>
-                </a>
-
-                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
-                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
-                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("linkedin_url")))
-                    </div>
-                    <p class="pt-2">Linkedin</p>
-                </a>
-
-                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
-                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
-                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("telegram_number")))
-                    </div>
-                    <p class="pt-2">Telegram</p>
-                </a>
-
-                <a class="block transition-all duration-300 cursor-pointer shrink-0 hover:-translate-y-2 hover:brightness-105 w-full max-w-[170px] aspect-square mx-auto text-center">
-                    <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
-                        @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("instagram_url")))
-                    </div>
-                    <p class="pt-2">Instagram</p>
-                </a>
-
+    <div class="w-full max-w-[170px] bg-green-500 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
+        <div class="bg-white/95 text-green-700 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Bizi izləyin</div>
+        <div class="bg-white p-2 rounded-xl aspect-square flex items-center justify-center overflow-hidden">
+            <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("whatsapp_number")))
             </div>
+        </div>
+        <p class="pt-3 text-white font-semibold text-center flex items-center justify-center gap-2 text-sm">
+            WhatsApp
+        </p>
+    </div>
+
+    <div class="w-full max-w-[170px] bg-green-600 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
+        <div class="bg-white/95 text-green-800 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Əlaqə saxlayın</div>
+        <div class="bg-white p-2 rounded-xl aspect-square flex items-center justify-center overflow-hidden">
+            <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("whatsapp_business_number")))
+            </div>
+        </div>
+        <p class="pt-3 text-white font-semibold text-center text-sm">WhatsApp Business</p>
+    </div>
+
+    <div class="w-full max-w-[170px] bg-blue-600 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
+        <div class="bg-white/95 text-blue-700 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Bizi izləyin</div>
+        <div class="bg-white p-2 rounded-xl aspect-square flex items-center justify-center overflow-hidden">
+            <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("facebook_url")))
+            </div>
+        </div>
+        <p class="pt-3 text-white font-semibold text-center text-sm">Facebook</p>
+    </div>
+
+    <div class="w-full max-w-[170px] bg-blue-700 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
+        <div class="bg-white/95 text-blue-800 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Bizi izləyin</div>
+        <div class="bg-white p-2 rounded-xl aspect-square flex items-center justify-center overflow-hidden">
+            <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("linkedin_url")))
+            </div>
+        </div>
+        <p class="pt-3 text-white font-semibold text-center text-sm">Linkedin</p>
+    </div>
+
+    <div class="w-full max-w-[170px] bg-sky-500 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
+        <div class="bg-white/95 text-sky-700 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Bizi izləyin</div>
+        <div class="bg-white p-2 rounded-xl aspect-square flex items-center justify-center overflow-hidden">
+            <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("telegram_number")))
+            </div>
+        </div>
+        <p class="pt-3 text-white font-semibold text-center text-sm">Telegram</p>
+    </div>
+
+    <div class="w-full max-w-[170px] bg-gradient-to-br from-purple-500 to-pink-500 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
+        <div class="bg-white/95 text-purple-600 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Bizi izləyin</div>
+        <div class="bg-white p-2 rounded-xl aspect-square flex items-center justify-center overflow-hidden">
+            <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
+                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("instagram_url")))
+            </div>
+        </div>
+        <p class="pt-3 text-white font-semibold text-center text-sm">Instagram</p>
+    </div>
+
+</div>
         </div>
     </div>
 </main>
