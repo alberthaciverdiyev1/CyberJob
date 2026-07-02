@@ -29,20 +29,20 @@
         </div>
 
         <!-- Input Container -->
-        <div class="w-full max-w-[1200px] bg-transparent md:bg-white rounded-xl border border-gray-200 p-1.5 flex flex-row items-center transition-all border border-white/10 shadow-2xl relative z-20">
+        <form action="/vacancies" method="get" class="w-full max-w-[1200px] bg-transparent md:bg-white rounded-xl border border-gray-200 p-1.5 flex flex-row items-center transition-all border border-white/10 shadow-2xl relative z-20">
             <div class="flex-1 flex items-center px-3 sm:px-6 bg-transparent sm:bg-gray-100 mx-2 rounded-xl border border-transparent focus-within:border-cyberGreen/30 transition-all">
                 <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-xl sm:text-2xl mr-2 sm:mr-3 shrink-0"></iconify-icon>
-                <input type="text" placeholder="Şirkət, sahə axtar..."
+                <input type="text" name="search" placeholder="Şirkət, sahə axtar..."
                        class="w-full py-3 sm:py-4 text-gray-700 focus:outline-none text-base sm:text-lg font-medium bg-transparent placeholder:text-gray-400">
             </div>
 
-            <button class="flex items-center justify-center gap-2 bg-extraLightGreen text-white font-bold px-6 sm:px-32 py-3 sm:py-4 rounded-xl transition-all hover:bg-cyberGreen active:scale-95 text-base sm:text-lg whitespace-nowrap">
-    
+            <button type="submit" class="flex items-center justify-center gap-2 bg-extraLightGreen text-white font-bold px-6 sm:px-32 py-3 sm:py-4 rounded-xl transition-all hover:bg-cyberGreen active:scale-95 text-base sm:text-lg whitespace-nowrap">
+
                 <i class="fa-solid fa-magnifying-glass text-2xl sm:hidden"></i>
-    
+
                 <span class="hidden sm:inline">Axtar</span>
             </button>
-        </div>
+        </form>
 
         <div class="w-full max-w-[730px] mt-4 sm:mt-6 ml-0 sm:ml-[122px] relative z-20 hidden sm:block">
             <div class="flex items-center gap-2 sm:gap-[23px] overflow-x-auto pb-2 scrollbar-hide">
