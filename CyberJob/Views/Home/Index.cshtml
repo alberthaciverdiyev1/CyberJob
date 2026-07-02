@@ -10,14 +10,17 @@
     int bannerCount = 0;
 }
 
-<section class="relative pt-16 sm:pt-[220px] pb-16 sm:pb-32 px-4 sm:px-8 overflow-hidden bg-[#0B2036] dark:bg-black" 
-         style="background-image: url('@Url.Content("~/images/hero.svg")'); 
-                background-repeat: no-repeat; 
-                background-size: 55%; 
-                background-position: right -5% center;">
+<section class="relative pt-16 sm:pt-[220px] pb-16 sm:pb-32 px-4 sm:px-8 overflow-hidden bg-[#0B2036] dark:bg-black"
+         @* style="background-image: url('@Url.Content("~/images/bg-main.png")'); *@
+         style="background-image: url('@Url.Content("~/images/hero.svg")');
 
-    <div class="absolute left-[25%] bottom-[10%] w-[500px] h-[500px] bg-cyberGreen/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
-    
+         background-repeat: no-repeat;
+         background-size: 55%;
+         background-position: right -5% center;">
+
+    <div
+        class="absolute left-[25%] bottom-[10%] w-[500px] h-[500px] bg-cyberGreen/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
     <div class="max-w-[1600px] mx-auto relative z-10">
         <div class="max-w-4xl mb-8 sm:mb-12">
             <h1 style="font-size: clamp(28px, 5vw, 48px); line-height: 1.1;" class="mb-4 font-bold text-white">
@@ -29,14 +32,18 @@
         </div>
 
         <!-- Input Container -->
-        <form action="/vacancies" method="get" class="w-full max-w-[1200px] bg-transparent md:bg-white rounded-xl border border-gray-200 p-1.5 flex flex-row items-center transition-all border border-white/10 shadow-2xl relative z-20">
-            <div class="flex-1 flex items-center px-3 sm:px-6 bg-transparent sm:bg-gray-100 mx-2 rounded-xl border border-transparent focus-within:border-cyberGreen/30 transition-all">
-                <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-xl sm:text-2xl mr-2 sm:mr-3 shrink-0"></iconify-icon>
+        <form action="/vacancies" method="get"
+              class="w-full max-w-[1200px] bg-transparent md:bg-white rounded-xl border border-gray-200 p-1.5 flex flex-row items-center transition-all border border-white/10 shadow-2xl relative z-20">
+            <div
+                class="flex-1 flex items-center px-3 sm:px-6 bg-transparent sm:bg-gray-100 mx-2 rounded-xl border border-transparent focus-within:border-cyberGreen/30 transition-all">
+                <iconify-icon icon="ph:magnifying-glass"
+                              class="text-gray-400 text-xl sm:text-2xl mr-2 sm:mr-3 shrink-0"></iconify-icon>
                 <input type="text" name="search" placeholder="Şirkət, sahə axtar..."
                        class="w-full py-3 sm:py-4 text-gray-700 focus:outline-none text-base sm:text-lg font-medium bg-transparent placeholder:text-gray-400">
             </div>
 
-            <button type="submit" class="flex items-center justify-center gap-2 bg-extraLightGreen text-white font-bold px-6 sm:px-32 py-3 sm:py-4 rounded-xl transition-all hover:bg-cyberGreen active:scale-95 text-base sm:text-lg whitespace-nowrap">
+            <button type="submit"
+                    class="flex items-center justify-center gap-2 bg-extraLightGreen text-white font-bold px-6 sm:px-32 py-3 sm:py-4 rounded-xl transition-all hover:bg-cyberGreen active:scale-95 text-base sm:text-lg whitespace-nowrap">
 
                 <i class="fa-solid fa-magnifying-glass text-2xl sm:hidden"></i>
 
@@ -50,14 +57,15 @@
                 {
                     @foreach (var bCat in Model.Categories)
                     {
-                        <a href="#"
+                        <a href="/vacancies?CategoryId=@bCat.Id"
                            class="flex items-center justify-center border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-black hover:border-white transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-3 h-auto ">
                             @bCat.Name
                         </a>
                     }
+
                     <a asp-controller="Vacancy" asp-action="Index"
                        class="flex items-center justify-center border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-black hover:border-white transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-3 h-auto ">
-                       Diger
+                        Diger
                     </a>
                 }
             </div>
@@ -68,7 +76,9 @@
     class="flex flex-col items-center font-sans text-black dark:text-white rounded-t-[40px] transition-colors duration-500">
 
     <div class="py-5 sm:py-10 bg-gray-400 w-full overflow-hidden transition-colors duration-500">
-        <div class="relative flex justify-center items-center h-[220px] sm:h-[300px] lg:h-[380px] w-full max-w-[1440px] mx-auto px-4" id="slider-container">
+        <div
+            class="relative flex justify-center items-center h-[220px] sm:h-[300px] lg:h-[380px] w-full max-w-[1440px] mx-auto px-4"
+            id="slider-container">
             @foreach (var banner in Model.Banners)
             {
                 @if (banner.Location == "medium")
@@ -90,7 +100,8 @@
         </div>
     </div>
 
-    <div class="w-full max-w-[1600px] px-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-[20px] mt-3 mx-auto">
+    <div
+        class="w-full max-w-[1600px] px-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-[20px] mt-3 mx-auto">
         <h2 class="col-span-full text-[22px] sm:text-[32px] font-bold text-center dark:text-white mb-2 sm:mb-4">
             Hansı sahə üzrə axtarırsan?
         </h2>
@@ -98,8 +109,8 @@
         {
             @foreach (var category in Model.Categories)
             {
-                <div
-                    class="w-full min-h-[80px] sm:h-[100px] border-2 border-gray-200 dark:border-gray-800 shadow-sm rounded-2xl flex flex-col items-center justify-center gap-1 sm:gap-2 hover:border-[#00D4AA] cursor-pointer bg-white dark:bg-black group transition-all p-2">
+                <a href="/vacancies?CategoryId=@category.Id"
+                   class="w-full min-h-[80px] sm:h-[100px] border-2 border-gray-200 dark:border-gray-800 shadow-sm rounded-2xl flex flex-col items-center justify-center gap-1 sm:gap-2 hover:border-[#00D4AA] cursor-pointer bg-white dark:bg-black group transition-all p-2">
 
                     <div class="flex items-center justify-center">
                         @if (!string.IsNullOrEmpty(category.Icon))
@@ -110,11 +121,12 @@
                                 var folder = category.Icon.Contains("-o-") ? "24/outline" : "20/solid";
                                 var iconUrl = $"https://raw.githubusercontent.com/tailwindlabs/heroicons/master/src/{folder}/{iconName}.svg";
 
-                                <span class="w-6 h-6 sm:w-8 sm:h-8 bg-cyberGreen group-hover:bg-[#00D4AA] transition-all"
-                                      style="mask: url('@iconUrl') no-repeat center;
-                                      -webkit-mask: url('@iconUrl') no-repeat center;
-                                      mask-size: contain; -webkit-mask-size: contain;
-                                      display: inline-block;">
+                                <span
+                                    class="w-6 h-6 sm:w-8 sm:h-8 bg-cyberGreen group-hover:bg-[#00D4AA] transition-all"
+                                    style="mask: url('@iconUrl') no-repeat center;
+                                    -webkit-mask: url('@iconUrl') no-repeat center;
+                                    mask-size: contain; -webkit-mask-size: contain;
+                                    display: inline-block;">
                         </span>
                             }
                             else
@@ -132,17 +144,19 @@
                         class="text-[11px] sm:text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors text-center">
                 @category.Name
             </span>
-                </div>
+                </a>
             }
         }
     </div>
 
-    <h2 class="text-2xl sm:text-3xl font-bold mt-10 sm:mt-16 mb-6 sm:mb-8 dark:text-white text-center">Premium elanlar</h2>
+    <h2 class="text-2xl sm:text-3xl font-bold mt-10 sm:mt-16 mb-6 sm:mb-8 dark:text-white text-center">Premium
+        elanlar</h2>
     <div id="premium-ads-container"
          class="w-full max-w-[1600px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8 sm:mb-20">
         @foreach (var vacancy in Model.PremiumVacancies)
         {
-            <div class="w-full premium-card-border min-h-[80px] flex flex-col relative group hover:-translate-y-1 transition-all dark:bg-black">
+            <a href="/vacancies/@vacancy.Id"
+               class="w-full premium-card-border min-h-[80px] flex flex-col relative group hover:-translate-y-1 transition-all dark:bg-black">
                 <div
                     class="bg-white dark:bg-black rounded-[14px] p-3 md:p-4 h-full flex flex-col justify-between relative transition-colors border border-gray-100 dark:border-gray-800">
                     <div
@@ -182,7 +196,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         }
     </div>
 
@@ -192,8 +206,8 @@
 
         @foreach (var vacancy in Model.LatestVacancies)
         {
-            <div
-                class="border border-gray-300 sm:border-gray-400 dark:border-gray-700 dark:bg-[#0a0a0a] min-h-[80px] flex flex-col relative px-3 sm:p-4 transition-all hover:-translate-y-1 shadow-sm rounded-2xl">
+            <a href="/vacancies/@vacancy.Id"
+               class="border border-gray-300 sm:border-gray-400 dark:border-gray-700 dark:bg-[#0a0a0a] min-h-[80px] flex flex-col relative px-3 sm:p-4 transition-all hover:-translate-y-1 shadow-sm rounded-2xl">
                 <div class="flex items-start gap-2.5 my-2 sm:mt-3 overflow-hidden">
                     <div class="size-14 sm:size-16 lg:size-10 rounded-full sm:rounded-md overflow-hidden shrink-0">
                         <img src="@vacancy.Company.Logo" alt="@vacancy.Company.Name"
@@ -217,17 +231,19 @@
                 <div class="mt-auto">
                     <div class="w-full h-[0.5px] bg-gray-400/20 dark:bg-gray-800/40 mb-2"></div>
                     <div class="flex justify-between items-center text-gray-400 text-xs sm:text-sm">
-                        <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> @vacancy.CreatedAt?.ToString("dd.MM.yyyy")</span>
-                        <span class="flex items-center gap-1"><i class="fa-regular fa-eye"></i> @vacancy.ViewCount</span>
+                        <span class="flex items-center gap-1"><i
+                                class="fa-regular fa-clock"></i> @vacancy.CreatedAt?.ToString("dd.MM.yyyy")</span>
+                        <span class="flex items-center gap-1"><i
+                                class="fa-regular fa-eye"></i> @vacancy.ViewCount</span>
                         <span class="text-darkGreen font-bold">@vacancy.Salary</span>
                     </div>
                 </div>
-            </div>
+            </a>
         }
     </div>
 
-    <a  asp-controller="Vacancy" asp-action="Index"
-        class="px-16 sm:px-24 py-4 sm:py-5 bg-darkGreen text-white font-bold rounded-lg mb-8 sm:mb-10 transition-colors hover:bg-black text-base sm:text-lg">
+    <a asp-controller="Vacancy" asp-action="Index"
+       class="px-16 sm:px-24 py-4 sm:py-5 bg-darkGreen text-white font-bold rounded-lg mb-8 sm:mb-10 transition-colors hover:bg-black text-base sm:text-lg">
         Daha çox
     </a>
 
@@ -282,24 +298,31 @@
             <img src="~/images/statisticBg.svg" alt=""
                  class="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full h-auto opacity-70 pointer-events-none max-h-[200px] sm:max-h-none">
 
-            <div class="flex flex-wrap justify-center gap-6 sm:gap-12 mt-10 sm:mt-14 relative z-10" id="stats-container">
+            <div class="flex flex-wrap justify-center gap-6 sm:gap-12 mt-10 sm:mt-14 relative z-10"
+                 id="stats-container">
                 <div class="text-center">
-                    <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-10 leading-none stat-value" id="stat-daily">@Model.VisitorDaily</p>
+                    <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-10 leading-none stat-value"
+                       id="stat-daily">@Model.VisitorDaily</p>
                     <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">G&uuml;nl&uuml;k</p>
                 </div>
 
                 <div class="text-center">
-                    <p class="text-3xl sm:text-6xl font-semibold dark:text-white mb-3 sm:mb-10 leading-none stat-value" id="stat-weekly">@Model.VisitorWeekly</p>
-                    <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">Həftəlik</p>
+                    <p class="text-3xl sm:text-6xl font-semibold dark:text-white mb-3 sm:mb-10 leading-none stat-value"
+                       id="stat-weekly">@Model.VisitorWeekly</p>
+                    <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">
+                        Həftəlik</p>
                 </div>
 
                 <div class="text-center">
-                    <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-10 leading-none stat-value" id="stat-monthly">@Model.VisitorMonthly</p>
-                    <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">Aylıq</p>
+                    <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-10 leading-none stat-value"
+                       id="stat-monthly">@Model.VisitorMonthly</p>
+                    <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">
+                        Aylıq</p>
                 </div>
 
                 <div class="text-center">
-                    <p class="text-3xl sm:text-6xl font-semibold dark:text-white mb-3 sm:mb-10 leading-none stat-value" id="stat-total">@Model.VisitorTotal</p>
+                    <p class="text-3xl sm:text-6xl font-semibold dark:text-white mb-3 sm:mb-10 leading-none stat-value"
+                       id="stat-total">@Model.VisitorTotal</p>
                     <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">&Uuml;mumi</p>
                 </div>
             </div>
