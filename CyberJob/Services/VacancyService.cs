@@ -12,10 +12,63 @@ public class VacancyService(AppDbContext context)
 
 public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params)
 {
-    var query = context.Vacancies
+    var query = BuildBaseQuery(@params);
+
+    if (@params.SortBy == "today")
+        query = query.Where(v => v.CreatedAt.HasValue && v.CreatedAt.Value.Date == DateTime.UtcNow.Date);
+
+    query = @params.SortBy switch
+    {
+        "salary_asc" => query.OrderBy(v => v.MinSalary ?? 0),
+        "salary_desc" => query.OrderByDescending(v => v.MinSalary ?? 0),
+        "oldest" => query.OrderBy(v => v.CreatedAt),
+        "newest" or "today" => query.OrderByDescending(v => v.CreatedAt),
+        "expire_date" => query.OrderBy(v => v.ExpireDate),
+        "views_asc" => query.OrderBy(v => v.ViewCount),
+        "views_desc" => query.OrderByDescending(v => v.ViewCount),
+        _ => query.OrderByDescending(v => v.CreatedAt)
+    };
+
+    var vacancies = await query
         .Include(v => v.Company)
         .Include(v => v.City)
-        .Include(v => v.VacancyFilters) 
+        .Include(v => v.VacancyFilters)
+        .Take(@params.Take)
+        .ToListAsync();
+
+    return vacancies.Select(v => new VacancyListDto
+    {
+        Id = v.Id,
+        Name = v.Name,
+        Salary = (v.MinSalary == null && v.MaxSalary == null)
+                 ? "Razılaşma yolu ilə"
+                 : $"{v.MinSalary} - {v.MaxSalary} AZN",
+        ViewCount = v.ViewCount,
+        CreatedAt = v.CreatedAt ?? DateTime.MinValue,
+        IsPremium = v.IsPremium,
+        CityName = v.City?.Name.Translate(@params.Lang)!,
+        Company = new VacancyCompanyDto
+        {
+            Name = v.Company?.Name!,
+            Logo = v.Company?.Logo?.ToAdminUrl()!,
+            IsVerified = v.Company?.IsVerified ?? false
+        }
+    }).ToList();
+}
+
+public async Task<int> GetFilteredCountAsync(VacancyFilterParams @params)
+{
+    var query = BuildBaseQuery(@params);
+
+    if (@params.SortBy == "today")
+        query = query.Where(v => v.CreatedAt.HasValue && v.CreatedAt.Value.Date == DateTime.UtcNow.Date);
+
+    return await query.CountAsync();
+}
+
+private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
+{
+    var query = context.Vacancies
         .AsNoTracking()
         .Where(v => v.IsActive && v.DeletedAt == null);
 
@@ -47,43 +100,9 @@ public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params
     if (@params.MaxSalary.HasValue)
         query = query.Where(v => v.MinSalary <= @params.MaxSalary || v.MinSalary == null);
 
-    if (@params.SortBy == "today")
-        query = query.Where(v => v.CreatedAt.HasValue && v.CreatedAt.Value.Date == DateTime.UtcNow.Date);
+    query = query.Where(v => v.ExpireDate >= DateTime.UtcNow);
 
-    query = @params.SortBy switch
-    {
-        "salary_asc" => query.OrderBy(v => v.MinSalary ?? 0),
-        "salary_desc" => query.OrderByDescending(v => v.MinSalary ?? 0),
-        "oldest" => query.OrderBy(v => v.CreatedAt),
-        "newest" or "today" => query.OrderByDescending(v => v.CreatedAt),
-        "expire_date" => query.OrderBy(v => v.ExpireDate),
-        "views_asc" => query.OrderBy(v => v.ViewCount),
-        "views_desc" => query.OrderByDescending(v => v.ViewCount),
-        _ => query.OrderByDescending(v => v.CreatedAt)
-    };
-
-    var vacancies = await query
-        .Take(@params.Take)
-        .ToListAsync();
-
-    return vacancies.Select(v => new VacancyListDto
-    {
-        Id = v.Id,
-        Name = v.Name,
-        Salary = (v.MinSalary == null && v.MaxSalary == null)
-                 ? "Razılaşma yolu ilə"
-                 : $"{v.MinSalary} - {v.MaxSalary} AZN",
-        ViewCount = v.ViewCount,
-        CreatedAt = v.CreatedAt ?? DateTime.MinValue,
-        IsPremium = v.IsPremium,
-        CityName = v.City?.Name.Translate(@params.Lang)!,
-        Company = new VacancyCompanyDto
-        {
-            Name = v.Company?.Name!,
-            Logo = v.Company?.Logo?.ToAdminUrl()!,
-            IsVerified = v.Company?.IsVerified ?? false
-        }
-    }).ToList();
+    return query;
 }
 
     public async Task<VacancyDetailDto?> GetByIdAsync(int id, string lang = "az")
@@ -119,8 +138,8 @@ public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params
             ExpireDate = vacancy.ExpireDate,
             CreatedAt = vacancy.CreatedAt ?? DateTime.MinValue,
             IsPremium = vacancy.IsPremium,
-            BannerImage = !string.IsNullOrEmpty(vacancy.BannerImage) 
-                ? vacancy.BannerImage.ToAdminUrl() 
+            BannerImage = !string.IsNullOrEmpty(vacancy.BannerImage)
+                ? vacancy.BannerImage.ToAdminUrl()
                 : null,
             IsBringTop = vacancy.IsBringTop,
             City = vacancy.City?.Name.Translate(lang),

@@ -1,6 +1,6 @@
 using CyberJob.Models;
 using CyberJob.Services;
-using CyberJob.ViewModels; // ViewModel namespace'ini ekledik
+using CyberJob.ViewModels; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace CyberJob.Controllers;
@@ -16,6 +16,7 @@ public class VacancyController(
     public async Task<IActionResult> Index(VacancyFilterParams @params)
     {
         var vacancies = await vacancyService.GetListAsync(@params);
+        var totalCount = await vacancyService.GetFilteredCountAsync(@params);
 
         if (Request.Headers.ContainsKey("HX-Request"))
         {
@@ -25,6 +26,7 @@ public class VacancyController(
         var model = new VacancyIndexVM
         {
             Vacancies = vacancies,
+            TotalCount = totalCount,
             Banners = await bannerService.GetListAsync(),
             Filters = await filterService.GetFilterGroupAsync(@params.Lang),
             Categories = await categoryService.GetParentsWithChildrenAsync(@params.Lang)

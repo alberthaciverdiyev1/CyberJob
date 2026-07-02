@@ -5,12 +5,12 @@
 }
 
 <section
-    class="sm:hidden relative bg-[#0B2036] dark:bg-[#000A0C] overflow-hidden mx-auto mb-8 transition-all duration-300 min-h-[300px] flex items-center justify-center">
+    class="sm:hidden relative bg-cyberDark dark:bg-black overflow-hidden mx-auto mb-8 transition-all duration-300 min-h-[300px] flex items-center justify-center">
 
     <div class="relative z-10 w-full flex flex-col items-center justify-center px-6 py-10">
         <div class="text-center mb-8">
             <h1 class="text-white text-[28px] font-bold mb-3 tracking-tight leading-tight">
-                Hazırda <span class="text-[#00D4AA] drop-shadow-[0_0_10px_rgba(0,212,170,0.5)]">22 vakansiya</span>
+                Hazırda <span class="text-extraLightGreen drop-shadow-[0_0_10px_rgba(0,212,170,0.5)]">@Model.TotalCount vakansiya</span>
                 aktivdir
             </h1>
             <p class="text-white text-[20px] leading-relaxed mx-auto">
@@ -57,7 +57,7 @@
         <div class="relative z-10 w-full h-full flex flex-col items-center justify-center px-4 sm:px-8 py-6 sm:py-8">
             <div class="text-center mb-4 sm:mb-6">
                 <h1 class="text-white text-2xl sm:text-3xl md:text-[44px] font-semibold mb-2 sm:mb-3 tracking-tight">
-                    Hazırda <span class="text-extraLightGreen">22 vakansiya</span> aktivdir
+                    Hazırda <span class="text-extraLightGreen">@Model.TotalCount vakansiya</span> aktivdir
                 </h1>
                 <p class="text-gray-50 text-xs sm:text-sm md:text-base font-medium opacity-90">
                     Sənə uyğun iş imkanlarını indi kəşf et və müraciət et.

@@ -1,4 +1,4 @@
-﻿using CyberJob.DTOs;
+using CyberJob.DTOs;
 using CyberJob.Models;
 
 namespace CyberJob.ViewModels
@@ -10,5 +10,6 @@ namespace CyberJob.ViewModels
 
         public IEnumerable<FilterGroupDto> Filters { get; set; } = Enumerable.Empty<FilterGroupDto>();
         public IEnumerable<CategoryDto> Categories { get; set; } = Enumerable.Empty<CategoryDto>();
+        public int TotalCount { get; set; }
     }
 }
