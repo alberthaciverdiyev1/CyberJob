@@ -6,10 +6,10 @@ namespace CyberJob.Controllers;
 public class BlogController(BlogService blogService) : Controller
 {
     [HttpGet("")]
-    public async Task<IActionResult> Index() 
+    public async Task<IActionResult> Index(string? search)
     {
-        var blogs = await blogService.GetAll(); 
-    
+        var blogs = await blogService.GetAll(search: search);
+
         return View(blogs);
     }
     [HttpGet("{id:int}")]

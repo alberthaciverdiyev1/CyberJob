@@ -7,13 +7,22 @@ namespace CyberJob.Services;
 
 public class BlogService(AppDbContext context)
 {
-    public async Task<object> GetAll(string lang = "az")
+    public async Task<object> GetAll(string lang = "az", string? search = null)
     {
         var blogsFromDb = await context.Blogs
             .AsNoTracking()
             .Where(b => b.IsActive && b.DeletedAt == null)
             .OrderByDescending(b => b.CreatedAt)
             .ToListAsync();
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var searchLower = search.ToLower();
+            blogsFromDb = blogsFromDb.Where(b =>
+                (b.Title?.ToLower().Contains(searchLower) ?? false) ||
+                (b.Description?.ToLower().Contains(searchLower) ?? false)
+            ).ToList();
+        }
 
         return blogsFromDb.Select(b => new
         {

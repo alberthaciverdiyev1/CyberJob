@@ -10,13 +10,13 @@
             <p class="text-sm text-[#64748B] dark:text-[#94A3B8] text-center max-w-[800px] mb-6 leading-relaxed">Texnologiya dünyasında öz yerinizi tapmaq, inkişaf etmək və uğur qazanmaq üçün ekspert məsləhətləri və
                 faydalı məqalələr.</p>
 
-            <div class="w-full max-w-[750px] bg-white dark:bg-[#1A2332] min-h-[52px] rounded-xl flex items-center p-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+            <form action="/blogs" method="get" class="w-full max-w-[750px] bg-white dark:bg-[#1A2332] min-h-[52px] rounded-xl flex items-center p-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
                 <iconify-icon icon="ph:magnifying-glass-bold"
                               class="ml-2.5 text-gray-400 text-xl shrink-0"></iconify-icon>
-                <input type="text" placeholder="Mövzu və ya açar söz axtar..."
-                       class="flex-1 border-none outline-none bg-transparent px-3 text-sm min-w-0 text-[#0B2036] dark:text-white placeholder-gray-400">
-                <button class="bg-[#00D4AA] hover:bg-[#00b894] text-white font-bold px-5 rounded-[10px] whitespace-nowrap h-full transition-colors text-sm py-2.5 sm:py-0">Axtar</button>
-            </div>
+                <input type="text" name="search" value="@Context.Request.Query["search"]" placeholder="Mövzu və ya açar söz axtar..."
+                       class="flex-1 border-none outline-none bg-transparent px-3 text-sm min-w-0 text-cyberDark dark:text-white placeholder-gray-400">
+                <button type="submit" class="bg-cyberGreen hover:bg-darkGreen text-white font-bold px-5 rounded-lg whitespace-nowrap h-full transition-colors text-sm py-2.5">Axtar</button>
+            </form>
         </div>
 
         <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6 md:gap-8">
