@@ -27,6 +27,7 @@ public class VacancyController(
         {
             Vacancies = vacancies,
             TotalCount = totalCount,
+            ExpiredCount = await vacancyService.GetExpiredCountAsync(),
             Banners = await bannerService.GetListAsync(),
             Filters = await filterService.GetFilterGroupAsync(@params.Lang),
             Categories = await categoryService.GetParentsWithChildrenAsync(@params.Lang)

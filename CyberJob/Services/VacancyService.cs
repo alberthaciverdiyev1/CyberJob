@@ -105,6 +105,13 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
     return query;
 }
 
+    public async Task<int> GetExpiredCountAsync()
+    {
+        return await context.Vacancies
+            .AsNoTracking()
+            .CountAsync(v => v.IsActive && v.DeletedAt == null && v.ExpireDate < DateTime.UtcNow);
+    }
+
     public async Task<VacancyDetailDto?> GetByIdAsync(int id, string lang = "az")
     {
         var vacancy = await context.Vacancies
