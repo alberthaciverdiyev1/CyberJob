@@ -13,7 +13,7 @@ public class RankController(CompanyService companyService, FaqService faqService
     {
         var model = new RankIndexVM
         {
-            Faqs = await faqService.GetListAsync(),
+            Faqs = await faqService.GetListAsync("rating"),
             Companies = await companyService.RankListAsync(date, search)
         };
 

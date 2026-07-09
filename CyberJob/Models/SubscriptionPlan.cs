@@ -25,5 +25,11 @@ public class SubscriptionPlan
     [Column("is_active")]
     public bool IsActive { get; set; }
 
+    [Column("discount_start")]
+    public DateTime? DiscountStart { get; set; }
+
+    [Column("discount_end")]
+    public DateTime? DiscountEnd { get; set; }
+
     public List<SubscriptionPlanOption> Options { get; set; } = new();
 }

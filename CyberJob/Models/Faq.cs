@@ -12,8 +12,11 @@ public class Faq
     public string? Question { get; set; }
     [Column("answer", TypeName = "json")]
     public string? Answer { get; set; }
-    
-    [Column("created_at")] 
+
+    [Column("type")]
+    public string? Type { get; set; }
+
+    [Column("created_at")]
     public DateTime CreatedAt { get; set; }
     [Column("updated_at")]
     public DateTime? UpdatedAt { get; set; }

@@ -13,7 +13,7 @@ public class StaticPageController(FaqService faqService, SubscriptionPlanService
     {
         ServicesVM model = new ServicesVM()
         {
-            Faqs = await faqService.GetListAsync(),
+            Faqs = await faqService.GetListAsync("service"),
             Plans = await subscriptionPlanService.GetActivePlansAsync()
         };
         return View(model);

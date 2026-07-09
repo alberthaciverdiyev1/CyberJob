@@ -21,6 +21,8 @@ public class SubscriptionPlanService(AppDbContext context)
                 OldPrice = p.OldPrice,
                 NewPrice = p.NewPrice,
                 Type = p.Type,
+                DiscountStart = p.DiscountStart,
+                DiscountEnd = p.DiscountEnd,
                 Options = p.Options.Select(o => new SubscriptionPlanOptionDto
                 {
                     Id = o.Id,
@@ -43,6 +45,8 @@ public class SubscriptionPlanService(AppDbContext context)
                 OldPrice = p.OldPrice,
                 NewPrice = p.NewPrice,
                 Type = p.Type,
+                DiscountStart = p.DiscountStart,
+                DiscountEnd = p.DiscountEnd,
                 Options = p.Options.Select(o => new SubscriptionPlanOptionDto
                 {
                     Id = o.Id,
