@@ -15,7 +15,7 @@ public class HomeController(
     public async Task<IActionResult> Index([FromQuery] string lang = "az")
     {
         var banners = await bannerService.GetListAsync();
-        var categories = await categoryService.GetOnlyParentsAsync(lang,4);
+        var categories = await categoryService.GetOnlyParentsAsync(lang);
         var partners = await partnerService.GetListAsync();
         var premiumVacancies = await vacancyService.GetListAsync(new VacancyFilterParams { Lang = lang, IsPremium = true, Take = 8 });
         var latestVacancies = await vacancyService.GetListAsync(new VacancyFilterParams { Lang = lang, IsPremium = false, Take = 8 });

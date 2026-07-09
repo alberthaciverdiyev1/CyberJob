@@ -8,6 +8,15 @@
 
 @{
     int bannerCount = 0;
+
+    string RenderFaIcon(string? icon)
+    {
+        if (string.IsNullOrEmpty(icon)) return "fa-solid fa-layer-group";
+        if (icon.Contains("heroicon")) return "fa-solid fa-layer-group";
+        // Convert "fas-display" to "fas fa-display"
+        var parts = icon.Split('-', 2);
+        return parts.Length == 2 ? $"{parts[0]} fa-{parts[1]}" : icon;
+    }
 }
 
 <section class="relative pt-16 sm:pt-[220px] pb-16 sm:pb-32 px-4 sm:px-8 overflow-hidden bg-[#0B2036] dark:bg-black"
@@ -58,7 +67,11 @@
                     @foreach (var bCat in Model.Categories)
                     {
                         <a href="/vacancies?CategoryId=@bCat.Id"
-                           class="flex items-center justify-center border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-black hover:border-white transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-3 h-auto ">
+                           class="flex items-center justify-center gap-2 border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-black hover:border-white transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-3 h-auto ">
+                            @if (!string.IsNullOrEmpty(bCat.Icon))
+                            {
+                                <i class="@RenderFaIcon(bCat.Icon) text-xs sm:text-sm"></i>
+                            }
                             @bCat.Name
                         </a>
                     }
@@ -115,28 +128,11 @@
                     <div class="flex items-center justify-center">
                         @if (!string.IsNullOrEmpty(category.Icon))
                         {
-                            @if (category.Icon.Contains("heroicon"))
-                            {
-                                var iconName = category.Icon.Replace("heroicon-c-", "").Replace("heroicon-o-", "").Replace("heroicon-s-", "");
-                                var folder = category.Icon.Contains("-o-") ? "24/outline" : "20/solid";
-                                var iconUrl = $"https://raw.githubusercontent.com/tailwindlabs/heroicons/master/src/{folder}/{iconName}.svg";
-
-                                <span
-                                    class="w-6 h-6 sm:w-8 sm:h-8 bg-cyberGreen group-hover:bg-[#00D4AA] transition-all"
-                                    style="mask: url('@iconUrl') no-repeat center;
-                                    -webkit-mask: url('@iconUrl') no-repeat center;
-                                    mask-size: contain; -webkit-mask-size: contain;
-                                    display: inline-block;">
-                        </span>
-                            }
-                            else
-                            {
-                                <i class="@category.Icon text-2xl sm:text-3xl text-cyberGreen group-hover:text-[#00D4AA] transition-all"></i>
-                            }
+                            <i class="@RenderFaIcon(category.Icon) text-2xl sm:text-3xl text-cyberGreen group-hover:text-[#00D4AA] transition-all"></i>
                         }
                         else
                         {
-                            <i class="fa-solid fa-layer-group text-2xl sm:text-3xl text-cyberGreen"></i>
+                            <i class="fa-solid fa-layer-group text-2xl sm:text-3xl text-cyberGreen group-hover:text-[#00D4AA] transition-all"></i>
                         }
                     </div>
 
