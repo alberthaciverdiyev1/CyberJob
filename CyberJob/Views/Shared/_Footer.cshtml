@@ -45,30 +45,54 @@
                 &copy; 2025-2026 Cyberjob. B&uuml;t&uuml;n h&uuml;quqlar qorunur. V&Ouml;EN: 6501782182
             </div>
             <div class="flex items-center gap-md sm:gap-[10px] flex-wrap justify-center">
-                <a href="@(await SettingHelper.Get("whatsapp_number"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="WhatsApp">
-                    <img src="~/images/vpicon.png" alt="WhatsApp" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
-                </a>
-                <a href="@(await SettingHelper.Get("telegram_number"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="Telegram">
-                    <img src="~/images/tgicon.png" alt="Telegram" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
-                </a>
-                <a href="@(await SettingHelper.Get("instagram_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="Instagram">
-                    <img src="~/images/instaicon.png" alt="Instagram" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
-                </a>
-                <a href="@(await SettingHelper.Get("facebook_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="Facebook">
-                    <img src="~/images/fbicon.png" alt="Facebook" class="w-[30px] sm:w-[32px] h-[30px] sm:h-[32px] object-contain transition-transform group-hover:scale-110" />
-                </a>
-                <a href="@(await SettingHelper.Get("linkedin_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                    <img src="~/images/lnkicon.png" alt="LinkedIn" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
-                </a>
-                <a href="@(await SettingHelper.Get("tiktok_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="TikTok">
-                    <iconify-icon icon="ph:tiktok-logo-fill" class="text-black text-lg sm:text-xl transition-transform group-hover:scale-110"></iconify-icon>
-                </a>
-                <a href="@(await SettingHelper.Get("youtube_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="YouTube">
-                    <iconify-icon icon="ph:youtube-logo-fill" class="text-black text-lg sm:text-xl transition-transform group-hover:scale-110"></iconify-icon>
-                </a>
-                <a href="@(await SettingHelper.Get("twitter_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="Twitter / X">
-                    <iconify-icon icon="ph:x-logo-fill" class="text-black text-lg sm:text-xl transition-transform group-hover:scale-110"></iconify-icon>
-                </a>
+                @if (!string.IsNullOrEmpty(await SettingHelper.Get("whatsapp_number")))
+                {
+                    <a href="@(await SettingHelper.Get("whatsapp_number"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+                        <img src="~/images/vpicon.png" alt="WhatsApp" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(await SettingHelper.Get("telegram_number")))
+                {
+                    <a href="@(await SettingHelper.Get("telegram_number"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="Telegram">
+                        <img src="~/images/tgicon.png" alt="Telegram" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(await SettingHelper.Get("instagram_url")))
+                {
+                    <a href="@(await SettingHelper.Get("instagram_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="Instagram">
+                        <img src="~/images/instaicon.png" alt="Instagram" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(await SettingHelper.Get("facebook_url")))
+                {
+                    <a href="@(await SettingHelper.Get("facebook_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="Facebook">
+                        <img src="~/images/fbicon.png" alt="Facebook" class="w-[30px] sm:w-[32px] h-[30px] sm:h-[32px] object-contain transition-transform group-hover:scale-110" />
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(await SettingHelper.Get("linkedin_url")))
+                {
+                    <a href="@(await SettingHelper.Get("linkedin_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                        <img src="~/images/lnkicon.png" alt="LinkedIn" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(await SettingHelper.Get("tiktok_url")))
+                {
+                    <a href="@(await SettingHelper.Get("tiktok_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="TikTok">
+                        <iconify-icon icon="ph:tiktok-logo-fill" class="text-black text-lg sm:text-xl transition-transform group-hover:scale-110"></iconify-icon>
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(await SettingHelper.Get("youtube_url")))
+                {
+                    <a href="@(await SettingHelper.Get("youtube_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="YouTube">
+                        <iconify-icon icon="ph:youtube-logo-fill" class="text-black text-lg sm:text-xl transition-transform group-hover:scale-110"></iconify-icon>
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(await SettingHelper.Get("twitter_url")))
+                {
+                    <a href="@(await SettingHelper.Get("twitter_url"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="Twitter / X">
+                        <iconify-icon icon="ph:x-logo-fill" class="text-black text-lg sm:text-xl transition-transform group-hover:scale-110"></iconify-icon>
+                    </a>
+                }
             </div>
         </div>
     </div>
