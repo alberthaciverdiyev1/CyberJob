@@ -57,16 +57,16 @@
                        name="search"
                        value="@ViewBag.Search"
                        placeholder="Şirkət axtar..."
-                       class="sm:hidden w-lg py-3.5 pl-12 pr-4 bg-gray-50 dark:bg-zinc-800 border border-lightGreen rounded-xl text-sm focus:outline-none focus:border-[#1A998D] transition-all dark:text-white dark:placeholder-gray-400"
+                       class="sm:hidden w-lg py-3.5 pl-12 pr-4 bg-gray-50 dark:bg-zinc-800 border border-lightGreen rounded-xl text-sm focus:outline-none focus:border-[#1A998D] transition-all dark:text-white dark:placeholder-gray-500"
                        hx-get="/companies"
                        hx-trigger="keyup changed delay:500ms, search"
-                       hx-target="#companies-grid"
+                       hx-target="#companies-container"
                        hx-push-url="true">
                 <div class="relative w-full sm:w-[200px]">
                     <select class="w-full px-4 py-2.5 bg-white dark:bg-[#0a0a0a] border border-[#1A998D] rounded-[10px] text-sm font-semibold text-[#1A998D] appearance-none outline-none cursor-pointer dark:text-lightGreen"
                             name="sort"
                             hx-get="/companies"
-                            hx-target="#companies-grid"
+                            hx-target="#companies-container"
                             hx-trigger="change">
                         <option value="newest">Ən yeni</option>
                         <option value="popular">Məşhur</option>
@@ -75,46 +75,48 @@
                 </div>
             </div>
 
-            <div id="companies-grid" class="flex flex-wrap gap-4 sm:gap-5 justify-center sm:justify-start">
-                <partial name="_CompanyCard" model="(dynamic)Model" />
+            <div id="companies-container">
+                <div id="companies-grid" class="flex flex-wrap gap-4 sm:gap-5 justify-center sm:justify-start">
+                    <partial name="_CompanyCard" model="(dynamic)Model" />
+                </div>
+
+                <div class="flex justify-center items-center gap-3 mt-16 sm:mt-24 flex-wrap">
+
+                    @if (ViewBag.CurrentPage > 1)
+                    {
+                        <button hx-get="/companies?page=@(ViewBag.CurrentPage - 1)&search=@ViewBag.Search"
+                                hx-target="#companies-container"
+                                hx-push-url="true"
+                                class="px-5 sm:px-7 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-500 dark:text-gray-400 font-bold text-[14px] hover:border-[#1A998D] hover:text-[#1A998D] transition-all">
+                            Əvvəlki
+                        </button>
+                    }
+
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <button hx-get="/companies?page=@i&search=@ViewBag.Search"
+                                hx-target="#companies-container"
+                                hx-push-url="true"
+                                class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl font-bold text-[14px] transition-all
+                            @(i == ViewBag.CurrentPage
+                               ? "bg-[#1A998D] text-white shadow-lg shadow-emerald-700/20"
+                               : "border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-[#1A998D] hover:text-[#1A998D]")">
+                            @i
+                        </button>
+                    }
+
+                    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                    {
+                        <button hx-get="/companies?page=@(ViewBag.CurrentPage + 1)&search=@ViewBag.Search"
+                                hx-target="#companies-container"
+                                hx-push-url="true"
+                                class="px-5 sm:px-7 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-500 dark:text-gray-400 font-bold text-[14px] hover:border-[#1A998D] hover:text-[#1A998D] transition-all">
+                            Növbəti
+                        </button>
+                    }
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="flex justify-center items-center gap-3 mt-16 sm:mt-24 flex-wrap">
-
-        @if (ViewBag.CurrentPage > 1)
-        {
-            <button hx-get="/companies?page=@(ViewBag.CurrentPage - 1)&search=@ViewBag.Search"
-                    hx-target="#companies-grid"
-                    hx-push-url="true"
-                    class="px-5 sm:px-7 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-500 dark:text-gray-400 font-bold text-[14px] hover:border-[#1A998D] hover:text-[#1A998D] transition-all">
-                Əvvəlki
-            </button>
-        }
-
-        @for (int i = 1; i <= ViewBag.TotalPages; i++)
-        {
-            <button hx-get="/companies?page=@i&search=@ViewBag.Search"
-                    hx-target="#companies-grid"
-                    hx-push-url="true"
-                    class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl font-bold text-[14px] transition-all
-                @(i == ViewBag.CurrentPage
-                   ? "bg-[#1A998D] text-white shadow-lg shadow-emerald-700/20"
-                   : "border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-[#1A998D] hover:text-[#1A998D]")">
-                @i
-            </button>
-        }
-
-        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-        {
-            <button hx-get="/companies?page=@(ViewBag.CurrentPage + 1)&search=@ViewBag.Search"
-                    hx-target="#companies-grid"
-                    hx-push-url="true"
-                    class="px-5 sm:px-7 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-500 dark:text-gray-400 font-bold text-[14px] hover:border-[#1A998D] hover:text-[#1A998D] transition-all">
-                Növbəti
-            </button>
-        }
     </div>
 
 </main>

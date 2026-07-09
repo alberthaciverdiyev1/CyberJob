@@ -23,7 +23,7 @@ public class CompanyController(CompanyService companyService, CityService citySe
 
         if (Request.Headers.ContainsKey("HX-Request"))
         {
-            return PartialView("_CompanyCard", items);
+            return PartialView("_CompanyContainer", items);
         }
 
         return View(items);
