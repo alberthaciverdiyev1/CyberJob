@@ -1,6 +1,8 @@
 @using CyberJob.DTOs
 @using CyberJob.ViewModels
+@using CyberJob.Helpers
 @model ServicesVM
+@inject CyberJob.Helpers.SettingHelper SettingHelper
 @{
     var monthlyPlans = Model.Plans?.Where(p => p.Type == "monthly").ToList() ?? new List<SubscriptionPlanDto>();
     var yearlyPlans = Model.Plans?.Where(p => p.Type == "yearly").ToList() ?? new List<SubscriptionPlanDto>();
@@ -21,12 +23,12 @@
                 </div>
             </div>
             <div class="flex items-center bg-white dark:bg-zinc-900 p-1.5 rounded-2xl w-[220px] border border-gray-200 dark:border-zinc-800">
+                <button id="yearlyBtn"
+                        class="toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300"
+                        data-period="yearly">Paketlər</button>
                 <button id="monthlyBtn"
                         class="toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300"
                         data-period="monthly">Aylıq</button>
-                <button id="yearlyBtn"
-                        class="toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300"
-                        data-period="yearly">İllik</button>
             </div>
         </div>
     </div>
@@ -58,9 +60,9 @@
                             <div class="text-5xl font-bold leading-none pb-4">@subscription.OldPrice AZN/ay</div>
                         }
                     </div>
-                    <button class="w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10">
+                    <a href="https://wa.me/@(await SettingHelper.Get("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10 text-center">
                         Əldə et
-                    </button>
+                    </a>
                 </div>
                 <ul class="space-y-5 px-2 mt-10 mb-5">
                     @foreach (var feature in subscription.Options)
@@ -102,9 +104,9 @@
                             <div class="text-5xl font-bold leading-none pb-4">@subscription.OldPrice AZN/il</div>
                         }
                     </div>
-                    <button class="w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10">
+                    <a href="https://wa.me/@(await SettingHelper.Get("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10 text-center">
                         Əldə et
-                    </button>
+                    </a>
                 </div>
                 <ul class="space-y-5 px-2 mt-10 mb-5">
                     @foreach (var feature in subscription.Options)
