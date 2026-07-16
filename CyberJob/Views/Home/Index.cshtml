@@ -7,7 +7,6 @@
 }
 
 @{
-    int bannerCount = 0;
     var heroBg = Model.HeroBanner?.Image != null
         ? $"background-image: url('{Model.HeroBanner.Image}');background-size: cover;background-position: center;"
         : "background-image: url('@Url.Content(\"~/images/hero.svg\")');background-size: 55%;background-position: right -5% center;";
@@ -98,27 +97,16 @@
     class="flex flex-col items-center font-sans text-black dark:text-white rounded-t-[40px] transition-colors duration-500">
 
     <div class="py-5 sm:py-10 bg-gray-400 w-full overflow-hidden transition-colors duration-500">
-        <div
-            class="relative flex justify-center items-center h-[220px] sm:h-[300px] lg:h-[380px] w-full max-w-[1440px] mx-auto px-4"
-            id="slider-container">
-            @foreach (var banner in Model.Banners)
-            {
-                @if (banner.Location == "medium")
+        <div class="swiper banner-swiper w-full max-w-[1440px] mx-auto px-4">
+            <div class="swiper-wrapper">
+                @foreach (var banner in Model.Banners.Where(b => b.Location == "medium"))
                 {
-                    string slideClass = "";
-
-                    if (bannerCount == 0) slideClass = "slide-left";
-                    else if (bannerCount == 1) slideClass = "slide-right";
-                    else if (bannerCount == 2) slideClass = "slide-main";
-                    else slideClass = "slide-hidden";
-
-                    <img src="@banner.Image"
-                         class="banner-slide @slideClass"
-                         alt="">
-
-                    bannerCount++;
+                    <div class="swiper-slide">
+                        <img src="@banner.Image" alt="">
+                    </div>
                 }
-            }
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 
