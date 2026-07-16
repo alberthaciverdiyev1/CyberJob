@@ -361,3 +361,17 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# JetBrains Rider / .idea
+.idea/
+
+wwwroot/lib/
+*.user
+.DS_Store
+*.DotSettings
+*.suo
+*.sln.docstates
+.claude/
+.claudeignore
+CLAUDE.md
+../.idea/
