@@ -12,17 +12,32 @@
     <style>
         @@keyframes premiumPulse {
             0%, 100% { box-shadow: 0 0 20px rgba(194, 157, 85, 0.3), 0 0 40px rgba(194, 157, 85, 0.1); }
-            50% { box-shadow: 0 0 30px rgba(194, 157, 85, 0.5), 0 0 60px rgba(194, 157, 85, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(194, 157, 85, 0.5), 0 0 60px rgba(194, 157, 85, 0.2), 0 0 80px rgba(194, 157, 85, 0.1); }
         }
         @@keyframes premiumFloat {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+            50% { transform: translateY(-5px); }
+        }
+        @@keyframes goldShimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
         .premium-card {
             animation: premiumPulse 3s ease-in-out infinite, premiumFloat 4s ease-in-out infinite;
         }
         .premium-badge {
             animation: premiumFloat 3s ease-in-out infinite;
+        }
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(194,157,85,0.1) 60deg, transparent 120deg);
+            animation: goldShimmer 6s linear infinite;
+            pointer-events: none;
         }
     </style>
 }
@@ -93,7 +108,7 @@
                                 <div class="text-5xl font-bold leading-none pb-4 @(subscription.IsPremium ? "text-[#C29D55]" : "")">@subscription.OldPrice AZN/ay</div>
                             }
                         </div>
-                        <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 @(subscription.IsPremium ? "bg-gradient-to-r from-[#C29D55] via-[#D4AF37] to-[#C29D55] text-white" : "bg-black text-white dark:bg-white dark:text-black") rounded-3xl font-bold text-lg mb-10 text-center">
+                        <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10 text-center">
                             Əldə et
                         </a>
                     </div>
@@ -101,7 +116,7 @@
                         @foreach (var feature in subscription.Options)
                         {
                             <li class="flex items-center gap-4 text-[16px] font-bold">
-                                <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                                <iconify-icon icon="akar-icons:circle-check-fill" class="@(subscription.IsPremium ? "text-[#C29D55]" : "text-[#009689]") text-2xl"></iconify-icon>
                                 @feature.Name
                             </li>
                         }
@@ -151,7 +166,7 @@
                                 <div class="text-5xl font-bold leading-none pb-4 @(subscription.IsPremium ? "text-[#C29D55]" : "")">@subscription.OldPrice AZN/il</div>
                             }
                         </div>
-                        <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 @(subscription.IsPremium ? "bg-gradient-to-r from-[#C29D55] via-[#D4AF37] to-[#C29D55] text-white" : "bg-black text-white dark:bg-white dark:text-black") rounded-3xl font-bold text-lg mb-10 text-center">
+                        <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10 text-center">
                             Əldə et
                         </a>
                     </div>
@@ -159,7 +174,7 @@
                         @foreach (var feature in subscription.Options)
                         {
                             <li class="flex items-center gap-4 text-[16px] font-bold">
-                                <iconify-icon icon="akar-icons:circle-check-fill" class="text-[#009689] text-2xl"></iconify-icon>
+                                <iconify-icon icon="akar-icons:circle-check-fill" class="@(subscription.IsPremium ? "text-[#C29D55]" : "text-[#009689]") text-2xl"></iconify-icon>
                                 @feature.Name
                             </li>
                         }
