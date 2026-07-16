@@ -1,15 +1,28 @@
+@using CyberJob.Helpers
+@model object
+
 <div class="px-4 sm:px-8 lg:px-28 mx-auto py-8 sm:py-16">
 
   <section class="flex flex-col lg:flex-row items-center gap-8 sm:gap-16 mb-16 sm:mb-32">
     <div class="flex-1 px-2 sm:px-0">
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-8 dark:text-white">Bizim Hekayəmiz</h1>
       <div class="space-y-4 sm:space-y-6 text-gray-600 dark:text-gray-300 leading-relaxed text-base sm:text-lg">
-        <p>CyberJob, Azərbaycanda İT sahəsinə maraq göstərən insanların yaşadığı real bir ehtiyacdan doğdu. İT
-          tələbələri, kurs bitirənlər və junior mütəxəssislər hər gün müxtəlif elan saytlarında iş axtarır, onlarca
-          səhifəni ayrı-ayrılıqda yoxlayır, amma İT-yə xüsusi yönəlik tək bir mərkəz tapmırdı.</p>
-        <p>İT sahəsində öz yolunu tapmağa çalışan bir gəncin başqalarına da yol açmaq istəyi isə CyberJob-un əsasını
-          qoydu. İdeya ondan doğdu ki, bu sahədə vakansiyalar çoxdur, amma onlar dağınıq şəkildə paylaşılır və bir çox
-          insanlar bu fürsətləri ya gec tapır, ya da ümumiyyətlə görmür.</p>
+        @if (!string.IsNullOrWhiteSpace(ViewBag.AboutUs))
+        {
+            @foreach (var paragraph in ViewBag.AboutUs.ToString().Split("\n", StringSplitOptions.RemoveEmptyEntries))
+            {
+                <p>@paragraph</p>
+            }
+        }
+        else
+        {
+            <p>CyberJob, Azərbaycanda İT sahəsinə maraq göstərən insanların yaşadığı real bir ehtiyacdan doğdu. İT
+              tələbələri, kurs bitirənlər və junior mütəxəssislər hər gün müxtəlif elan saytlarında iş axtarır, onlarca
+              səhifəni ayrı-ayrılıqda yoxlayır, amma İT-yə xüsusi yönəlik tək bir mərkəz tapmırdı.</p>
+            <p>İT sahəsində öz yolunu tapmağa çalışan bir gəncin başqalarına da yol açmaq istəyi isə CyberJob-un əsasını
+              qoydu. İdeya ondan doğdu ki, bu sahədə vakansiyalar çoxdur, amma onlar dağınıq şəkildə paylaşılır və bir çox
+              insanlar bu fürsətləri ya gec tapır, ya da ümumiyyətlə görmür.</p>
+        }
       </div>
     </div>
     <div class="flex-1 flex justify-center">

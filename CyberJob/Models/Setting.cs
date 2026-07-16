@@ -49,6 +49,9 @@ public class Setting
     [Column("working_hours")]
     public string? WorkingHours { get; set; }
 
+    [Column("about_us")]
+    public string? AboutUs { get; set; }
+
     [Column("header_scripts")]
     public string? HeaderScripts { get; set; }
 

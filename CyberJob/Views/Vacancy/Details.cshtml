@@ -105,11 +105,11 @@
                     <img src="~/images/insta.png" alt="Instagram" width="24" height="24" loading="lazy">
                 </a>
 
-                <a href="@(await SettingHelper.Get("telegram_number"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                <a href="@(await SettingHelper.GetSocialUrl("telegram_number"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
                     <img src="~/images/tg.png" alt="Telegram" width="24" height="24" loading="lazy">
                 </a>
 
-                <a href="@(await SettingHelper.Get("whatsapp_number"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                     <img src="~/images/vp.png" alt="WhatsApp" width="24" height="24" loading="lazy">
                 </a>
 

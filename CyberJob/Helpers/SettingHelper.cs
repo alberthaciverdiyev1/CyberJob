@@ -37,6 +37,23 @@ public class SettingHelper(AppDbContext context)
         return await Get(columnName) ?? string.Empty;
     }
     
+    public async Task<string?> GetSocialUrl(string key)
+    {
+        var value = await Get(key);
+        if (string.IsNullOrEmpty(value))
+            return value;
+
+        bool IsUrl(string v) => v.StartsWith("http://") || v.StartsWith("https://") || v.StartsWith("wa.me") || v.StartsWith("t.me");
+
+        if (key.Contains("whatsapp", StringComparison.OrdinalIgnoreCase))
+            return IsUrl(value) ? value : $"https://wa.me/{value.TrimStart('+')}";
+
+        if (key.Contains("telegram", StringComparison.OrdinalIgnoreCase))
+            return IsUrl(value) ? value : $"https://t.me/{value.TrimStart('@')}";
+
+        return value;
+    }
+
     public string GenerateQrSvg(string url)
     {
         using var qrGenerator = new QRCodeGenerator();

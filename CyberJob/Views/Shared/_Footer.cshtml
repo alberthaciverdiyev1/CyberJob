@@ -47,13 +47,13 @@
             <div class="flex items-center gap-md sm:gap-[10px] flex-wrap justify-center">
                 @if (!string.IsNullOrEmpty(await SettingHelper.Get("whatsapp_number")))
                 {
-                    <a href="@(await SettingHelper.Get("whatsapp_number"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+                    <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="WhatsApp">
                         <img src="~/images/vpicon.png" alt="WhatsApp" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
                     </a>
                 }
                 @if (!string.IsNullOrEmpty(await SettingHelper.Get("telegram_number")))
                 {
-                    <a href="@(await SettingHelper.Get("telegram_number"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="Telegram">
+                    <a href="@(await SettingHelper.GetSocialUrl("telegram_number"))" class="w-[36px] sm:w-[40px] h-[36px] sm:h-[40px] bg-white rounded-md flex items-center justify-center hover:bg-cyberGreen transition-all group overflow-hidden" target="_blank" rel="noopener noreferrer" title="Telegram">
                         <img src="~/images/tgicon.png" alt="Telegram" class="w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] object-contain transition-transform group-hover:scale-110" />
                     </a>
                 }

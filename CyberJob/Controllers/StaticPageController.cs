@@ -1,4 +1,5 @@
 ﻿using CyberJob.DTOs;
+using CyberJob.Helpers;
 using CyberJob.Models;
 using CyberJob.Services;
 using CyberJob.ViewModels;
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CyberJob.Controllers;
 
-public class StaticPageController(FaqService faqService, SubscriptionPlanService subscriptionPlanService, LegalTermAndUserAgreementService legalTermService) : Controller
+public class StaticPageController(FaqService faqService, SubscriptionPlanService subscriptionPlanService, LegalTermAndUserAgreementService legalTermService, CyberJob.Helpers.SettingHelper settingHelper) : Controller
 {
     [HttpGet("/services")]
     public async Task<IActionResult> Services()
@@ -20,9 +21,11 @@ public class StaticPageController(FaqService faqService, SubscriptionPlanService
     }
 
     [HttpGet("/about")]
-    public Task<IActionResult> About()
+    public async Task<IActionResult> About([FromQuery] string lang = "az")
     {
-        return Task.FromResult<IActionResult>(View());
+        var rawJson = await settingHelper.Get("about_us");
+        ViewBag.AboutUs = rawJson?.Translate(lang) ?? "";
+        return View();
     }
 
     [HttpGet("/advertise")]

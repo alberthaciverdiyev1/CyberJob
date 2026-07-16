@@ -78,27 +78,27 @@
 
    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 justify-items-center">
 
-    <div class="w-full max-w-[170px] bg-green-500 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
+    <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))" target="_blank" rel="noopener noreferrer" class="w-full max-w-[170px] bg-green-500 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
         <div class="bg-white/95 text-green-700 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Bizi izləyin</div>
         <div class="bg-white p-2 rounded-xl aspect-square flex items-center justify-center overflow-hidden">
             <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
-                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("whatsapp_number")))
+                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.GetSocialUrl("whatsapp_number")))
             </div>
         </div>
         <p class="pt-3 text-white font-semibold text-center flex items-center justify-center gap-2 text-sm">
             WhatsApp
         </p>
-    </div>
+    </a>
 
-    <div class="w-full max-w-[170px] bg-green-600 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
+    <a href="@(await SettingHelper.GetSocialUrl("whatsapp_business_number"))" target="_blank" rel="noopener noreferrer" class="w-full max-w-[170px] bg-green-600 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
         <div class="bg-white/95 text-green-800 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Əlaqə saxlayın</div>
         <div class="bg-white p-2 rounded-xl aspect-square flex items-center justify-center overflow-hidden">
             <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
-                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("whatsapp_business_number")))
+                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.GetSocialUrl("whatsapp_business_number")))
             </div>
         </div>
         <p class="pt-3 text-white font-semibold text-center text-sm">WhatsApp Business</p>
-    </div>
+    </a>
 
     <div class="w-full max-w-[170px] bg-blue-600 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
         <div class="bg-white/95 text-blue-700 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Bizi izləyin</div>
@@ -120,15 +120,15 @@
         <p class="pt-3 text-white font-semibold text-center text-sm">Linkedin</p>
     </div>
 
-    <div class="w-full max-w-[170px] bg-sky-500 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
+    <a href="@(await SettingHelper.GetSocialUrl("telegram_number"))" target="_blank" rel="noopener noreferrer" class="w-full max-w-[170px] bg-sky-500 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
         <div class="bg-white/95 text-sky-700 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Bizi izləyin</div>
         <div class="bg-white p-2 rounded-xl aspect-square flex items-center justify-center overflow-hidden">
             <div class="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block">
-                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.Get("telegram_number")))
+                @Html.Raw(SettingHelper.GenerateQrSvg(await SettingHelper.GetSocialUrl("telegram_number")))
             </div>
         </div>
         <p class="pt-3 text-white font-semibold text-center text-sm">Telegram</p>
-    </div>
+    </a>
 
     <div class="w-full max-w-[170px] bg-gradient-to-br from-purple-500 to-pink-500 p-3 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-2">
         <div class="bg-white/95 text-purple-600 text-center font-bold py-1 px-2 rounded-lg mb-3 text-sm">Bizi izləyin</div>

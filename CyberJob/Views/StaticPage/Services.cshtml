@@ -60,7 +60,7 @@
                             <div class="text-5xl font-bold leading-none pb-4">@subscription.OldPrice AZN/ay</div>
                         }
                     </div>
-                    <a href="https://wa.me/@(await SettingHelper.Get("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10 text-center">
+                    <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10 text-center">
                         Əldə et
                     </a>
                 </div>
@@ -104,7 +104,7 @@
                             <div class="text-5xl font-bold leading-none pb-4">@subscription.OldPrice AZN/il</div>
                         }
                     </div>
-                    <a href="https://wa.me/@(await SettingHelper.Get("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10 text-center">
+                    <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10 text-center">
                         Əldə et
                     </a>
                 </div>
