@@ -9,6 +9,7 @@ public class SubscriptionPlanDto
     public string? Type { get; set; }
     public DateTime? DiscountStart { get; set; }
     public DateTime? DiscountEnd { get; set; }
+    public bool IsPremium { get; set; }
     public List<SubscriptionPlanOptionDto> Options { get; set; } = new();
 
     public bool HasActiveDiscount =>

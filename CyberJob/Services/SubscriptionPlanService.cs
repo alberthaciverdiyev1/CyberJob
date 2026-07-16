@@ -9,7 +9,7 @@ public class SubscriptionPlanService(AppDbContext context)
 {
     public async Task<List<SubscriptionPlanDto>> GetActivePlansAsync(string lang = "az")
     {
-        return await context.SubscriptionPlans
+        var plans = await context.SubscriptionPlans
             .AsNoTracking()
             .Include(p => p.Options.Where(o => o.IsActive))
             .Where(p => p.IsActive)
@@ -30,6 +30,15 @@ public class SubscriptionPlanService(AppDbContext context)
                 }).ToList(),
             })
             .ToListAsync();
+
+        // Mark plan as premium if its name contains "premium"
+        foreach (var plan in plans)
+        {
+            if (plan.Name.Contains("premium", StringComparison.OrdinalIgnoreCase))
+                plan.IsPremium = true;
+        }
+
+        return plans;
     }
 
     public async Task<List<SubscriptionPlanDto>> GetAllPlansAsync(string lang = "az")
