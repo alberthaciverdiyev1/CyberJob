@@ -25,6 +25,7 @@ public class HomeController(
         var model = new HomeIndexVM
         {
             Banners = banners,
+            HeroBanner = banners.FirstOrDefault(b => b.Location == "home_hero"),
             Categories = categories,
             Partners = partners,
             PremiumVacancies = premiumVacancies,

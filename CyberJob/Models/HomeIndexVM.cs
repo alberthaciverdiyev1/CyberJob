@@ -5,6 +5,7 @@ namespace CyberJob.Models;
 public class HomeIndexVM
 {
     public IEnumerable<BannerDto> Banners { get; set; } = Enumerable.Empty<BannerDto>();
+    public BannerDto? HeroBanner { get; set; }
     public IEnumerable<CategoryDto> Categories { get; set; } = Enumerable.Empty<CategoryDto>();
     public IEnumerable<PartnerDto> Partners { get; set; } = Enumerable.Empty<PartnerDto>();
     public IEnumerable<VacancyListDto> PremiumVacancies { get; set; } = Enumerable.Empty<VacancyListDto>();

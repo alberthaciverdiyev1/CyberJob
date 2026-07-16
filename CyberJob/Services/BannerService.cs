@@ -19,6 +19,7 @@ public class BannerService(AppDbContext context)
                 Id = b.Id,
                 Image = b.Image.ToAdminUrl(),
                 Location = b.Location,
+                Link = b.Link,
                 IsDesktop = b.IsDesktop
             })
             .ToListAsync(); 
