@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        @if (Model.Vacancy.BannerImage || Model.Vacancy.Company?.BannerImage)
+        @if (Model.Vacancy.BannerImage != null || Model.Vacancy.Company?.BannerImage != null)
         {
             <div
                 class="w-full max-w-[730px] lg:w-[730px] h-[120px] sm:h-[170px] rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
