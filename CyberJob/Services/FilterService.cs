@@ -28,7 +28,8 @@ public class FilterService(AppDbContext context)
             vacancyCounts = await context.VacancyFilters
                 .Where(vf => childFilterIds.Contains(vf.FilterId)
                     && vf.Vacancy.IsActive
-                    && vf.Vacancy.DeletedAt == null)
+                    && vf.Vacancy.DeletedAt == null
+                    && vf.Vacancy.ExpireDate >= DateTime.UtcNow)
                 .GroupBy(vf => vf.FilterId)
                 .Select(g => new { FilterId = g.Key, Count = g.Count() })
                 .ToDictionaryAsync(x => x.FilterId, x => x.Count);
