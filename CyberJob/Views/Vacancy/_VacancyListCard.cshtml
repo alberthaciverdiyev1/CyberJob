@@ -11,7 +11,7 @@
                 border-2 border-white dark:border-zinc-800
                 flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-4 sm:py-0 transition-all
                 hover:border-extraLightGreen hover:shadow-md cursor-pointer
-                 w-full no-underline min-h-24 sm:min-h-28 rounded-3xl mb-4
+                 w-full no-underline min-h-24 sm:min-h-28 rounded-3xl mb-4 overflow-hidden
                      @(vacancy.IsPremium ? "!border-gold border-2 sm:border-4" : "bg-white dark:bg-black")
                 ">
         @if (vacancy.IsPremium)
@@ -20,7 +20,7 @@
                 <span class="text-[11px] sm:text-sm font-bold text-gray-100 uppercase tracking-wider">PREMİUM</span>
             </div>
         }
-        <div class="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
+        <div class="flex items-center gap-4 sm:gap-6 w-full sm:flex-1 sm:min-w-0">
             <div class="flex items-center justify-center overflow-hidden shrink-0 border border-gray-100 dark:border-gray-700 w-14 h-14 sm:w-20 sm:h-20 rounded-lg">
                 <img src="@vacancy.Company.Logo" class="w-full h-full object-cover" alt="@vacancy.Company.Name">
             </div>
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div class="text-right shrink-0 mt-2 sm:mt-0 self-end sm:self-center">
+        <div class="text-right shrink-0 mt-2 sm:mt-0 self-end sm:self-center whitespace-nowrap">
             <p class="text-darkGreen font-bold text-sm sm:text-md">@vacancy.Salary</p>
         </div>
     </a>
