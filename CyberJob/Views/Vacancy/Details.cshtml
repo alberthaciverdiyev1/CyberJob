@@ -9,7 +9,8 @@
 
 <main class="max-w-[1440px] mx-auto px-4 sm:px-10 lg:px-[100px] py-6 sm:py-10">
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 sm:mb-12">
-        <div class="w-full max-w-[490px] bg-white dark:bg-cyberGray rounded-[15px] p-5 sm:p-6 flex items-center gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+        <div
+            class="w-full @{ (Model.Vacancy.BannerImage || Model.Vacancy.Company?.BannerImage) ? "max-w-[490px]" : "max-w-full" } bg-white dark:bg-cyberGray rounded-[15px] p-5 sm:p-6 flex items-center gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
             <div class="w-16 h-16 sm:w-20 sm:h-20 shrink-0">
                 <img src="@Model.Vacancy.Company.Logo" alt="Logo" class="w-full h-full object-contain">
             </div>
@@ -23,17 +24,22 @@
                     <span
                         class="text-orange-400 px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold border border-[#FFB800]/20">@Localizer.Get("vacancy.detail.last_date", Model.Vacancy.ExpireDate?.ToString("dd.MM.yyyy"))  </span>
                     <span class="text-[#95A1B0] text-[10px] sm:text-xs flex items-center gap-1">
-                        <iconify-icon icon="ph:eye-bold"></iconify-icon> @Localizer.Get("vacancy.detail.views", Model.Vacancy.ViewCount)
+                        <iconify-icon
+                            icon="ph:eye-bold"></iconify-icon> @Localizer.Get("vacancy.detail.views", Model.Vacancy.ViewCount)
                     </span>
                 </div>
             </div>
         </div>
 
-        <div class="w-full max-w-[730px] lg:w-[730px] h-[120px] sm:h-[170px] rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
-            <img src="@(Model.Vacancy.BannerImage ?? Model.Vacancy.Company?.BannerImage ?? "")"
-                 alt="Reklam"
-                 class="w-full h-full object-cover">
-        </div>
+        @if (Model.Vacancy.BannerImage || Model.Vacancy.Company?.BannerImage)
+        {
+            <div
+                class="w-full max-w-[730px] lg:w-[730px] h-[120px] sm:h-[170px] rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+                <img src="@(Model.Vacancy.BannerImage ?? Model.Vacancy.Company?.BannerImage ?? "")"
+                     alt="Reklam"
+                     class="w-full h-full object-cover">
+            </div>
+        }
     </div>
 
     <div class="flex flex-col lg:flex-row gap-6 sm:gap-10">
@@ -48,7 +54,8 @@
                 @Html.Raw(SanitizeWithLineBreaks(Model.Vacancy.Requirements))
             </div>
 
-            <div class="mt-8 sm:mt-10 pt-6 border-t dark:border-gray-700 flex gap-4 sm:gap-6 text-[#95A1B0] font-bold text-xs sm:text-sm">
+            <div
+                class="mt-8 sm:mt-10 pt-6 border-t dark:border-gray-700 flex gap-4 sm:gap-6 text-[#95A1B0] font-bold text-xs sm:text-sm">
                 <button class="flex items-center gap-2 hover:text-[#009689] transition-colors">
                     <iconify-icon icon="ph:share-network-bold"></iconify-icon>
                     @Localizer["vacancy.detail.share"]
@@ -61,14 +68,17 @@
         </div>
 
         <aside class="w-full lg:w-[400px] shrink-0">
-            <div class="w-full max-w-[400px] bg-white dark:bg-cyberMain rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
-                <div class="bg-cyberMain dark:bg-black text-white p-3.5 sm:p-4 flex items-center justify-center gap-2.5">
+            <div
+                class="w-full max-w-[400px] bg-white dark:bg-cyberMain rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+                <div
+                    class="bg-cyberMain dark:bg-black text-white p-3.5 sm:p-4 flex items-center justify-center gap-2.5">
                     <iconify-icon icon="ph:info-bold"></iconify-icon>
                     <span class="font-bold">@Localizer["vacancy.detail.quick_info"]</span>
                 </div>
                 <div class="p-6 sm:p-8 space-y-5 sm:space-y-6 dark:bg-black">
                     <div class="flex justify-between items-center border-b dark:border-gray-700 pb-4 gap-4">
-                        <span class="text-black font-bold dark:text-white shrink-0">@Localizer["vacancy.detail.city"]</span>
+                        <span
+                            class="text-black font-bold dark:text-white shrink-0">@Localizer["vacancy.detail.city"]</span>
                         <span class="font-bold text-gray-400 dark:text-gray-400 text-right">@Model.Vacancy.City</span>
                     </div>
                     @foreach (FilterDetailDto v in Model.Vacancy.Filters)
@@ -79,13 +89,14 @@
                         </div>
                     }
                     <div class="flex justify-between items-center border-b dark:border-gray-700 pb-4 gap-4">
-                        <span class="text-black font-bold dark:text-white shrink-0">@Localizer["vacancy.detail.salary"]</span>
+                        <span
+                            class="text-black font-bold dark:text-white shrink-0">@Localizer["vacancy.detail.salary"]</span>
                         <span class="font-bold text-gray-400 dark:text-gray-400 text-right">@Model.Vacancy.Salary</span>
                     </div>
                     <a href="mailto:@(Model.Vacancy.Email ?? Model.Vacancy.Company.Email)"
-                        class="w-full bg-[#009689] text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-[#007a6f] transition-all text-sm sm:text-base hover:cursor-pointer">
+                       class="w-full bg-[#009689] text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-[#007a6f] transition-all text-sm sm:text-base hover:cursor-pointer">
                         <iconify-icon icon="ph:envelope-simple-bold"></iconify-icon>
-                       @(Model.Vacancy.Email ?? Model.Vacancy.Company.Email)
+                        @(Model.Vacancy.Email ?? Model.Vacancy.Company.Email)
                     </a>
                 </div>
             </div>
@@ -93,43 +104,53 @@
     </div>
 
     <div class="social-cta-wrapper flex justify-center w-full mb-8 sm:mb-12">
-        <div class="w-full max-w-[1239px] bg-white dark:bg-darkGreen rounded-2xl border border-b-cyberGreen dark:border-gray-700 flex items-center justify-between px-5 my-8 sm:my-10 min-h-[70px] flex-col sm:flex-row gap-4 py-4 sm:py-0">
+        <div
+            class="w-full max-w-[1239px] bg-white dark:bg-darkGreen rounded-2xl border border-b-cyberGreen dark:border-gray-700 flex items-center justify-between px-5 my-8 sm:my-10 min-h-[70px] flex-col sm:flex-row gap-4 py-4 sm:py-0">
             <div class="flex items-center gap-3 sm:gap-4">
                 <div class="flex-shrink-0 flex items-center justify-center w-[40px] sm:w-[53px] h-[50px] sm:h-[74px]">
                     <img src="~/images/robotelan.png" alt="robot" class="w-full h-full object-contain">
                 </div>
-                <span class="text-xl sm:text-base font-semibold text-black dark:text-white">@Localizer["vacancy.detail.social_title"]</span>
+                <span
+                    class="text-xl sm:text-base font-semibold text-black dark:text-white">@Localizer["vacancy.detail.social_title"]</span>
             </div>
             <div class="flex items-center gap-2 sm:gap-3">
-                <a href="@(await SettingHelper.Get("instagram_url"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <a href="@(await SettingHelper.Get("instagram_url"))" class="social-icon" target="_blank"
+                   rel="noopener noreferrer" aria-label="Instagram">
                     <img src="~/images/insta.png" alt="Instagram" width="24" height="24" loading="lazy">
                 </a>
 
-                <a href="@(await SettingHelper.GetSocialUrl("telegram_number"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                <a href="@(await SettingHelper.GetSocialUrl("telegram_number"))" class="social-icon" target="_blank"
+                   rel="noopener noreferrer" aria-label="Telegram">
                     <img src="~/images/tg.png" alt="Telegram" width="24" height="24" loading="lazy">
                 </a>
 
-                <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))" class="social-icon" target="_blank"
+                   rel="noopener noreferrer" aria-label="WhatsApp">
                     <img src="~/images/vp.png" alt="WhatsApp" width="24" height="24" loading="lazy">
                 </a>
 
-                <a href="@(await SettingHelper.Get("linkedin_url"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <a href="@(await SettingHelper.Get("linkedin_url"))" class="social-icon" target="_blank"
+                   rel="noopener noreferrer" aria-label="LinkedIn">
                     <img src="~/images/linkedin.png" alt="LinkedIn" width="24" height="24" loading="lazy">
                 </a>
 
-                <a href="@(await SettingHelper.Get("facebook_url"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <a href="@(await SettingHelper.Get("facebook_url"))" class="social-icon" target="_blank"
+                   rel="noopener noreferrer" aria-label="Facebook">
                     <img src="~/images/fbicon.png" alt="Facebook" width="24" height="24" loading="lazy">
                 </a>
 
-                <a href="@(await SettingHelper.Get("tiktok_url"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <a href="@(await SettingHelper.Get("tiktok_url"))" class="social-icon" target="_blank"
+                   rel="noopener noreferrer" aria-label="TikTok">
                     <iconify-icon icon="ph:tiktok-logo-fill" class="text-black text-xl"></iconify-icon>
                 </a>
 
-                <a href="@(await SettingHelper.Get("youtube_url"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <a href="@(await SettingHelper.Get("youtube_url"))" class="social-icon" target="_blank"
+                   rel="noopener noreferrer" aria-label="YouTube">
                     <iconify-icon icon="ph:youtube-logo-fill" class="text-black text-xl"></iconify-icon>
                 </a>
 
-                <a href="@(await SettingHelper.Get("twitter_url"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X">
+                <a href="@(await SettingHelper.Get("twitter_url"))" class="social-icon" target="_blank"
+                   rel="noopener noreferrer" aria-label="Twitter / X">
                     <iconify-icon icon="ph:x-logo-fill" class="text-black text-xl"></iconify-icon>
                 </a>
             </div>
@@ -142,26 +163,30 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            @foreach(VacancyListDto v in Model.SimilarVacancies){
-            <div class="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 rounded-[20px] p-5 transition-all duration-300 hover:border-[#009689] hover:-translate-y-1">
-                <div class="flex items-center gap-3 mb-4">
-                    <img src="@v.Company.Logo" alt="logo" class="w-8 h-8 sm:w-10 sm:h-10 object-contain">
-                    <div class="min-w-0">
-                        <h4 class="font-bold text-[13px] sm:text-[14px] text-black dark:text-white leading-tight truncate">@v.Name</h4>
-                        <p class="text-gray-400 text-[11px] sm:text-[12px] font-bold truncate">@v.Company.Name</p>
+            @foreach (VacancyListDto v in Model.SimilarVacancies)
+            {
+                <div
+                    class="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 rounded-[20px] p-5 transition-all duration-300 hover:border-[#009689] hover:-translate-y-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="@v.Company.Logo" alt="logo" class="w-8 h-8 sm:w-10 sm:h-10 object-contain">
+                        <div class="min-w-0">
+                            <h4 class="font-bold text-[13px] sm:text-[14px] text-black dark:text-white leading-tight truncate">@v.Name</h4>
+                            <p class="text-gray-400 text-[11px] sm:text-[12px] font-bold truncate">@v.Company.Name</p>
+                        </div>
+                    </div>
+                    <div
+                        class="flex justify-between items-center text-[10px] sm:text-[11px] text-[#95A1B0] dark:text-gray-400">
+                        <div class="flex items-center gap-2">
+                            <span>@v.CreatedAt.ToRelativeDate()</span>
+                            <span><iconify-icon icon="ph:eye-bold"></iconify-icon> @v.ViewCount</span>
+                        </div>
+                        <span class="text-[#009689] font-black">@v.Salary</span>
                     </div>
                 </div>
-                <div class="flex justify-between items-center text-[10px] sm:text-[11px] text-[#95A1B0] dark:text-gray-400">
-                    <div class="flex items-center gap-2">
-                        <span>@v.CreatedAt.ToRelativeDate()</span>
-                        <span><iconify-icon icon="ph:eye-bold"></iconify-icon> @v.ViewCount</span>
-                    </div>
-                    <span class="text-[#009689] font-black">@v.Salary</span>
-                </div>
-            </div>
-           }
+            }
 
-            <a asp-controller="Vacancy" asp-action="Index" class="sm:hidden py-2 mt-3 text-center text-white bg-cyberGreen rounded-xl hover: cursor-pointer">@Localizer["vacancy.detail.more"]</a>
+            <a asp-controller="Vacancy" asp-action="Index"
+               class="sm:hidden py-2 mt-3 text-center text-white bg-cyberGreen rounded-xl hover: cursor-pointer">@Localizer["vacancy.detail.more"]</a>
         </div>
 
         @* <div class="flex justify-center items-center gap-4 mt-8 sm:mt-10"> *@
@@ -178,7 +203,9 @@
 </main>
 
 <div id="reportModal" class="modal-overlay" onclick="closeModal()">
-    <div class="w-full max-w-[720px] bg-white dark:bg-[#1a1a1a] rounded-3xl p-8 sm:p-6 relative max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+    <div
+        class="w-full max-w-[720px] bg-white dark:bg-[#1a1a1a] rounded-3xl p-8 sm:p-6 relative max-h-[90vh] overflow-y-auto"
+        onclick="event.stopPropagation()">
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl font-extrabold text-[#0B2036] dark:text-white">@Localizer["vacancy.detail.report_title"]</h2>
             <span class="cursor-pointer text-2xl sm:text-[28px] text-[#95A1B0]" onclick="closeModal()">
@@ -188,37 +215,52 @@
 
         <form id="reportForm">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-8">
-                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
-                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="1">
+                <label
+                    class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason"
+                           value="1">
                     @Localizer["vacancy.detail.report.reason1"]
                 </label>
-                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
-                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="2" checked>
+                <label
+                    class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason"
+                           value="2" checked>
                     @Localizer["vacancy.detail.report.reason2"]
                 </label>
-                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
-                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="3">
+                <label
+                    class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason"
+                           value="3">
                     @Localizer["vacancy.detail.report.reason3"]
                 </label>
-                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
-                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="4">
+                <label
+                    class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason"
+                           value="4">
                     @Localizer["vacancy.detail.report.reason4"]
                 </label>
-                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
-                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="5">
+                <label
+                    class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason"
+                           value="5">
                     @Localizer["vacancy.detail.report.reason5"]
                 </label>
-                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
-                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="6">
+                <label
+                    class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason"
+                           value="6">
                     @Localizer["vacancy.detail.report.reason6"]
                 </label>
-                <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
-                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="7">
+                <label
+                    class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
+                    <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason"
+                           value="7">
                     @Localizer["vacancy.detail.report.reason7"]
                 </label>
             </div>
 
-            <button type="submit" class="w-full max-w-[320px] bg-[#52A38F] hover:bg-[#438a78] text-white font-bold py-4 rounded-xl mx-auto mt-5 block text-lg transition-colors">@Localizer["vacancy.detail.report.send"]</button>
+            <button type="submit"
+                    class="w-full max-w-[320px] bg-[#52A38F] hover:bg-[#438a78] text-white font-bold py-4 rounded-xl mx-auto mt-5 block text-lg transition-colors">@Localizer["vacancy.detail.report.send"]</button>
         </form>
     </div>
 </div>
