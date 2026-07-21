@@ -11,7 +11,7 @@ public static class UrlHelper
 
     public static string ToAdminUrl(this string? path)
     {
-        if (string.IsNullOrEmpty(path)) return "/images/no-image.png"; 
+        if (string.IsNullOrEmpty(path)) return "/images/cyberlogo.png"; 
         if (path.StartsWith("http")) return path; 
 
         return $"{_storageUrl?.TrimEnd('/')}/{path.TrimStart('/')}";
