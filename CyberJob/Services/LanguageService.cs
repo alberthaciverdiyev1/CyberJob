@@ -17,14 +17,6 @@ public class LanguageService(IHttpContextAccessor httpContextAccessor)
         var cookieLang = context.Request.Cookies[CookieKey];
         if (IsValid(cookieLang)) return cookieLang;
 
-        // 3. Accept-Language header
-        var acceptLang = context.Request.Headers["Accept-Language"].FirstOrDefault();
-        if (!string.IsNullOrEmpty(acceptLang))
-        {
-            var preferred = acceptLang.Split(',').FirstOrDefault()?[..2].ToLower();
-            if (IsValid(preferred)) return preferred!;
-        }
-
         return "az";
     }
 
