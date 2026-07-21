@@ -52,7 +52,10 @@
 
         fetch('/Home/Subscribe', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': window._csrfToken || ''
+            },
             body: JSON.stringify({ email: email })
         })
         .then(res => res.json())

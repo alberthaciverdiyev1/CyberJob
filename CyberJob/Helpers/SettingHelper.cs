@@ -43,15 +43,26 @@ public class SettingHelper(AppDbContext context)
         if (string.IsNullOrEmpty(value))
             return value;
 
-        bool IsUrl(string v) => v.StartsWith("http://") || v.StartsWith("https://") || v.StartsWith("wa.me") || v.StartsWith("t.me");
+        bool IsAbsoluteUrl(string v) => Uri.TryCreate(v, UriKind.Absolute, out var uri)
+            && (uri.Scheme == "http" || uri.Scheme == "https");
 
         if (key.Contains("whatsapp", StringComparison.OrdinalIgnoreCase))
-            return IsUrl(value) ? value : $"https://wa.me/{value.TrimStart('+')}";
+        {
+            value = IsAbsoluteUrl(value) ? value : $"https://wa.me/{value.TrimStart('+')}";
+            if (!value.StartsWith("https://wa.me/"))
+                return null;
+            return value;
+        }
 
         if (key.Contains("telegram", StringComparison.OrdinalIgnoreCase))
-            return IsUrl(value) ? value : $"https://t.me/{value.TrimStart('@')}";
+        {
+            value = IsAbsoluteUrl(value) ? value : $"https://t.me/{value.TrimStart('@')}";
+            if (!value.StartsWith("https://t.me/"))
+                return null;
+            return value;
+        }
 
-        return value;
+        return IsAbsoluteUrl(value) ? value : null;
     }
 
     public string GenerateQrSvg(string url)

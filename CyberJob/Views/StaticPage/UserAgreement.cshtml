@@ -1,4 +1,6 @@
 @using CyberJob.DTOs
+@using CyberJob.Helpers
+@using static CyberJob.Helpers.HtmlSanitizerHelper
 @model List<LegalTermAndUserAgreementDto>
 
 <div class="max-w-5xl mx-auto py-10">
@@ -24,7 +26,7 @@
                 </div>
             </div>
 
-            <div id="content-@Model.IndexOf(item)" class="hidden">@Html.Raw(item.Content)</div>
+            <div id="content-@Model.IndexOf(item)" class="hidden">@Html.Raw(Sanitize(item.Content))</div>
         }
     </div>
 </div>

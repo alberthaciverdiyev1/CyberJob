@@ -1,6 +1,8 @@
 @using CyberJob.Helpers
 @using Microsoft.EntityFrameworkCore.Query
 @inject CyberJob.Helpers.SettingHelper SettingHelper
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{ var csrfToken = Antiforgery.GetAndStoreTokens(Context).RequestToken; }
 
 <!DOCTYPE html>
 <html lang="az">
@@ -55,6 +57,7 @@
   </style>
 
   <title>CyberJob</title>
+  <script>window._csrfToken = '@csrfToken';</script>
 </head>
 <body class="bg-gray-50 dark:bg-darkMode text-cyberMain dark:text-white antialiased">
 @Html.Raw(await SettingHelper.GetScript("body"))

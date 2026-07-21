@@ -1,3 +1,6 @@
+@using CyberJob.Helpers
+@using static CyberJob.Helpers.HtmlSanitizerHelper
+
 @section Styles {
     <link rel="stylesheet" href="~/css/blog-details.css"/>
 }
@@ -14,7 +17,7 @@
 
         <div class="article-content">
 
-            @Html.Raw(Model.Description)
+            @Html.Raw(Sanitize(Model.Description))
 
         </div>
 

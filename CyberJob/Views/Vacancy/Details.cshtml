@@ -1,6 +1,7 @@
 @using CyberJob.DTOs
 @using CyberJob.Helpers
 @inject CyberJob.Helpers.SettingHelper SettingHelper
+@using static CyberJob.Helpers.HtmlSanitizerHelper
 
 
 @section Styles {
@@ -40,12 +41,12 @@
         <div class="flex-1 bg-white dark:bg-black p-6 sm:p-10 rounded-[15px] shadow-sm">
             <h3 class="text-[18px] sm:text-[20px] font-black text-[#0B2036] dark:text-white mb-4 sm:mb-6">İşin təsviri</h3>
             <div class="text-[#4F5B67] dark:text-gray-300 leading-relaxed space-y-4 text-[14px] sm:text-[15px]">
-                @Html.Raw(Model.Vacancy.Description.Replace("\n", "<br>"))
+                @Html.Raw(SanitizeWithLineBreaks(Model.Vacancy.Description))
             </div>
 
             <h3 class="text-[18px] sm:text-[20px] font-black text-[#0B2036] dark:text-white mt-8 sm:mt-10 mb-4 sm:mb-6">Xüsusi tələblər</h3>
             <div class="text-[#4F5B67] dark:text-gray-300 leading-relaxed space-y-4 text-[14px] sm:text-[15px]">
-                @Html.Raw(Model.Vacancy.Requirements.Replace("\n", "<br>"))
+                @Html.Raw(SanitizeWithLineBreaks(Model.Vacancy.Requirements))
             </div>
 
             <div class="mt-8 sm:mt-10 pt-6 border-t dark:border-gray-700 flex gap-4 sm:gap-6 text-[#95A1B0] font-bold text-xs sm:text-sm">

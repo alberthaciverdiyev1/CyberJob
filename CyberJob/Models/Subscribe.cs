@@ -10,8 +10,11 @@ public class Subscribe
     [Column("id")]
     public int Id { get; set; }
 
+    [Required(ErrorMessage = "Email daxil edin.")]
+    [EmailAddress(ErrorMessage = "Düzgün email ünvanı daxil edin.")]
+    [MaxLength(200)]
     [Column("email")]
-    public string Email { get; set; } 
+    public string Email { get; set; } = string.Empty;
 
 
     [Column("deleted_at")]
