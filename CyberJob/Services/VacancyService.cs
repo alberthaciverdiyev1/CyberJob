@@ -9,6 +9,14 @@ namespace CyberJob.Services;
 
 public class VacancyService(AppDbContext context, TranslationService translationService)
 {
+private static string FormatSalary(float? min, float? max, string negotiable) =>
+    (min, max) switch
+    {
+        (null, null) => negotiable,
+        (not null, null) => $"{min:0} AZN",
+        (null, not null) => $"{max:0} AZN",
+        (not null, not null) => $"{min:0} - {max:0} AZN"
+    };
 
 public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params)
 {
@@ -40,9 +48,7 @@ public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params
     {
         Id = v.Id,
         Name = v.Name,
-        Salary = (v.MinSalary == null && v.MaxSalary == null)
-                 ? translationService.Get("vacancy.salary.negotiable", @params.Lang)
-                 : $"{v.MinSalary} - {v.MaxSalary} AZN",
+        Salary = FormatSalary(v.MinSalary, v.MaxSalary, translationService.Get("vacancy.salary.negotiable", @params.Lang)),
         ViewCount = v.ViewCount,
         CreatedAt = v.CreatedAt,
         IsPremium = v.IsPremium,
@@ -136,9 +142,7 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
             Name = vacancy.Name,
             Description = vacancy.Description,
             Requirements = vacancy.Requirements,
-            Salary = (vacancy.MinSalary == null && vacancy.MaxSalary == null)
-                     ? translationService.Get("vacancy.salary.negotiable", lang)
-                     : $"{vacancy.MinSalary} - {vacancy.MaxSalary} AZN",
+            Salary = FormatSalary(vacancy.MinSalary, vacancy.MaxSalary, translationService.Get("vacancy.salary.negotiable", lang)),
             MinAge = vacancy.MinAge,
             MaxAge = vacancy.MaxAge,
             Email = vacancy.Email,
