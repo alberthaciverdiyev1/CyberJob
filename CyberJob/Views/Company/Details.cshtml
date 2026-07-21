@@ -1,5 +1,4 @@
 @using CyberJob.DTOs
-@using CyberJob.Helpers
 @using static CyberJob.Helpers.HtmlSanitizerHelper
 @section Styles {
     <link rel="stylesheet" href="~/css/companyDetails.css"/>
@@ -24,7 +23,7 @@
                     }
                 </span>
                 <div class="bg-white dark:bg-zinc-800 border border-lightBlue dark:border-blue-800 text-lightBlue dark:text-blue-400 px-3 sm:px-4 py-1 text-[11px] sm:text-sm font-medium rounded-md whitespace-nowrap">
-                    @Model.Company.VacancyCount vakansiya
+                    @Localizer.Get("company.vacancy_count", Model.Company.VacancyCount)
                 </div>
             </div>
 
@@ -34,7 +33,7 @@
                     <iconify-icon icon="fluent:checkbox-person-24-regular"
                                   class="text-[#007CC2] text-2xl sm:text-3xl shrink-0"></iconify-icon>
                     <div class="min-w-0">
-                        <p class="text-[#007CC2] dark:text-blue-400 text-[11px] sm:text-[13px] font-medium leading-tight">Kateqoriya</p>
+                        <p class="text-[#007CC2] dark:text-blue-400 text-[11px] sm:text-[13px] font-medium leading-tight">@Localizer["company.category"]</p>
                         <p class="text-[#007CC2] dark:text-blue-400 text-[12px] sm:text-[14px] font-semibold truncate">@Model.Company.CategoryName</p>
                     </div>
                 </div>
@@ -43,7 +42,7 @@
                     class="flex items-center gap-2 sm:gap-3 bg-white dark:bg-zinc-900 border-2 border-extraLightBlue dark:border-blue-900/50 rounded-[15px] px-4 sm:px-6 py-3 sm:py-4 flex-1 min-w-[130px] sm:min-w-[160px]">
                     <iconify-icon icon="fluent:clock-24-regular" class="text-[#007CC2] text-2xl sm:text-3xl shrink-0"></iconify-icon>
                     <div class="min-w-0">
-                        <p class="text-[#007CC2] dark:text-blue-400 text-[11px] sm:text-[13px] font-medium leading-tight">Təsis tarixi</p>
+                        <p class="text-[#007CC2] dark:text-blue-400 text-[11px] sm:text-[13px] font-medium leading-tight">@Localizer["company.founded"]</p>
                         <p class="text-[#007CC2] dark:text-blue-400 text-[12px] sm:text-[14px] font-semibold">@Model.Company.FoundedYear</p>
                     </div>
                 </div>
@@ -52,7 +51,7 @@
                     class="flex items-center gap-2 sm:gap-3 bg-white dark:bg-zinc-900 border-2 border-extraLightBlue dark:border-blue-900/50 rounded-[15px] px-4 sm:px-6 py-3 sm:py-4 flex-1 min-w-[130px] sm:min-w-[160px]">
                     <iconify-icon icon="fluent:location-24-regular" class="text-[#007CC2] text-2xl sm:text-3xl shrink-0"></iconify-icon>
                     <div class="min-w-0">
-                        <p class="text-[#007CC2] dark:text-blue-400 text-[11px] sm:text-[13px] font-medium leading-tight">Ünvan</p>
+                        <p class="text-[#007CC2] dark:text-blue-400 text-[11px] sm:text-[13px] font-medium leading-tight">@Localizer["company.address"]</p>
                         <p class="text-[#007CC2] dark:text-blue-400 text-[12px] sm:text-[14px] font-semibold truncate">@Model.Company.ShortAddress</p>
                     </div>
                 </div>
@@ -61,22 +60,22 @@
     </section>
 
     <nav class="nav-tabs font-semibold mx-0 sm:mx-12 overflow-x-auto">
-        <div class="nav-tab active whitespace-nowrap" onclick="openTab(event, 'vacancies')">Vakansiyalar</div>
-        <div class="nav-tab whitespace-nowrap" onclick="openTab(event, 'about')">Şirkət haqqında</div>
+        <div class="nav-tab active whitespace-nowrap" onclick="openTab(event, 'vacancies')">@Localizer["company.tab.vacancies"]</div>
+        <div class="nav-tab whitespace-nowrap" onclick="openTab(event, 'about')">@Localizer["company.tab.about"]</div>
     </nav>
 
     <div id="about" class="tab-content">
         <section class="p-6 sm:p-10">
-            <h2 class="text-2xl sm:text-3xl text-black dark:text-white font-semibold mb-6 sm:mb-8">@Model.Company.Name - Şirkət profili</h2>
+            <h2 class="text-2xl sm:text-3xl text-black dark:text-white font-semibold mb-6 sm:mb-8">@Localizer.Get("company.profile_title", Model.Company.Name)</h2>
             <div class="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-[1.8] space-y-6">
 
                 @Html.Raw(SanitizeWithLineBreaks(Model.Company.About))
 
             </div>
             <div class="mt-8 sm:mt-12 space-y-4 border-t dark:border-gray-700 pt-8">
-                <p class="font-bold dark:text-white">Ünvan: <span
+                <p class="font-bold dark:text-white">@Localizer["company.address_label"]: <span
                         class="font-normal text-gray-600 dark:text-gray-400">@Model.Company.Address</span></p>
-                <p class="font-bold dark:text-white">E-poçt: <a href="mailto:@Model.Company.Email"
+                <p class="font-bold dark:text-white">@Localizer["company.email"]: <a href="mailto:@Model.Company.Email"
                                                                class="text-lightGreen font-bold">@Model.Company.Email</a>
                 </p>
             </div>
@@ -91,10 +90,10 @@
                       hx-target="#vacancy-list"
                       hx-trigger="load change, keyup delay:500ms from:.filter-input, submit">
 
-                    <input type="text" name="Search" placeholder="Vəzifə adı" class="w-full px-4 py-3.5 bg-gray-50 dark:bg-[#1a1a1a] border border-gray-100 dark:border-gray-700 rounded-xl text-sm outline-none transition-colors focus:border-[#009689] dark:text-gray-200 dark:placeholder-gray-500">
+                    <input type="text" name="Search" placeholder="@Localizer["company.search_placeholder"]" class="w-full px-4 py-3.5 bg-gray-50 dark:bg-[#1a1a1a] border border-gray-100 dark:border-gray-700 rounded-xl text-sm outline-none transition-colors focus:border-[#009689] dark:text-gray-200 dark:placeholder-gray-500">
 
                     <select name="CityId" class="w-full px-4 py-3.5 bg-gray-50 dark:bg-[#1a1a1a] border border-gray-100 dark:border-gray-700 rounded-xl text-sm outline-none transition-colors focus:border-[#009689] dark:text-gray-300 dark:placeholder-gray-500 appearance-none">
-                        <option value="">Şəhər seç</option>
+                        <option value="">@Localizer["company.city_select"]</option>
                         @foreach (var city in Model.Cities)
                         {
                             <option value="@city.Id">@city.Name</option>
@@ -113,7 +112,7 @@
 
                     <button type="submit"
                             class="w-full py-4 bg-lightGreen text-white font-bold rounded-xl shadow-lg hover:bg-darkGreen transition-all">
-                        Axtar
+                        @Localizer["company.search_button"]
                     </button>
                 </form>
             </aside>

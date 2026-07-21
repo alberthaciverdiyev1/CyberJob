@@ -43,6 +43,7 @@ public class CategoryService(AppDbContext context)
 
         var vacancyCounts = await context.Vacancies
             .Where(v => v.IsActive && v.DeletedAt == null)
+            .Where(v => v.CreatedAt >= DateTime.UtcNow.AddMonths(-1))
             .GroupBy(v => v.CategoryId)
             .Select(g => new { CategoryId = g.Key, Count = g.Count() })
             .ToDictionaryAsync(x => x.CategoryId, x => x.Count);

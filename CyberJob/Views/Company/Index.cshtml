@@ -1,5 +1,4 @@
 @using CyberJob.DTOs
-@using CyberJob.Helpers
 @section Styles {
     <link rel="stylesheet" href="~/css/company.css"/>
 }
@@ -9,11 +8,11 @@
     <div class="text-center mb-10 sm:mb-16 font-semibold">
         <h1 class="text-3xl sm:text-4xl mb-3
                text-black dark:text-white transition-colors duration-300">
-            Şirkətlər
+            @Localizer["company.title"]
         </h1>
         <p class="text-base sm:text-lg font-medium
               text-black dark:text-white transition-colors duration-300">
-            Arzuladığınız iş yerini tapmaq üçün şirkətlərin siyahısı ilə tanış olun.
+            @Localizer["company.description"]
         </p>
     </div>
 
@@ -28,7 +27,7 @@
                     <input type="text"
                            name="search"
                            value="@ViewBag.Search"
-                           placeholder="Şirkət axtar..."
+                           placeholder="@Localizer["company.search_placeholder"]"
                            class="w-full py-3.5 pl-12 pr-4 bg-gray-50 dark:bg-zinc-800 border border-lightGreen rounded-xl text-sm focus:outline-none focus:border-[#1A998D] transition-all dark:text-white dark:placeholder-gray-400"
                            hx-get="/companies"
                            hx-trigger="keyup changed delay:500ms, search"
@@ -56,7 +55,7 @@
                 <input type="text"
                        name="search"
                        value="@ViewBag.Search"
-                       placeholder="Şirkət axtar..."
+                       placeholder="@Localizer["company.search_placeholder"]"
                        class="sm:hidden w-lg py-3.5 pl-12 pr-4 bg-gray-50 dark:bg-zinc-800 border border-lightGreen rounded-xl text-sm focus:outline-none focus:border-[#1A998D] transition-all dark:text-white dark:placeholder-gray-500"
                        hx-get="/companies"
                        hx-trigger="keyup changed delay:500ms, search"
@@ -68,8 +67,8 @@
                             hx-get="/companies"
                             hx-target="#companies-container"
                             hx-trigger="change">
-                        <option value="newest">Ən yeni</option>
-                        <option value="popular">Məşhur</option>
+                        <option value="newest">@Localizer["company.sort_newest"]</option>
+                        <option value="popular">@Localizer["company.sort_popular"]</option>
                     </select>
                     <iconify-icon icon="ph:caret-down-bold" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#1A998D] pointer-events-none"></iconify-icon>
                 </div>
@@ -88,7 +87,7 @@
                                 hx-target="#companies-container"
                                 hx-push-url="true"
                                 class="px-5 sm:px-7 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-500 dark:text-gray-400 font-bold text-[14px] hover:border-[#1A998D] hover:text-[#1A998D] transition-all">
-                            Əvvəlki
+                            @Localizer["pagination.previous"]
                         </button>
                     }
 
@@ -111,7 +110,7 @@
                                 hx-target="#companies-container"
                                 hx-push-url="true"
                                 class="px-5 sm:px-7 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-500 dark:text-gray-400 font-bold text-[14px] hover:border-[#1A998D] hover:text-[#1A998D] transition-all">
-                            Növbəti
+                            @Localizer["pagination.next"]
                         </button>
                     }
                 </div>

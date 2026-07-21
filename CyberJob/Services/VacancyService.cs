@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CyberJob.Services;
 
 
-public class VacancyService(AppDbContext context)
+public class VacancyService(AppDbContext context, TranslationService translationService)
 {
 
 public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params)
@@ -41,16 +41,16 @@ public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params
         Id = v.Id,
         Name = v.Name,
         Salary = (v.MinSalary == null && v.MaxSalary == null)
-                 ? "Razılaşma yolu ilə"
+                 ? translationService.Get("vacancy.salary.negotiable", @params.Lang)
                  : $"{v.MinSalary} - {v.MaxSalary} AZN",
         ViewCount = v.ViewCount,
-        CreatedAt = v.CreatedAt ?? DateTime.MinValue,
+        CreatedAt = v.CreatedAt,
         IsPremium = v.IsPremium,
-        CityName = v.City?.Name.Translate(@params.Lang)!,
+        CityName = v.City?.Name.Translate(@params.Lang),
         Company = new VacancyCompanyDto
         {
-            Name = v.Company?.Name!,
-            Logo = v.Company?.Logo?.ToAdminUrl()!,
+            Name = v.Company?.Name ?? "",
+            Logo = v.Company?.Logo?.ToAdminUrl() ?? "/images/no-image.png",
             IsVerified = v.Company?.IsVerified ?? false
         }
     }).ToList();
@@ -81,16 +81,16 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
     if (@params.CompanyId.HasValue)
         query = query.Where(v => v.CompanyId == @params.CompanyId);
     if (!string.IsNullOrEmpty(@params.Search))
-        query = query.Where(v => v.Name.ToLower().Contains(@params.Search.ToLower()));
+        query = query.Where(v => EF.Functions.ILike(v.Name, $"%{@params.Search}%"));
 
     if (@params.Filters != null && @params.Filters.Any())
     {
         foreach (var filter in @params.Filters)
         {
-            if (!string.IsNullOrEmpty(filter.Value))
+            if (!string.IsNullOrEmpty(filter.Value) && int.TryParse(filter.Key, out var filterId))
             {
                 query = query.Where(v => v.VacancyFilters.Any(vf =>
-                    vf.FilterId.ToString() == filter.Key));
+                    vf.FilterId == filterId));
             }
         }
     }
@@ -121,13 +121,14 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
             .Include(v => v.VacancyFilters)
             .ThenInclude(vf => vf.Filter!)
                 .ThenInclude(f => f.Parent)
-        .AsNoTracking()
             .AsNoTracking()
-            .FirstOrDefaultAsync(v => v.Id == id && v.DeletedAt == null);
+            .FirstOrDefaultAsync(v => v.Id == id && v.DeletedAt == null && v.IsActive && v.ExpireDate >= DateTime.UtcNow);
 
         if (vacancy == null) return null;
 
-        // await context.Vacancies.Where(x => x.Id == id).ExecuteUpdateAsync(s => s.SetProperty(b => b.ViewCount, b => b.ViewCount + 1));
+        await context.Vacancies
+            .Where(x => x.Id == id)
+            .ExecuteUpdateAsync(s => s.SetProperty(b => b.ViewCount, b => b.ViewCount + 1));
 
         return new VacancyDetailDto
         {
@@ -136,7 +137,7 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
             Description = vacancy.Description,
             Requirements = vacancy.Requirements,
             Salary = (vacancy.MinSalary == null && vacancy.MaxSalary == null)
-                     ? "Razılaşma yolu ilə"
+                     ? translationService.Get("vacancy.salary.negotiable", lang)
                      : $"{vacancy.MinSalary} - {vacancy.MaxSalary} AZN",
             MinAge = vacancy.MinAge,
             MaxAge = vacancy.MaxAge,

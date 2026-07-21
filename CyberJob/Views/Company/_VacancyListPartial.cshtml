@@ -3,7 +3,7 @@
 @if (!Model.Any())
 {
     <div class="p-8 sm:p-10 text-center bg-gray-50 dark:bg-zinc-900 rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-700">
-        <p class="text-gray-500 dark:text-gray-400 font-medium">Axtarışa uyğun vakansiya tapılmadı.</p>
+        <p class="text-gray-500 dark:text-gray-400 font-medium">@Localizer["company.no_vacancies"]</p>
     </div>
 }
 else
@@ -21,7 +21,7 @@ else
                     <h3 class="text-base sm:text-lg font-semibold text-black dark:text-white mb-1 truncate">@vacancy?.Name</h3>
                     <p class="text-gray-400 dark:text-gray-500 font-semibold flex items-center gap-2 text-sm sm:text-lg flex-wrap">
                         @vacancy?.Company?.Name
-                        @if (vacancy.Company.IsVerified)
+                        @if (vacancy?.Company?.IsVerified == true)
                         {
                             <iconify-icon icon="material-symbols:verified"
                                           class="text-[#2D9CDB] text-sm shrink-0"></iconify-icon>
@@ -35,14 +35,14 @@ else
                             </span>
                         <span class="flex items-center gap-1 sm:gap-2">
                             <iconify-icon icon="ph:eye-light" class="text-base sm:text-xl"></iconify-icon>
-                            @vacancy?.ViewCount baxış</span>
+                            @vacancy?.ViewCount @Localizer["company.view_count"]</span>
                     </div>
                 </div>
             </div>
             <a asp-controller="Vacancy"
                asp-action="Details"
                asp-route-id="@vacancy.Id"
-               class="rounded-[20px] bg-[#1A998D] hover:bg-[#457d79] px-6 sm:px-10 py-3 sm:py-4 text-center text-sm sm:text-lg text-white font-bold transition-all whitespace-nowrap w-full sm:w-auto mt-3 sm:mt-0">Müraciət et</a>
+               class="rounded-[20px] bg-[#1A998D] hover:bg-[#457d79] px-6 sm:px-10 py-3 sm:py-4 text-center text-sm sm:text-lg text-white font-bold transition-all whitespace-nowrap w-full sm:w-auto mt-3 sm:mt-0">@Localizer["company.apply_button"]</a>
         </div>
     }
 }

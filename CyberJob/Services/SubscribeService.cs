@@ -5,12 +5,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CyberJob.Services;
 
-public class SubscribeService(AppDbContext context)
+public class SubscribeService(AppDbContext context, TranslationService translationService, LanguageService languageService)
 {
     public async Task<(bool Success, string Message)> SubscribeAsync(string email)
     {
+        var lang = languageService.GetCurrentLanguage();
+
         if (string.IsNullOrWhiteSpace(email))
-            return (false, "Email daxil edin.");
+            return (false, translationService.Get("subscribe.error_empty", lang));
 
         email = email.Trim();
 
@@ -20,18 +22,18 @@ public class SubscribeService(AppDbContext context)
         if (!Validator.TryValidateObject(subscribe, validationContext, validationResults, true))
         {
             var error = validationResults.FirstOrDefault()?.ErrorMessage;
-            return (false, error ?? "Düzgün email ünvanı daxil edin.");
+            return (false, error ?? translationService.Get("validation.email", lang));
         }
 
         var exists = await context.Subscribes
             .AnyAsync(s => s.Email == email && s.DeletedAt == null);
 
         if (exists)
-            return (false, "Bu email artıq abunədir.");
+            return (false, translationService.Get("subscribe.exists", lang));
 
         context.Subscribes.Add(new Subscribe { Email = email });
         await context.SaveChangesAsync();
 
-        return (true, "Abunəlik uğurlu oldu!");
+        return (true, translationService.Get("subscribe.success", lang));
     }
 }

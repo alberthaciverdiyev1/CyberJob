@@ -1,5 +1,4 @@
 @using CyberJob.DTOs
-@using CyberJob.Helpers
 @inject CyberJob.Helpers.SettingHelper SettingHelper
 
 <partial name="../Sections/_MobileMenu"/>
@@ -11,38 +10,38 @@
                 <img src="~/images/cyberlogo.png" alt="CyberJob Logo" class="w-[160px] sm:w-[183px] h-auto object-contain" />
                 <div class="space-y-2">
                     <p class="text-gray-300 text-[14px] sm:text-[16px] leading-relaxed">
-                        Cyberjob - karyeranıza yeni addım atmaq üçün doğru ünvandır.
+                        @Localizer["footer.tagline"]
                     </p>
                     <p class="text-gray-300 text-[14px] sm:text-[16px] leading-relaxed">
-                        İstənilən sahə, istənilən imkan, bir platformada.
+                        @Localizer["footer.tagline2"]
                     </p>
                 </div>
             </div>
             <div class="sm:col-span-1 lg:col-span-3">
-                <h3 class="font-bold text-[16px] sm:text-[18px] mb-4 sm:mb-8 uppercase tracking-widest">KEÇİDLƏR</h3>
+                <h3 class="font-bold text-[16px] sm:text-[18px] mb-4 sm:mb-8 uppercase tracking-widest">@Localizer["footer.links"]</h3>
                 <nav class="flex flex-col gap-3 sm:gap-5 text-gray-300 text-[14px] sm:text-[16px]">
-                    <a asp-controller="Vacancy" asp-action="Index" class="hover:text-cyberGreen transition-colors">Vakansiyalar</a>
-                    <a asp-controller="Rank" asp-action="Index" class="hover:text-cyberGreen transition-colors">Reytinq cədvəli</a>
-                    <a href="/privacy" class="hover:text-cyberGreen transition-colors">Məxfilik</a>
-                    <a asp-controller="Company" asp-action="Index" class="hover:text-cyberGreen transition-colors">Şirkətlər</a>
-                    <a asp-controller="Blog" asp-action="Index" class="hover:text-cyberGreen transition-colors">Bloq</a>
-                    <a asp-controller="StaticPage" asp-action="Advertise" class="hover:text-cyberGreen transition-colors">Reklam</a>
+                    <a asp-controller="Vacancy" asp-action="Index" class="hover:text-cyberGreen transition-colors">@Localizer["nav.vacancies"]</a>
+                    <a asp-controller="Rank" asp-action="Index" class="hover:text-cyberGreen transition-colors">@Localizer["nav.rankings"]</a>
+                    <a href="/privacy" class="hover:text-cyberGreen transition-colors">@Localizer["footer.privacy"]</a>
+                    <a asp-controller="Company" asp-action="Index" class="hover:text-cyberGreen transition-colors">@Localizer["nav.companies"]</a>
+                    <a asp-controller="Blog" asp-action="Index" class="hover:text-cyberGreen transition-colors">@Localizer["footer.blog"]</a>
+                    <a asp-controller="StaticPage" asp-action="Advertise" class="hover:text-cyberGreen transition-colors">@Localizer["footer.advertise"]</a>
                 </nav>
             </div>
             <div class="sm:col-span-1 lg:col-span-4">
-                <h3 class="font-bold text-[16px] sm:text-[18px] mb-4 sm:mb-8 uppercase tracking-widest">MƏLUMAT</h3>
+                <h3 class="font-bold text-[16px] sm:text-[18px] mb-4 sm:mb-8 uppercase tracking-widest">@Localizer["footer.info"]</h3>
                 <nav class="flex flex-col gap-3 sm:gap-5 text-gray-300 text-[14px] sm:text-[16px]">
-                    <a  asp-controller="StaticPage" asp-action="UserAgreement"  class="hover:text-cyberGreen transition-colors">İstifadəçi razılaşması</a>
-                    <a  asp-controller="StaticPage" asp-action="About" class="hover:text-cyberGreen transition-colors">Haqqımızda</a>
-                    <a asp-controller="StaticPage" asp-action="Services" class="hover:text-cyberGreen transition-colors">Xidmətlər</a>
-                    <a asp-controller="StaticPage" asp-action="Privacy" class="hover:text-cyberGreen transition-colors">Gizlilik Şərtləri</a>
-                    <a asp-controller="StaticPage" asp-action="Contact" class="hover:text-cyberGreen transition-colors">Əlaqə</a>
+                    <a asp-controller="StaticPage" asp-action="UserAgreement" class="hover:text-cyberGreen transition-colors">@Localizer["footer.user_agreement"]</a>
+                    <a asp-controller="StaticPage" asp-action="About" class="hover:text-cyberGreen transition-colors">@Localizer["footer.about"]</a>
+                    <a asp-controller="StaticPage" asp-action="Services" class="hover:text-cyberGreen transition-colors">@Localizer["footer.services"]</a>
+                    <a asp-controller="StaticPage" asp-action="Privacy" class="hover:text-cyberGreen transition-colors">@Localizer["footer.privacy_terms"]</a>
+                    <a asp-controller="StaticPage" asp-action="Contact" class="hover:text-cyberGreen transition-colors">@Localizer["footer.contact"]</a>
                 </nav>
             </div>
         </div>
         <div class="pt-8 sm:pt-12 flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8">
             <div class="text-gray-400 text-[13px] sm:text-[15px] font-medium text-center md:text-left">
-                &copy; 2025-2026 Cyberjob. B&uuml;t&uuml;n h&uuml;quqlar qorunur. V&Ouml;EN: 6501782182
+                @Localizer["footer.copyright"]
             </div>
             <div class="flex items-center gap-md sm:gap-[10px] flex-wrap justify-center">
                 @if (!string.IsNullOrEmpty(await SettingHelper.Get("whatsapp_number")))

@@ -49,6 +49,9 @@ public class HomeController(
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Subscribe([FromBody] Subscribe request)
     {
+        if (request == null)
+            return BadRequest();
+
         var (success, message) = await subscribeService.SubscribeAsync(request.Email);
         return Json(new { success, message });
     }

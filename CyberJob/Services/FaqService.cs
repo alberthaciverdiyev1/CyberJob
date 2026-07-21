@@ -7,7 +7,7 @@ namespace CyberJob.Services;
 
 public class FaqService(AppDbContext context)
 {
-    public async Task<List<FaqDto>> GetListAsync(string? type = null)
+    public async Task<List<FaqDto>> GetListAsync(string? type = null, string lang = "az")
     {
         var query = context.Faqs
             .Where(f => f.DeletedAt == null);
@@ -21,8 +21,8 @@ public class FaqService(AppDbContext context)
             .AsNoTracking()
             .Select(f => new FaqDto
             {
-                Question = f.Question!.Translate(),
-                Answer = f.Answer!.Translate(),
+                Question = f.Question.Translate(lang),
+                Answer = f.Answer.Translate(lang),
                 Type = f.Type
             })
             .ToListAsync();

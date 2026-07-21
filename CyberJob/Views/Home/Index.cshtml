@@ -1,4 +1,3 @@
-@using CyberJob.Helpers
 @using CyberJob.DTOs
 @model CyberJob.Models.HomeIndexVM
 
@@ -41,21 +40,21 @@
     <div class="max-w-[1600px] mx-auto relative z-10">
         <div class="max-w-4xl mb-8 sm:mb-12">
             <h1 style="font-size: clamp(28px, 5vw, 48px); line-height: 1.1;" class="mb-4 font-bold text-white">
-                Yeni imkanlar. Yeni karyera. Yeni sən!
+                @Localizer["home.hero.title"]
             </h1>
             <p style="font-size: clamp(16px, 2.5vw, 24px); line-height: 1.4;" class="font-normal text-white">
-                Gələcəyin IT karyerası buradan başlayır.
+                @Localizer["home.hero.subtitle"]
             </p>
         </div>
 
         <!-- Input Container -->
         <form action="/vacancies" method="get"
-              class="w-full max-w-[1200px] bg-transparent md:bg-white rounded-xl border border-gray-200 p-1.5 flex flex-row items-center transition-all border border-white/10 shadow-2xl relative z-20">
+              class="w-full max-w-[1200px] bg-transparent md:bg-white rounded-xl border border-gray-200 p-1.5 flex flex-row items-center transition-all border-white/10 shadow-2xl relative z-20">
             <div
                 class="flex-1 flex items-center px-3 sm:px-6 bg-transparent sm:bg-gray-100 mx-2 rounded-xl border border-transparent focus-within:border-cyberGreen/30 transition-all">
                 <iconify-icon icon="ph:magnifying-glass"
                               class="text-gray-400 text-xl sm:text-2xl mr-2 sm:mr-3 shrink-0"></iconify-icon>
-                <input type="text" name="search" placeholder="Şirkət, sahə axtar..."
+                <input type="text" name="search" placeholder="@Localizer["home.search.placeholder"]"
                        class="w-full py-3 sm:py-4 text-gray-700 focus:outline-none text-base sm:text-lg font-medium bg-transparent placeholder:text-gray-400">
             </div>
 
@@ -64,7 +63,7 @@
 
                 <i class="fa-solid fa-magnifying-glass text-2xl sm:hidden"></i>
 
-                <span class="hidden sm:inline">Axtar</span>
+                <span class="hidden sm:inline">@Localizer["home.search.button"]</span>
             </button>
         </form>
 
@@ -86,7 +85,7 @@
 
                     <a asp-controller="Vacancy" asp-action="Index"
                        class="flex items-center justify-center border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-black hover:border-white transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-3 h-auto ">
-                        Diger
+                        @Localizer["home.categories.more"]
                     </a>
                 }
             </div>
@@ -113,7 +112,7 @@
     <div
         class="w-full max-w-[1600px] px-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-[20px] mt-3 mx-auto">
         <h2 class="col-span-full text-[22px] sm:text-[32px] font-bold text-center dark:text-white mb-2 sm:mb-4">
-            Hansı sahə üzrə axtarırsan?
+            @Localizer["home.categories.title"]
         </h2>
         @if (Model.Categories != null)
         {
@@ -142,8 +141,7 @@
         }
     </div>
 
-    <h2 class="text-2xl sm:text-3xl font-bold mt-10 sm:mt-16 mb-6 sm:mb-8 dark:text-white text-center">Premium
-        elanlar</h2>
+    <h2 class="text-2xl sm:text-3xl font-bold mt-10 sm:mt-16 mb-6 sm:mb-8 dark:text-white text-center">@Localizer["home.premium.title"]</h2>
     <div id="premium-ads-container"
          class="w-full max-w-[1600px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8 sm:mb-20">
         @foreach (var vacancy in Model.PremiumVacancies)
@@ -154,7 +152,7 @@
                     class="bg-white dark:bg-black rounded-[14px] p-3 md:p-4 h-full flex flex-col justify-between relative transition-colors border border-gray-100 dark:border-gray-800">
                     <div
                         class="premium-badge-gradient absolute top-0 right-2 sm:right-auto sm:top-2 sm:left-1/2 sm:-translate-x-1/2 px-3 sm:px-6 py-1 sm:py-2 rounded-b-2xl sm:rounded-full text-white text-[10px] sm:text-sm font-bold uppercase z-10 shadow-sm">
-                        Premium
+                        @Localizer["home.premium.badge"]
                     </div>
 
                     <div class="flex items-start gap-2.5 my-2 sm:mt-12 overflow-hidden">
@@ -193,7 +191,7 @@
         }
     </div>
 
-    <h2 class="text-2xl sm:text-3xl font-bold mb-5 sm:mb-9 dark:text-white">Ən son vakansiyalar</h2>
+    <h2 class="text-2xl sm:text-3xl font-bold mb-5 sm:mb-9 dark:text-white">@Localizer["home.latest.title"]</h2>
     <div id="latest-jobs-container"
          class="w-full max-w-[1600px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-[10px] mb-8 sm:mb-10">
 
@@ -237,14 +235,13 @@
 
     <a asp-controller="Vacancy" asp-action="Index"
        class="px-16 sm:px-24 py-4 sm:py-5 bg-darkGreen text-white font-bold rounded-lg mb-8 sm:mb-10 transition-colors hover:bg-black text-base sm:text-lg">
-        Daha çox
+        @Localizer["home.latest.more"]
     </a>
 
     @if (Model.Partners.Any())
     {
         <div class="w-full max-w-full px-4 sm:px-16">
-            <h2 class="text-center text-2xl sm:text-4xl font-bold mb-6 text-black dark:text-white">Bizi seçən
-                şirkətlər!</h2>
+            <h2 class="text-center text-2xl sm:text-4xl font-bold mb-6 text-black dark:text-white">@Localizer["home.partners.title"]</h2>
             <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-lightGreen/60 to-transparent mb-6"></div>
             <div
                 class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
@@ -272,18 +269,18 @@
 
     <div class="w-full flex flex-col items-center pb-16 sm:pb-24 bg-gray-50 dark:bg-[#0a0a0a] mt-3">
 
-        <h2 class="relative z-20 text-2xl sm:text-4xl font-bold mb-3 text-black dark:text-white">Statistika</h2>
+        <h2 class="relative z-20 text-2xl sm:text-4xl font-bold mb-3 text-black dark:text-white">@Localizer["home.stats.title"]</h2>
         <div
             class="inline-flex bg-white dark:bg-cyberMain p-1 rounded-xl mb-8 sm:mb-16 border dark:border-gray-800 transition-colors relative z-20">
             <button onclick="switchStats('visitor')"
                     class="stat-tab px-6 sm:px-10 py-2 bg-lightGreen text-white rounded-lg text-xs sm:text-sm font-semibold shadow-sm"
                     id="tab-visitor">
-                İzləyici
+                @Localizer["home.stats.visitor"]
             </button>
             <button onclick="switchStats('vacancy')"
                     class="stat-tab px-6 sm:px-10 py-2 text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-semibold hover:text-cyberMain dark:hover:text-white transition-all"
                     id="tab-vacancy">
-                Vakansiya
+                @Localizer["home.stats.vacancy"]
             </button>
         </div>
 
@@ -296,27 +293,27 @@
                 <div class="text-center">
                     <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-10 leading-none stat-value"
                        id="stat-daily">@Model.VisitorDaily</p>
-                    <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">G&uuml;nl&uuml;k</p>
+                    <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">@Localizer["home.stats.daily"]</p>
                 </div>
 
                 <div class="text-center">
                     <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-10 leading-none stat-value"
                        id="stat-weekly">@Model.VisitorWeekly</p>
                     <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">
-                        Həftəlik</p>
+                        @Localizer["home.stats.weekly"]</p>
                 </div>
 
                 <div class="text-center">
                     <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-10 leading-none stat-value"
                        id="stat-monthly">@Model.VisitorMonthly</p>
                     <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">
-                        Aylıq</p>
+                        @Localizer["home.stats.monthly"]</p>
                 </div>
 
                 <div class="text-center">
                     <p class="text-3xl sm:text-6xl font-bold dark:text-white mb-3 sm:mb-10 leading-none stat-value"
                        id="stat-total">@Model.VisitorTotal</p>
-                    <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">&Uuml;mumi</p>
+                    <p class="text-[10px] sm:text-sm font-semibold uppercase tracking-widest dark:text-gray-300">@Localizer["home.stats.total"]</p>
                 </div>
             </div>
         </div>

@@ -1,12 +1,15 @@
 @using CyberJob.DTOs
 
 @{
-    Layout = Context.Request.Headers.ContainsKey("HX-Request") ? null : "_Layout";
+    var isHtmx = Context.Request.Headers.ContainsKey("HX-Request");
+    Layout = isHtmx ? null : "_Layout";
 }
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/rank.css"/>
-
+@if (!isHtmx)
+{
+    @section Styles {
+        <link rel="stylesheet" href="~/css/rank.css"/>
+    }
 }
 
 <div class="w-full mx-auto pt-8 sm:pt-16 bg-cyberMain dark:bg-black transition-colors duration-300">
@@ -14,8 +17,7 @@
     @if (Layout != null)
     {
         <h1 class="text-3xl sm:text-5xl flex justify-center text-white font-semibold mb-10 sm:mb-16 tracking-tight px-4 text-center">
-            Şirkət siyahısının
-            üstünlükləri!</h1>
+            @Localizer["rank.hero.title"]</h1>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 mb-16 sm:mb-20 gap-8 sm:gap-0">
             <div class="flex flex-col items-center relative group px-4">
@@ -27,8 +29,7 @@
                      alt="Winner">
 
                 <p class="relative z-10 text-sm sm:text-md text-white leading-relaxed max-w-[260px] text-center px-2">
-                    Ayın lideri ol, <span class="font-bold">1 aylıq "Blue Tick"</span> nişanını ödənişsiz
-                    əldə et.
+                    @Localizer["rank.hero.winner_prefix"] <span class="font-bold">@Localizer["rank.hero.winner_badge"]</span> @Localizer["rank.hero.winner_suffix"]
                 </p>
             </div>
             <div class="flex flex-col items-center relative group px-4">
@@ -39,7 +40,7 @@
                 <img src="~/images/fly.png" class="relative z-10 h-48 sm:h-72 mb-4 sm:mb-6 drop-shadow-2xl" alt="Fly">
 
                 <p class="relative z-10 text-sm sm:text-md text-white leading-relaxed max-w-[260px] text-center px-2">
-                    Nə qədər aktivsənsə, sıralamada bir o qədər öndəsən.
+                    @Localizer["rank.hero.active"]
                 </p>
             </div>
             <div class="flex flex-col items-center relative group px-4">
@@ -51,7 +52,7 @@
                      alt="Strong">
 
                 <p class="relative z-10 text-sm sm:text-md text-white leading-relaxed max-w-[260px] text-center px-2">
-                    Rəqabətə qoşul və şirkətinin nüfuzunu artır!
+                    @Localizer["rank.hero.compete"]
                 </p>
             </div>
         </div>
@@ -85,19 +86,19 @@
                 <button hx-get="/rank?date=this_month" hx-target="#company-list-container" hx-push-url="true"
                         hx-on:click="updateTabClasses(this)"
                         class="filter-btn px-6 sm:px-16 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm text-white whitespace-nowrap @(currentDate == "this_month" ? activeClass : inactiveClass)">
-                    Aylıq
+                    @Localizer["rank.filter.monthly"]
                 </button>
 
                 <button hx-get="/rank?date=last_month" hx-target="#company-list-container" hx-push-url="true"
                         hx-on:click="updateTabClasses(this)"
                         class="filter-btn px-6 sm:px-16 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm text-white whitespace-nowrap @(currentDate == "last_month" ? activeClass : inactiveClass)">
-                    Ötən ay
+                    @Localizer["rank.filter.last_month"]
                 </button>
 
                 <button hx-get="/rank?date=all_time" hx-target="#company-list-container" hx-push-url="true"
                         hx-on:click="updateTabClasses(this)"
                         class="filter-btn px-6 sm:px-16 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm text-white whitespace-nowrap @(currentDate == "all_time" ? activeClass : inactiveClass)">
-                    Bütün vaxtlar
+                    @Localizer["rank.filter.all_time"]
                 </button>
             </div>
         </div>
@@ -126,7 +127,7 @@
                         <div
                             class="podium-gradient-silver w-full pt-4 sm:pt-10 pb-4 sm:pb-12 h-32 sm:h-72 md:h-96 flex flex-col items-center justify-between text-white shadow-xl relative">
                             <span
-                                class="font-bold opacity-90 text-[8px] sm:text-base">@Model.Companies[1].VacancyCount Elan</span>
+                                class="font-bold opacity-90 text-[8px] sm:text-base">@Model.Companies[1].VacancyCount @Localizer["rank.announcement"]</span>
                             <span class="text-xl sm:text-7xl md:text-8xl font-bold mb-4 sm:mb-20">2</span>
                         </div>
                     </div>
@@ -148,7 +149,7 @@
                         <div class="podium-gradient-gold h-8 sm:h-14 w-full podium-top"></div>
                         <div
                             class="podium-gradient-gold w-full pt-6 sm:pt-12 pb-6 sm:pb-14 h-40 sm:h-72 md:h-96 flex flex-col items-center justify-between text-white shadow-2xl relative">
-                            <span class="font-bold text-[8px] sm:text-lg">@Model.Companies[0].VacancyCount Elan</span>
+                            <span class="font-bold text-[8px] sm:text-lg">@Model.Companies[0].VacancyCount @Localizer["rank.announcement"]</span>
                             <span class="text-2xl sm:text-8xl md:text-9xl font-bold mb-6 sm:mb-20">1</span>
                         </div>
                     </div>
@@ -171,7 +172,7 @@
                         <div
                             class="podium-gradient-bronze w-full pt-4 sm:pt-10 pb-4 sm:pb-8 h-32 sm:h-72 md:h-96 flex flex-col items-center justify-between text-white shadow-xl relative">
                             <span
-                                class="font-bold opacity-90 text-[8px] sm:text-base">@Model.Companies[2].VacancyCount Elan</span>
+                                class="font-bold opacity-90 text-[8px] sm:text-base">@Model.Companies[2].VacancyCount @Localizer["rank.announcement"]</span>
                             <span class="text-xl sm:text-7xl md:text-8xl font-bold mb-4 sm:mb-20">3</span>
                         </div>
                     </div>
@@ -186,7 +187,7 @@
                         </span>
                         <input type="text"
                                name="search"
-                               placeholder="Şirkət axtar..."
+                               placeholder="@Localizer["rank.search_placeholder"]"
                                class="w-full pl-10 sm:pl-11 pr-4 py-2.5 sm:py-3 rounded-xl outline-none bg-white/5 border border-white/10 text-white transition focus:border-white/30 text-sm">
                     </div>
                 </div>
@@ -196,11 +197,11 @@
                         class="w-full border-separate border-spacing-y-2 sm:border-spacing-y-3 min-w-[600px] sm:min-w-0">
                         <thead class="text-white opacity-90 text-xs sm:text-sm tracking-wider">
                         <tr>
-                            <th class="px-3 sm:px-8 font-semibold text-left">Sıra</th>
-                            <th class="font-semibold text-left">Şirkət</th>
-                            <th class="font-semibold text-center">Elanlar</th>
-                            <th class="font-semibold text-center hidden sm:table-cell">Baxışlar</th>
-                            <th class="px-3 sm:px-8 font-semibold text-right">Artım</th>
+                            <th class="px-3 sm:px-8 font-semibold text-left">@Localizer["rank.rank"]</th>
+                            <th class="font-semibold text-left">@Localizer["rank.company"]</th>
+                            <th class="font-semibold text-center">@Localizer["rank.vacancies"]</th>
+                            <th class="font-semibold text-center hidden sm:table-cell">@Localizer["rank.views"]</th>
+                            <th class="px-3 sm:px-8 font-semibold text-right">@Localizer["rank.growth"]</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -232,7 +233,7 @@
                                 </td>
 
                                 <td class="py-2 sm:py-3 text-center text-xs sm:text-sm font-semibold text-white">
-                                    @c.VacancyCount <span class="text-[10px] opacity-50 block font-normal sm:inline">Elan</span>
+                                    @c.VacancyCount <span class="text-[10px] opacity-50 block font-normal sm:inline">@Localizer["rank.announcement"]</span>
                                 </td>
 
                                 <td class="py-2 sm:py-3 text-center text-xs sm:text-sm font-semibold text-white hidden sm:table-cell">
@@ -256,13 +257,13 @@
 
                 <a asp-controller="Company" asp-action="Index"
                     class="bg-lightGreen hover:bg-darkGreen px-8 sm:px-10 py-3 sm:py-4 text-white text-base sm:text-lg rounded-lg font-bold">
-                    Daha Cox
+                    @Localizer["rank.more_button"]
                 </a>
             </div>
         }
         else
         {
-            <div class="py-16 sm:py-20 opacity-50 text-white italic text-center px-4">Kifayət qədər məlumat tapılmadı.
+            <div class="py-16 sm:py-20 opacity-50 text-white italic text-center px-4">@Localizer["rank.no_data"]
             </div>
         }
     </div>
@@ -272,9 +273,8 @@
         @if (Model.Faqs != null && Model.Faqs.Count > 0)
         {
             <div class="text-center mb-8 sm:mb-12 mt-16 sm:mt-32 px-4">
-                <h2 class="text-2xl sm:text-4xl font-black text-white mb-3 sm:mb-4">Tez-tez verilən suallar</h2>
-                <p class="text-white/60 text-base sm:text-lg">Liderlərin reytinq cədvəli haqqında ən çox soruşulan
-                    suallar</p>
+                <h2 class="text-2xl sm:text-4xl font-black text-white mb-3 sm:mb-4">@Localizer["rank.faq_title"]</h2>
+                <p class="text-white/60 text-base sm:text-lg">@Localizer["rank.faq_subtitle"]</p>
             </div>
         }
 
@@ -297,16 +297,16 @@
         </div>
         <div
             class="flex flex-col items-center mx-4 sm:mx-8 lg:mx-36 justify-center bg-tableColor border border-lightGreen text-white rounded-2xl p-6 sm:p-12">
-            <p class="text-lg sm:text-xl mb-2">Cavabınızı tapa bilmədiniz?</p>
+            <p class="text-lg sm:text-xl mb-2">@Localizer["rank.help_title"]</p>
 
             <p class="text-sm sm:text-md opacity-60 mb-6 sm:mb-8 text-center max-w-md">
-                Dəstək komandamız sizə kömək etməkdən məmnun olacaq
+                @Localizer["rank.help_subtitle"]
             </p>
 
             <a asp-controller="StaticPage" asp-action="Contact" class="transition-transform hover:scale-105 active:scale-95">
                 <button
                     class="bg-lightGreen hover:bg-darkGreen px-8 sm:px-10 py-3 sm:py-4 text-white text-base sm:text-lg rounded-xl font-bold shadow-lg transition-colors">
-                    Bizimlə əlaqə saxlayın
+                    @Localizer["rank.contact_button"]
                 </button>
             </a>
         </div>

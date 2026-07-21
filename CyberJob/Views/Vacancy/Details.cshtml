@@ -1,6 +1,5 @@
 @using CyberJob.DTOs
 @using CyberJob.Helpers
-@inject CyberJob.Helpers.SettingHelper SettingHelper
 @using static CyberJob.Helpers.HtmlSanitizerHelper
 
 
@@ -22,9 +21,9 @@
                 </p>
                 <div class="flex items-center gap-3 sm:gap-4 mt-2 sm:mt-3 flex-wrap">
                     <span
-                        class="text-orange-400 px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold border border-[#FFB800]/20">Son tarix @Model.Vacancy.ExpireDate?.ToString("dd.MM.yyyy")  </span>
+                        class="text-orange-400 px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold border border-[#FFB800]/20">@Localizer.Get("vacancy.detail.last_date", Model.Vacancy.ExpireDate?.ToString("dd.MM.yyyy"))  </span>
                     <span class="text-[#95A1B0] text-[10px] sm:text-xs flex items-center gap-1">
-                        <iconify-icon icon="ph:eye-bold"></iconify-icon> @Model.Vacancy.ViewCount baxış
+                        <iconify-icon icon="ph:eye-bold"></iconify-icon> @Localizer.Get("vacancy.detail.views", Model.Vacancy.ViewCount)
                     </span>
                 </div>
             </div>
@@ -39,12 +38,12 @@
 
     <div class="flex flex-col lg:flex-row gap-6 sm:gap-10">
         <div class="flex-1 bg-white dark:bg-black p-6 sm:p-10 rounded-[15px] shadow-sm">
-            <h3 class="text-[18px] sm:text-[20px] font-black text-[#0B2036] dark:text-white mb-4 sm:mb-6">İşin təsviri</h3>
+            <h3 class="text-[18px] sm:text-[20px] font-black text-[#0B2036] dark:text-white mb-4 sm:mb-6">@Localizer["vacancy.detail.description"]</h3>
             <div class="text-[#4F5B67] dark:text-gray-300 leading-relaxed space-y-4 text-[14px] sm:text-[15px]">
                 @Html.Raw(SanitizeWithLineBreaks(Model.Vacancy.Description))
             </div>
 
-            <h3 class="text-[18px] sm:text-[20px] font-black text-[#0B2036] dark:text-white mt-8 sm:mt-10 mb-4 sm:mb-6">Xüsusi tələblər</h3>
+            <h3 class="text-[18px] sm:text-[20px] font-black text-[#0B2036] dark:text-white mt-8 sm:mt-10 mb-4 sm:mb-6">@Localizer["vacancy.detail.requirements"]</h3>
             <div class="text-[#4F5B67] dark:text-gray-300 leading-relaxed space-y-4 text-[14px] sm:text-[15px]">
                 @Html.Raw(SanitizeWithLineBreaks(Model.Vacancy.Requirements))
             </div>
@@ -52,11 +51,11 @@
             <div class="mt-8 sm:mt-10 pt-6 border-t dark:border-gray-700 flex gap-4 sm:gap-6 text-[#95A1B0] font-bold text-xs sm:text-sm">
                 <button class="flex items-center gap-2 hover:text-[#009689] transition-colors">
                     <iconify-icon icon="ph:share-network-bold"></iconify-icon>
-                    Paylaş
+                    @Localizer["vacancy.detail.share"]
                 </button>
                 <button onclick="openModal()" class="flex items-center gap-2 hover:text-red-500 transition-colors">
                     <iconify-icon icon="ph:warning-circle-bold"></iconify-icon>
-                    Şikayət et
+                    @Localizer["vacancy.detail.report"]
                 </button>
             </div>
         </div>
@@ -65,11 +64,11 @@
             <div class="w-full max-w-[400px] bg-white dark:bg-cyberMain rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
                 <div class="bg-cyberMain dark:bg-black text-white p-3.5 sm:p-4 flex items-center justify-center gap-2.5">
                     <iconify-icon icon="ph:info-bold"></iconify-icon>
-                    <span class="font-bold">Qısa məlumat</span>
+                    <span class="font-bold">@Localizer["vacancy.detail.quick_info"]</span>
                 </div>
                 <div class="p-6 sm:p-8 space-y-5 sm:space-y-6 dark:bg-black">
                     <div class="flex justify-between items-center border-b dark:border-gray-700 pb-4 gap-4">
-                        <span class="text-black font-bold dark:text-white shrink-0">Şəhər</span>
+                        <span class="text-black font-bold dark:text-white shrink-0">@Localizer["vacancy.detail.city"]</span>
                         <span class="font-bold text-gray-400 dark:text-gray-400 text-right">@Model.Vacancy.City</span>
                     </div>
                     @foreach (FilterDetailDto v in Model.Vacancy.Filters)
@@ -80,7 +79,7 @@
                         </div>
                     }
                     <div class="flex justify-between items-center border-b dark:border-gray-700 pb-4 gap-4">
-                        <span class="text-black font-bold dark:text-white shrink-0">Əmək haqqı</span>
+                        <span class="text-black font-bold dark:text-white shrink-0">@Localizer["vacancy.detail.salary"]</span>
                         <span class="font-bold text-gray-400 dark:text-gray-400 text-right">@Model.Vacancy.Salary</span>
                     </div>
                     <a href="mailto:@(Model.Vacancy.Email ?? Model.Vacancy.Company.Email)"
@@ -99,7 +98,7 @@
                 <div class="flex-shrink-0 flex items-center justify-center w-[40px] sm:w-[53px] h-[50px] sm:h-[74px]">
                     <img src="~/images/robotelan.png" alt="robot" class="w-full h-full object-contain">
                 </div>
-                <span class="text-xl sm:text-base font-semibold text-black dark:text-white">Yeni İT vakansiyaları – bütün platformalarda!</span>
+                <span class="text-xl sm:text-base font-semibold text-black dark:text-white">@Localizer["vacancy.detail.social_title"]</span>
             </div>
             <div class="flex items-center gap-2 sm:gap-3">
                 <a href="@(await SettingHelper.Get("instagram_url"))" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -139,7 +138,7 @@
 
     <section>
         <div class="flex justify-between items-center mb-6 sm:mb-8">
-            <h2 class="text-xl sm:text-3xl font-black text-black dark:text-white">Daha çox elan</h2>
+            <h2 class="text-xl sm:text-3xl font-black text-black dark:text-white">@Localizer["vacancy.detail.more_ads"]</h2>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -154,16 +153,16 @@
                 </div>
                 <div class="flex justify-between items-center text-[10px] sm:text-[11px] text-[#95A1B0] dark:text-gray-400">
                     <div class="flex items-center gap-2">
-                        <span>@((v.CreatedAt as DateTime?).ToRelativeDate())</span>
+                        <span>@v.CreatedAt.ToRelativeDate()</span>
                         <span><iconify-icon icon="ph:eye-bold"></iconify-icon> @v.ViewCount</span>
                     </div>
                     <span class="text-[#009689] font-black">@v.Salary</span>
                 </div>
             </div>
            }
-            
-            <a asp-controller="Vacancy" asp-action="Index" class="sm:hidden py-2 mt-3 text-center text-white bg-cyberGreen rounded-xl hover: cursor-pointer"> Daha Cox</a>
-        </div> 
+
+            <a asp-controller="Vacancy" asp-action="Index" class="sm:hidden py-2 mt-3 text-center text-white bg-cyberGreen rounded-xl hover: cursor-pointer">@Localizer["vacancy.detail.more"]</a>
+        </div>
 
         @* <div class="flex justify-center items-center gap-4 mt-8 sm:mt-10"> *@
         @*     <button *@
@@ -181,7 +180,7 @@
 <div id="reportModal" class="modal-overlay" onclick="closeModal()">
     <div class="w-full max-w-[720px] bg-white dark:bg-[#1a1a1a] rounded-3xl p-8 sm:p-6 relative max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
         <div class="flex justify-between items-center mb-8">
-            <h2 class="text-2xl font-extrabold text-[#0B2036] dark:text-white">Şikayət</h2>
+            <h2 class="text-2xl font-extrabold text-[#0B2036] dark:text-white">@Localizer["vacancy.detail.report_title"]</h2>
             <span class="cursor-pointer text-2xl sm:text-[28px] text-[#95A1B0]" onclick="closeModal()">
                 <iconify-icon icon="material-symbols:close-rounded"></iconify-icon>
             </span>
@@ -191,35 +190,35 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-8">
                 <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
                     <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="1">
-                    Əlaqə saxlamaq olmur
+                    @Localizer["vacancy.detail.report.reason1"]
                 </label>
                 <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
                     <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="2" checked>
-                    Elan aktual deyil
+                    @Localizer["vacancy.detail.report.reason2"]
                 </label>
                 <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
                     <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="3">
-                    Real iş elanı deyil
+                    @Localizer["vacancy.detail.report.reason3"]
                 </label>
                 <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
                     <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="4">
-                    Ünvan düzgün deyil
+                    @Localizer["vacancy.detail.report.reason4"]
                 </label>
                 <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
                     <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="5">
-                    İşin təsviri düzgün deyil
+                    @Localizer["vacancy.detail.report.reason5"]
                 </label>
                 <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
                     <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="6">
-                    Əmək bazarı üzrə aşağı maaş təklifi
+                    @Localizer["vacancy.detail.report.reason6"]
                 </label>
                 <label class="flex items-center gap-3 cursor-pointer font-semibold text-base text-[#0B2036] dark:text-gray-200">
                     <input type="checkbox" class="w-[22px] h-[22px] accent-[#52A38F] cursor-pointer" name="reason" value="7">
-                    Digər
+                    @Localizer["vacancy.detail.report.reason7"]
                 </label>
             </div>
 
-            <button type="submit" class="w-full max-w-[320px] bg-[#52A38F] hover:bg-[#438a78] text-white font-bold py-4 rounded-xl mx-auto mt-5 block text-lg transition-colors">Göndər</button>
+            <button type="submit" class="w-full max-w-[320px] bg-[#52A38F] hover:bg-[#438a78] text-white font-bold py-4 rounded-xl mx-auto mt-5 block text-lg transition-colors">@Localizer["vacancy.detail.report.send"]</button>
         </form>
     </div>
 </div>

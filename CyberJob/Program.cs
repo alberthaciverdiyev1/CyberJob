@@ -1,5 +1,6 @@
 using CyberJob.Database;
 using CyberJob.Services;
+using CyberJob.Helpers;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.RateLimiting;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 var isDevelopment = builder.Environment.IsDevelopment();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAntiforgery(options =>
 {
@@ -82,6 +84,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("CyberJobConnection"))
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 builder.Services.AddScoped<CyberJob.Helpers.SettingHelper>();
+builder.Services.AddScoped<LanguageService>();
+builder.Services.AddScoped<TranslationService>();
+builder.Services.AddScoped<Localizer>();
 
 builder.Services.AddScoped<BannerService>();  
 builder.Services.AddScoped<VacancyService>();
@@ -120,6 +125,7 @@ app.UseCors("DefaultPolicy");
 app.UseRateLimiter();
 
 app.UseMiddleware<CyberJob.Middleware.SecurityHeadersMiddleware>();
+app.UseMiddleware<CyberJob.Middleware.LanguageMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

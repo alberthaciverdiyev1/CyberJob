@@ -10,11 +10,11 @@
     <div class="relative z-10 w-full flex flex-col items-center justify-center px-6 py-10">
         <div class="text-center mb-8">
             <h1 class="text-white text-[28px] font-bold mb-3 tracking-tight leading-tight">
-                Hazırda <span class="text-extraLightGreen drop-shadow-[0_0_10px_rgba(0,212,170,0.5)]">@Model.TotalCount vakansiya</span>
-                aktivdir
+                @Html.Raw(Localizer.Get("vacancy.list.title_active",
+                    $"<span class=\"text-extraLightGreen drop-shadow-[0_0_10px_rgba(0,212,170,0.5)]\">{Model.TotalCount}</span>"))
             </h1>
             <p class="text-white text-[20px] leading-relaxed mx-auto">
-                Sənə uyğun iş imkanlarını indi kəşf et və müraciət et.
+                @Localizer["vacancy.list.subtitle"]
             </p>
         </div>
 
@@ -23,7 +23,7 @@
                 <input type="text"
                        id="searchInputMobile"
                        name="Search"
-                       placeholder="Şirkət və ya vakansiya axtar..."
+                       placeholder="@Localizer["vacancy.list.search_mobile_placeholder"]"
                        class="w-full py-3 text-white placeholder:text-white/40 focus:outline-none bg-transparent text-[13px]"
                        hx-get="/vacancies"
                        hx-target="#vacancy-list-container">
@@ -37,7 +37,7 @@
 
                 <button id="mobile-filter-toggle"
                         class="w-full flex items-center justify-center gap-2  border border-gray-200 dark:border-zinc-800 py-2 rounded-xl font-bold text-sm shadow-sm transition-all  bg-[#00D4AA] text-[#0B2036]">
-                    <span id="mobile-filter-text">Filtrlər</span>
+                    <span id="mobile-filter-text">@Localizer["vacancy.filter.title"]</span>
                     <iconify-icon icon="ph:caret-down-bold" class="text-xs" id="mobile-filter-arrow"></iconify-icon>
                 </button>
             </div>
@@ -49,56 +49,57 @@
 
     <section
         class="hidden sm:block relative bg-cyberMain overflow-hidden mx-auto mb-8 sm:mb-10 transition-all duration-300 min-h-[310px] rounded-2xl border border-white/10">
-    
+
         <div class="absolute z-0 pointer-events-none w-[180px] sm:w-[321px] h-[180px] sm:h-[271px] top-0 sm:top-[14px] left-0 sm:left-[5px] opacity-30 sm:opacity-100">
             <img src="~/images/ironman.png" alt="CyberBot" class="w-full h-full object-contain">
         </div>
-    
+
         <div class="relative z-10 w-full h-full flex flex-col items-center justify-center px-4 sm:px-8 py-6 sm:py-8">
             <div class="text-center mb-4 sm:mb-6">
                 <h1 class="text-white text-2xl sm:text-3xl md:text-[44px] font-semibold mb-2 sm:mb-3 tracking-tight">
-                    Hazırda <span class="text-extraLightGreen">@Model.TotalCount vakansiya</span> aktivdir
+                    @Html.Raw(Localizer.Get("vacancy.list.title_active",
+                        $"<span class=\"text-extraLightGreen\">{Model.TotalCount}</span>"))
                 </h1>
                 <p class="text-gray-50 text-xs sm:text-sm md:text-base font-medium opacity-90">
-                    Sənə uyğun iş imkanlarını indi kəşf et və müraciət et.
+                    @Localizer["vacancy.list.subtitle"]
                 </p>
             </div>
-    
+
             <div
                 class="bg-white rounded-lg p-1.5 flex flex-col sm:flex-row items-stretch sm:items-center shadow-2xl w-full max-w-5xl mb-4 sm:mb-6 border border-gray-100">
                 <div class="flex-1 flex items-center px-4 text-left bg-gray-100 rounded-lg">
                     <iconify-icon icon="ph:magnifying-glass" class="text-gray-400 text-xl mr-3 shrink-0"></iconify-icon>
-    
+
                     <input type="text"
                            id="searchInput"
                            name="Search"
-                           placeholder="İş elanı axtar..."
+                           placeholder="@Localizer["vacancy.list.search_placeholder"]"
                            class="w-full py-2.5 text-gray-700 focus:outline-none text-md bg-gray-100"
                            hx-get="/vacancies"
                            hx-target="#vacancy-list-container"
                            hx-trigger="keyup[key=='Enter']"
                            hx-indicator=".loader">
-    
+
                     <div class="loader htmx-indicator ml-2">
                         <iconify-icon icon="line-md:loading-twotone-loop"
                                       class="text-gray-700 text-2xl"></iconify-icon>
                     </div>
                 </div>
-    
+
                 <button hx-get="/vacancies"
                         hx-target="#vacancy-list-container"
                         hx-include="#searchInput"
                         hx-indicator=".loader"
                         class="bg-extraLightGreen mt-2 sm:mt-0 sm:ml-2 text-white font-bold px-8 sm:px-16 py-3 rounded-lg hover:bg-lightGreen transition-all shadow-md whitespace-nowrap">
-                    Axtar
+                    @Localizer["vacancy.list.search_button"]
                 </button>
             </div>
-    
+
             <div class="flex flex-wrap justify-center gap-2 px-2">
                 @{
                     int c = 0;
                 }
-    
+
                 @foreach (CategoryDto category in Model.Categories)
                 {
                     if (c <= 4)
@@ -111,14 +112,14 @@
                             @category.Name
                         </a>
                     }
-    
+
                     c++;
                 }
             </div>
         </div>
     </section>
 
-        
+
 
     <div class="flex flex-col lg:flex-row gap-8">
         <aside class="w-full lg:w-[320px] shrink-0 hidden lg:block" id="filter-section">
@@ -129,28 +130,30 @@
                         hx-include="#filter-section, #searchInput"
                         hx-indicator=".loader"
                         class="w-full bg-lightGreen text-white font-bold py-3 rounded-t-2xl mb-2 hover:bg-extraLightGreen transition-all">
-                    Filtr
+                    @Localizer["vacancy.list.filter_button"]
                 </button>
 
-                <div class="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                    <p class="text-sm font-semibold text-red-600 dark:text-red-400">
-                        <iconify-icon icon="ph:clock-countdown-bold" class="inline mr-1"></iconify-icon>
-                        Vaxtı bitmiş vakansiyalar: <span class="font-bold">@Model.ExpiredCount</span>
-                    </p>
-                </div>
+                @* <div class="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"> *@
+                @*     <p class="text-sm font-semibold text-red-600 dark:text-red-400"> *@
+                @*         <iconify-icon icon="ph:clock-countdown-bold" class="inline mr-1"></iconify-icon> *@
+                @*         @Html.Raw(Localizer.Get("vacancy.filter.expired", Model.ExpiredCount) *@
+                @*             .Replace(Model.ExpiredCount.ToString(), *@
+                @*                 "<span class=\"font-bold\">" + Model.ExpiredCount + "</span>")) *@
+                @*     </p> *@
+                @* </div> *@
 
                 <div class="mb-4">
                     <div class="filter-section-toggle flex items-center justify-between mb-4"
                          onclick="toggleFilterSection('salary-range')">
-                        <h3 class="dark:text-white font-semibold">Maaş aralığı</h3>
+                        <h3 class="dark:text-white font-semibold">@Localizer["vacancy.filter.salary_range"]</h3>
                         <iconify-icon icon="ph:caret-down-bold" class="filter-icon text-gray-500"
                                       id="salary-range-icon"></iconify-icon>
                     </div>
                     <div id="salary-range" class="filter-section-content">
                         <div class="flex gap-2">
-                            <input type="text" placeholder="Ən az" name="MinSalary"
+                            <input type="text" placeholder="@Localizer["vacancy.filter.min"]" name="MinSalary"
                                    class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none text-center placeholder:font-bold font-bold dark:text-white">
-                            <input type="text" placeholder="Ən çox" name="MaxSalary"
+                            <input type="text" placeholder="@Localizer["vacancy.filter.max"]" name="MaxSalary"
                                    class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none text-center placeholder:font-bold font-bold dark:text-white">
                         </div>
                     </div>
@@ -161,7 +164,7 @@
                 <div class="mb-4">
                     <div class="filter-section-toggle flex items-center justify-between mb-4"
                          onclick="toggleFilterSection('category-section')">
-                        <h3 class="font-bold dark:text-white">Sahə</h3>
+                        <h3 class="font-bold dark:text-white">@Localizer["vacancy.filter.category"]</h3>
                         <iconify-icon icon="ph:caret-down-bold" class="filter-icon text-gray-500"
                                       id="category-section-icon"></iconify-icon>
                     </div>
@@ -261,16 +264,16 @@
                     var currentSort = ViewContext.HttpContext.Request.Query["SortBy"].FirstOrDefault() ?? "";
                     var sortLabels = new Dictionary<string, string>
                     {
-                        {"salary_asc", "Maaşa görə artan"},
-                        {"salary_desc", "Maaşa görə azalan"},
-                        {"today", "Bu günün elanları"},
-                        {"oldest", "Ən köhnələr"},
-                        {"newest", "Ən yenilər"},
-                        {"expire_date", "Son müraciət tarixinə"},
-                        {"views_asc", "Baxış sayına görə artan"},
-                        {"views_desc", "Baxış sayına görə azalan"},
+                        {"salary_asc", Localizer["vacancy.list.sort.salary_asc"]},
+                        {"salary_desc", Localizer["vacancy.list.sort.salary_desc"]},
+                        {"today", Localizer["vacancy.list.sort.today"]},
+                        {"oldest", Localizer["vacancy.list.sort.oldest"]},
+                        {"newest", Localizer["vacancy.list.sort.newest"]},
+                        {"expire_date", Localizer["vacancy.list.sort.expire_date"]},
+                        {"views_asc", Localizer["vacancy.list.sort.views_asc"]},
+                        {"views_desc", Localizer["vacancy.list.sort.views_desc"]},
                     };
-                    var currentSortLabel = sortLabels.ContainsKey(currentSort) ? sortLabels[currentSort] : "Sırala";
+                    var currentSortLabel = sortLabels.ContainsKey(currentSort) ? sortLabels[currentSort] : Localizer["vacancy.list.sort_label"];
                 }
                 <div class="relative inline-block text-left" id="sort-dropdown">
                     <button onclick="toggleSortMenu()"
@@ -338,7 +341,7 @@
             filterToggle.addEventListener('click', function () {
                 const isHidden = filterSection.classList.toggle('hidden');
                 filterSection.classList.toggle('block');
-                if (filterText) filterText.textContent = isHidden ? 'Filtrlər' : 'Bağla';
+                if (filterText) filterText.textContent = isHidden ? '@Localizer["vacancy.filter.title"]' : '@Localizer["vacancy.list.filter_close"]';
                 if (filterArrow) filterArrow.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
             });
         }

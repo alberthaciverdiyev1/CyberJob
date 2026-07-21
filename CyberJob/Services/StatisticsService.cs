@@ -11,30 +11,21 @@ public class StatisticsService(AppDbContext context)
         var todayStart = now.Date;
         var weekStart = todayStart.AddDays(-(int)now.DayOfWeek);
         var monthStart = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc);
-        if (now.Kind != DateTimeKind.Utc)
-        {
-            todayStart = now.ToUniversalTime().Date;
-            weekStart = todayStart.AddDays(-(int)now.ToUniversalTime().DayOfWeek);
-            monthStart = new DateTime(now.ToUniversalTime().Year, now.ToUniversalTime().Month, 1, 0, 0, 0, DateTimeKind.Utc);
-        }
 
         var total = await context.Vacancies
             .Where(v => v.DeletedAt == null)
             .SumAsync(v => (long?)v.ViewCount) ?? 0;
 
-        var dailyViews = await context.Vacancies
-            .Where(v => v.DeletedAt == null && v.CreatedAt >= todayStart)
-            .SumAsync(v => (long?)v.ViewCount) ?? 0;
+        var daily = await context.Vacancies
+            .CountAsync(v => v.IsActive && v.DeletedAt == null && v.CreatedAt >= todayStart);
 
-        var weeklyViews = await context.Vacancies
-            .Where(v => v.DeletedAt == null && v.CreatedAt >= weekStart)
-            .SumAsync(v => (long?)v.ViewCount) ?? 0;
+        var weekly = await context.Vacancies
+            .CountAsync(v => v.IsActive && v.DeletedAt == null && v.CreatedAt >= weekStart);
 
-        var monthlyViews = await context.Vacancies
-            .Where(v => v.DeletedAt == null && v.CreatedAt >= monthStart)
-            .SumAsync(v => (long?)v.ViewCount) ?? 0;
+        var monthly = await context.Vacancies
+            .CountAsync(v => v.IsActive && v.DeletedAt == null && v.CreatedAt >= monthStart);
 
-        return ((int)dailyViews, (int)weeklyViews, (int)monthlyViews, (int)total);
+        return (daily, weekly, monthly, (int)total);
     }
 
     public async Task<(int Daily, int Weekly, int Monthly, int Total)> GetVacancyStatsAsync()
@@ -43,12 +34,6 @@ public class StatisticsService(AppDbContext context)
         var todayStart = now.Date;
         var weekStart = todayStart.AddDays(-(int)now.DayOfWeek);
         var monthStart = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc);
-        if (now.Kind != DateTimeKind.Utc)
-        {
-            todayStart = now.ToUniversalTime().Date;
-            weekStart = todayStart.AddDays(-(int)now.ToUniversalTime().DayOfWeek);
-            monthStart = new DateTime(now.ToUniversalTime().Year, now.ToUniversalTime().Month, 1, 0, 0, 0, DateTimeKind.Utc);
-        }
 
         var total = await context.Vacancies
             .CountAsync(v => v.IsActive && v.DeletedAt == null);

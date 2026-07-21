@@ -36,10 +36,10 @@ public class VacancyController(
         return View(model);
     }
     [HttpGet("{Id:int}")]
-    public async Task<IActionResult> Details(int id)
+    public async Task<IActionResult> Details(int id, [FromQuery] string lang = "az")
     {
         // 1. Öncə əsas vakansiyanı gətiririk
-        var vacancy = await vacancyService.GetByIdAsync(id);
+        var vacancy = await vacancyService.GetByIdAsync(id, lang);
 
         // 2. Əgər vakansiya tapılmazsa, dərhal 404 qaytarırıq
         if (vacancy == null)
@@ -50,8 +50,12 @@ public class VacancyController(
 
         var similarVacancies = await vacancyService.GetListAsync(new()
         {
-            CategoryId = vacancy.CategoryId
+            CategoryId = vacancy.CategoryId,
+            Take = 10
         });
+
+        // Filter out the current vacancy from similar list
+        similarVacancies = similarVacancies.Where(v => v.Id != id).ToList();
 
         VacancyDetailsVM model = new()
         {

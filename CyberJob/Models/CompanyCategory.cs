@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CyberJob.Models;
@@ -5,6 +6,7 @@ namespace CyberJob.Models;
 [Table("company_categories")]
 public class CompanyCategory
 {
+    [Key]
     [Column("id")]
     public int Id { get; set; }
 

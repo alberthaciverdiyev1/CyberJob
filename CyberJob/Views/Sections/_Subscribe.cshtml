@@ -2,11 +2,11 @@
 
     <div class="flex-1 w-full text-center md:text-left">
         <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black dark:text-white mb-4 sm:mb-6 leading-[1.1] tracking-tight">
-            <span class="block mb-2 sm:mb-4">Karyera yolunda</span>
-            <span class="block">addımını bizlə at!</span>
+            <span class="block mb-2 sm:mb-4">@Localizer["subscribe.title_line1"]</span>
+            <span class="block">@Localizer["subscribe.title_line2"]</span>
         </h2>
         <p class="text-lg sm:text-xl md:text-2xl text-gray-500 dark:text-gray-400 font-medium">
-            Uğurun kodunu bizdə aç
+            @Localizer["subscribe.subtitle"]
         </p>
     </div>
 
@@ -20,13 +20,13 @@
                         <polyline points="22,6 12,13 2,6"/>
                     </svg>
                 </span>
-                <input id="subscribeEmail" type="email" placeholder="Emailini daxil et"
+                <input id="subscribeEmail" type="email" placeholder="@Localizer["subscribe.email_placeholder"]"
                        class="w-full py-6 sm:py-8 pl-12 sm:pl-16 pr-6 sm:pr-8 bg-gray-50/50 dark:bg-[#0a0a0a] border border-gray-400 dark:border-gray-800 rounded-xl focus:outline-none focus:border-lightGreen text-base sm:text-lg dark:text-white placeholder:text-gray-400 transition-all shadow-sm">
             </div>
 
             <button id="subscribeBtn" onclick="handleSubscribe()"
                     class="w-full py-3 sm:py-4 bg-lightGreen text-white font-bold rounded-xl text-lg sm:text-xl hover:bg-darkGreen shadow-lg transition-all active:scale-[0.98]">
-                Abunə ol
+                @Localizer["subscribe.button"]
             </button>
 
             <div id="subscribeMessage" class="text-base font-medium text-center hidden"></div>
@@ -35,6 +35,13 @@
 </section>
 
 <script>
+    var subscribeLabels = {
+        sending: '@Localizer["subscribe.sending"]',
+        errorEmpty: '@Localizer["subscribe.error_empty"]',
+        errorGeneric: '@Localizer["subscribe.error_generic"]',
+        button: '@Localizer["subscribe.button"]'
+    };
+
     function handleSubscribe() {
         const email = document.getElementById('subscribeEmail').value.trim();
         const btn = document.getElementById('subscribeBtn');
@@ -43,12 +50,12 @@
         msg.classList.add('hidden');
 
         if (!email) {
-            showMessage('Zəhmət olmasa email daxil edin.', 'red');
+            showMessage(subscribeLabels.errorEmpty, 'red');
             return;
         }
 
         btn.disabled = true;
-        btn.textContent = 'Göndərilir...';
+        btn.textContent = subscribeLabels.sending;
 
         fetch('/Home/Subscribe', {
             method: 'POST',
@@ -66,11 +73,11 @@
             }
         })
         .catch(() => {
-            showMessage('Xəta baş verdi. Yenidən cəhd edin.', 'red');
+            showMessage(subscribeLabels.errorGeneric, 'red');
         })
         .finally(() => {
             btn.disabled = false;
-            btn.textContent = 'Abunə ol';
+            btn.textContent = subscribeLabels.button;
         });
     }
 

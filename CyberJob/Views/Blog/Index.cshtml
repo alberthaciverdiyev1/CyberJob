@@ -1,3 +1,6 @@
+@using CyberJob.DTOs
+@model List<BlogListDto>
+
 @section Styles {
     <link rel="stylesheet" href="~/css/blog.css"/>
 }
@@ -6,16 +9,15 @@
 
     <div class="max-w-[1244px] mx-auto px-5">
         <div class="w-full max-w-[1244px] min-h-[272px] mx-auto mb-16 rounded-[10px] flex flex-col items-center justify-center px-5 py-8 hero-box">
-            <h1 class="text-[clamp(28px,5vw,40px)] font-extrabold text-[#0B2036] dark:text-white mb-3 text-center">Texnologiyanın Nəbzini Tutun</h1>
-            <p class="text-sm text-[#64748B] dark:text-[#94A3B8] text-center max-w-[800px] mb-6 leading-relaxed">Texnologiya dünyasında öz yerinizi tapmaq, inkişaf etmək və uğur qazanmaq üçün ekspert məsləhətləri və
-                faydalı məqalələr.</p>
+            <h1 class="text-[clamp(28px,5vw,40px)] font-extrabold text-[#0B2036] dark:text-white mb-3 text-center">@Localizer["blog.subtitle"]</h1>
+            <p class="text-sm text-[#64748B] dark:text-[#94A3B8] text-center max-w-[800px] mb-6 leading-relaxed">@Localizer["blog.hero.subtitle"]</p>
 
             <form action="/blogs" method="get" class="w-full max-w-[750px] bg-white dark:bg-[#1A2332] min-h-[52px] rounded-xl flex items-center p-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
                 <iconify-icon icon="ph:magnifying-glass-bold"
                               class="ml-2.5 text-gray-400 text-xl shrink-0"></iconify-icon>
-                <input type="text" name="search" value="@Context.Request.Query["search"]" placeholder="Mövzu və ya açar söz axtar..."
+                <input type="text" name="search" value="@Context.Request.Query["search"]" placeholder="@Localizer["blog.search_placeholder"]"
                        class="flex-1 border-none outline-none bg-transparent px-3 text-sm min-w-0 text-cyberDark dark:text-white placeholder-gray-400">
-                <button type="submit" class="bg-cyberGreen hover:bg-darkGreen text-white font-bold px-5 rounded-lg whitespace-nowrap h-full transition-colors text-sm py-2.5">Axtar</button>
+                <button type="submit" class="bg-cyberGreen hover:bg-darkGreen text-white font-bold px-5 rounded-lg whitespace-nowrap h-full transition-colors text-sm py-2.5">@Localizer["blog.search_button"]</button>
             </form>
         </div>
 
@@ -41,7 +43,7 @@
                         <p class="text-sm text-[#64748B] dark:text-[#94A3B8] mb-5 leading-relaxed">@summary</p>
                         <a asp-controller="Blog" asp-action="Details" asp-route-id="@blog.Id"
                            class="text-[#0B2036] dark:text-white font-bold flex items-center gap-1.5 text-sm no-underline hover:gap-2 transition-all">
-                            Daha ətraflı
+                            @Localizer["blog.read_more"]
                             <iconify-icon icon="ph:arrow-right-bold"></iconify-icon>
                         </a>
                     </div>
@@ -49,7 +51,7 @@
             }
         </div>
 
-        <button class="block mx-auto mt-16 px-12 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-[#1A2332] text-gray-600 dark:text-white font-bold cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Daha çox</button>
+        <button class="block mx-auto mt-16 px-12 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-[#1A2332] text-gray-600 dark:text-white font-bold cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">@Localizer["blog.load_more"]</button>
     </div>
 </main>
 

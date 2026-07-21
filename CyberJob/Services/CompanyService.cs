@@ -17,7 +17,7 @@ public class CompanyService(AppDbContext context)
 
         if (!string.IsNullOrEmpty(search))
         {
-            query = query.Where(c => c.Name.Contains(search));
+            query = query.Where(c => EF.Functions.ILike(c.Name, $"%{search}%"));
         }
 
         int totalCount = await query.CountAsync();
@@ -67,8 +67,8 @@ public class CompanyService(AppDbContext context)
             FoundedYear = company.FoundedYear,
             About = company.About.Translate(lang),
             Logo = company.Logo.ToAdminUrl(),
-            CoverImage = company.CoverImage,
-            BannerImage = company.BannerImage,
+            CoverImage = company.CoverImage.ToAdminUrl(),
+            BannerImage = company.BannerImage.ToAdminUrl(),
             IsVerified = company.IsVerified,
             CreatedAt = company.CreatedAt,
             CompanyCategoryId = company.CompanyCategoryId,

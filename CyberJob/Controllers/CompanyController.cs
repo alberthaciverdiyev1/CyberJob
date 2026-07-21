@@ -30,13 +30,16 @@ public class CompanyController(CompanyService companyService, CityService citySe
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> Details(int id)
+    public async Task<IActionResult> Details(int id, [FromQuery] string lang = "az")
     {
+        var company = await companyService.GetDetailsAsync(id, lang);
+        if (company == null) return NotFound();
+
         CompanyDetailsVM model = new()
         {
-            Company = await companyService.GetDetailsAsync(id),
-            Cities = await cityService.GetAllAsync(),
-            Filters = await filterService.GetFilterGroupAsync()
+            Company = company,
+            Cities = await cityService.GetAllAsync(lang),
+            Filters = await filterService.GetFilterGroupAsync(lang)
         };
         return View(model);
     }

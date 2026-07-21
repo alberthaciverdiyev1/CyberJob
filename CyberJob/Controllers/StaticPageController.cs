@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CyberJob.Controllers;
 
-public class StaticPageController(FaqService faqService, SubscriptionPlanService subscriptionPlanService, LegalTermAndUserAgreementService legalTermService, CyberJob.Helpers.SettingHelper settingHelper) : Controller
+public class StaticPageController(FaqService faqService, SubscriptionPlanService subscriptionPlanService, LegalTermAndUserAgreementService legalTermService, SettingHelper settingHelper) : Controller
 {
     [HttpGet("/services")]
-    public async Task<IActionResult> Services()
+    public async Task<IActionResult> Services([FromQuery] string lang = "az")
     {
         ServicesVM model = new ServicesVM()
         {
-            Faqs = await faqService.GetListAsync("service"),
-            Plans = await subscriptionPlanService.GetActivePlansAsync()
+            Faqs = await faqService.GetListAsync("service", lang),
+            Plans = await subscriptionPlanService.GetActivePlansAsync(lang)
         };
         return View(model);
     }
@@ -29,28 +29,28 @@ public class StaticPageController(FaqService faqService, SubscriptionPlanService
     }
 
     [HttpGet("/advertise")]
-    public Task<IActionResult> Advertise()
-    {
-        return Task.FromResult<IActionResult>(View());
-    }
-
-    [HttpGet("/contact")]
-    public async Task<IActionResult> Contact()
+    public IActionResult Advertise()
     {
         return View();
     }
-    
-    [HttpGet("/privacy")]
-    public async Task<IActionResult> Privacy()
+
+    [HttpGet("/contact")]
+    public IActionResult Contact()
     {
-        var data = await legalTermService.GetAllActiveAsync(type:"privacy");
+        return View();
+    }
+
+    [HttpGet("/privacy")]
+    public async Task<IActionResult> Privacy([FromQuery] string lang = "az")
+    {
+        var data = await legalTermService.GetAllActiveAsync(lang: lang, type:"privacy");
         return View(data);
     }
 
     [HttpGet("/user-agreement")]
-    public async Task<IActionResult> UserAgreement()
+    public async Task<IActionResult> UserAgreement([FromQuery] string lang = "az")
     {
-        var data = await legalTermService.GetAllActiveAsync(type:"terms");
+        var data = await legalTermService.GetAllActiveAsync(lang: lang, type:"terms");
         return View(data);
     }
 }

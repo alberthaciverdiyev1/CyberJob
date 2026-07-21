@@ -6,17 +6,18 @@ namespace CyberJob.Controllers;
 public class BlogController(BlogService blogService) : Controller
 {
     [HttpGet("")]
-    public async Task<IActionResult> Index(string? search)
+    public async Task<IActionResult> Index(string? search, [FromQuery] string lang = "az")
     {
-        var blogs = await blogService.GetAll(search: search);
+        var blogs = await blogService.GetAll(lang: lang, search: search);
 
         return View(blogs);
     }
     [HttpGet("{id:int}")]
 
-    public async Task<IActionResult> Details(int id)
+    public async Task<IActionResult> Details(int id, [FromQuery] string lang = "az")
     {
-        var blog = await blogService.GetBlogById(id);
+        var blog = await blogService.GetBlogById(id, lang);
+        if (blog == null) return NotFound();
         return View(blog);
     }
 }

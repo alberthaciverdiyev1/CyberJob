@@ -1,8 +1,6 @@
 @using CyberJob.DTOs
 @using CyberJob.ViewModels
-@using CyberJob.Helpers
 @model ServicesVM
-@inject CyberJob.Helpers.SettingHelper SettingHelper
 @{
     var monthlyPlans = Model.Plans?.Where(p => p.Type == "monthly").ToList() ?? new List<SubscriptionPlanDto>();
     var yearlyPlans = Model.Plans?.Where(p => p.Type == "yearly").ToList() ?? new List<SubscriptionPlanDto>();
@@ -45,13 +43,13 @@
 <main class="max-w-[1440px] mx-auto px-6 md:px-10 py-16">
 
     <div class="text-center mb-16">
-        <h1 class="text-[42px] font-bold dark:text-white mb-2">Xidmətlərimiz</h1>
-        <p class="text-gray-400 text-lg">Abunəlik paketləri ilə elanlarınızı maksimum görünürlükdə paylaşın</p>
+        <h1 class="text-[42px] font-bold dark:text-white mb-2">@Localizer["services.title"]</h1>
+        <p class="text-gray-400 text-lg">@Localizer["services.subtitle"]</p>
 
         <div class="mt-14 relative inline-block">
             <div id="saveBadge"
                  class="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#F8E15C] text-cyberMain text-md font-bold px-5 py-2 rounded-md shadow-sm whitespace-nowrap">
-                30%-ə qədər qənaət edin
+                @Localizer["services.save_badge"]
                 <div class="absolute -right-10 top-2 rotate-[12deg]">
                     <iconify-icon icon="akar-icons:arrow-back"
                                   class="text-black text-4xl opacity-50 flip-horizontal"></iconify-icon>
@@ -60,10 +58,10 @@
             <div class="flex items-center bg-white dark:bg-zinc-900 p-1.5 rounded-2xl w-[220px] border border-gray-200 dark:border-zinc-800">
                 <button id="yearlyBtn"
                         class="toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300"
-                        data-period="yearly">Paketlər</button>
+                        data-period="yearly">@Localizer["services.packages"]</button>
                 <button id="monthlyBtn"
                         class="toggle-btn flex-1 py-3 text-md font-bold rounded-xl transition-all duration-300"
-                        data-period="monthly">Aylıq</button>
+                        data-period="monthly">@Localizer["services.monthly"]</button>
             </div>
         </div>
     </div>
@@ -76,7 +74,7 @@
                 @if (subscription.IsPremium)
                 {
                     <div class="absolute -top-5 left-1/2 -translate-x-1/2 z-20 bg-gradient-to-r from-[#C29D55] via-[#FFF3C9] to-[#C29D55] text-[#5C4510] text-sm font-black px-8 py-2 rounded-full uppercase tracking-wider shadow-lg premium-badge">
-                        Premium
+                        @Localizer["services.premium"]
                     </div>
                 }
                 <div class="@(subscription.IsPremium
@@ -90,13 +88,13 @@
                         <div class="@(subscription.IsPremium ? "bg-amber-50 dark:bg-zinc-800" : "bg-gray-100 dark:bg-zinc-800") price-box text-center relative mb-10 rounded-3xl @(subscription.IsPremium ? "pt-8" : "")">
                             <div class="flex justify-between items-center mb-8 mt-3 mx-3 pt-3">
                                 <span class="bg-white dark:bg-zinc-700 px-6 py-1.5 rounded-full text-[15px] font-bold">@subscription.Name</span>
-                                <span class="bg-green-500 text-black text-sm font-black px-4 py-1.5 rounded-full uppercase">İlk 1 ay üçün</span>
+                                <span class="bg-green-500 text-black text-sm font-black px-4 py-1.5 rounded-full uppercase">@Localizer["services.first_month"]</span>
                             </div>
                             @if (subscription.HasActiveDiscount)
                             {
-                                <div class="text-gray-400 text-lg line-through mb-1">@subscription.OldPrice AZN/ay</div>
+                                <div class="text-gray-400 text-lg line-through mb-1">@subscription.OldPrice @Localizer["services.per_month"]</div>
                                 <div class="flex items-center justify-center gap-2 pb-4">
-                                    <span class="text-5xl font-bold leading-none @(subscription.IsPremium ? "text-[#C29D55]" : "")">@subscription.NewPrice <span class="price-unit">AZN/ay</span></span>
+                                    <span class="text-5xl font-bold leading-none @(subscription.IsPremium ? "text-[#C29D55]" : "")">@subscription.NewPrice <span class="price-unit">@Localizer["services.per_month"]</span></span>
                                     @{
                                         var discount = subscription.OldPrice > 0 ? (subscription.OldPrice - subscription.NewPrice) / subscription.OldPrice * 100 : 0;
                                     }
@@ -105,11 +103,11 @@
                             }
                             else
                             {
-                                <div class="text-5xl font-bold leading-none pb-4 @(subscription.IsPremium ? "text-[#C29D55]" : "")">@subscription.OldPrice AZN/ay</div>
+                                <div class="text-5xl font-bold leading-none pb-4 @(subscription.IsPremium ? "text-[#C29D55]" : "")">@subscription.OldPrice @Localizer["services.per_month"]</div>
                             }
                         </div>
                         <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10 text-center">
-                            Əldə et
+                            @Localizer["services.get"]
                         </a>
                     </div>
                     <ul class="space-y-5 px-2 mt-10 mb-5">
@@ -134,7 +132,7 @@
                 @if (subscription.IsPremium)
                 {
                     <div class="absolute -top-5 left-1/2 -translate-x-1/2 z-20 bg-gradient-to-r from-[#C29D55] via-[#FFF3C9] to-[#C29D55] text-[#5C4510] text-sm font-black px-8 py-2 rounded-full uppercase tracking-wider shadow-lg premium-badge">
-                        Premium
+                        @Localizer["services.premium"]
                     </div>
                 }
                 <div class="@(subscription.IsPremium
@@ -148,13 +146,13 @@
                         <div class="@(subscription.IsPremium ? "bg-amber-50 dark:bg-zinc-800" : "bg-gray-100 dark:bg-zinc-800") price-box text-center relative mb-10 rounded-3xl @(subscription.IsPremium ? "pt-8" : "")">
                             <div class="flex justify-between items-center mb-8 mt-3 mx-3 pt-3">
                                 <span class="bg-white dark:bg-zinc-700 px-6 py-1.5 rounded-full text-[15px] font-bold">@subscription.Name</span>
-                                <span class="bg-green-500 text-black text-sm font-black px-4 py-1.5 rounded-full uppercase">İlk 1 il üçün</span>
+                                <span class="bg-green-500 text-black text-sm font-black px-4 py-1.5 rounded-full uppercase">@Localizer["services.first_year"]</span>
                             </div>
                             @if (subscription.HasActiveDiscount)
                             {
-                                <div class="text-gray-400 text-lg line-through mb-1">@subscription.OldPrice AZN/il</div>
+                                <div class="text-gray-400 text-lg line-through mb-1">@subscription.OldPrice @Localizer["services.per_year"]</div>
                                 <div class="flex items-center justify-center gap-2 pb-4">
-                                    <span class="text-5xl font-bold leading-none @(subscription.IsPremium ? "text-[#C29D55]" : "")">@subscription.NewPrice <span class="price-unit">AZN/il</span></span>
+                                    <span class="text-5xl font-bold leading-none @(subscription.IsPremium ? "text-[#C29D55]" : "")">@subscription.NewPrice <span class="price-unit">@Localizer["services.per_year"]</span></span>
                                     @{
                                         var discount = subscription.OldPrice > 0 ? (subscription.OldPrice - subscription.NewPrice) / subscription.OldPrice * 100 : 0;
                                     }
@@ -163,11 +161,11 @@
                             }
                             else
                             {
-                                <div class="text-5xl font-bold leading-none pb-4 @(subscription.IsPremium ? "text-[#C29D55]" : "")">@subscription.OldPrice AZN/il</div>
+                                <div class="text-5xl font-bold leading-none pb-4 @(subscription.IsPremium ? "text-[#C29D55]" : "")">@subscription.OldPrice @Localizer["services.per_year"]</div>
                             }
                         </div>
                         <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded-3xl font-bold text-lg mb-10 text-center">
-                            Əldə et
+                            @Localizer["services.get"]
                         </a>
                     </div>
                     <ul class="space-y-5 px-2 mt-10 mb-5">
@@ -185,27 +183,27 @@
     </div>
 
     <section class="mb-40">
-        <h2 class="text-center text-[36px] font-bold mb-20 dark:text-white">Xidmətlərimizin üstünlükləri!</h2>
+        <h2 class="text-center text-[36px] font-bold mb-20 dark:text-white">@Localizer["services.benefits_title"]</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div class="flex flex-col items-center text-center">
                 <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot2.png" alt="Blue Tick" class="max-h-full"></div>
-                <h3 class="text-xl font-bold max-w-[240px]">Etibar və Peşəkar İmic (Blue Tick)</h3>
+                <h3 class="text-xl font-bold max-w-[240px]">@Localizer["services.benefit1"]</h3>
             </div>
             <div class="flex flex-col items-center text-center">
                 <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot1.png" alt="Sürətli Nəticə" class="max-h-full"></div>
-                <h3 class="text-xl font-bold max-w-[260px]">Sürətli Nəticə və Doğru Namizəd</h3>
+                <h3 class="text-xl font-bold max-w-[260px]">@Localizer["services.benefit2"]</h3>
             </div>
             <div class="flex flex-col items-center text-center">
                 <div class="h-[280px] flex items-end mb-8"><img src="~/images/robot3.png" alt="Maksimum Görünmə" class="max-h-full"></div>
-                <h3 class="text-xl font-bold max-w-[260px]">Maksimum Görünmə və Brend Tanınması</h3>
+                <h3 class="text-xl font-bold max-w-[260px]">@Localizer["services.benefit3"]</h3>
             </div>
         </div>
     </section>
 
     <section class="mb-32 max-w-[960px] mx-auto">
         <div class="text-center mb-14">
-            <h2 class="text-[32px] font-bold dark:text-white mb-2">Tez-tez verilən suallar</h2>
-            <p class="text-gray-400">Platformamız haqqında ən çox soruşulan suallar</p>
+            <h2 class="text-[32px] font-bold dark:text-white mb-2">@Localizer["services.faq_title"]</h2>
+            <p class="text-gray-400">@Localizer["services.faq_subtitle"]</p>
         </div>
         <div id="faq-container" class="space-y-4">
             @if (Model.Faqs is not null)
@@ -227,10 +225,10 @@
     </section>
 
     <section class="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 rounded-[40px] p-12 text-center shadow-xl mb-20">
-        <h3 class="text-[26px] font-bold dark:text-white mb-3">Cavabınızı tapa bilmədiniz?</h3>
-        <p class="text-gray-400 text-lg mb-10">Dəstək komandamız sizə kömək etməkdən məmnun olacaq</p>
+        <h3 class="text-[26px] font-bold dark:text-white mb-3">@Localizer["services.help_title"]</h3>
+        <p class="text-gray-400 text-lg mb-10">@Localizer["services.help_subtitle"]</p>
         <button class="bg-cyberGreen hover:bg-darkGreen text-white font-bold py-5 px-16 rounded-3xl text-lg transition-all shadow-lg shadow-emerald-900/20">
-            Bizimlə əlaqə saxlayın
+            @Localizer["services.help_button"]
         </button>
     </section>
 

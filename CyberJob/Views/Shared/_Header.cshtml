@@ -1,3 +1,6 @@
+@using CyberJob.Helpers
+@inject CyberJob.Helpers.SettingHelper SettingHelper
+
 <header class="w-full sticky top-0 z-[100] transition-colors duration-300
                bg-[#0B2036] dark:bg-black border-b border-white/10">
    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 h-[72px] sm:h-[96px] flex items-center justify-between">
@@ -10,13 +13,13 @@
       </div>
 
       <nav class="hidden lg:flex items-center justify-center gap-[55px] h-[24px]">
-         <a asp-controller="Vacancy" asp-action="Index" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">Vakansiyalar</a>
-         <a asp-controller="Rank" asp-action="Index" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">Reytinq cədvəli</a>
-         <a asp-controller="Company" asp-action="Index" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">Şirkətlər</a>
-         <a asp-controller="StaticPage" asp-action="Services" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">Xidmətlər</a>
-         <a asp-controller="StaticPage" asp-action="About" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">Haqqımızda</a>
-         <a asp-controller="Blog" asp-action="Index" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">Bloqlar</a>
-         <a asp-controller="StaticPage" asp-action="Contact" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">Əlaqə</a>
+         <a asp-controller="Vacancy" asp-action="Index" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">@Localizer["nav.vacancies"]</a>
+         <a asp-controller="Rank" asp-action="Index" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">@Localizer["nav.rankings"]</a>
+         <a asp-controller="Company" asp-action="Index" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">@Localizer["nav.companies"]</a>
+         <a asp-controller="StaticPage" asp-action="Services" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">@Localizer["nav.services"]</a>
+         <a asp-controller="StaticPage" asp-action="About" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">@Localizer["nav.about"]</a>
+         <a asp-controller="Blog" asp-action="Index" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">@Localizer["nav.blogs"]</a>
+         <a asp-controller="StaticPage" asp-action="Contact" class="nav-link text-white text-md font-medium hover:text-cyberGreen transition-all whitespace-nowrap">@Localizer["nav.contact"]</a>
       </nav>
 
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
@@ -38,10 +41,37 @@
                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
          </button>
-         @* *@
-         @* <div class="hidden sm:flex items-center gap-2 cursor-pointer group px-2 py-2 rounded-lg hover:bg-white/5"> *@
-         @*    <span class="text-white font-bold text-md tracking-wide uppercase">AZ</span> *@
-         @* </div> *@
+
+         <!-- Language Switcher (click toggle) -->
+         @{
+             var currentLang = Context.Items["lang"]?.ToString() ?? "az";
+             var returnUrl = Context.Request.Path;
+             var qs = Context.Request.QueryString.Value;
+             if (!string.IsNullOrEmpty(qs))
+             {
+                 var nvc = System.Web.HttpUtility.ParseQueryString(qs);
+                 nvc.Remove("lang");
+                 var cleanQs = nvc.ToString();
+                 if (!string.IsNullOrEmpty(cleanQs))
+                     returnUrl += "?" + cleanQs;
+             }
+         }
+         <div class="relative" id="lang-switcher">
+            <button type="button" id="lang-toggle"
+                    class="flex items-center gap-1 px-3 py-2 rounded-lg border border-white/10 text-white text-sm font-bold uppercase hover:bg-white/5 transition-all">
+               <span>@currentLang</span>
+               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="lang-arrow" class="transition-transform"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div id="lang-dropdown" class="hidden absolute right-0 top-full mt-1 w-28 bg-white dark:bg-zinc-900 rounded-xl shadow-2xl border border-gray-100 dark:border-zinc-800 z-50 overflow-hidden">
+               @foreach (var lc in new[] { "az", "en", "ru" })
+               {
+                  <a href="/language/setlanguage?lang=@lc&returnUrl=@Uri.EscapeDataString(returnUrl)"
+                     class="block px-4 py-3 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-zinc-800 hover:text-cyberGreen transition-all @(lc == currentLang ? "bg-gray-50 dark:bg-zinc-800 text-cyberGreen" : "")">
+                     @(lc switch { "az" => "Azərbaycan", "en" => "English", "ru" => "Русский", _ => lc })
+                  </a>
+               }
+            </div>
+         </div>
 
          <!-- Mobile Hamburger -->
          <button id="mobile-menu-btn"
@@ -64,59 +94,69 @@
    <div id="mobile-nav"
         class="lg:hidden fixed top-[72px] sm:top-[96px] left-0 w-full bg-[#0B2036] dark:bg-black border-t border-white/10 transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-in-out z-50 shadow-xl">
       <nav class="flex flex-col px-4 sm:px-6 py-6 space-y-1">
-         <a asp-controller="Vacancy" asp-action="Index" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">Vakansiyalar</a>
-         <a asp-controller="Rank" asp-action="Index" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">Reytinq cədvəli</a>
-         <a asp-controller="Company" asp-action="Index" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">Şirkətlər</a>
-         <a asp-controller="StaticPage" asp-action="Services" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">Xidmətlər</a>
-         <a asp-controller="StaticPage" asp-action="About" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">Haqqımızda</a>
-         <a asp-controller="Blog" asp-action="Index" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">Bloqlar</a>
-         <a asp-controller="StaticPage" asp-action="Contact" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">Əlaqə</a>
-         @* <div class="sm:hidden flex items-center gap-2 pt-3 px-4 mt-2 border-t border-white/10"> *@
-         @*    <span class="text-white font-bold text-md tracking-wide uppercase">AZ</span> *@
-         @* </div> *@
+         <a asp-controller="Vacancy" asp-action="Index" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">@Localizer["nav.vacancies"]</a>
+         <a asp-controller="Rank" asp-action="Index" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">@Localizer["nav.rankings"]</a>
+         <a asp-controller="Company" asp-action="Index" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">@Localizer["nav.companies"]</a>
+         <a asp-controller="StaticPage" asp-action="Services" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">@Localizer["nav.services"]</a>
+         <a asp-controller="StaticPage" asp-action="About" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">@Localizer["nav.about"]</a>
+         <a asp-controller="Blog" asp-action="Index" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">@Localizer["nav.blogs"]</a>
+         <a asp-controller="StaticPage" asp-action="Contact" class="text-white text-[16px] font-medium py-3 px-4 rounded-lg hover:bg-white/5 hover:text-cyberGreen transition-all">@Localizer["nav.contact"]</a>
       </nav>
    </div>
 </header>
 
-@section Scripts {
-
-
-   <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileNav = document.getElementById('mobile-nav');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-    const closeIcon = document.getElementById('close-icon');
-
-    if (menuBtn) {
-        menuBtn.addEventListener('click', function() {
-            const isOpen = mobileNav.classList.contains('open');
-
-            if (isOpen) {
-                mobileNav.classList.remove('open');
-                mobileNav.classList.add('-translate-y-full', 'opacity-0', 'invisible');
-                hamburgerIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            } else {
-                mobileNav.classList.add('open');
-                mobileNav.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
-                mobileNav.classList.add('translate-y-0', 'opacity-100', 'visible');
-                hamburgerIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
-            }
-        });
-
-        // Close on link click
-        mobileNav.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                mobileNav.classList.remove('open');
-                mobileNav.classList.add('-translate-y-full', 'opacity-0', 'invisible');
-                mobileNav.classList.remove('translate-y-0', 'opacity-100', 'visible');
-                hamburgerIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            });
-        });
-    }
+   // --- Language Switcher ---
+   var langToggle = document.getElementById('lang-toggle');
+   var langDropdown = document.getElementById('lang-dropdown');
+   var langArrow = document.getElementById('lang-arrow');
+   if (langToggle && langDropdown) {
+      langToggle.addEventListener('click', function(e) {
+         e.stopPropagation();
+         var isOpen = !langDropdown.classList.contains('hidden');
+         langDropdown.classList.toggle('hidden');
+         if (langArrow) langArrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
       });
+      document.addEventListener('click', function() {
+         langDropdown.classList.add('hidden');
+         if (langArrow) langArrow.style.transform = 'rotate(0deg)';
+      });
+   }
+
+   // --- Mobile Menu ---
+   var menuBtn = document.getElementById('mobile-menu-btn');
+   var mobileNav = document.getElementById('mobile-nav');
+   var hamburgerIcon = document.getElementById('hamburger-icon');
+   var closeIcon = document.getElementById('close-icon');
+
+   if (menuBtn && mobileNav) {
+      menuBtn.addEventListener('click', function() {
+         var isOpen = mobileNav.classList.contains('open');
+         if (isOpen) {
+            mobileNav.classList.remove('open');
+            mobileNav.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+            mobileNav.classList.remove('translate-y-0', 'opacity-100', 'visible');
+            if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+            if (closeIcon) closeIcon.classList.add('hidden');
+         } else {
+            mobileNav.classList.add('open');
+            mobileNav.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
+            mobileNav.classList.add('translate-y-0', 'opacity-100', 'visible');
+            if (hamburgerIcon) hamburgerIcon.classList.add('hidden');
+            if (closeIcon) closeIcon.classList.remove('hidden');
+         }
+      });
+
+      mobileNav.querySelectorAll('a').forEach(function(link) {
+         link.addEventListener('click', function() {
+            mobileNav.classList.remove('open');
+            mobileNav.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+            mobileNav.classList.remove('translate-y-0', 'opacity-100', 'visible');
+            if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+            if (closeIcon) closeIcon.classList.add('hidden');
+         });
+      });
+   }
+});
 </script>
-}

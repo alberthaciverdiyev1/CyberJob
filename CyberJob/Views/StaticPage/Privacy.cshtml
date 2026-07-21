@@ -1,24 +1,24 @@
 @using CyberJob.DTOs
-@using CyberJob.Helpers
 @using static CyberJob.Helpers.HtmlSanitizerHelper
 @model List<LegalTermAndUserAgreementDto>
 
 <div class="max-w-5xl mx-auto py-10">
     <div class="text-center mb-12">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Hüquqi Məlumat və Xidmət Şərtləri</h1>
-        <p class="text-gray-500">Platformadan istifadə üçün bütün vacib sənədlər burada.</p>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">@Localizer["privacy.title"]</h1>
+        <p class="text-gray-500">@Localizer["privacy.subtitle"]</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        @foreach (LegalTermAndUserAgreementDto item in Model)
+        @for (int i = 0; i < Model.Count; i++)
         {
+            var item = Model[i];
             <div class="bg-white p-6 rounded-xl border border-gray-200 flex justify-between items-center shadow-sm">
                 <div>
                     <h3 class="font-semibold text-lg text-gray-800">@item.Title</h3>
                     <button class="view-btn mt-2 text-teal-600 font-medium text-sm hover:underline"
                             data-title="@item.Title"
-                            data-index="@Model.IndexOf(item)">
-                        Bax
+                            data-index="@i">
+                        @Localizer["common.view"]
                     </button>
                 </div>
                 <div class="bg-teal-50 p-3 rounded-lg text-teal-600">
@@ -26,8 +26,7 @@
                 </div>
             </div>
 
-            @* Store content in a hidden div to avoid HTML-in-attribute issues *@
-            <div id="content-@Model.IndexOf(item)" class="hidden">@Html.Raw(Sanitize(item.Content))</div>
+            <div id="content-@i" class="hidden">@Html.Raw(Sanitize(item.Content))</div>
         }
     </div>
 </div>
@@ -36,7 +35,7 @@
     <div class="bg-white rounded-2xl p-8 max-w-lg w-full shadow-2xl relative">
         <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">✕</button>
         @* <h2 id="modal-title" class="text-xl font-bold mb-6 text-gray-800"></h2> *@
-        <h2 class="text-xl font-bold mb-6 text-gray-800">Hüquqi Xəbərdarlıq</h2>
+        <h2 class="text-xl font-bold mb-6 text-gray-800">@Localizer["privacy.modal_warning"]</h2>
         <div id="modal-content" class="text-gray-600 space-y-4 text-sm leading-relaxed"></div>
     </div>
 </div>
