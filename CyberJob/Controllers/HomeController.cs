@@ -47,7 +47,7 @@ public class HomeController(
     [HttpPost]
     [EnableRateLimiting("SubscribePolicy")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Subscribe([FromBody] Subscribe request)
+    public async Task<IActionResult> Subscribe([FromBody] Subscribe? request)
     {
         if (request == null)
             return BadRequest();

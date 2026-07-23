@@ -44,6 +44,9 @@ public class Vacancy
     [Column("email")]
     public string? Email { get; set; }
 
+    [Column("application_url")]
+    public string? ApplicationUrl { get; set; }
+
     [Column("is_active")]
     public bool IsActive { get; set; }
 

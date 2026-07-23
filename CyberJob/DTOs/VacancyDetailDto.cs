@@ -10,6 +10,7 @@
         public int? MinAge { get; set; }
         public int? MaxAge { get; set; }
         public string? Email { get; set; }
+        public string? ApplicationUrl { get; set; }
         public int ViewCount { get; set; }
         public DateTime? ExpireDate { get; set; }
         public DateTime CreatedAt { get; set; }

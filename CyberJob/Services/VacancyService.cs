@@ -146,6 +146,7 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
             MinAge = vacancy.MinAge,
             MaxAge = vacancy.MaxAge,
             Email = vacancy.Email,
+            ApplicationUrl = vacancy.ApplicationUrl,
             ViewCount = vacancy.ViewCount,
             ExpireDate = vacancy.ExpireDate,
             CreatedAt = vacancy.CreatedAt ?? DateTime.MinValue,

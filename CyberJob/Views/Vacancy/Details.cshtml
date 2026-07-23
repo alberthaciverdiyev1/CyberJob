@@ -93,11 +93,23 @@
                             class="text-black font-bold dark:text-white shrink-0">@Localizer["vacancy.detail.salary"]</span>
                         <span class="font-bold text-gray-400 dark:text-gray-400 text-right">@Model.Vacancy.Salary</span>
                     </div>
-                    <a href="mailto:@(Model.Vacancy.Email ?? Model.Vacancy.Company.Email)"
-                       class="w-full bg-[#009689] text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-[#007a6f] transition-all text-sm sm:text-base hover:cursor-pointer">
-                        <iconify-icon icon="ph:envelope-simple-bold"></iconify-icon>
-                        @(Model.Vacancy.Email ?? Model.Vacancy.Company.Email)
-                    </a>
+                    @if (!string.IsNullOrEmpty(Model.Vacancy.ApplicationUrl))
+                    {
+                        <a href="@Model.Vacancy.ApplicationUrl" target="_blank" rel="noopener noreferrer"
+                           class="w-full bg-[#009689] text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-[#007a6f] transition-all text-sm sm:text-base hover:cursor-pointer">
+                            <iconify-icon icon="ph:link-simple-bold"></iconify-icon>
+                            @Localizer["vacancy.detail.apply"]
+                        </a>
+                    }
+                    else if (!string.IsNullOrEmpty(Model.Vacancy.Email ?? Model.Vacancy.Company.Email))
+                    {
+                        var contactEmail = Model.Vacancy.Email ?? Model.Vacancy.Company.Email;
+                        <a href="mailto:@contactEmail"
+                           class="w-full bg-[#009689] text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-[#007a6f] transition-all text-sm sm:text-base hover:cursor-pointer">
+                            <iconify-icon icon="ph:envelope-simple-bold"></iconify-icon>
+                            @contactEmail
+                        </a>
+                    }
                 </div>
             </div>
         </aside>
