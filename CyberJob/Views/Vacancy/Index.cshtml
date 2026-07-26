@@ -152,9 +152,19 @@
                     <div id="salary-range" class="filter-section-content">
                         <div class="flex gap-2">
                             <input type="text" placeholder="@Localizer["vacancy.filter.min"]" name="MinSalary"
-                                   class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none text-center placeholder:font-bold font-bold dark:text-white">
+                                   class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none text-center placeholder:font-bold font-bold dark:text-white"
+                                   hx-get="/vacancies"
+                                   hx-target="#vacancy-list-container"
+                                   hx-include="#filter-section, #searchInput"
+                                   hx-indicator=".loader"
+                                   hx-trigger="keyup changed delay:800ms, change">
                             <input type="text" placeholder="@Localizer["vacancy.filter.max"]" name="MaxSalary"
-                                   class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none text-center placeholder:font-bold font-bold dark:text-white">
+                                   class="w-1/2 p-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-xs border border-gray-100 dark:border-zinc-700 outline-none text-center placeholder:font-bold font-bold dark:text-white"
+                                   hx-get="/vacancies"
+                                   hx-target="#vacancy-list-container"
+                                   hx-include="#filter-section, #searchInput"
+                                   hx-indicator=".loader"
+                                   hx-trigger="keyup changed delay:800ms, change">
                         </div>
                     </div>
                 </div>
@@ -178,7 +188,12 @@
                                         <input type="checkbox"
                                                name="CategoryId"
                                                value="@category.Id"
-                                               class="w-5 h-5 rounded-full border-gray-300 text-lightGreen focus:ring-lightGreen cursor-pointer appearance-none checked:bg-lightGreen checked:border-transparent border transition-all">
+                                               class="w-5 h-5 rounded-full border-gray-300 text-lightGreen focus:ring-lightGreen cursor-pointer appearance-none checked:bg-lightGreen checked:border-transparent border transition-all"
+                                               hx-get="/vacancies"
+                                               hx-target="#vacancy-list-container"
+                                               hx-include="#filter-section, #searchInput"
+                                               hx-indicator=".loader"
+                                               hx-trigger="change">
 
                                         <span
                                             class="text-sm font-semibold text-gray-700 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">
@@ -216,7 +231,12 @@
                                             <input type="radio"
                                                    name="@filter.Key"
                                                    value="@option.Key"
-                                                   class="w-5 h-5 rounded-full border-gray-300 text-lightGreen focus:ring-lightGreen cursor-pointer appearance-none checked:bg-lightGreen checked:border-transparent border transition-all">
+                                                   class="w-5 h-5 rounded-full border-gray-300 text-lightGreen focus:ring-lightGreen cursor-pointer appearance-none checked:bg-lightGreen checked:border-transparent border transition-all"
+                                                   hx-get="/vacancies"
+                                                   hx-target="#vacancy-list-container"
+                                                   hx-include="#filter-section, #searchInput"
+                                                   hx-indicator=".loader"
+                                                   hx-trigger="change">
 
                                             <span
                                                 class="text-sm font-semibold text-gray-700 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">
