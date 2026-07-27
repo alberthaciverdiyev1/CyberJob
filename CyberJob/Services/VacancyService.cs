@@ -168,7 +168,7 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
             CreatedAt = vacancy.CreatedAt ?? DateTime.MinValue,
             IsPremium = vacancy.IsPremium,
             BannerImage = !string.IsNullOrEmpty(vacancy.BannerImage)
-                ? vacancy.BannerImage.ToAdminUrl()
+                ? vacancy.BannerImage.ToAdminUrlWithNoImage()
                 : null,
             IsBringTop = vacancy.IsBringTop,
             City = vacancy.City?.Name.Translate(lang),
@@ -179,8 +179,8 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
                 Id = vacancy.Company?.Id ?? 0,
                 Name = vacancy.Company?.Name,
                 Email = vacancy.Company?.Email,
-                Logo = vacancy.Company?.Logo.ToAdminUrl(),
-                BannerImage = vacancy.Company?.BannerImage.ToAdminUrl() ?? null,
+                Logo = vacancy.Company?.Logo.ToAdminUrlWithNoImage(),
+                BannerImage = vacancy.Company?.BannerImage.ToAdminUrlWithNoImage() ?? null,
                 About = vacancy.Company?.About,
                 IsVerified = vacancy.Company?.IsVerified ?? false
             },

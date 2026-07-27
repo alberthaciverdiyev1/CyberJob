@@ -16,4 +16,13 @@ public static class UrlHelper
 
         return $"{_storageUrl?.TrimEnd('/')}/{path.TrimStart('/')}";
     }
+    
+    public static string? ToAdminUrlWithNoImage(this string? path)
+    {
+        if (string.IsNullOrEmpty(path)) return string.Empty; 
+        
+        if (path.StartsWith("http")) return path; 
+
+        return $"{_storageUrl?.TrimEnd('/')}/{path.TrimStart('/')}";
+    }
 }
