@@ -75,5 +75,36 @@
 @Html.Raw(await SettingHelper.GetScript("footer"))
 
 <script src="~/js/theme.js"></script>
+
+<!-- Scroll to Top Button -->
+<button id="scroll-to-top"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        aria-label="Scroll to top"
+        class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-lightGreen text-white shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-extraLightGreen hover:scale-110 active:scale-95 opacity-0 invisible translate-y-4">
+    <iconify-icon icon="ph:arrow-up-bold" class="text-xl"></iconify-icon>
+</button>
+
+<script>
+    (function() {
+        const btn = document.getElementById('scroll-to-top');
+        if (!btn) return;
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    if (window.scrollY > 400) {
+                        btn.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+                        btn.classList.add('opacity-100', 'visible', 'translate-y-0');
+                    } else {
+                        btn.classList.remove('opacity-100', 'visible', 'translate-y-0');
+                        btn.classList.add('opacity-0', 'invisible', 'translate-y-4');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+    })();
+</script>
 </body>
 </html>

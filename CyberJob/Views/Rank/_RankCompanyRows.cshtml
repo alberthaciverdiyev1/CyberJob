@@ -1,0 +1,66 @@
+@using CyberJob.DTOs
+@model IEnumerable<CompanyListDto>
+
+@{
+    int currentSkip = ViewBag.CurrentSkip ?? 0;
+    int startRank = currentSkip + 1;
+    int totalCount = ViewBag.TotalCount ?? 0;
+    int pageSize = ViewBag.PageSize ?? 10;
+    int nextSkip = currentSkip + pageSize;
+    string date = ViewBag.CurrentDate ?? "this_month";
+    string search = ViewBag.CurrentSearch ?? "";
+    bool hasMore = nextSkip < totalCount;
+}
+
+@foreach (var c in Model)
+{
+    int displayRank = startRank++;
+
+    <tr hx-swap-oob="beforeend:#rank-rows"
+        class="bg-tableColor/80 hover:bg-tableColor transition-all cursor-pointer shadow-lg group">
+        <td width="5"
+            class="py-2 sm:py-3 rounded-l-2xl font-bold text-center text-sm sm:text-lg @(displayRank <= 10 ? "text-yellow-500" : "text-white/40")">
+            @displayRank
+        </td>
+
+        <td class="py-2 sm:py-3">
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-white p-0.5 sm:p-1 flex items-center justify-center overflow-hidden border border-white/10 shadow-sm shrink-0">
+                    <img src="@c.Logo" class="w-full h-full object-contain" alt="@c.Name">
+                </div>
+                <span class="font-bold text-xs sm:text-sm text-white tracking-wide truncate max-w-[120px] sm:max-w-none">@c.Name</span>
+                @if (c.IsVerified)
+                {
+                    <iconify-icon icon="material-symbols:verified"
+                                  class="text-[#2D9CDB] -ml-1 sm:-mx-3 shrink-0"></iconify-icon>
+                }
+            </div>
+        </td>
+
+        <td class="py-2 sm:py-3 text-center text-xs sm:text-sm font-semibold text-white">
+            @c.VacancyCount <span class="text-[10px] opacity-50 block font-normal sm:inline">@Localizer["rank.announcement"]</span>
+        </td>
+
+        <td class="py-2 sm:py-3 text-center text-xs sm:text-sm font-semibold text-white hidden sm:table-cell">
+            @c.VacancyCount
+        </td>
+
+        <td class="py-2 sm:py-3 pr-3 sm:pr-8 text-right rounded-r-2xl">
+            <span class="bg-green-500/10 text-green-500 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-black whitespace-nowrap">
+                +1%
+            </span>
+        </td>
+    </tr>
+}
+
+<div id="load-more-container" hx-swap-oob="true" class="flex justify-center mt-4 sm:mt-3 pb-8 sm:pb-0">
+    @if (hasMore)
+    {
+        <button hx-get="/rank?date=@date&search=@search&skip=@nextSkip"
+                hx-target="#rank-rows"
+                hx-swap="beforeend"
+                class="bg-lightGreen hover:bg-darkGreen px-8 sm:px-10 py-3 sm:py-4 text-white text-base sm:text-lg rounded-lg font-bold">
+            @Localizer["rank.more_button"]
+        </button>
+    }
+</div>

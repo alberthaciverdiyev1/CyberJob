@@ -9,12 +9,29 @@ namespace CyberJob.Controllers;
 public class RankController(CompanyService companyService, FaqService faqService) : Controller
 {
     [HttpGet("")]
-    public async Task<IActionResult> Index(string date = "this_month", string search = "", [FromQuery] string lang = "az")
+    public async Task<IActionResult> Index(string date = "this_month", string search = "", int skip = 0, [FromQuery] string lang = "az")
     {
+        const int pageSize = 10;
+
+        if (Request.Headers.ContainsKey("HX-Request") && skip > 0)
+        {
+            var (moreCompanies, allTotal) = await companyService.RankListAsync(date, search, skip, 10);
+            ViewBag.CurrentSkip = skip;
+            ViewBag.CurrentDate = date;
+            ViewBag.CurrentSearch = search;
+            ViewBag.TotalCount = allTotal;
+            ViewBag.PageSize = 10;
+            ViewBag.PageSize = pageSize;
+            return PartialView("_RankCompanyRows", moreCompanies);
+        }
+
+        var (companies, totalCount) = await companyService.RankListAsync(date, search);
+
         var model = new RankIndexVM
         {
             Faqs = await faqService.GetListAsync("rating", lang),
-            Companies = await companyService.RankListAsync(date, search)
+            Companies = companies,
+            TotalCount = totalCount
         };
 
         if (Request.Headers.ContainsKey("HX-Request"))

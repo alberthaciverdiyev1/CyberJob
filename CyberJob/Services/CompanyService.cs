@@ -89,7 +89,7 @@ public class CompanyService(AppDbContext context)
 
         };
     }
-    public async Task<List<CompanyListDto>> RankListAsync(string date, string? search)
+    public async Task<(List<CompanyListDto> Companies, int TotalCount)> RankListAsync(string date, string? search, int skip = 0, int take = int.MaxValue)
     {
         var now = DateTime.UtcNow;
         DateTime? startDate = null;
@@ -121,7 +121,9 @@ public class CompanyService(AppDbContext context)
             query = query.Where(c => c.Name.ToLower().Contains(search));
         }
 
-        var result = await query.Select(c => new CompanyListDto
+        var totalCount = await query.CountAsync();
+
+        var companies = await query.Select(c => new CompanyListDto
         {
             Id = c.Id,
             Name = c.Name,
@@ -134,8 +136,10 @@ public class CompanyService(AppDbContext context)
         })
             .OrderByDescending(c => c.VacancyCount)
             .ThenBy(c => c.Name)
+            .Skip(skip)
+            .Take(take)
             .ToListAsync();
 
-        return result;
+        return (companies, totalCount);
     }
 }
