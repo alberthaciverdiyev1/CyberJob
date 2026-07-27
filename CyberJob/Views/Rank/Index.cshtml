@@ -19,41 +19,115 @@
         <h1 class="text-3xl sm:text-5xl flex justify-center text-white font-semibold mb-10 sm:mb-16 tracking-tight px-4 text-center">
             @Localizer["rank.hero.title"]</h1>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 mb-16 sm:mb-20 gap-8 sm:gap-0">
-            <div class="flex flex-col items-center relative group px-4">
+        <!-- SVG design-based hero cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 md:gap-6 mb-16 sm:mb-20 px-4 sm:px-8 lg:px-36">
 
-                <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#14516D]/60 rounded-full blur-[50px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
-
-                <img src="~/images/winner.png" class="relative z-10 h-48 sm:h-72 mb-4 sm:mb-6 drop-shadow-2xl"
-                     alt="Winner">
-
-                <p class="relative z-10 text-sm sm:text-md text-white leading-relaxed max-w-[260px] text-center px-2">
-                    @Localizer["rank.hero.winner_prefix"] <span class="font-bold">@Localizer["rank.hero.winner_badge"]</span> @Localizer["rank.hero.winner_suffix"]
-                </p>
+            <!-- Card: Winner / Liderlik -->
+            <div class="bg-[#0A1A1F] rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,150,137,0.25)] border border-white/[0.03]">
+                <div class="bg-[#1D3138] p-5 sm:p-6 md:p-7">
+                    <div class="flex gap-1 mb-3">
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                    </div>
+                    <h3 class="text-white font-bold text-base sm:text-lg leading-tight">
+                        @Localizer["rank.hero.winner_prefix"]
+                    </h3>
+                </div>
+                <div class="p-5 sm:p-6 md:p-7 space-y-3 sm:space-y-4">
+                    <p class="text-[#D2D2D2] text-xs sm:text-sm leading-relaxed">
+                        <span class="text-[#009689] font-semibold">@Localizer["rank.hero.winner_badge"]</span>
+                    </p>
+                    <div class="flex items-start gap-2.5">
+                        <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#009689] flex items-center justify-center shrink-0 mt-0.5">
+                            <iconify-icon icon="ph:check" class="text-white text-[10px]"></iconify-icon>
+                        </span>
+                        <span class="text-[#D2D2D2] text-xs sm:text-sm">@Localizer["rank.hero.winner_suffix"]</span>
+                    </div>
+                    <a asp-controller="StaticPage" asp-action="Services"
+                       class="block mt-4 sm:mt-6">
+                        <div class="w-full bg-black text-white text-xs sm:text-sm font-bold py-2.5 sm:py-3 rounded-lg border border-white/10 hover:bg-white/5 transition text-center cursor-pointer">
+                            @Localizer["services.get"]
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="flex flex-col items-center relative group px-4">
 
-                <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#14516D]/60 rounded-full blur-[50px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
-
-                <img src="~/images/fly.png" class="relative z-10 h-48 sm:h-72 mb-4 sm:mb-6 drop-shadow-2xl" alt="Fly">
-
-                <p class="relative z-10 text-sm sm:text-md text-white leading-relaxed max-w-[260px] text-center px-2">
-                    @Localizer["rank.hero.active"]
-                </p>
+            <!-- Card: Active / Featured -->
+            <div class="bg-[#0A1A1F] rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,150,137,0.4)] border border-[#009689]/20 z-10">
+                <div class="bg-gradient-to-b from-[#00302C] to-[#009689] p-5 sm:p-6 md:p-7 relative">
+                    <div class="absolute top-2 sm:top-3 right-2 sm:right-3 bg-[#22C55E] text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
+                        @Localizer["services.popular"]
+                    </div>
+                    <div class="flex gap-1 mb-3">
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                    </div>
+                    <h3 class="text-white font-bold text-base sm:text-lg leading-tight">
+                        @Localizer["rank.hero.active"]
+                    </h3>
+                </div>
+                <div class="p-5 sm:p-6 md:p-7 space-y-3 sm:space-y-4">
+                    <div class="flex items-start gap-2.5">
+                        <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#009689] flex items-center justify-center shrink-0 mt-0.5">
+                            <iconify-icon icon="ph:check" class="text-white text-[10px]"></iconify-icon>
+                        </span>
+                        <span class="text-[#D2D2D2] text-xs sm:text-sm">@Localizer["rank.hero.active"]</span>
+                    </div>
+                    <div class="flex items-start gap-2.5">
+                        <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#009689] flex items-center justify-center shrink-0 mt-0.5">
+                            <iconify-icon icon="ph:check" class="text-white text-[10px]"></iconify-icon>
+                        </span>
+                        <span class="text-[#6A7282] text-xs sm:text-sm">@Localizer["services.benefit2"]</span>
+                    </div>
+                    <a asp-controller="StaticPage" asp-action="Services"
+                       class="block mt-4 sm:mt-6">
+                        <div class="w-full bg-[#009689] hover:bg-[#007A6E] text-white text-xs sm:text-sm font-bold py-2.5 sm:py-3 rounded-lg transition text-center cursor-pointer">
+                            @Localizer["services.get"]
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="flex flex-col items-center relative group px-4">
 
-                <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#14516D]/60 rounded-full blur-[50px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
-
-                <img src="~/images/strong.png" class="relative z-10 h-48 sm:h-72 mb-4 sm:mb-6 drop-shadow-2xl"
-                     alt="Strong">
-
-                <p class="relative z-10 text-sm sm:text-md text-white leading-relaxed max-w-[260px] text-center px-2">
-                    @Localizer["rank.hero.compete"]
-                </p>
+            <!-- Card: Compete / Reputasiya -->
+            <div class="bg-[#0A1A1F] rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,150,137,0.25)] border border-white/[0.03]">
+                <div class="bg-[#1D3138] p-5 sm:p-6 md:p-7">
+                    <div class="flex gap-1 mb-3">
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                        <iconify-icon icon="ph:star-fill" class="text-[#F5DF56] text-xs"></iconify-icon>
+                    </div>
+                    <h3 class="text-white font-bold text-base sm:text-lg leading-tight">
+                        @Localizer["rank.hero.compete"]
+                    </h3>
+                </div>
+                <div class="p-5 sm:p-6 md:p-7 space-y-3 sm:space-y-4">
+                    <div class="flex items-start gap-2.5">
+                        <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#009689] flex items-center justify-center shrink-0 mt-0.5">
+                            <iconify-icon icon="ph:check" class="text-white text-[10px]"></iconify-icon>
+                        </span>
+                        <span class="text-[#D2D2D2] text-xs sm:text-sm">@Localizer["rank.hero.compete"]</span>
+                    </div>
+                    <div class="flex items-start gap-2.5">
+                        <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#009689] flex items-center justify-center shrink-0 mt-0.5">
+                            <iconify-icon icon="ph:check" class="text-white text-[10px]"></iconify-icon>
+                        </span>
+                        <span class="text-[#6A7282] text-xs sm:text-sm">@Localizer["services.benefit3"]</span>
+                    </div>
+                    <a asp-controller="StaticPage" asp-action="Services"
+                       class="block mt-4 sm:mt-6">
+                        <div class="w-full bg-black text-white text-xs sm:text-sm font-bold py-2.5 sm:py-3 rounded-lg border border-white/10 hover:bg-white/5 transition text-center cursor-pointer">
+                            @Localizer["services.get"]
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -259,7 +333,7 @@
             </div>
 
             <div id="load-more-container" class="flex justify-center mt-4 sm:mt-3 pb-8 sm:pb-0">
-                @if (Model.TotalCount > 13)
+                @if (Model.TotalCount > 10)
                 {
                     string currentDate = Context.Request.Query["date"].ToString();
                     if (string.IsNullOrEmpty(currentDate)) currentDate = "this_month";
