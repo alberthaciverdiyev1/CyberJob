@@ -15,7 +15,7 @@ public class SecurityHeadersMiddleware(RequestDelegate next)
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; " +
             "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; " +
             "img-src 'self' data: https:; " +
-            "connect-src 'self'; " +
+            "connect-src 'self' https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com; " +
             "frame-ancestors 'none'");
 
         return next(context);
