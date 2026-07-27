@@ -73,7 +73,7 @@
         @if (hasBanner)
         {
         <aside class="w-full lg:w-[400px] shrink-0">
-            <div class="max-w-[400px] w-full bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm overflow-hidden">
+            <div class="max-w-[400px] w-full bg-white dark:bg-cyberDark border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm overflow-hidden">
                 <!-- Header -->
                 <div class="bg-[#0B1E33] text-white flex items-center justify-center gap-2 py-4 px-6">
                     <svg class="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- Body -->
-                <div class="p-6 space-y-4 dark:bg-[#0a0a0a]">
+                <div class="p-6 space-y-4 dark:bg-cyberDark">
                     <!-- City -->
                     <div class="border-b border-gray-100 dark:border-gray-800 pb-4">
                         <span class="block text-sm font-bold dark:text-white mb-2">@Localizer["vacancy.detail.city"]</span>
@@ -234,7 +234,7 @@
             @foreach (VacancyListDto v in Model.SimilarVacancies)
             {
                 <a href="/vacancies/@v.Id"
-                   class="border border-gray-300 dark:border-gray-700 dark:bg-[#0a0a0a] flex flex-col relative p-3 sm:p-4 transition-all hover:-translate-y-1 shadow-sm rounded-2xl">
+                   class="border border-gray-300 dark:border-gray-700 dark:bg-cyberDark flex flex-col relative p-3 sm:p-4 transition-all hover:-translate-y-1 shadow-sm rounded-2xl">
                     <div class="flex items-start gap-2.5 mb-2 overflow-hidden">
                         <div class="size-12 sm:size-14 rounded-full overflow-hidden shrink-0">
                             <img src="@v.Company.Logo" alt="@v.Company.Name" class="w-full h-full object-cover"/>
