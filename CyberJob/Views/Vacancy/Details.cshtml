@@ -230,19 +230,19 @@
             <h2 class="text-xl sm:text-3xl font-black text-black dark:text-white">@Localizer["vacancy.detail.more_ads"]</h2>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-[10px]">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             @foreach (VacancyListDto v in Model.SimilarVacancies)
             {
                 <a href="/vacancies/@v.Id"
-                   class="border border-gray-300 sm:border-gray-400 dark:border-gray-700 dark:bg-[#0a0a0a] min-h-[80px] flex flex-col relative px-3 sm:p-4 transition-all hover:-translate-y-1 shadow-sm rounded-2xl">
-                    <div class="flex items-start gap-2.5 my-2 sm:mt-3 overflow-hidden">
-                        <div class="size-14 sm:size-16 lg:size-10 rounded-full sm:rounded-md overflow-hidden shrink-0">
+                   class="border border-gray-300 dark:border-gray-700 dark:bg-[#0a0a0a] flex flex-col relative p-3 sm:p-4 transition-all hover:-translate-y-1 shadow-sm rounded-2xl">
+                    <div class="flex items-start gap-2.5 mb-2 overflow-hidden">
+                        <div class="size-12 sm:size-14 rounded-full overflow-hidden shrink-0">
                             <img src="@v.Company.Logo" alt="@v.Company.Name" class="w-full h-full object-cover"/>
                         </div>
                         <div class="min-w-0 flex-1">
-                            <h3 class="text-sm sm:text-[16px] font-bold text-black dark:text-white leading-tight truncate">@v.Name</h3>
-                            <div class="mt-2 sm:mt-4 lg:mt-1 flex items-center justify-between w-full">
-                                <span class="text-xs sm:text-md text-gray-400 font-semibold truncate flex items-center gap-1">
+                            <h3 class="text-sm font-bold text-black dark:text-white leading-tight truncate">@v.Name</h3>
+                            <div class="mt-1.5 flex items-center w-full">
+                                <span class="text-xs text-gray-400 font-semibold truncate flex items-center gap-1">
                                     @v.Company.Name
                                     @if (v.Company.IsVerified)
                                     {
@@ -254,10 +254,10 @@
                     </div>
                     <div class="mt-auto">
                         <div class="w-full h-[0.5px] bg-gray-400/20 dark:bg-gray-800/40 mb-2"></div>
-                        <div class="flex justify-between items-center text-gray-400 text-xs sm:text-sm">
+                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-gray-400 text-xs">
                             <span class="flex items-center gap-1"><iconify-icon icon="ph:clock-bold"></iconify-icon> @v.CreatedAt?.ToString("dd.MM.yyyy")</span>
                             <span class="flex items-center gap-1"><iconify-icon icon="ph:eye-bold"></iconify-icon> @v.ViewCount</span>
-                            <span class="text-darkGreen font-bold">@v.Salary</span>
+                            <span class="text-darkGreen font-bold ml-auto">@v.Salary</span>
                         </div>
                     </div>
                 </a>
