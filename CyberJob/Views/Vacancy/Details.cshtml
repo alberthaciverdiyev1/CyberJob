@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="~/css/vacancy-details.css"/>
 }
 
-<main class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-28 py-6 sm:py-10">
+<main class="w-full mx-auto px-4 sm:px-6 lg:px-28 mt-8 sm:mt-16">
     @{
         bool hasBanner = (Model.Vacancy.BannerImage ?? Model.Vacancy.Company?.BannerImage) != null;
     }
-    <div class="flex flex-col lg:flex-row @(hasBanner ? "items-stretch" : "items-start lg:items-center") gap-4 mb-8 sm:mb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8 sm:mb-12">
         <div
-            class="w-full @(hasBanner ? "sm:max-w-[490px] h-[120px] sm:h-[170px]" : "sm:max-w-full") bg-white dark:bg-cyberGray rounded-[15px] p-5 sm:p-6 flex items-center gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+            class="w-full @(hasBanner ? "lg:col-span-2 h-[120px] sm:h-[170px]" : "lg:col-span-3") bg-white dark:bg-cyberGray rounded-[15px] p-5 sm:p-6 flex items-center gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
             <div class="w-16 h-16 sm:w-20 sm:h-20 shrink-0">
                 <img src="@Model.Vacancy.Company.Logo" alt="Logo" class="w-full h-full object-contain">
             </div>
@@ -39,7 +39,7 @@
             <div
                 class="w-full max-w-[730px] lg:w-[730px] h-[120px] sm:h-[170px] rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
                 <img src="@(Model.Vacancy.BannerImage ?? Model.Vacancy.Company?.BannerImage ?? "")"
-                     alt="Reklam"
+                     alt="@Localizer["advertise.title"]"
                      class="w-full h-full object-fit">
             </div>
         }
@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- Body -->
-                <div class="p-6 space-y-4 dark:bg-cyberDark">
+                <div class="p-6 space-y-4 dark:bg-black">
                     <!-- City -->
                     <div class="border-b border-gray-100 dark:border-gray-800 pb-4">
                         <span class="block text-sm font-bold dark:text-white mb-2">@Localizer["vacancy.detail.city"]</span>
@@ -173,10 +173,10 @@
 
     <div class="social-cta-wrapper flex justify-center w-full mb-8 sm:mb-12">
         <div
-            class="w-full max-w-[1239px] bg-white dark:bg-darkGreen rounded-2xl border border-b-cyberGreen dark:border-gray-700 flex items-center justify-between px-5 my-8 sm:my-10 min-h-[70px] flex-col sm:flex-row gap-4 py-4 sm:py-0">
+            class="w-full bg-white dark:bg-darkGreen rounded-2xl border border-b-cyberGreen dark:border-gray-700 flex items-center justify-between px-5 my-8 sm:my-10 min-h-[70px] flex-col sm:flex-row gap-4 py-4 sm:py-0">
             <div class="flex items-center gap-3 sm:gap-4">
                 <div class="flex-shrink-0 flex items-center justify-center w-[40px] sm:w-[53px] h-[50px] sm:h-[74px]">
-                    <img src="~/images/robotelan.png" alt="robot" class="w-full h-full object-contain">
+                    <img src="~/images/robotelan.png" alt="@Localizer["common.robot"]" class="w-full h-full object-contain">
                 </div>
                 <span
                     class="text-xl sm:text-base font-semibold text-black dark:text-white">@Localizer["vacancy.detail.social_title"]</span>
@@ -256,7 +256,7 @@
                         <div class="w-full h-[0.5px] bg-gray-400/20 dark:bg-gray-800/40 mb-2"></div>
                         <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-gray-400 text-xs">
                             <span class="flex items-center gap-1"><iconify-icon icon="ph:clock-bold"></iconify-icon> @v.CreatedAt?.ToString("dd.MM.yyyy")</span>
-                            <span class="flex items-center gap-1"><iconify-icon icon="ph:eye-bold"></iconify-icon> @v.ViewCount</span>
+                            <span class="flex items-center gap-1"><iconify-icon icon="ph:eye-bold"></iconify-icon> @Localizer.Get("company.view_count", v.ViewCount)</span>
                             <span class="text-darkGreen font-bold ml-auto">@v.Salary</span>
                         </div>
                     </div>

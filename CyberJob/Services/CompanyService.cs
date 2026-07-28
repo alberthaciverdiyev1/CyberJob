@@ -6,8 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CyberJob.Services;
 
-public class CompanyService(AppDbContext context)
+public class CompanyService(AppDbContext context, TranslationService translationService)
 {
+
+    private static string FormatSalary(float? min, float? max, string negotiable) =>
+        (min, max) switch
+        {
+            (null, null) => negotiable,
+            (not null, null) => $"{min:0} AZN",
+            (null, not null) => $"{max:0} AZN",
+            (not null, not null) => $"{min:0} - {max:0} AZN"
+        };
 
     public async Task<(IEnumerable<dynamic> Items, int TotalCount)> GetPagedListAsync(string? search, int? page, int? pageSize)
     {
@@ -80,6 +89,7 @@ public class CompanyService(AppDbContext context)
                 {
                     Id = v.Id,
                     Name = v.Name.Translate(lang),
+                    Salary = FormatSalary(v.MinSalary, v.MaxSalary, translationService.Get("vacancy.salary.negotiable", lang)),
                     ViewCount = v.ViewCount,
                     CityName = v.City?.Name.Translate(lang),
                     CreatedAt = v.CreatedAt

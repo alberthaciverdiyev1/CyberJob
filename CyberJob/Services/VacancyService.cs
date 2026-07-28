@@ -63,7 +63,7 @@ public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params
     return vacancies.Select(v => new VacancyListDto
     {
         Id = v.Id,
-        Name = v.Name,
+        Name = v.Name.Translate(@params.Lang),
         Salary = FormatSalary(v.MinSalary, v.MaxSalary, translationService.Get("vacancy.salary.negotiable", @params.Lang)),
         ViewCount = v.ViewCount,
         CreatedAt = v.CreatedAt,
@@ -155,9 +155,9 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
         return new VacancyDetailDto
         {
             Id = vacancy.Id,
-            Name = vacancy.Name,
-            Description = vacancy.Description,
-            Requirements = vacancy.Requirements,
+            Name = vacancy.Name.Translate(lang),
+            Description = vacancy.Description.Translate(lang),
+            Requirements = vacancy.Requirements.Translate(lang),
             Salary = FormatSalary(vacancy.MinSalary, vacancy.MaxSalary, translationService.Get("vacancy.salary.negotiable", lang)),
             MinAge = vacancy.MinAge,
             MaxAge = vacancy.MaxAge,

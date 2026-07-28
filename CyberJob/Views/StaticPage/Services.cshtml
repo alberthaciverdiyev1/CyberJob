@@ -115,7 +115,7 @@
                         </div>
 
                         <!-- CTA Button -->
-                        <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block">
+                        <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString(Localizer.Get("services.whatsapp_message", subscription.Name))" target="_blank" rel="noopener noreferrer" class="block">
                             <div class="w-full @(isPopular ? "bg-[#00897b] hover:bg-[#00796b] shadow-[0_4px_12px_rgba(0,137,123,0.2)]" : "bg-black hover:bg-gray-900 dark:bg-black dark:hover:bg-gray-900") text-white font-bold py-4 px-6 rounded-full transition-all text-sm text-center shadow-sm cursor-pointer">
                                 @Localizer["services.get"]
                             </div>
@@ -193,7 +193,7 @@
                         </div>
 
                         <!-- CTA Button -->
-                        <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString($"Salam, {subscription.Name} paketini əldə etmək istəyirəm.")" target="_blank" rel="noopener noreferrer" class="block">
+                        <a href="@(await SettingHelper.GetSocialUrl("whatsapp_number"))?text=@Uri.EscapeDataString(Localizer.Get("services.whatsapp_message", subscription.Name))" target="_blank" rel="noopener noreferrer" class="block">
                             <div class="w-full @(isPopular ? "bg-[#00897b] hover:bg-[#00796b] shadow-[0_4px_12px_rgba(0,137,123,0.2)]" : "bg-black hover:bg-gray-900 dark:bg-black dark:hover:bg-gray-900") text-white font-bold py-4 px-6 rounded-full transition-all text-sm text-center shadow-sm cursor-pointer">
                                 @Localizer["services.get"]
                             </div>

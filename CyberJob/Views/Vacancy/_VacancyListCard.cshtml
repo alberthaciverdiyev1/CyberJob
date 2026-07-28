@@ -17,7 +17,7 @@
         @if (vacancy.IsPremium)
         {
             <div class="absolute -top-0 right-3 bg-gradient-to-b from-goldStart to-goldEnd px-3 sm:px-4 py-0.5 sm:py-1 rounded-r-lg rounded-b-lg shadow-sm">
-                <span class="text-[11px] sm:text-sm font-bold text-gray-100 uppercase tracking-wider">PREMİUM</span>
+                <span class="text-[11px] sm:text-sm font-bold text-gray-100 uppercase tracking-wider">@Localizer["home.premium.badge"]</span>
             </div>
         }
         <div class="flex items-center gap-4 sm:gap-6 w-full sm:flex-1 sm:min-w-0">
@@ -42,7 +42,7 @@
                         </span>
                     <span class="flex items-center gap-1 sm:gap-1.5">
                         <iconify-icon icon="ph:eye" class="text-base sm:text-xl"></iconify-icon>
-                        @vacancy.ViewCount baxış
+                        @Localizer.Get("company.view_count", vacancy.ViewCount)
                     </span>
                 </div>
             </div>
@@ -56,7 +56,7 @@
     if (i == 4 || i == 14 || i == 29 || i == 44 || i == 59)
     {
         <div class="my-4 sm:my-6 overflow-hidden w-full h-32 sm:h-44 rounded-2xl">
-            <img src="~/images/banner.jpg" alt="Reklam" class="w-full h-full object-cover">
+            <img src="~/images/banner.jpg" alt="@Localizer["advertise.title"]" class="w-full h-full object-cover">
         </div>
     }
 

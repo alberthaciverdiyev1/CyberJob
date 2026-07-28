@@ -248,5 +248,10 @@
   "rank.hero.title": "Advantages of the company list!",
   "privacy.subtitle": "All important documents for using the platform are here.",
   "privacy.modal_warning": "Legal Warning",
-  "user_agreement.subtitle": "User agreement documents for using the platform."
+  "user_agreement.subtitle": "User agreement documents for using the platform.",
+  "common.robot": "Robot",
+  "services.whatsapp_message": "Hello, I want to get the {0} package.",
+  "lang.az": "Azərbaycan",
+  "lang.en": "English",
+  "lang.ru": "Русский"
 }

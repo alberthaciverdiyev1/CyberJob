@@ -248,5 +248,10 @@
   "rank.hero.title": "Şirkət siyahısının üstünlükləri!",
   "privacy.subtitle": "Platformadan istifadə üçün bütün vacib sənədlər burada.",
   "privacy.modal_warning": "Hüquqi Xəbərdarlıq",
-  "user_agreement.subtitle": "Platformadan istifadə üçün istifadəçi razılaşması sənədləri."
+  "user_agreement.subtitle": "Platformadan istifadə üçün istifadəçi razılaşması sənədləri.",
+  "common.robot": "Robot",
+  "services.whatsapp_message": "Salam, {0} paketini əldə etmək istəyirəm.",
+  "lang.az": "Azərbaycan",
+  "lang.en": "English",
+  "lang.ru": "Русский"
 }

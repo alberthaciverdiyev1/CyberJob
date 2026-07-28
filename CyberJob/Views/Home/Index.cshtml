@@ -182,7 +182,7 @@
                                 <span class="flex items-center gap-1"><i
                                         class="fa-regular fa-clock text-md"></i> @vacancy.CreatedAt?.ToString("dd.MM.yyyy")</span>
                             <span class="flex items-center gap-1"><i
-                                    class="fa-regular fa-eye text-md"></i> @vacancy.ViewCount</span>
+                                    class="fa-regular fa-eye text-md"></i> @Localizer.Get("company.view_count", vacancy.ViewCount)</span>
                             <span class="text-[#B7872B] font-bold ">@vacancy.Salary</span>
                         </div>
                     </div>
@@ -225,7 +225,7 @@
                         <span class="flex items-center gap-1"><i
                                 class="fa-regular fa-clock"></i> @vacancy.CreatedAt?.ToString("dd.MM.yyyy")</span>
                         <span class="flex items-center gap-1"><i
-                                class="fa-regular fa-eye"></i> @vacancy.ViewCount</span>
+                                class="fa-regular fa-eye"></i> @Localizer.Get("company.view_count", vacancy.ViewCount)</span>
                         <span class="text-darkGreen font-bold">@vacancy.Salary</span>
                     </div>
                 </div>
