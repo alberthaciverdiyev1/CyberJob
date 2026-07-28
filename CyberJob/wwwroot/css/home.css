@@ -82,6 +82,11 @@
     background: linear-gradient(107.38deg, #E9CC81 7.1%, #B7872B 92.73%);
 }
 
+/* Home bottom banner — aspect ratio matching advertised sizes */
+.banner-large {
+    aspect-ratio: 1427 / 280;
+}
+
 /* Mobile responsive */
 @media (max-width: 640px) {
     .banner-swiper .swiper-slide.slide-left {
@@ -89,5 +94,8 @@
     }
     .banner-swiper .swiper-slide.slide-right {
         transform: translate(calc(-50% + 48%), 0) scale(0.8);
+    }
+    .banner-large {
+        aspect-ratio: 385 / 111;
     }
 }

@@ -27,3 +27,14 @@ input[type="checkbox"], input[type="radio"] { accent-color: #00D4AA; cursor: poi
 .filter-icon.rotated {
     transform: rotate(180deg);
 }
+
+/* Static banner between vacancy cards — aspect ratio matching advertised sizes */
+.banner-between {
+    aspect-ratio: 911 / 115;
+}
+
+@media (max-width: 640px) {
+    .banner-between {
+        aspect-ratio: 361 / 81;
+    }
+}
