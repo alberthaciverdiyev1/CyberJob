@@ -53,9 +53,6 @@ namespace CyberJob.Models
         [Column("is_verified")]
         public bool IsVerified { get; set; }
 
-        [Column("verified_at")]
-        public DateTime? VerifiedAt { get; set; }
-
         [Column("is_active")]
         public bool IsActive { get; set; }
 

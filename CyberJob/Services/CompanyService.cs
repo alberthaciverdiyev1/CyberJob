@@ -46,7 +46,7 @@ public class CompanyService(AppDbContext context, TranslationService translation
             c.Id,
             c.Name,
             Logo = c.Logo.ToAdminUrl(),
-            IsVerified = c.VerifiedAt != null,
+            IsVerified = c.IsVerified,
             c.IsActive,
             VacancyCount = c.Vacancies.Count
         })
@@ -78,7 +78,7 @@ public class CompanyService(AppDbContext context, TranslationService translation
             Logo = company.Logo.ToAdminUrl(),
             CoverImage = company.CoverImage.ToAdminUrl(),
             BannerImage = company.BannerImage.ToAdminUrl(),
-            IsVerified = company.VerifiedAt != null,
+            IsVerified = company.IsVerified,
             CreatedAt = company.CreatedAt,
             CompanyCategoryId = company.CompanyCategoryId,
             CategoryName = company.Category?.Name.Translate(lang) ?? "",
@@ -138,7 +138,7 @@ public class CompanyService(AppDbContext context, TranslationService translation
             Id = c.Id,
             Name = c.Name,
             Logo = c.Logo.ToAdminUrl(),
-            IsVerified = c.VerifiedAt != null,
+            IsVerified = c.IsVerified,
             VacancyCount = c.Vacancies.Count(v =>
                 v.DeletedAt == null &&
                 (!startDate.HasValue || v.CreatedAt >= startDate) &&
