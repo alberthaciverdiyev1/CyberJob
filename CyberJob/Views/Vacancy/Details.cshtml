@@ -21,7 +21,10 @@
                 <h1 class="text-lg sm:text-xl lg:text-2xl font-bold dark:text-white break-words">@Model.Vacancy.Name</h1>
                 <p class="text-[#95A1B0] dark:text-gray-400 font-bold text-sm sm:text-lg flex items-center gap-2">
                     @Model.Vacancy.Company.Name
-                    <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] shrink-0"></iconify-icon>
+                    @if (Model.Vacancy.Company.IsVerified)
+                    {
+                        <iconify-icon icon="material-symbols:verified" class="text-[#2D9CDB] shrink-0"></iconify-icon>
+                    }
                 </p>
                 <div class="flex items-center gap-3 sm:gap-4 mt-2 sm:mt-3 flex-wrap">
                     <span
