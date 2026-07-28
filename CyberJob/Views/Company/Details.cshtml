@@ -1,7 +1,17 @@
 @using CyberJob.DTOs
 @using static CyberJob.Helpers.HtmlSanitizerHelper
 @section Styles {
-    <link rel="stylesheet" href="~/css/companyDetails.css"/>
+    <style>
+        .nav-tabs { border-bottom: 1.5px solid black; display: flex; gap: 40px; margin-bottom: 30px; }
+        .dark .nav-tabs { border-bottom-color: #333; }
+        .nav-tab { font-size: 18px; padding-bottom: 12px; position: relative; cursor: pointer; transition: all 0.3s; color: #666; }
+        .dark .nav-tab { color: #999; }
+        .nav-tab.active { color: #009689; }
+        .nav-tab.active::after { content: ""; position: absolute; bottom: -1.5px; left: 0; width: 100%; height: 3.5px; background: #009689; border-radius: 10px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        @@media (max-width: 768px) { .nav-tabs { gap: 20px; } .nav-tab { font-size: 15px; } }
+    </style>
 }
 
 <div class="px-4 sm:px-8 lg:px-28 mx-auto py-6 sm:py-10">
