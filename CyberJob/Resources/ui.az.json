@@ -142,7 +142,7 @@
   "blog.search_button": "Axtar",
   "blog.load_more": "Daha çox",
   "company.no_vacancies": "Axtarışa uyğun vakansiya tapılmadı.",
-  "company.view_count": "baxış",
+  "company.view_count": "{0} baxış",
   "company.apply_button": "Müraciət et",
   "subscribe.title_line1": "Karyera yolunda",
   "subscribe.title_line2": "addımını bizlə at!",

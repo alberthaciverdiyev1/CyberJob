@@ -142,7 +142,7 @@
   "blog.search_button": "Search",
   "blog.load_more": "Load more",
   "company.no_vacancies": "No vacancies found matching your search.",
-  "company.view_count": "views",
+  "company.view_count": "{0} views",
   "company.apply_button": "Apply",
   "subscribe.title_line1": "Take a step",
   "subscribe.title_line2": "in your career with us!",

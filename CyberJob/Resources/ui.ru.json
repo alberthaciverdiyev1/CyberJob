@@ -142,7 +142,7 @@
   "blog.search_button": "Поиск",
   "blog.load_more": "Загрузить ещё",
   "company.no_vacancies": "Вакансий по вашему запросу не найдено.",
-  "company.view_count": "просмотров",
+  "company.view_count": "{0} просмотров",
   "company.apply_button": "Откликнуться",
   "subscribe.title_line1": "Сделайте шаг",
   "subscribe.title_line2": "в своей карьере с нами!",
