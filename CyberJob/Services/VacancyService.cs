@@ -73,7 +73,7 @@ public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params
         {
             Name = v.Company?.Name ?? "",
             Logo = v.Company?.Logo?.ToAdminUrl() ?? "/images/no-image.png",
-            IsVerified = v.Company?.IsVerified ?? false
+            IsVerified = v.Company != null && v.Company.VerifiedAt != null
         }
     }).ToList();
 }
@@ -182,7 +182,7 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
                 Logo = vacancy.Company?.Logo.ToAdminUrlWithNoImage(),
                 BannerImage = vacancy.Company?.BannerImage.ToAdminUrlWithNoImage() ?? null,
                 About = vacancy.Company?.About,
-                IsVerified = vacancy.Company?.IsVerified ?? false
+                IsVerified = vacancy.Company?.VerifiedAt != null
             },
             Filters = vacancy.VacancyFilters.Select(vf => new FilterDetailDto
             {
