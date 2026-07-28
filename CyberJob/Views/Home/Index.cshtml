@@ -10,13 +10,23 @@
         ? $"background-image: url('{Model.HeroBanner.Image}');background-size: cover;background-position: center;"
         : "background-image: url('@Url.Content(\"~/images/hero.svg\")');background-size: 55%;background-position: right -5% center;";
 
-    string RenderFaIcon(string? icon)
+    string RenderCategoryIcon(string? icon)
     {
-        if (string.IsNullOrEmpty(icon)) return "fa-solid fa-layer-group";
-        if (icon.Contains("heroicon")) return "fa-solid fa-layer-group";
-        // Convert "fas-display" to "fas fa-display"
+        if (string.IsNullOrEmpty(icon) || icon.Contains("heroicon")) return "fa6-solid:layer-group";
         var parts = icon.Split('-', 2);
-        return parts.Length == 2 ? $"{parts[0]} fa-{parts[1]}" : icon;
+        if (parts.Length == 2)
+        {
+            var prefix = parts[0] switch
+            {
+                "fas" => "fa6-solid",
+                "far" => "fa6-regular",
+                "fal" => "fa6-light",
+                "fab" => "fa6-brands",
+                _ => "fa6-solid"
+            };
+            return $"{prefix}:{parts[1]}";
+        }
+        return "fa6-solid:layer-group";
     }
 }
 
@@ -76,7 +86,7 @@
                            class="flex items-center justify-center gap-2 border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-black hover:border-white transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-3 h-auto ">
                             @if (!string.IsNullOrEmpty(bCat.Icon))
                             {
-                                <i class="@RenderFaIcon(bCat.Icon) text-xs sm:text-sm"></i>
+                                <iconify-icon icon="@RenderCategoryIcon(bCat.Icon)" class="text-xs sm:text-sm"></iconify-icon>
                             }
                             @bCat.Name
                         </a>
@@ -123,11 +133,11 @@
                     <div class="flex items-center justify-center">
                         @if (!string.IsNullOrEmpty(category.Icon))
                         {
-                            <i class="@RenderFaIcon(category.Icon) text-2xl sm:text-3xl text-cyberGreen group-hover:text-[#00D4AA] transition-all"></i>
+                            <iconify-icon icon="@RenderCategoryIcon(category.Icon)" class="text-2xl sm:text-3xl text-cyberGreen group-hover:text-[#00D4AA] transition-all"></iconify-icon>
                         }
                         else
                         {
-                            <i class="fa-solid fa-layer-group text-2xl sm:text-3xl text-cyberGreen group-hover:text-[#00D4AA] transition-all"></i>
+                            <iconify-icon icon="fa6-solid:layer-group" class="text-2xl sm:text-3xl text-cyberGreen group-hover:text-[#00D4AA] transition-all"></iconify-icon>
                         }
                     </div>
 
@@ -178,10 +188,8 @@
                     <div class="mt-auto hidden sm:block">
                         <div class="w-full h-[0.5px] bg-gray-400/20 dark:bg-gray-800/40 mb-2"></div>
                         <div class="flex justify-between items-center text-gray-400 text-xs sm:text-sm">
-                                <span class="flex items-center gap-1"><i
-                                        class="fa-regular fa-clock text-md"></i> @vacancy.CreatedAt?.ToString("dd.MM.yyyy")</span>
-                            <span class="flex items-center gap-1"><i
-                                    class="fa-regular fa-eye text-md"></i> @Localizer.Get("company.view_count", vacancy.ViewCount)</span>
+                                <span class="flex items-center gap-1"><iconify-icon icon="fa6-regular:clock" class="text-md"></iconify-icon> @vacancy.CreatedAt?.ToString("dd.MM.yyyy")</span>
+                            <span class="flex items-center gap-1"><iconify-icon icon="fa6-regular:eye" class="text-md"></iconify-icon> @Localizer.Get("company.view_count", vacancy.ViewCount)</span>
                             <span class="text-[#B7872B] font-bold ">@vacancy.Salary</span>
                         </div>
                     </div>
@@ -221,10 +229,8 @@
                 <div class="mt-auto">
                     <div class="w-full h-[0.5px] bg-gray-400/20 dark:bg-gray-800/40 mb-2"></div>
                     <div class="flex justify-between items-center text-gray-400 text-xs sm:text-sm">
-                        <span class="flex items-center gap-1"><i
-                                class="fa-regular fa-clock"></i> @vacancy.CreatedAt?.ToString("dd.MM.yyyy")</span>
-                        <span class="flex items-center gap-1"><i
-                                class="fa-regular fa-eye"></i> @Localizer.Get("company.view_count", vacancy.ViewCount)</span>
+                        <span class="flex items-center gap-1"><iconify-icon icon="fa6-regular:clock"></iconify-icon> @vacancy.CreatedAt?.ToString("dd.MM.yyyy")</span>
+                        <span class="flex items-center gap-1"><iconify-icon icon="fa6-regular:eye"></iconify-icon> @Localizer.Get("company.view_count", vacancy.ViewCount)</span>
                         <span class="text-darkGreen font-bold">@vacancy.Salary</span>
                     </div>
                 </div>

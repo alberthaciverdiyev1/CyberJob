@@ -65,12 +65,14 @@ public class SettingHelper(AppDbContext context)
         return IsAbsoluteUrl(value) ? value : null;
     }
 
-    public string GenerateQrSvg(string url)
+    public string GenerateQrSvg(string? url)
     {
+        if (string.IsNullOrEmpty(url))
+            return string.Empty;
         using var qrGenerator = new QRCodeGenerator();
         using var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
         using var qrCode = new SvgQRCode(qrCodeData);
-        
+
         return qrCode.GetGraphic(20);
     }
 }
