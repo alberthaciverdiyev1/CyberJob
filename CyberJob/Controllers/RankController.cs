@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace CyberJob.Controllers;
 
 [Route("rank")]
-public class RankController(CompanyService companyService, FaqService faqService) : Controller
+public class RankController(CompanyService companyService, FaqService faqService, LanguageService languageService) : Controller
 {
     [HttpGet("")]
-    public async Task<IActionResult> Index(string date = "this_month", string search = "", int skip = 0, [FromQuery] string lang = "az")
+    public async Task<IActionResult> Index(string date = "this_month", string search = "", int skip = 0, [FromQuery] string? lang = null)
     {
+        lang ??= languageService.GetCurrentLanguage();
         const int pageSize = 10;
 
         if (Request.Headers.ContainsKey("HX-Request") && skip > 0)

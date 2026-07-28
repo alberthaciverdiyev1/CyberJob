@@ -181,7 +181,7 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
                 Email = vacancy.Company?.Email,
                 Logo = vacancy.Company?.Logo.ToAdminUrlWithNoImage(),
                 BannerImage = vacancy.Company?.BannerImage.ToAdminUrlWithNoImage() ?? null,
-                About = vacancy.Company?.About,
+                About = vacancy.Company?.About.Translate(lang),
                 IsVerified = vacancy.Company?.IsVerified ?? false
             },
             Filters = vacancy.VacancyFilters.Select(vf => new FilterDetailDto

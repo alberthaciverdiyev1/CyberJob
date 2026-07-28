@@ -11,10 +11,12 @@ public class HomeController(
     CategoryService categoryService,
     PartnerService partnerService,
     StatisticsService statisticsService,
-    SubscribeService subscribeService) : Controller
+    SubscribeService subscribeService,
+    LanguageService languageService) : Controller
 {
-    public async Task<IActionResult> Index([FromQuery] string lang = "az")
+    public async Task<IActionResult> Index([FromQuery] string? lang = null)
     {
+        lang ??= languageService.GetCurrentLanguage();
         var banners = await bannerService.GetListAsync();
         var categories = await categoryService.GetOnlyParentsAsync(lang);
         var partners = await partnerService.GetListAsync();

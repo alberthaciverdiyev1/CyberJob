@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CyberJob.Controllers;
 
-public class StaticPageController(FaqService faqService, SubscriptionPlanService subscriptionPlanService, LegalTermAndUserAgreementService legalTermService, SettingHelper settingHelper) : Controller
+public class StaticPageController(FaqService faqService, SubscriptionPlanService subscriptionPlanService, LegalTermAndUserAgreementService legalTermService, SettingHelper settingHelper, LanguageService languageService) : Controller
 {
     [HttpGet("/services")]
-    public async Task<IActionResult> Services([FromQuery] string lang = "az")
+    public async Task<IActionResult> Services([FromQuery] string? lang = null)
     {
+        lang ??= languageService.GetCurrentLanguage();
         ServicesVM model = new ServicesVM()
         {
             Faqs = await faqService.GetListAsync("service", lang),
@@ -21,8 +22,9 @@ public class StaticPageController(FaqService faqService, SubscriptionPlanService
     }
 
     [HttpGet("/about")]
-    public async Task<IActionResult> About([FromQuery] string lang = "az")
+    public async Task<IActionResult> About([FromQuery] string? lang = null)
     {
+        lang ??= languageService.GetCurrentLanguage();
         var rawJson = await settingHelper.Get("about_us");
         ViewBag.AboutUs = rawJson?.Translate(lang) ?? "";
         return View();
@@ -41,15 +43,17 @@ public class StaticPageController(FaqService faqService, SubscriptionPlanService
     }
 
     [HttpGet("/privacy")]
-    public async Task<IActionResult> Privacy([FromQuery] string lang = "az")
+    public async Task<IActionResult> Privacy([FromQuery] string? lang = null)
     {
+        lang ??= languageService.GetCurrentLanguage();
         var data = await legalTermService.GetAllActiveAsync(lang: lang, type:"privacy");
         return View(data);
     }
 
     [HttpGet("/user-agreement")]
-    public async Task<IActionResult> UserAgreement([FromQuery] string lang = "az")
+    public async Task<IActionResult> UserAgreement([FromQuery] string? lang = null)
     {
+        lang ??= languageService.GetCurrentLanguage();
         var data = await legalTermService.GetAllActiveAsync(lang: lang, type:"terms");
         return View(data);
     }

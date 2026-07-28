@@ -10,11 +10,13 @@ public class VacancyController(
     VacancyService vacancyService,
     BannerService bannerService,
     FilterService filterService,
-    CategoryService categoryService) : Controller
+    CategoryService categoryService,
+    LanguageService languageService) : Controller
 {
     [HttpGet("")]
     public async Task<IActionResult> Index(VacancyFilterParams @params)
     {
+        @params.Lang = languageService.GetCurrentLanguage();
         var vacancies = await vacancyService.GetListAsync(@params);
         var totalCount = await vacancyService.GetFilteredCountAsync(@params);
 
@@ -36,20 +38,19 @@ public class VacancyController(
         return View(model);
     }
     [HttpGet("{Id:int}")]
-    public async Task<IActionResult> Details(int id, [FromQuery] string lang = "az")
+    public async Task<IActionResult> Details(int id, [FromQuery] string? lang = null)
     {
-        // 1. Öncə əsas vakansiyanı gətiririk
+        lang ??= languageService.GetCurrentLanguage();
         var vacancy = await vacancyService.GetByIdAsync(id, lang);
 
-        // 2. Əgər vakansiya tapılmazsa, dərhal 404 qaytarırıq
         if (vacancy == null)
         {
             return NotFound();
         }
 
-
         var similarVacancies = await vacancyService.GetListAsync(new()
         {
+            Lang = lang,
             CategoryId = vacancy.CategoryId,
             Take = 10
         });
