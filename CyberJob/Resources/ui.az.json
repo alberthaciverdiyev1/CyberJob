@@ -257,5 +257,13 @@
   "services.whatsapp_message": "Salam, {0} paketini əldə etmək istəyirəm.",
   "lang.az": "Azərbaycan",
   "lang.en": "English",
-  "lang.ru": "Русский"
+  "lang.ru": "Русский",
+  "notfound.title": "Səhifə tapılmadı",
+  "notfound.subtitle": "Axtardığınız səhifə mövcud deyil və ya silinmiş ola bilər.",
+  "notfound.desc": "Ünvanı yanlış daxil etmisiniz və ya səhifə müvəqqəti olaraq əlçatan deyil.",
+  "notfound.home": "Ana səhifəyə qayıt",
+  "notfound.error_code": "Xəta kodu",
+  "error.title": "Xəta baş verdi",
+  "error.subtitle": "Gözlənilməz bir xəta baş verdi.",
+  "error.desc": "Zəhmət olmasa bir az sonra yenidən cəhd edin."
 }

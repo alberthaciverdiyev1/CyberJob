@@ -46,6 +46,18 @@ public class HomeController(
         return View(model);
     }
 
+    [HttpGet("/error")]
+    public IActionResult Error()
+    {
+        return View();
+    }
+
+    [HttpGet("/not-found")]
+    public IActionResult PageNotFound()
+    {
+        return View();
+    }
+
     [HttpPost]
     [EnableRateLimiting("SubscribePolicy")]
     [ValidateAntiForgeryToken]
