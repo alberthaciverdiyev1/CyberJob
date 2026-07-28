@@ -241,6 +241,8 @@
   "time.years_ago": "{0} лет назад",
   "validation.required": "Это поле обязательно",
   "validation.email": "Введите корректный email",
+  "company.filter_verified": "С синей галочкой",
+  "company.filter_popular": "Популярные",
   "company.title": "Компании",
   "company.description": "Сделайте шаг в профессиональный мир с компаниями CyberJob!",
   "company.sort_newest": "Новые",

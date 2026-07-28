@@ -241,6 +241,8 @@
   "time.years_ago": "{0} years ago",
   "validation.required": "This field is required",
   "validation.email": "Please enter a valid email",
+  "company.filter_verified": "Verified",
+  "company.filter_popular": "Popular",
   "company.title": "Companies",
   "company.description": "Take a step into the professional world with CyberJob companies!",
   "company.sort_newest": "Newest",

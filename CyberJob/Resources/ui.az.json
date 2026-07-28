@@ -241,6 +241,8 @@
   "time.years_ago": "{0} il əvvəl",
   "validation.required": "Bu sahə məcburidir",
   "validation.email": "Düzgün email daxil edin",
+  "company.filter_verified": "Mavi tiki olanlar",
+  "company.filter_popular": "Populyar olanlar",
   "company.title": "Şirkətlər",
   "company.description": "CyberJob şirkətləri ilə peşəkar dünyaya addım atın!",
   "company.sort_newest": "Ən yeni",
