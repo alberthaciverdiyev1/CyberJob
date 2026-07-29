@@ -67,8 +67,8 @@
                             hx-get="/companies"
                             hx-target="#companies-container"
                             hx-trigger="change">
-                        <option value="newest">@Localizer["company.sort_newest"]</option>
-                        <option value="popular">@Localizer["company.sort_popular"]</option>
+                        <option value="isVerified" selected="@(Context.Request.Query["sort"] == "isVerified" ? true : null)">@Localizer["company.sort_verified"]</option>
+                        <option value="popular" selected="@(Context.Request.Query["sort"] == "popular" ? true : null)">@Localizer["company.sort_popular"]</option>
                     </select>
                     <iconify-icon icon="ph:caret-down-bold" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#1A998D] pointer-events-none"></iconify-icon>
                 </div>

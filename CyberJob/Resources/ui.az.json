@@ -243,7 +243,7 @@
   "validation.email": "Düzgün email daxil edin",
   "company.title": "Şirkətlər",
   "company.description": "CyberJob şirkətləri ilə peşəkar dünyaya addım atın!",
-  "company.sort_newest": "Ən yeni",
+  "company.sort_verified": "Təsdiqlənmiş",
   "company.sort_popular": "Məşhur",
   "company.vacancies_label": "{0} vakansiya",
   "company.details_button": "Detallar",

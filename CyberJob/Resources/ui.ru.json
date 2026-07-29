@@ -243,7 +243,7 @@
   "validation.email": "Введите корректный email",
   "company.title": "Компании",
   "company.description": "Сделайте шаг в профессиональный мир с компаниями CyberJob!",
-  "company.sort_newest": "Новые",
+  "company.sort_verified": "С галочкой",
   "company.sort_popular": "Популярные",
   "company.vacancies_label": "{0} вакансий",
   "company.details_button": "Подробнее",

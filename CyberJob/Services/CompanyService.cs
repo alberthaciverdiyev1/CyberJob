@@ -18,7 +18,7 @@ public class CompanyService(AppDbContext context, TranslationService translation
             (not null, not null) => $"{min:0} - {max:0} AZN"
         };
 
-    public async Task<(IEnumerable<dynamic> Items, int TotalCount)> GetPagedListAsync(string? search, int? page, int? pageSize)
+    public async Task<(IEnumerable<dynamic> Items, int TotalCount)> GetPagedListAsync(string? search, int? page, int? pageSize, string? sort = null)
     {
         var query = context.Companies
             .AsNoTracking()
@@ -29,9 +29,16 @@ public class CompanyService(AppDbContext context, TranslationService translation
             query = query.Where(c => EF.Functions.ILike(c.Name, $"%{search}%"));
         }
 
+        if (sort == "isVerified")
+        {
+            query = query.Where(c => c.IsVerified);
+        }
+
         int totalCount = await query.CountAsync();
 
-        var orderedQuery = query.OrderByDescending(c => c.Id);
+        IQueryable<Company> orderedQuery = sort == "popular"
+            ? query.OrderByDescending(c => c.Vacancies.Count(v => v.DeletedAt == null))
+            : query.OrderByDescending(c => c.Id);
 
         IQueryable<Company> pagedQuery = orderedQuery;
         if (page.HasValue && pageSize.HasValue)
