@@ -1,13 +1,5 @@
 @model dynamic
 
-@{
-    var isVerified = Context.Request.Query["isVerified"];
-    var isPopular = Context.Request.Query["isPopular"];
-    var filterParams = "";
-    if (isVerified == "true") filterParams += "&isVerified=true";
-    if (isPopular == "true") filterParams += "&isPopular=true";
-}
-
 <div id="companies-grid" class="flex flex-wrap gap-4 sm:gap-5 justify-center sm:justify-start">
     <partial name="_CompanyCard" model="Model" />
 </div>
@@ -16,7 +8,7 @@
 
     @if (ViewBag.CurrentPage > 1)
     {
-        <button hx-get="/companies?page=@(ViewBag.CurrentPage - 1)&search=@ViewBag.Search@filterParams"
+        <button hx-get="/companies?page=@(ViewBag.CurrentPage - 1)&search=@ViewBag.Search"
                 hx-target="#companies-container"
                 hx-push-url="true"
                 class="px-5 sm:px-7 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-500 dark:text-gray-400 font-bold text-[14px] hover:border-[#1A998D] hover:text-[#1A998D] transition-all">
@@ -26,7 +18,7 @@
 
     @for (int i = 1; i <= ViewBag.TotalPages; i++)
     {
-        <button hx-get="/companies?page=@i&search=@ViewBag.Search@filterParams"
+        <button hx-get="/companies?page=@i&search=@ViewBag.Search"
                 hx-target="#companies-container"
                 hx-push-url="true"
                 class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl font-bold text-[14px] transition-all
@@ -39,7 +31,7 @@
 
     @if (ViewBag.CurrentPage < ViewBag.TotalPages)
     {
-        <button hx-get="/companies?page=@(ViewBag.CurrentPage + 1)&search=@ViewBag.Search@filterParams"
+        <button hx-get="/companies?page=@(ViewBag.CurrentPage + 1)&search=@ViewBag.Search"
                 hx-target="#companies-container"
                 hx-push-url="true"
                 class="px-5 sm:px-7 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-500 dark:text-gray-400 font-bold text-[14px] hover:border-[#1A998D] hover:text-[#1A998D] transition-all">

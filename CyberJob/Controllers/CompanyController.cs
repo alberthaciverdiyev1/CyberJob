@@ -11,11 +11,11 @@ public class CompanyController(CompanyService companyService, CityService citySe
     : Controller
 {
     [HttpGet("")]
-    public async Task<IActionResult> Index(string? search, int page = 1, bool? isVerified = null, bool? isPopular = null)
+    public async Task<IActionResult> Index(string? search, int page = 1)
     {
         const int pageSize = 12;
 
-        var (items, totalCount) = await companyService.GetPagedListAsync(search, page, pageSize, isVerified, isPopular);
+        var (items, totalCount) = await companyService.GetPagedListAsync(search, page, pageSize);
 
         ViewBag.TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
         ViewBag.CurrentPage = page;
