@@ -1,35 +1,102 @@
-<div class="fixed bottom-0 left-0 right-0 p-4 pb-4 lg:hidden z-50">
-  <div class="relative bg-white dark:bg-black rounded-3xl h-20 flex items-center justify-between px-6 shadow-2xl transition-colors duration-300">
+@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    var action = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+}
 
-    <div class="flex flex-1 justify-between items-center text-gray-500 dark:text-white">
+<div id="mobile-bottom-nav"
+     class="fixed bottom-0 left-0 right-0 lg:hidden z-50 transition-all duration-500 ease-in-out"
+     style="transform: translateY(0); opacity: 1;">
+    <div class="px-4 pb-4 sm:pb-5">
+        <div class="relative bg-[#0B2036]/90 dark:bg-black/90 backdrop-blur-xl rounded-2xl border border-white/10 shadow-[0_-4px_30px_rgba(0,0,0,0.4)]">
+            <div class="flex items-center justify-around px-2 py-1">
 
-      <a asp-controller="Home" asp-action="Index" class="flex flex-col items-center gap-1 text-blue-500">
-        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M20.83 8.01002L14.28 2.77002C13 1.75002 11 1.74002 9.72999 2.76002L3.17999 8.01002C2.23999 8.76002 1.66999 10.26 1.86999 11.44L3.12999 18.98C3.41999 20.67 4.98999 22 6.69999 22H17.3C18.99 22 20.59 20.64 20.88 18.97L22.14 11.43C22.32 10.26 21.75 8.76002 20.83 8.01002ZM12.75 18C12.75 18.41 12.41 18.75 12 18.75C11.59 18.75 11.25 18.41 11.25 18V15C11.25 14.59 11.59 14.25 12 14.25C12.41 14.25 12.75 14.59 12.75 15V18Z"/></svg>
-        <span class="text-[10px] font-medium">@Localizer["mobile.home"]</span>
-      </a>
+                @* 1. Home *@
+                <a asp-controller="Home" asp-action="Index"
+                   class="relative flex flex-col items-center justify-center gap-0 py-2 w-[60px] transition-all duration-200
+                          @((controller == "" || controller == "Home") ? "text-cyberGreen" : "text-gray-400 hover:text-cyberGreen")">
+                    <iconify-icon icon="ph:house-simple" class="text-[22px]"></iconify-icon>
+                    <span class="text-[10px] font-medium leading-none mt-[3px]">@Localizer["mobile.home"]</span>
+                </a>
 
-      <a href="/vacancies" class="flex flex-col items-center gap-1 hover:text-blue-500 transition-colors">
-        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M11 20C15.97 20 20 15.97 20 11 20 6.03 15.97 2 11 2 6.03 2 2 6.03 2 11 2 15.97 6.03 20 11 20Z" stroke="currentColor" stroke-width="1.5"/><path d="M18.93 20.69C19.46 22.29 20.67 22.45 21.6 21.05 22.45 19.77 21.89 18.72 20.35 18.72 19.21 18.71 18.57 19.6 18.93 20.69Z" stroke="currentColor" stroke-width="1.5"/></svg>
-        <span class="text-[10px] font-medium">@Localizer["mobile.search"]</span>
-      </a>
+                @* 2. Search *@
+                <a href="/vacancies"
+                   class="relative flex flex-col items-center justify-center gap-0 py-2 w-[60px] transition-all duration-200
+                          @(controller == "Vacancy" ? "text-cyberGreen" : "text-gray-400 hover:text-cyberGreen")">
+                    <iconify-icon icon="ph:magnifying-glass" class="text-[22px]"></iconify-icon>
+                    <span class="text-[10px] font-medium leading-none mt-[3px]">@Localizer["mobile.search"]</span>
+                </a>
 
-      <div class="w-16"></div>
+                @* 3. Center: iş çantası *@
+                <div class="relative -mt-5 flex-shrink-0">
+                    <a asp-controller="Vacancy" asp-action="Index"
+                       class="flex items-center justify-center w-[52px] h-[52px] rounded-full bg-gradient-to-br from-cyberGreen to-[#00b8a8] text-white shadow-lg shadow-cyberGreen/30 hover:shadow-cyberGreen/40 hover:scale-110 active:scale-90 transition-all duration-200"
+                       aria-label="Post vacancy">
+                        <iconify-icon icon="ph:suitcase" class="text-[26px]"></iconify-icon>
+                    </a>
+                </div>
 
-      <a asp-controller="Rank" asp-action="Index" class="flex flex-col items-center gap-1 hover:text-blue-500 transition-colors">
-        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M13.69 11.09C13.98 11.2 14.27 11.33 14.55 11.47 14.84 11.61 15.11 11.77 15.38 11.95 15.2 12.14 15.05 12.34 14.91 12.54 14.77 12.74 14.64 12.96 14.52 13.2 13.92 12.8 13.28 12.51 12.6 12.3 11.92 12.1 11.22 12 10.5 12 9.81 12 9.15 12.09 8.51 12.27 7.87 12.45 7.27 12.7 6.71 13.02 6.16 13.34 5.66 13.73 5.2 14.19 4.75 14.65 4.03 15.16 3.7 15.71 3.45 16.27 3.27 17.51 3.09 18.15 3 18.81 3 19.5H1.5C1.5 18.56 1.64 17.66 1.91 16.79 2.18 15.93 2.58 15.13 3.09 14.39 3.61 13.66 4.22 13.0 4.92 12.43 5.63 11.86 6.42 11.41 7.31 11.09 6.43 10.51 5.74 9.78 5.25 8.91 4.76 8.03 4.51 7.06 4.5 6 4.5 5.17 4.66 4.39 4.97 3.67 5.28 2.94 5.71 2.3 6.25 1.76 6.79 1.21 7.42 0.78 8.16 0.47 8.89 0.16 9.67 0 10.5 0 11.33 0 12.11 0.16 12.83 0.47 13.56 0.78 14.2 1.21 14.74 1.75 15.29 2.29 15.72 2.92 16.03 3.66 16.34 4.39 16.5 5.17 16.5 6 16.5 6.52 16.44 7.02 16.31 7.51 16.19 8.0 16 8.47 15.75 8.91 15.5 9.34 15.21 9.75 14.87 10.11 14.54 10.48 14.14 10.8 13.69 11.09Z"/></svg>
-        <span class="text-[10px] font-medium">@Localizer["mobile.leaderboard"]</span>
-      </a>
+                @* 4. Leaderboard *@
+                <a asp-controller="Rank" asp-action="Index"
+                   class="relative flex flex-col items-center justify-center gap-0 py-2 w-[60px] transition-all duration-200
+                          @(controller == "Rank" ? "text-cyberGreen" : "text-gray-400 hover:text-cyberGreen")">
+                    <iconify-icon icon="ph:trophy" class="text-[22px]"></iconify-icon>
+                    <span class="text-[10px] font-medium leading-none mt-[3px]">@Localizer["mobile.leaderboard"]</span>
+                </a>
 
-      <a asp-controller="StaticPage" asp-action="Services" class="flex flex-col items-center gap-1 hover:text-blue-500 transition-colors">
-        <svg width="22" height="24" viewBox="0 0 22 24" fill="currentColor"><path d="M11.37 0.15L11 0 10.63 0.15 0.63 4.15 0 4.4V18.75L0.63 19.01 10.63 23.01 11 23.15 11.37 23.01 21.37 19.01 22 18.75V4.4L21.37 4.15 11.37 0.15ZM2 6.55V17.4L10 20.6V9.75L2 6.55ZM12 9.75V20.6L20 17.4V6.55L12 9.75Z"/></svg>
-        <span class="text-[10px] font-medium">@Localizer["mobile.services"]</span>
-      </a>
+                @* 5. Prices *@
+                <a asp-controller="StaticPage" asp-action="Services"
+                   class="relative flex flex-col items-center justify-center gap-0 py-2 w-[60px] transition-all duration-200
+                          @(controller == "StaticPage" && action == "Services" ? "text-cyberGreen" : "text-gray-400 hover:text-cyberGreen")">
+                    <iconify-icon icon="ph:currency-dollar" class="text-[22px]"></iconify-icon>
+                    <span class="text-[10px] font-medium leading-none mt-[3px]">@Localizer["nav.services"]</span>
+                </a>
+
+            </div>
+        </div>
     </div>
-
-    <a asp-controller="Vacancy" asp-action="Index"
-       class="absolute -top-6 left-1/2 -translate-x-1/2 bg-blue-500 p-4 rounded-full border-4 border-white dark:border-black shadow-lg text-white hover:scale-105 transition-transform duration-200">
-      <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12.14 16.64c.67 0 1.2 .61 1.06 1.3L13.23 18c-.09.55-.6 1.07-1.15 1.07H9.38c-.3 0-.55.25-.55.56s.25.56.55.56h4.08c.5 0 .99-.17 1.38-.49l3.19-2.58c.43-.35 1.06-.37 1.47 0 .52.47.48 1.28-.04 1.7l-5.21 4.22c-.39.32-.88.49-1.38.49H.55C.25 23.34 0 23.09 0 22.78v-3.35c0-.31.25-.56.55-.56h1.91l1.6-1.32c.72-.59 1.62-.91 2.55-.91h5.52zM5.79 7.67c2.33.82 4.79 1.3 7.29 1.43v1.66h3.64V9.1c2.49-.14 4.95-.61 7.29-1.4V14.07H5.79V7.67zm12.75-6.84V2.48h5.46v4.31c-2.79.95-5.74 1.45-8.72 1.48h-.65c-3.02-.03-6.01-.55-8.83-1.53V2.48h5.46V.83l.91-.83h5.46l.91.83z"/></svg>
-    </a>
-
-  </div>
 </div>
+
+<script>
+(function () {
+    var nav = document.getElementById('mobile-bottom-nav');
+    if (!nav) return;
+
+    var lastScrollY = window.scrollY;
+    var ticking = false;
+    var threshold = 80;
+    var accumulatedDown = 0;
+
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            window.requestAnimationFrame(function () {
+                var currentScrollY = window.scrollY;
+
+                if (currentScrollY > threshold) {
+                    if (currentScrollY > lastScrollY) {
+                        accumulatedDown += currentScrollY - lastScrollY;
+                        if (accumulatedDown > 20) {
+                            nav.style.transform = 'translateY(100%)';
+                            nav.style.opacity = '0';
+                            nav.style.pointerEvents = 'none';
+                        }
+                    } else if (currentScrollY < lastScrollY) {
+                        accumulatedDown = 0;
+                        nav.style.transform = 'translateY(0)';
+                        nav.style.opacity = '1';
+                        nav.style.pointerEvents = 'auto';
+                    }
+                } else {
+                    accumulatedDown = 0;
+                    nav.style.transform = 'translateY(0)';
+                    nav.style.opacity = '1';
+                    nav.style.pointerEvents = 'auto';
+                }
+
+                lastScrollY = currentScrollY;
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+})();
+</script>
