@@ -67,6 +67,7 @@
                             hx-get="/companies"
                             hx-target="#companies-container"
                             hx-trigger="change">
+                        <option value="" selected="@(string.IsNullOrEmpty(Context.Request.Query["sort"]) ? true : null)" disabled>@Localizer["company.sort_select"]</option>
                         <option value="isVerified" selected="@(Context.Request.Query["sort"] == "isVerified" ? true : null)">@Localizer["company.sort_verified"]</option>
                         <option value="popular" selected="@(Context.Request.Query["sort"] == "popular" ? true : null)">@Localizer["company.sort_popular"]</option>
                     </select>
