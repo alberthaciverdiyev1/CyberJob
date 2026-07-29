@@ -266,9 +266,23 @@
                         if (banner.Location == "small")
                         {
                             <div
-                                class="mt-10 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer hidden lg:block"
+                                class="mt-10 overflow-hidden shadow-sm hidden lg:block"
                                 style="width: 271px; height: 450px; border-radius: 1px 1px 16px 16px;">
-                                <img src="@banner.Image" alt="Banner" class="w-full h-full object-cover">
+                                @if (!string.IsNullOrEmpty(banner.Link))
+                                {
+                                    <a href="@banner.Link" target="_blank" rel="noopener noreferrer" class="relative block w-full h-full group">
+                                        <img src="@banner.Image" alt="Banner" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                        <span class="absolute bottom-3 right-3 bg-white/90 text-gray-900 text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
+                                            <iconify-icon icon="ph:arrow-up-right-bold"></iconify-icon>
+                                            @Localizer["banner.more"]
+                                        </span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <img src="@banner.Image" alt="Banner" class="w-full h-full object-cover">
+                                }
                             </div>
                             break;
                         }
