@@ -97,7 +97,7 @@
   "company.tab.about": "About Company",
   "company.profile_title": "{0} - Company Profile",
   "company.email": "Email",
-  "company.search_placeholder": "Job title",
+  "company.search_placeholder": "Search company...",
   "company.city_select": "Select city",
   "company.search_button": "Search",
   "company.vacancy_count": "{0} vacancies",
