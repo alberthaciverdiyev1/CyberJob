@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.OutputCaching;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,7 @@ builder.Services.AddResponseCompression(options =>
 builder.Services.AddOutputCache(options =>
 {
     options.DefaultExpirationTimeSpan = TimeSpan.FromMinutes(5);
-    options.AddBasePolicy(b => b.Cache().SetVaryByQuery("*").SetVaryByHeader("HX-Request"));
+    options.AddBasePolicy(b => b.Cache().SetVaryByQuery("*").SetVaryByHeader("HX-Request").Tag("all"));
 });
 builder.Services.AddHttpContextAccessor();
 
@@ -147,6 +148,12 @@ app.UseMiddleware<CyberJob.Middleware.LanguageMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseOutputCache();
+
+app.MapGet("/clear-cache", async (IOutputCacheStore cache) =>
+{
+    await cache.EvictByTagAsync("all", default);
+    return Results.Ok(new { message = "Cache cleared" });
+});
 
 app.MapStaticAssets();
 
