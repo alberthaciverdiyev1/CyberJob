@@ -22,15 +22,20 @@ public class VacancyController(
 
         if (Request.Headers.ContainsKey("HX-Request"))
         {
+            var hxBanners = await bannerService.GetListAsync();
+            ViewBag.Banners = hxBanners;
             return PartialView("_VacancyListCard", vacancies);
         }
+
+        var allBanners = await bannerService.GetListAsync();
+        ViewBag.Banners = allBanners;
 
         var model = new VacancyIndexVM
         {
             Vacancies = vacancies,
             TotalCount = totalCount,
             ExpiredCount = await vacancyService.GetExpiredCountAsync(),
-            Banners = await bannerService.GetListAsync(),
+            Banners = allBanners,
             Filters = await filterService.GetFilterGroupAsync(@params.Lang),
             Categories = await categoryService.GetParentsWithChildrenAsync(@params.Lang)
         };

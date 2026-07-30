@@ -67,7 +67,7 @@
   "vacancy.filter.expired": "Expired vacancies: {0}",
   "vacancy.filter.title": "Filters",
   "vacancy.list.search_button": "Search",
-  "vacancy.detail.last_date": "Deadline {0}",
+  "vacancy.detail.last_date": "Deadline",
   "vacancy.detail.views": "{0} views",
   "vacancy.detail.description": "Job Description",
   "vacancy.detail.requirements": "Requirements",

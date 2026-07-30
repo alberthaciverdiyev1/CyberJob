@@ -67,7 +67,7 @@
   "vacancy.filter.expired": "Vaxtı bitmiş vakansiyalar: {0}",
   "vacancy.filter.title": "Filtrlər",
   "vacancy.list.search_button": "Axtar",
-  "vacancy.detail.last_date": "Son tarix {0}",
+  "vacancy.detail.last_date": "Son tarix",
   "vacancy.detail.views": "{0} baxış",
   "vacancy.detail.description": "İşin təsviri",
   "vacancy.detail.requirements": "Xüsusi tələblər",

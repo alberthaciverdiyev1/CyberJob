@@ -67,7 +67,7 @@
   "vacancy.filter.expired": "Просроченные вакансии: {0}",
   "vacancy.filter.title": "Фильтры",
   "vacancy.list.search_button": "Поиск",
-  "vacancy.detail.last_date": "Срок {0}",
+  "vacancy.detail.last_date": "Срок",
   "vacancy.detail.views": "{0} просмотров",
   "vacancy.detail.description": "Описание работы",
   "vacancy.detail.requirements": "Требования",
