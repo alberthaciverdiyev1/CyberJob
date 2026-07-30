@@ -12,6 +12,19 @@ var builder = WebApplication.CreateBuilder(args);
 var isDevelopment = builder.Environment.IsDevelopment();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProvider>();
+    options.Providers.Add<Microsoft.AspNetCore.ResponseCompression.GzipCompressionProvider>();
+    options.MimeTypes = Microsoft.AspNetCore.ResponseCompression.ResponseCompressionDefaults.MimeTypes
+        .Concat(["text/html", "application/json", "text/css", "application/javascript", "image/svg+xml"]);
+});
+builder.Services.AddOutputCache(options =>
+{
+    options.DefaultExpirationTimeSpan = TimeSpan.FromMinutes(5);
+    options.AddBasePolicy(b => b.Cache().SetVaryByQuery("*").SetVaryByHeader("HX-Request"));
+});
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAntiforgery(options =>
@@ -121,6 +134,7 @@ else
 }
 
 app.UseHttpsRedirection();
+app.UseResponseCompression();
 app.UseRouting();
 
 app.UseCookiePolicy();
@@ -132,6 +146,7 @@ app.UseMiddleware<CyberJob.Middleware.LanguageMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseOutputCache();
 
 app.MapStaticAssets();
 
