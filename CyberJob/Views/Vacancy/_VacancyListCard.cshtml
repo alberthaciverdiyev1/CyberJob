@@ -2,6 +2,10 @@
 @model IEnumerable<VacancyListDto>
 @{
     int i = 0;
+    var allBanners = (ViewBag.Banners as IEnumerable<BannerDto>) ?? Enumerable.Empty<BannerDto>();
+    var listBanners = allBanners.Where(b => b.Location == "between_content").ToList();
+    if (listBanners.Count == 0) listBanners = allBanners.ToList();
+    int bannerIndex = 0;
 }
 
 @foreach (VacancyListDto vacancy in Model)
@@ -55,9 +59,23 @@
 
     if (i == 4 || i == 14 || i == 29 || i == 44 || i == 59)
     {
-        <div class="my-4 sm:my-6 overflow-hidden w-full h-[81px] sm:h-[115px] rounded-2xl">
-            <img src="~/images/banner.jpg" alt="@Localizer["advertise.title"]" class="w-full h-full object-cover">
-        </div>
+        var banner = listBanners.Count > 0 ? listBanners[bannerIndex % listBanners.Count] : null;
+        bannerIndex++;
+        if (banner != null)
+        {
+            <div class="my-4 sm:my-6 overflow-hidden w-full h-[81px] sm:h-[115px] rounded-2xl">
+                @if (!string.IsNullOrEmpty(banner.Link))
+                {
+                    <a href="@banner.Link" target="_blank" rel="noopener noreferrer" class="relative block w-full h-full group">
+                        <img src="@banner.Image" alt="@Localizer["advertise.title"]" class="w-full h-full object-cover">
+                    </a>
+                }
+                else
+                {
+                    <img src="@banner.Image" alt="@Localizer["advertise.title"]" class="w-full h-full object-cover">
+                }
+            </div>
+        }
     }
 
     i++;
