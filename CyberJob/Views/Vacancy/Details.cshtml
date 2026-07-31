@@ -9,7 +9,8 @@
 
 <main class="w-full mx-auto px-4 sm:px-6 lg:px-28 mt-8 sm:mt-16">
     @{
-        bool hasBanner = (Model.Vacancy.BannerImage ?? Model.Vacancy.Company?.BannerImage) != null;
+        bool hasBanner = !string.IsNullOrEmpty(Model.Vacancy.BannerImage)
+                         || !string.IsNullOrEmpty(Model.Vacancy.Company?.BannerImage);
     }
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8 sm:mb-12">
         <div

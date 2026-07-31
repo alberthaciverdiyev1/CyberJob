@@ -180,7 +180,9 @@ private IQueryable<Vacancy> BuildBaseQuery(VacancyFilterParams @params)
                 Name = vacancy.Company?.Name,
                 Email = vacancy.Company?.Email,
                 Logo = vacancy.Company?.Logo.ToAdminUrlWithNoImage(),
-                BannerImage = vacancy.Company?.BannerImage.ToAdminUrlWithNoImage() ?? null,
+                BannerImage = string.IsNullOrEmpty(vacancy.Company?.BannerImage)
+                    ? null
+                    : vacancy.Company.BannerImage.ToAdminUrlWithNoImage(),
                 About = vacancy.Company?.About.Translate(lang),
                 IsVerified = vacancy.Company?.IsVerified ?? false
             },
