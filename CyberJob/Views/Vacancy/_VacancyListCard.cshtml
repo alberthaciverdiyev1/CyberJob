@@ -3,8 +3,7 @@
 @{
     int i = 0;
     var allBanners = (ViewBag.Banners as IEnumerable<BannerDto>) ?? Enumerable.Empty<BannerDto>();
-    var listBanners = allBanners.Where(b => b.Location == "between_content").ToList();
-    if (listBanners.Count == 0) listBanners = allBanners.ToList();
+    var listBanners = allBanners.Where(b => b.Location == "vacancy_card_between").ToList();
     int bannerIndex = 0;
 }
 
