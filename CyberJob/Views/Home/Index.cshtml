@@ -76,29 +76,6 @@
             </button>
         </form>
 
-        <div class="w-full max-w-[730px] mt-4 sm:mt-6 ml-0 sm:ml-[122px] relative z-20 hidden sm:block">
-            <div class="flex items-center gap-2 sm:gap-[23px] overflow-x-auto pb-2 scrollbar-hide">
-                @if (Model.Categories is not null)
-                {
-                    @foreach (var bCat in Model.Categories)
-                    {
-                        <a href="/vacancies?CategoryId=@bCat.Id"
-                           class="flex items-center justify-center gap-2 border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-black hover:border-white transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-3 h-auto ">
-                            @if (!string.IsNullOrEmpty(bCat.Icon))
-                            {
-                                <iconify-icon icon="@RenderCategoryIcon(bCat.Icon)" class="text-xs sm:text-sm"></iconify-icon>
-                            }
-                            @bCat.Name
-                        </a>
-                    }
-
-                    <a asp-controller="Vacancy" asp-action="Index"
-                       class="flex items-center justify-center border border-white rounded-[8px] text-white text-[13px] sm:text-[15px] font-medium hover:bg-white hover:text-black hover:border-white transition-all shrink-0 px-4 sm:px-6 py-2 sm:py-3 h-auto ">
-                        @Localizer["home.categories.more"]
-                    </a>
-                }
-            </div>
-        </div>
     </div>
 </section>
 <section
