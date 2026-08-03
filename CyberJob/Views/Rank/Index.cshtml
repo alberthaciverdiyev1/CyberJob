@@ -320,11 +320,11 @@
             window.updateTabClasses = function (clickedElement) {
                 const buttons = document.querySelectorAll('.filter-btn');
                 buttons.forEach(btn => {
-                    btn.classList.remove('btn-active', 'text-white', 'font-semibold');
+                    btn.classList.remove('bg-zinc-800', 'font-semibold');
                     btn.classList.add('opacity-60', 'font-medium');
                 });
-                clickedElement.classList.add('btn-active', 'text-white', 'font-semibold');
                 clickedElement.classList.remove('opacity-60', 'font-medium');
+                clickedElement.classList.add('bg-zinc-800', 'font-semibold');
             }
         </script>
     }
