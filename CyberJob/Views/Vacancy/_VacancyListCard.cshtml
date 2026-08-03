@@ -11,11 +11,10 @@
 {
     <a href="/vacancies/@vacancy.Id"
        class="block relative bg-white dark:bg-black shadow-sm
-                border-2 border-white dark:border-zinc-800
                 flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-4 sm:py-0 transition-all
-                hover:border-extraLightGreen hover:shadow-md cursor-pointer
+                hover:shadow-md cursor-pointer
                  w-full no-underline min-h-24 sm:min-h-28 rounded-3xl mb-4 overflow-hidden
-                     @(vacancy.IsPremium ? "!border-gold border-2 sm:border-4" : "bg-white dark:bg-black")
+                     @(vacancy.IsPremium ? "premium-card" : "border-2 border-white dark:border-zinc-800 hover:border-extraLightGreen bg-white dark:bg-black")
                 ">
         @if (vacancy.IsPremium)
         {

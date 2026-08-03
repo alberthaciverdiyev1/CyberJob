@@ -29,3 +29,50 @@ input[type="checkbox"], input[type="radio"] { accent-color: #00D4AA; cursor: poi
 }
 
 /* Static banner between vacancy cards — advertised heights: 115px desktop, 81px mobile */
+
+/* Premium vacancy card — rotating gold border ring */
+@property --premium-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.premium-card {
+    position: relative;
+    border: none !important;
+    border-radius: inherit; /* rounded-3xl (24px) from the anchor */
+}
+
+.premium-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px; /* mobile ring = old border-2 */
+    background: conic-gradient(
+        from var(--premium-angle),
+        #C29D55 0deg,
+        #FFF3C9 40deg,   /* bright highlight */
+        #C29D55 80deg,
+        #B7872B 210deg,  /* deeper gold opposite, for depth */
+        #C29D55 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: premium-border-spin 3s linear infinite;
+    pointer-events: none;
+}
+
+@media (min-width: 640px) {
+    .premium-card::before { padding: 4px; } /* desktop ring = old sm:border-4 */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .premium-card::before { animation: none; }
+}
+
+@keyframes premium-border-spin {
+    to { --premium-angle: 360deg; }
+}
