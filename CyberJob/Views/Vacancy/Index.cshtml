@@ -36,9 +36,9 @@
                 </button>
 
                 <button id="mobile-filter-toggle"
-                        class="w-full flex items-center justify-center gap-2  border border-gray-200 dark:border-zinc-800 py-2 rounded-xl font-bold text-sm shadow-sm transition-all  bg-[#00D4AA] text-[#0B2036]">
-                    <span id="mobile-filter-text">@Localizer["vacancy.filter.title"]</span>
-                    <iconify-icon icon="ph:caret-down-bold" class="text-xs" id="mobile-filter-arrow"></iconify-icon>
+                        class="flex items-center justify-center gap-2 border border-gray-200 dark:border-zinc-800 px-3 py-2 rounded-xl shadow-sm transition-all bg-[#00D4AA] text-[#0B2036]">
+                    <iconify-icon icon="ph:funnel-bold" class="text-lg"></iconify-icon>
+                    <iconify-icon icon="ph:caret-down-bold" class="filter-icon text-xs" id="mobile-filter-arrow"></iconify-icon>
                 </button>
             </div>
         </div>
@@ -367,15 +367,13 @@
     document.addEventListener('DOMContentLoaded', function () {
         const filterToggle = document.getElementById('mobile-filter-toggle');
         const filterSection = document.getElementById('filter-section');
-        const filterText = document.getElementById('mobile-filter-text');
         const filterArrow = document.getElementById('mobile-filter-arrow');
 
         if (filterToggle && filterSection) {
             filterToggle.addEventListener('click', function () {
-                const isHidden = filterSection.classList.toggle('hidden');
+                filterSection.classList.toggle('hidden');
                 filterSection.classList.toggle('block');
-                if (filterText) filterText.textContent = isHidden ? '@Localizer["vacancy.filter.title"]' : '@Localizer["vacancy.list.filter_close"]';
-                if (filterArrow) filterArrow.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+                if (filterArrow) filterArrow.classList.toggle('rotated');
             });
         }
     });
