@@ -24,7 +24,7 @@ builder.Services.AddResponseCompression(options =>
 builder.Services.AddOutputCache(options =>
 {
     options.DefaultExpirationTimeSpan = TimeSpan.FromMinutes(5);
-    options.AddBasePolicy(b => b.Cache().SetVaryByQuery("*").SetVaryByHeader("HX-Request").Tag("all"));
+    options.AddBasePolicy(b => b.Cache().SetVaryByQuery("*").SetVaryByHeader("HX-Request").VaryByValue(ctx => new KeyValuePair<string, string>("lang", ctx.Items["lang"]?.ToString() ?? "az")).Tag("all"));
 });
 builder.Services.AddHttpContextAccessor();
 

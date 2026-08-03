@@ -1,11 +1,13 @@
 using CyberJob.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace CyberJob.Controllers;
 
 public class LanguageController(LanguageService languageService) : Controller
 {
     [HttpGet]
+    [OutputCache(NoStore = true)]
     public IActionResult SetLanguage(string lang, string? returnUrl)
     {
         if (!LanguageService.IsValid(lang))
