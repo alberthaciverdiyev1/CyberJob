@@ -129,7 +129,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/error");
     app.UseStatusCodePagesWithReExecute("/not-found");
     app.UseHsts();
 }

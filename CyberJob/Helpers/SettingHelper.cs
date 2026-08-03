@@ -67,10 +67,10 @@ public class SettingHelper(AppDbContext context)
             if (uri.Host.Equals("wa.me", StringComparison.OrdinalIgnoreCase))
                 phone = uri.AbsolutePath;
             else if (uri.Host.EndsWith("whatsapp.com", StringComparison.OrdinalIgnoreCase))
-                phone = QueryHelpers.ParseQuery(uri.Query)["phone"].FirstOrDefault();
+                phone = QueryHelpers.ParseQuery(uri.Query).TryGetValue("phone", out var p) ? p.FirstOrDefault() : null;
 
             if (phone is null)
-                return null;
+                return value;
             value = phone;
         }
 

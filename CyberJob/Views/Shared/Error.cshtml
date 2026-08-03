@@ -1,5 +1,20 @@
 @{
     ViewData["Title"] = Localizer["error.title"];
+    var exception = Context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>()?.Error;
+}
+
+@if (exception != null)
+{
+    <!-- TEMPORARY diagnostic: show the real exception behind this error page -->
+    <div class="max-w-4xl mx-auto mb-8 p-4 bg-red-50 dark:bg-red-950/30 border-2 border-red-300 dark:border-red-800 rounded-2xl text-left">
+        <h2 class="text-red-700 dark:text-red-300 font-bold mb-2">Hata (exception): @exception.GetType().Name</h2>
+        <p class="text-red-800 dark:text-red-200 font-mono text-sm mb-2 break-all">@exception.Message</p>
+        @if (exception.InnerException != null)
+        {
+            <p class="text-red-600 dark:text-red-400 font-mono text-xs mb-2 break-all">İç: @exception.InnerException.Message</p>
+        }
+        <pre class="text-red-700 dark:text-red-300 font-mono text-[10px] overflow-x-auto whitespace-pre-wrap">@exception.StackTrace</pre>
+    </div>
 }
 
 <div class="min-h-[70vh] flex items-center justify-center px-4 sm:px-8">
