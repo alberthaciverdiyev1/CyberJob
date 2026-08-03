@@ -29,7 +29,7 @@
                 </p>
                 <div class="flex items-center gap-3 sm:gap-4 mt-2 sm:mt-3 flex-wrap">
                     <span
-                        class="text-orange-400 px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold border border-[#FFB800]/20">@Localizer.Get("vacancy.detail.last_date", Model.Vacancy.ExpireDate?.ToString("dd.MM.yyyy"))  </span>
+                        class="text-orange-400 px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold border border-[#FFB800]/20">@Localizer["vacancy.detail.last_date"]: @Model.Vacancy.ExpireDate?.ToString("dd.MM.yyyy")</span>
                     <span class="text-[#95A1B0] text-[10px] sm:text-xs flex items-center gap-1">
                         <iconify-icon
                             icon="ph:eye-bold"></iconify-icon> @Localizer.Get("vacancy.detail.views", Model.Vacancy.ViewCount)
@@ -44,13 +44,13 @@
                 class="w-full max-w-[730px] lg:w-[730px] h-[120px] sm:h-[170px] rounded-[15px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
                 <img src="@(Model.Vacancy.BannerImage ?? Model.Vacancy.Company?.BannerImage ?? "")"
                      alt="@Localizer["advertise.title"]"
-                     class="w-full h-full object-fit">
+                     class="w-full h-full object-cover">
             </div>
         }
     </div>
 
     <div class="flex flex-col lg:flex-row gap-6 sm:gap-10">
-        <div class="@(hasBanner ? "flex-1" : "w-full") bg-white dark:bg-black p-6 sm:p-10 rounded-[15px] shadow-sm">
+        <div class="flex-1 bg-white dark:bg-black p-6 sm:p-10 rounded-[15px] shadow-sm">
             <h3 class="text-[18px] sm:text-[20px] font-black text-[#0B2036] dark:text-white mb-4 sm:mb-6">@Localizer["vacancy.detail.description"]</h3>
             <div class="text-[#4F5B67] dark:text-gray-300 leading-relaxed space-y-4 text-[14px] sm:text-[15px]">
                 @Html.Raw(SanitizeWithLineBreaks(Model.Vacancy.Description))
@@ -74,9 +74,7 @@
             </div>
         </div>
 
-        @if (hasBanner)
-        {
-            <aside class="w-full lg:w-[400px] shrink-0">
+        <aside class="w-full lg:w-[400px] shrink-0">
                 <div
                     class="max-w-[400px] w-full bg-white dark:bg-cyberDark border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm overflow-hidden">
                     <!-- Header -->
@@ -186,7 +184,6 @@
                     </div>
                 </div>
             </aside>
-        }
     </div>
 
     @if (false)
