@@ -55,6 +55,8 @@ public class HomeController(
     [HttpGet("/not-found")]
     public IActionResult PageNotFound()
     {
+        ViewBag.OriginalPath = HttpContext.Items["statusCodeReExecute-OriginalPath"]?.ToString()
+            ?? HttpContext.Request.Path.Value;
         return View();
     }
 

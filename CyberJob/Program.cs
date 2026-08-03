@@ -155,6 +155,17 @@ app.MapGet("/clear-cache", async (IOutputCacheStore cache) =>
     return Results.Ok(new { message = "Cache cleared" });
 });
 
+// TEMPORARY diagnostic: dump the routing table so we can see which routes the
+// running build actually registers (e.g. is /contact present?).
+app.MapGet("/debug-routes", (EndpointDataSource endpoints) =>
+{
+    var lines = endpoints.Endpoints
+        .Select(e => e is RouteEndpoint re
+            ? $"{string.Join(",", re.Metadata.OfType<HttpMethodMetadata>().SelectMany(h => h.HttpMethods))} {re.RoutePattern.RawText}"
+            : e.ToString());
+    return Results.Text(string.Join("\n", lines), "text/plain");
+});
+
 app.MapStaticAssets();
 
 app.MapControllerRoute(

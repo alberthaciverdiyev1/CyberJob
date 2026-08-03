@@ -33,6 +33,12 @@
             </div>
         </div>
 
+        <!-- TEMPORARY diagnostic: show which URL produced this 404 -->
+        <div class="inline-flex items-center gap-2 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-800 rounded-full px-4 py-1.5 mb-6">
+            <span class="text-xs font-semibold text-red-700 dark:text-red-300 uppercase tracking-wider">404 path:</span>
+            <span class="text-sm font-mono font-bold text-red-800 dark:text-red-200">@(ViewBag.OriginalPath)</span>
+        </div>
+
         <!-- Error Code Badge -->
         <div class="inline-flex items-center gap-2 bg-gray-100 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-full px-4 py-1.5 mb-6">
             <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">@Localizer["notfound.error_code"]:</span>
