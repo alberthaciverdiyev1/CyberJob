@@ -375,3 +375,7 @@ wwwroot/lib/
 .claudeignore
 CLAUDE.md
 ../.idea/
+
+# Uretim ortami ayarlari (sifreler icerir) - git'e commit edilmez
+appsettings.json
+appsettings.Development.json

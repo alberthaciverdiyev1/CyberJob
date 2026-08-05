@@ -13,15 +13,7 @@ public class BlogService(AppDbContext context)
             .AsNoTracking()
             .Where(b => b.IsActive && b.DeletedAt == null);
 
-        if (!string.IsNullOrWhiteSpace(search))
-        {
-            var searchLower = search.ToLower();
-            query = query.Where(b =>
-                (b.Title != null && EF.Functions.ILike(b.Title, $"%{searchLower}%")) ||
-                (b.Description != null && EF.Functions.ILike(b.Description, $"%{searchLower}%")));
-        }
-
-        return await query
+        var result = await query
             .OrderByDescending(b => b.CreatedAt)
             .Select(b => new BlogListDto
             {
@@ -33,6 +25,19 @@ public class BlogService(AppDbContext context)
                 CreatedAt = b.CreatedAt.ToRelativeDate(lang)
             })
             .ToListAsync();
+
+        // Search, JSON (title/description) kolonlarinda DB tarafinda yapilamaz (PostgreSQL
+        // json tipi LIKE desteklemez). Bu yuzden arama, cevrilmis metin uzerinde yapilir.
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var searchLower = search.ToLower();
+            result = result.Where(b =>
+                    (b.Title != null && b.Title.ToLower().Contains(searchLower)) ||
+                    (b.Description != null && b.Description.ToLower().Contains(searchLower)))
+                .ToList();
+        }
+
+        return result;
     }
 
     public async Task<BlogDetailDto?> GetBlogById(int id, string lang = "az")
