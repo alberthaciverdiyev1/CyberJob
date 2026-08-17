@@ -51,6 +51,9 @@ public class Setting
 
     [Column("about_us")]
     public string? AboutUs { get; set; }
+    
+    [Column("favicon")]
+    public string? Favicon { get; set; }
 
     [Column("header_scripts")]
     public string? HeaderScripts { get; set; }
