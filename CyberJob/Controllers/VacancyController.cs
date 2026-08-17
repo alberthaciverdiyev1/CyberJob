@@ -18,7 +18,7 @@ public class VacancyController(
     {
         @params.Lang = languageService.GetCurrentLanguage();
         @params.Page = @params.Page < 1 ? 1 : @params.Page;
-        @params.Take = @params.Take < 1 ? 10 : @params.Take;
+        @params.Take = @params.Take < 1 ? 15 : @params.Take;
 
         var vacancies = await vacancyService.GetListAsync(@params);
         var totalCount = await vacancyService.GetFilteredCountAsync(@params);

@@ -100,7 +100,7 @@ public class Vacancy
         public float? MinSalary { get; set; }
         public float? MaxSalary { get; set; }
 
-        public int Take { get; set; } = 10;
+        public int Take { get; set; } = 15;
         public int Page { get; set; } = 1;
         public string? SortBy { get; set; }
     }

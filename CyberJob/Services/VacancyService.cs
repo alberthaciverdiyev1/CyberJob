@@ -21,7 +21,7 @@ private static string FormatSalary(float? min, float? max, string negotiable) =>
 public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params)
 {
     @params.Page = @params.Page < 1 ? 1 : @params.Page;
-    @params.Take = @params.Take < 1 ? 10 : @params.Take;
+    @params.Take = @params.Take < 1 ? 15 : @params.Take;
 
     var query = BuildBaseQuery(@params);
 
