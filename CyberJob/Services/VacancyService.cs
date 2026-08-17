@@ -20,6 +20,9 @@ private static string FormatSalary(float? min, float? max, string negotiable) =>
 
 public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params)
 {
+    @params.Page = @params.Page < 1 ? 1 : @params.Page;
+    @params.Take = @params.Take < 1 ? 10 : @params.Take;
+
     var query = BuildBaseQuery(@params);
 
     if (@params.SortBy == "today")
@@ -57,6 +60,7 @@ public async Task<List<VacancyListDto>> GetListAsync(VacancyFilterParams @params
         .Include(v => v.Company)
         .Include(v => v.City)
         .Include(v => v.VacancyFilters)
+        .Skip((@params.Page - 1) * @params.Take)
         .Take(@params.Take)
         .ToListAsync();
 

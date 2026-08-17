@@ -1,0 +1,47 @@
+@using CyberJob.DTOs
+@model IEnumerable<VacancyListDto>
+@{
+    var sortBy = Context.Request.Query["SortBy"].FirstOrDefault() ?? "";
+}
+
+<div class="space-y-4">
+    <partial name="_VacancyListCard" model="Model"/>
+</div>
+
+@if (ViewBag.TotalPages > 1)
+{
+    <div class="flex justify-center items-center gap-3 mt-16 sm:mt-24 flex-wrap">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <button hx-get="/vacancies?page=@(ViewBag.CurrentPage - 1)&SortBy=@sortBy"
+                    hx-target="#vacancy-list-container"
+                    hx-include="#filter-section, #searchInput, #searchInputMobile"
+                    class="px-5 sm:px-7 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-500 dark:text-gray-400 font-bold text-[14px] hover:border-lightGreen hover:text-lightGreen transition-all">
+                @Localizer["pagination.previous"]
+            </button>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <button hx-get="/vacancies?page=@i&SortBy=@sortBy"
+                    hx-target="#vacancy-list-container"
+                    hx-include="#filter-section, #searchInput, #searchInputMobile"
+                    class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl font-bold text-[14px] transition-all
+                        @(i == ViewBag.CurrentPage
+                            ? "bg-lightGreen text-white shadow-lg shadow-emerald-700/20"
+                            : "border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-lightGreen hover:text-lightGreen")">
+                @i
+            </button>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <button hx-get="/vacancies?page=@(ViewBag.CurrentPage + 1)&SortBy=@sortBy"
+                    hx-target="#vacancy-list-container"
+                    hx-include="#filter-section, #searchInput, #searchInputMobile"
+                    class="px-5 sm:px-7 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-500 dark:text-gray-400 font-bold text-[14px] hover:border-lightGreen hover:text-lightGreen transition-all">
+                @Localizer["pagination.next"]
+            </button>
+        }
+    </div>
+}

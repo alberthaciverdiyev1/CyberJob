@@ -17,14 +17,20 @@ public class VacancyController(
     public async Task<IActionResult> Index(VacancyFilterParams @params)
     {
         @params.Lang = languageService.GetCurrentLanguage();
+        @params.Page = @params.Page < 1 ? 1 : @params.Page;
+        @params.Take = @params.Take < 1 ? 10 : @params.Take;
+
         var vacancies = await vacancyService.GetListAsync(@params);
         var totalCount = await vacancyService.GetFilteredCountAsync(@params);
+
+        ViewBag.TotalPages = (int)Math.Ceiling(totalCount / (double)@params.Take);
+        ViewBag.CurrentPage = @params.Page;
 
         if (Request.Headers.ContainsKey("HX-Request"))
         {
             var hxBanners = await bannerService.GetListAsync();
             ViewBag.Banners = hxBanners;
-            return PartialView("_VacancyListCard", vacancies);
+            return PartialView("_VacancyListContainer", vacancies);
         }
 
         var allBanners = await bannerService.GetListAsync();
